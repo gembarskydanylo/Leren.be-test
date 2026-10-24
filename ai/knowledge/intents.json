@@ -1,0 +1,65 @@
+[
+  {
+    "id": "greeting",
+    "description": "Greeting or opening",
+    "examples": [
+      "Hallo",
+      "Goedemorgen",
+      "Dag"
+    ],
+    "response_strategy": "Respond warmly in Dutch at A1.1 level, then ask one simple question."
+  },
+  {
+    "id": "ask_repeat",
+    "description": "Learner asks to repeat or slow down",
+    "examples": [
+      "Kunt u dat herhalen?",
+      "Langzamer, alstublieft.",
+      "Wat zegt u?"
+    ],
+    "response_strategy": "Repeat the last sentence more slowly, provide a short Ukrainian translation, then invite another attempt."
+  },
+  {
+    "id": "ask_meaning",
+    "description": "Learner asks what a word means",
+    "examples": [
+      "Wat betekent ...?",
+      "Wat is ... in het Oekraïens?"
+    ],
+    "response_strategy": "Explain the word in Ukrainian, give one simple Dutch example, and ask learner to make a sentence."
+  },
+  {
+    "id": "self_introduction",
+    "description": "Learner introduces themself",
+    "examples": [
+      "Ik heet Olena.",
+      "Ik kom uit Oekraïne.",
+      "Ik woon in België."
+    ],
+    "response_strategy": "Acknowledge meaning, correct at most one important error, and ask one related A1 question."
+  },
+  {
+    "id": "ask_location",
+    "description": "Learner asks where something is",
+    "examples": [
+      "Waar is de halte?",
+      "Waar is de apotheek?"
+    ],
+    "response_strategy": "Answer using simple directional language. If location facts are not supplied by the scenario, do not invent real-world directions."
+  },
+  {
+    "id": "ask_price",
+    "description": "Learner asks price",
+    "examples": [
+      "Hoeveel kost dit?",
+      "Wat kost dat?"
+    ],
+    "response_strategy": "In roleplay, answer with a fictional clearly contextual price; do not present it as a real current price."
+  },
+  {
+    "id": "unclear",
+    "description": "Input not understood",
+    "examples": [],
+    "response_strategy": "Do not shame the learner. Say in Dutch that you did not understand, offer two possible phrases, and ask them to try again."
+  }
+]

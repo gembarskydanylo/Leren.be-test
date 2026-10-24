@@ -1,0 +1,297 @@
+[
+  {
+    "id": "scenario_cafe",
+    "title": "У кафе",
+    "level": "A1.1",
+    "goal_uk": "Замовити напій і ввічливо попросити рахунок.",
+    "setting": "cafe",
+    "npc_name": "Noor",
+    "turns": [
+      {
+        "npc_nl": "Goedemiddag! Wat wilt u drinken?",
+        "npc_uk": "Добрий день! Що бажаєте випити?",
+        "expected_intents": [
+          "order_drink"
+        ],
+        "accepted_examples": [
+          "Ik wil graag een koffie.",
+          "Een thee, alstublieft.",
+          "Mag ik water?"
+        ],
+        "hint_uk": "Почни з: Ik wil graag… (Я хотів би / хотіла б…)"
+      },
+      {
+        "npc_nl": "Prima. Wilt u er iets bij eten?",
+        "npc_uk": "Добре. Бажаєте щось поїсти до напою?",
+        "expected_intents": [
+          "answer_yes_no",
+          "order_food"
+        ],
+        "accepted_examples": [
+          "Nee, dank u.",
+          "Ja, graag. Een broodje."
+        ],
+        "hint_uk": "Можна відповісти: Nee, dank u. або Ja, graag."
+      },
+      {
+        "npc_nl": "Dat is drie euro vijftig. Wilt u de rekening?",
+        "npc_uk": "Це три євро п'ятдесят. Бажаєте рахунок?",
+        "expected_intents": [
+          "ask_bill",
+          "thank"
+        ],
+        "accepted_examples": [
+          "Ja, alstublieft.",
+          "Dank u wel."
+        ],
+        "hint_uk": "Для ввічливості скажи: Ja, alstublieft."
+      }
+    ]
+  },
+  {
+    "id": "scenario_shop",
+    "title": "У магазині",
+    "level": "A1.1",
+    "goal_uk": "Запитати ціну та знайти потрібний товар.",
+    "setting": "shop",
+    "npc_name": "Noor",
+    "turns": [
+      {
+        "npc_nl": "Hallo! Kan ik u helpen?",
+        "npc_uk": "Вітаю! Можу Вам допомогти?",
+        "expected_intents": [
+          "ask_for_item",
+          "answer_yes_no"
+        ],
+        "accepted_examples": [
+          "Ja, ik zoek brood.",
+          "Ik zoek water.",
+          "Nee, dank u."
+        ],
+        "hint_uk": "Ik zoek… означає «Я шукаю…»"
+      },
+      {
+        "npc_nl": "Dat ligt daar. Wilt u nog iets?",
+        "npc_uk": "Це лежить там. Бажаєте ще щось?",
+        "expected_intents": [
+          "answer_yes_no",
+          "ask_location"
+        ],
+        "accepted_examples": [
+          "Nee, dank u.",
+          "Waar is het brood?"
+        ],
+        "hint_uk": "Запитай: Waar is…? — Де…?"
+      },
+      {
+        "npc_nl": "Dat kost twee euro. Wilt u betalen met kaart of cash?",
+        "npc_uk": "Це коштує два євро. Бажаєте оплатити карткою чи готівкою?",
+        "expected_intents": [
+          "pay_card",
+          "pay_cash"
+        ],
+        "accepted_examples": [
+          "Met kaart, alstublieft.",
+          "Cash, alstublieft."
+        ],
+        "hint_uk": "Met kaart — карткою; cash/contant — готівкою."
+      }
+    ]
+  },
+  {
+    "id": "scenario_municipality",
+    "title": "У комуні (gemeente)",
+    "level": "A1.1",
+    "goal_uk": "Пояснити, що маєш запис, і попросити допомогу.",
+    "setting": "gemeente",
+    "npc_name": "Noor",
+    "turns": [
+      {
+        "npc_nl": "Goedemorgen. Heeft u een afspraak?",
+        "npc_uk": "Доброго ранку. У Вас є запис?",
+        "expected_intents": [
+          "confirm_appointment",
+          "deny_appointment"
+        ],
+        "accepted_examples": [
+          "Ja, ik heb een afspraak.",
+          "Nee, ik heb geen afspraak."
+        ],
+        "hint_uk": "Ik heb een afspraak — У мене є запис."
+      },
+      {
+        "npc_nl": "Wat is uw naam, alstublieft?",
+        "npc_uk": "Як Вас звати?",
+        "expected_intents": [
+          "give_name"
+        ],
+        "accepted_examples": [
+          "Mijn naam is Olena.",
+          "Ik heet Danylo."
+        ],
+        "hint_uk": "Mijn naam is… або Ik heet…"
+      },
+      {
+        "npc_nl": "Waarvoor komt u vandaag?",
+        "npc_uk": "З яким питанням Ви сьогодні прийшли?",
+        "expected_intents": [
+          "ask_registration",
+          "ask_document",
+          "ask_help"
+        ],
+        "accepted_examples": [
+          "Ik kom voor mijn inschrijving.",
+          "Ik heb een vraag over mijn document.",
+          "Kunt u mij helpen?"
+        ],
+        "hint_uk": "Якщо складно, скажи: Ik heb een vraag."
+      }
+    ]
+  },
+  {
+    "id": "scenario_pharmacy",
+    "title": "В аптеці",
+    "level": "A1.1",
+    "goal_uk": "Попросити просту допомогу в аптеці без самостійного призначення ліків.",
+    "setting": "pharmacy",
+    "npc_name": "Noor",
+    "turns": [
+      {
+        "npc_nl": "Goedemiddag. Waarmee kan ik u helpen?",
+        "npc_uk": "Добрий день. Чим можу Вам допомогти?",
+        "expected_intents": [
+          "describe_symptom",
+          "ask_product"
+        ],
+        "accepted_examples": [
+          "Ik heb hoofdpijn.",
+          "Ik zoek een product."
+        ],
+        "hint_uk": "Ik heb hoofdpijn — У мене болить голова."
+      },
+      {
+        "npc_nl": "Sinds wanneer heeft u klachten?",
+        "npc_uk": "Відколи у Вас ці симптоми?",
+        "expected_intents": [
+          "duration_today",
+          "duration_days"
+        ],
+        "accepted_examples": [
+          "Sinds vandaag.",
+          "Sinds twee dagen."
+        ],
+        "hint_uk": "Sinds vandaag — від сьогодні; sinds twee dagen — два дні."
+      },
+      {
+        "npc_nl": "Gebruikt u andere medicijnen?",
+        "npc_uk": "Ви приймаєте інші ліки?",
+        "expected_intents": [
+          "medication_yes_no"
+        ],
+        "accepted_examples": [
+          "Ja, ik gebruik medicijnen.",
+          "Nee, ik gebruik geen medicijnen."
+        ],
+        "hint_uk": "Медичні рішення залишай фармацевту або лікарю; AI допомагає з мовою."
+      }
+    ]
+  },
+  {
+    "id": "scenario_bus",
+    "title": "На автобусній зупинці",
+    "level": "A1.1",
+    "goal_uk": "Запитати, який автобус потрібен і де виходити.",
+    "setting": "bus_stop",
+    "npc_name": "Noor",
+    "turns": [
+      {
+        "npc_nl": "Hallo! Waar wilt u naartoe?",
+        "npc_uk": "Вітаю! Куди Ви хочете поїхати?",
+        "expected_intents": [
+          "state_destination"
+        ],
+        "accepted_examples": [
+          "Ik wil naar Brussel.",
+          "Ik ga naar het station."
+        ],
+        "hint_uk": "Ik wil naar… — Я хочу до…"
+      },
+      {
+        "npc_nl": "U kunt bus twaalf nemen. Heeft u een ticket?",
+        "npc_uk": "Можете сісти на автобус номер дванадцять. У Вас є квиток?",
+        "expected_intents": [
+          "ticket_yes_no",
+          "ask_ticket"
+        ],
+        "accepted_examples": [
+          "Ja, ik heb een ticket.",
+          "Nee, waar koop ik een ticket?"
+        ],
+        "hint_uk": "Waar koop ik…? — Де я можу купити…?"
+      },
+      {
+        "npc_nl": "U moet bij de volgende halte uitstappen.",
+        "npc_uk": "Вам потрібно вийти на наступній зупинці.",
+        "expected_intents": [
+          "thank",
+          "ask_repeat"
+        ],
+        "accepted_examples": [
+          "Dank u wel.",
+          "Kunt u dat herhalen, alstublieft?"
+        ],
+        "hint_uk": "Kunt u dat herhalen? — Можете повторити?"
+      }
+    ]
+  },
+  {
+    "id": "scenario_hotel",
+    "title": "У готелі",
+    "level": "A1.1",
+    "goal_uk": "Заселитися та попросити ключ.",
+    "setting": "hotel",
+    "npc_name": "Noor",
+    "turns": [
+      {
+        "npc_nl": "Welkom. Heeft u een reservatie?",
+        "npc_uk": "Ласкаво просимо. У Вас є бронювання?",
+        "expected_intents": [
+          "confirm_reservation",
+          "deny_reservation"
+        ],
+        "accepted_examples": [
+          "Ja, ik heb een reservatie.",
+          "Ja, op naam van Olena."
+        ],
+        "hint_uk": "Reservatie — поширене в Бельгії слово для бронювання."
+      },
+      {
+        "npc_nl": "Mag ik uw naam, alstublieft?",
+        "npc_uk": "Можна Ваше ім'я, будь ласка?",
+        "expected_intents": [
+          "give_name"
+        ],
+        "accepted_examples": [
+          "Mijn naam is Olena.",
+          "Ik heet Danylo."
+        ],
+        "hint_uk": "Ik heet… — Мене звати…"
+      },
+      {
+        "npc_nl": "Hier is uw sleutel. Uw kamer is op de tweede verdieping.",
+        "npc_uk": "Ось Ваш ключ. Ваш номер на другому поверсі.",
+        "expected_intents": [
+          "thank",
+          "ask_repeat",
+          "ask_direction"
+        ],
+        "accepted_examples": [
+          "Dank u wel.",
+          "Kunt u dat herhalen?",
+          "Waar is de lift?"
+        ],
+        "hint_uk": "Waar is de lift? — Де ліфт?"
+      }
+    ]
+  }
+]

@@ -1,0 +1,1100 @@
+[
+  {
+    "id": "vocab_001",
+    "nl": "hallo",
+    "translations": {
+      "uk": "привіт"
+    },
+    "category": "greeting",
+    "level": "A1.1",
+    "example_nl": "Hallo! Hoe gaat het?",
+    "example_translations": {
+      "uk": "Привіт! Як справи?"
+    },
+    "tags": [
+      "greeting",
+      "a1.1",
+      "nl-be"
+    ]
+  },
+  {
+    "id": "vocab_002",
+    "nl": "goedemorgen",
+    "translations": {
+      "uk": "доброго ранку"
+    },
+    "category": "greeting",
+    "level": "A1.1",
+    "example_nl": "Goedemorgen, mevrouw.",
+    "example_translations": {
+      "uk": "Доброго ранку, пані."
+    },
+    "tags": [
+      "greeting",
+      "a1.1",
+      "nl-be"
+    ]
+  },
+  {
+    "id": "vocab_003",
+    "nl": "goedemiddag",
+    "translations": {
+      "uk": "добрий день"
+    },
+    "category": "greeting",
+    "level": "A1.1",
+    "example_nl": "Goedemiddag!",
+    "example_translations": {
+      "uk": "Добрий день!"
+    },
+    "tags": [
+      "greeting",
+      "a1.1",
+      "nl-be"
+    ]
+  },
+  {
+    "id": "vocab_004",
+    "nl": "goedenavond",
+    "translations": {
+      "uk": "добрий вечір"
+    },
+    "category": "greeting",
+    "level": "A1.1",
+    "example_nl": "Goedenavond, welkom.",
+    "example_translations": {
+      "uk": "Добрий вечір, ласкаво просимо."
+    },
+    "tags": [
+      "greeting",
+      "a1.1",
+      "nl-be"
+    ]
+  },
+  {
+    "id": "vocab_005",
+    "nl": "tot ziens",
+    "translations": {
+      "uk": "до побачення"
+    },
+    "category": "greeting",
+    "level": "A1.1",
+    "example_nl": "Tot ziens en bedankt.",
+    "example_translations": {
+      "uk": "До побачення й дякую."
+    },
+    "tags": [
+      "greeting",
+      "a1.1",
+      "nl-be"
+    ]
+  },
+  {
+    "id": "vocab_006",
+    "nl": "alsjeblieft",
+    "translations": {
+      "uk": "будь ласка / ось, тримай"
+    },
+    "category": "politeness",
+    "level": "A1.1",
+    "example_nl": "Een koffie, alsjeblieft.",
+    "example_translations": {
+      "uk": "Каву, будь ласка."
+    },
+    "tags": [
+      "politeness",
+      "a1.1",
+      "nl-be"
+    ]
+  },
+  {
+    "id": "vocab_007",
+    "nl": "alstublieft",
+    "translations": {
+      "uk": "будь ласка (ввічливо)"
+    },
+    "category": "politeness",
+    "level": "A1.1",
+    "example_nl": "Uw ticket, alstublieft.",
+    "example_translations": {
+      "uk": "Ваш квиток, будь ласка."
+    },
+    "tags": [
+      "politeness",
+      "a1.1",
+      "nl-be"
+    ]
+  },
+  {
+    "id": "vocab_008",
+    "nl": "dank je",
+    "translations": {
+      "uk": "дякую"
+    },
+    "category": "politeness",
+    "level": "A1.1",
+    "example_nl": "Dank je voor de hulp.",
+    "example_translations": {
+      "uk": "Дякую за допомогу."
+    },
+    "tags": [
+      "politeness",
+      "a1.1",
+      "nl-be"
+    ]
+  },
+  {
+    "id": "vocab_009",
+    "nl": "dank u",
+    "translations": {
+      "uk": "дякую (ввічливо)"
+    },
+    "category": "politeness",
+    "level": "A1.1",
+    "example_nl": "Dank u wel.",
+    "example_translations": {
+      "uk": "Щиро дякую."
+    },
+    "tags": [
+      "politeness",
+      "a1.1",
+      "nl-be"
+    ]
+  },
+  {
+    "id": "vocab_010",
+    "nl": "sorry",
+    "translations": {
+      "uk": "вибачте"
+    },
+    "category": "politeness",
+    "level": "A1.1",
+    "example_nl": "Sorry, ik begrijp het niet.",
+    "example_translations": {
+      "uk": "Вибачте, я цього не розумію."
+    },
+    "tags": [
+      "politeness",
+      "a1.1",
+      "nl-be"
+    ]
+  },
+  {
+    "id": "vocab_011",
+    "nl": "ja",
+    "translations": {
+      "uk": "так"
+    },
+    "category": "basic",
+    "level": "A1.1",
+    "example_nl": "Ja, graag.",
+    "example_translations": {
+      "uk": "Так, будь ласка."
+    },
+    "tags": [
+      "basic",
+      "a1.1",
+      "nl-be"
+    ]
+  },
+  {
+    "id": "vocab_012",
+    "nl": "nee",
+    "translations": {
+      "uk": "ні"
+    },
+    "category": "basic",
+    "level": "A1.1",
+    "example_nl": "Nee, dank u.",
+    "example_translations": {
+      "uk": "Ні, дякую."
+    },
+    "tags": [
+      "basic",
+      "a1.1",
+      "nl-be"
+    ]
+  },
+  {
+    "id": "vocab_013",
+    "nl": "misschien",
+    "translations": {
+      "uk": "можливо"
+    },
+    "category": "basic",
+    "level": "A1.1",
+    "example_nl": "Misschien morgen.",
+    "example_translations": {
+      "uk": "Можливо, завтра."
+    },
+    "tags": [
+      "basic",
+      "a1.1",
+      "nl-be"
+    ]
+  },
+  {
+    "id": "vocab_014",
+    "nl": "ik",
+    "translations": {
+      "uk": "я"
+    },
+    "category": "pronoun",
+    "level": "A1.1",
+    "example_nl": "Ik woon in België.",
+    "example_translations": {
+      "uk": "Я живу в Бельгії."
+    },
+    "tags": [
+      "pronoun",
+      "a1.1",
+      "nl-be"
+    ]
+  },
+  {
+    "id": "vocab_015",
+    "nl": "jij",
+    "translations": {
+      "uk": "ти"
+    },
+    "category": "pronoun",
+    "level": "A1.1",
+    "example_nl": "Waar woon jij?",
+    "example_translations": {
+      "uk": "Де ти живеш?"
+    },
+    "tags": [
+      "pronoun",
+      "a1.1",
+      "nl-be"
+    ]
+  },
+  {
+    "id": "vocab_016",
+    "nl": "u",
+    "translations": {
+      "uk": "Ви (ввічливо)"
+    },
+    "category": "pronoun",
+    "level": "A1.1",
+    "example_nl": "Hoe heet u?",
+    "example_translations": {
+      "uk": "Як Вас звати?"
+    },
+    "tags": [
+      "pronoun",
+      "a1.1",
+      "nl-be"
+    ]
+  },
+  {
+    "id": "vocab_017",
+    "nl": "hij",
+    "translations": {
+      "uk": "він"
+    },
+    "category": "pronoun",
+    "level": "A1.1",
+    "example_nl": "Hij werkt vandaag.",
+    "example_translations": {
+      "uk": "Він сьогодні працює."
+    },
+    "tags": [
+      "pronoun",
+      "a1.1",
+      "nl-be"
+    ]
+  },
+  {
+    "id": "vocab_018",
+    "nl": "zij",
+    "translations": {
+      "uk": "вона / вони"
+    },
+    "category": "pronoun",
+    "level": "A1.1",
+    "example_nl": "Zij woont in Brussel.",
+    "example_translations": {
+      "uk": "Вона живе в Брюсселі."
+    },
+    "tags": [
+      "pronoun",
+      "a1.1",
+      "nl-be"
+    ]
+  },
+  {
+    "id": "vocab_019",
+    "nl": "wij",
+    "translations": {
+      "uk": "ми"
+    },
+    "category": "pronoun",
+    "level": "A1.1",
+    "example_nl": "Wij leren Nederlands.",
+    "example_translations": {
+      "uk": "Ми вивчаємо нідерландську."
+    },
+    "tags": [
+      "pronoun",
+      "a1.1",
+      "nl-be"
+    ]
+  },
+  {
+    "id": "vocab_020",
+    "nl": "zijn",
+    "translations": {
+      "uk": "бути"
+    },
+    "category": "verb",
+    "level": "A1.1",
+    "example_nl": "Ik ben thuis.",
+    "example_translations": {
+      "uk": "Я вдома."
+    },
+    "tags": [
+      "verb",
+      "a1.1",
+      "nl-be"
+    ]
+  },
+  {
+    "id": "vocab_021",
+    "nl": "hebben",
+    "translations": {
+      "uk": "мати"
+    },
+    "category": "verb",
+    "level": "A1.1",
+    "example_nl": "Ik heb een vraag.",
+    "example_translations": {
+      "uk": "У мене є запитання."
+    },
+    "tags": [
+      "verb",
+      "a1.1",
+      "nl-be"
+    ]
+  },
+  {
+    "id": "vocab_022",
+    "nl": "heten",
+    "translations": {
+      "uk": "називатися"
+    },
+    "category": "verb",
+    "level": "A1.1",
+    "example_nl": "Ik heet Olena.",
+    "example_translations": {
+      "uk": "Мене звати Олена."
+    },
+    "tags": [
+      "verb",
+      "a1.1",
+      "nl-be"
+    ]
+  },
+  {
+    "id": "vocab_023",
+    "nl": "wonen",
+    "translations": {
+      "uk": "жити / мешкати"
+    },
+    "category": "verb",
+    "level": "A1.1",
+    "example_nl": "Ik woon in Strombeek-Bever.",
+    "example_translations": {
+      "uk": "Я живу у Стромбек-Бевері."
+    },
+    "tags": [
+      "verb",
+      "a1.1",
+      "nl-be"
+    ]
+  },
+  {
+    "id": "vocab_024",
+    "nl": "werken",
+    "translations": {
+      "uk": "працювати"
+    },
+    "category": "verb",
+    "level": "A1.1",
+    "example_nl": "Ik werk in België.",
+    "example_translations": {
+      "uk": "Я працюю в Бельгії."
+    },
+    "tags": [
+      "verb",
+      "a1.1",
+      "nl-be"
+    ]
+  },
+  {
+    "id": "vocab_025",
+    "nl": "leren",
+    "translations": {
+      "uk": "вивчати / навчатися"
+    },
+    "category": "verb",
+    "level": "A1.1",
+    "example_nl": "Ik leer Nederlands.",
+    "example_translations": {
+      "uk": "Я вивчаю нідерландську."
+    },
+    "tags": [
+      "verb",
+      "a1.1",
+      "nl-be"
+    ]
+  },
+  {
+    "id": "vocab_026",
+    "nl": "spreken",
+    "translations": {
+      "uk": "говорити"
+    },
+    "category": "verb",
+    "level": "A1.1",
+    "example_nl": "Spreekt u Engels?",
+    "example_translations": {
+      "uk": "Ви говорите англійською?"
+    },
+    "tags": [
+      "verb",
+      "a1.1",
+      "nl-be"
+    ]
+  },
+  {
+    "id": "vocab_027",
+    "nl": "begrijpen",
+    "translations": {
+      "uk": "розуміти"
+    },
+    "category": "verb",
+    "level": "A1.1",
+    "example_nl": "Ik begrijp het niet.",
+    "example_translations": {
+      "uk": "Я цього не розумію."
+    },
+    "tags": [
+      "verb",
+      "a1.1",
+      "nl-be"
+    ]
+  },
+  {
+    "id": "vocab_028",
+    "nl": "willen",
+    "translations": {
+      "uk": "хотіти"
+    },
+    "category": "verb",
+    "level": "A1.1",
+    "example_nl": "Ik wil graag water.",
+    "example_translations": {
+      "uk": "Я хотів би води."
+    },
+    "tags": [
+      "verb",
+      "a1.1",
+      "nl-be"
+    ]
+  },
+  {
+    "id": "vocab_029",
+    "nl": "kunnen",
+    "translations": {
+      "uk": "могти / вміти"
+    },
+    "category": "verb",
+    "level": "A1.1",
+    "example_nl": "Kunt u mij helpen?",
+    "example_translations": {
+      "uk": "Чи можете Ви мені допомогти?"
+    },
+    "tags": [
+      "verb",
+      "a1.1",
+      "nl-be"
+    ]
+  },
+  {
+    "id": "vocab_030",
+    "nl": "gaan",
+    "translations": {
+      "uk": "йти / їхати"
+    },
+    "category": "verb",
+    "level": "A1.1",
+    "example_nl": "Ik ga naar huis.",
+    "example_translations": {
+      "uk": "Я йду додому."
+    },
+    "tags": [
+      "verb",
+      "a1.1",
+      "nl-be"
+    ]
+  },
+  {
+    "id": "vocab_031",
+    "nl": "komen",
+    "translations": {
+      "uk": "приходити / приїжджати"
+    },
+    "category": "verb",
+    "level": "A1.1",
+    "example_nl": "Ik kom uit Oekraïne.",
+    "example_translations": {
+      "uk": "Я з України."
+    },
+    "tags": [
+      "verb",
+      "a1.1",
+      "nl-be"
+    ]
+  },
+  {
+    "id": "vocab_032",
+    "nl": "eten",
+    "translations": {
+      "uk": "їсти"
+    },
+    "category": "verb",
+    "level": "A1.1",
+    "example_nl": "Ik eet brood.",
+    "example_translations": {
+      "uk": "Я їм хліб."
+    },
+    "tags": [
+      "verb",
+      "a1.1",
+      "nl-be"
+    ]
+  },
+  {
+    "id": "vocab_033",
+    "nl": "drinken",
+    "translations": {
+      "uk": "пити"
+    },
+    "category": "verb",
+    "level": "A1.1",
+    "example_nl": "Ik drink water.",
+    "example_translations": {
+      "uk": "Я п'ю воду."
+    },
+    "tags": [
+      "verb",
+      "a1.1",
+      "nl-be"
+    ]
+  },
+  {
+    "id": "vocab_034",
+    "nl": "de koffie",
+    "translations": {
+      "uk": "кава"
+    },
+    "category": "food",
+    "level": "A1.1",
+    "example_nl": "Een koffie, alstublieft.",
+    "example_translations": {
+      "uk": "Одну каву, будь ласка."
+    },
+    "tags": [
+      "food",
+      "a1.1",
+      "nl-be"
+    ]
+  },
+  {
+    "id": "vocab_035",
+    "nl": "het water",
+    "translations": {
+      "uk": "вода"
+    },
+    "category": "food",
+    "level": "A1.1",
+    "example_nl": "Mag ik water?",
+    "example_translations": {
+      "uk": "Можна мені води?"
+    },
+    "tags": [
+      "food",
+      "a1.1",
+      "nl-be"
+    ]
+  },
+  {
+    "id": "vocab_036",
+    "nl": "het brood",
+    "translations": {
+      "uk": "хліб"
+    },
+    "category": "food",
+    "level": "A1.1",
+    "example_nl": "Ik koop brood.",
+    "example_translations": {
+      "uk": "Я купую хліб."
+    },
+    "tags": [
+      "food",
+      "a1.1",
+      "nl-be"
+    ]
+  },
+  {
+    "id": "vocab_037",
+    "nl": "de winkel",
+    "translations": {
+      "uk": "магазин"
+    },
+    "category": "places",
+    "level": "A1.1",
+    "example_nl": "Waar is de winkel?",
+    "example_translations": {
+      "uk": "Де магазин?"
+    },
+    "tags": [
+      "places",
+      "a1.1",
+      "nl-be"
+    ]
+  },
+  {
+    "id": "vocab_038",
+    "nl": "de halte",
+    "translations": {
+      "uk": "зупинка"
+    },
+    "category": "transport",
+    "level": "A1.1",
+    "example_nl": "Waar is de bushalte?",
+    "example_translations": {
+      "uk": "Де автобусна зупинка?"
+    },
+    "tags": [
+      "transport",
+      "a1.1",
+      "nl-be"
+    ]
+  },
+  {
+    "id": "vocab_039",
+    "nl": "de bus",
+    "translations": {
+      "uk": "автобус"
+    },
+    "category": "transport",
+    "level": "A1.1",
+    "example_nl": "Ik neem de bus.",
+    "example_translations": {
+      "uk": "Я їду автобусом."
+    },
+    "tags": [
+      "transport",
+      "a1.1",
+      "nl-be"
+    ]
+  },
+  {
+    "id": "vocab_040",
+    "nl": "het station",
+    "translations": {
+      "uk": "станція / вокзал"
+    },
+    "category": "transport",
+    "level": "A1.1",
+    "example_nl": "Het station is dichtbij.",
+    "example_translations": {
+      "uk": "Станція неподалік."
+    },
+    "tags": [
+      "transport",
+      "a1.1",
+      "nl-be"
+    ]
+  },
+  {
+    "id": "vocab_041",
+    "nl": "de afspraak",
+    "translations": {
+      "uk": "зустріч / запис"
+    },
+    "category": "daily_life",
+    "level": "A1.1",
+    "example_nl": "Ik heb een afspraak.",
+    "example_translations": {
+      "uk": "У мене є запис."
+    },
+    "tags": [
+      "daily_life",
+      "a1.1",
+      "nl-be"
+    ]
+  },
+  {
+    "id": "vocab_042",
+    "nl": "de gemeente",
+    "translations": {
+      "uk": "муніципалітет / комуна"
+    },
+    "category": "belgium",
+    "level": "A1.1",
+    "example_nl": "Ik moet naar de gemeente.",
+    "example_translations": {
+      "uk": "Мені потрібно до комуни."
+    },
+    "tags": [
+      "belgium",
+      "a1.1",
+      "nl-be"
+    ]
+  },
+  {
+    "id": "vocab_043",
+    "nl": "de apotheek",
+    "translations": {
+      "uk": "аптека"
+    },
+    "category": "health",
+    "level": "A1.1",
+    "example_nl": "Waar is de apotheek?",
+    "example_translations": {
+      "uk": "Де аптека?"
+    },
+    "tags": [
+      "health",
+      "a1.1",
+      "nl-be"
+    ]
+  },
+  {
+    "id": "vocab_044",
+    "nl": "de dokter",
+    "translations": {
+      "uk": "лікар"
+    },
+    "category": "health",
+    "level": "A1.1",
+    "example_nl": "Ik wil een afspraak met de dokter.",
+    "example_translations": {
+      "uk": "Я хочу записатися до лікаря."
+    },
+    "tags": [
+      "health",
+      "a1.1",
+      "nl-be"
+    ]
+  },
+  {
+    "id": "vocab_045",
+    "nl": "vandaag",
+    "translations": {
+      "uk": "сьогодні"
+    },
+    "category": "time",
+    "level": "A1.1",
+    "example_nl": "Ik werk vandaag.",
+    "example_translations": {
+      "uk": "Я працюю сьогодні."
+    },
+    "tags": [
+      "time",
+      "a1.1",
+      "nl-be"
+    ]
+  },
+  {
+    "id": "vocab_046",
+    "nl": "morgen",
+    "translations": {
+      "uk": "завтра"
+    },
+    "category": "time",
+    "level": "A1.1",
+    "example_nl": "Tot morgen!",
+    "example_translations": {
+      "uk": "До завтра!"
+    },
+    "tags": [
+      "time",
+      "a1.1",
+      "nl-be"
+    ]
+  },
+  {
+    "id": "vocab_047",
+    "nl": "nu",
+    "translations": {
+      "uk": "зараз"
+    },
+    "category": "time",
+    "level": "A1.1",
+    "example_nl": "Ik kom nu.",
+    "example_translations": {
+      "uk": "Я зараз прийду."
+    },
+    "tags": [
+      "time",
+      "a1.1",
+      "nl-be"
+    ]
+  },
+  {
+    "id": "vocab_048",
+    "nl": "waar",
+    "translations": {
+      "uk": "де"
+    },
+    "category": "question_word",
+    "level": "A1.1",
+    "example_nl": "Waar woont u?",
+    "example_translations": {
+      "uk": "Де Ви живете?"
+    },
+    "tags": [
+      "question_word",
+      "a1.1",
+      "nl-be"
+    ]
+  },
+  {
+    "id": "vocab_049",
+    "nl": "wat",
+    "translations": {
+      "uk": "що / який"
+    },
+    "category": "question_word",
+    "level": "A1.1",
+    "example_nl": "Wat is uw naam?",
+    "example_translations": {
+      "uk": "Як Вас звати? / Яке Ваше ім'я?"
+    },
+    "tags": [
+      "question_word",
+      "a1.1",
+      "nl-be"
+    ]
+  },
+  {
+    "id": "vocab_050",
+    "nl": "hoe",
+    "translations": {
+      "uk": "як"
+    },
+    "category": "question_word",
+    "level": "A1.1",
+    "example_nl": "Hoe gaat het?",
+    "example_translations": {
+      "uk": "Як справи?"
+    },
+    "tags": [
+      "question_word",
+      "a1.1",
+      "nl-be"
+    ]
+  },
+  {
+    "id": "vocab_051",
+    "nl": "hoeveel",
+    "translations": {
+      "uk": "скільки"
+    },
+    "category": "question_word",
+    "level": "A1.1",
+    "example_nl": "Hoeveel kost dit?",
+    "example_translations": {
+      "uk": "Скільки це коштує?"
+    },
+    "tags": [
+      "question_word",
+      "a1.1",
+      "nl-be"
+    ]
+  },
+  {
+    "id": "vocab_052",
+    "nl": "wanneer",
+    "translations": {
+      "uk": "коли"
+    },
+    "category": "question_word",
+    "level": "A1.1",
+    "example_nl": "Wanneer begint de les?",
+    "example_translations": {
+      "uk": "Коли починається урок?"
+    },
+    "tags": [
+      "question_word",
+      "a1.1",
+      "nl-be"
+    ]
+  },
+  {
+    "id": "vocab_053",
+    "nl": "niet",
+    "translations": {
+      "uk": "не"
+    },
+    "category": "negation",
+    "level": "A1.1",
+    "example_nl": "Ik spreek niet goed Nederlands.",
+    "example_translations": {
+      "uk": "Я не дуже добре говорю нідерландською."
+    },
+    "tags": [
+      "negation",
+      "a1.1",
+      "nl-be"
+    ]
+  },
+  {
+    "id": "vocab_054",
+    "nl": "geen",
+    "translations": {
+      "uk": "не / жодного перед іменником"
+    },
+    "category": "negation",
+    "level": "A1.1",
+    "example_nl": "Ik heb geen afspraak.",
+    "example_translations": {
+      "uk": "У мене немає запису."
+    },
+    "tags": [
+      "negation",
+      "a1.1",
+      "nl-be"
+    ]
+  },
+  {
+    "id": "vocab_055",
+    "nl": "duur",
+    "translations": {
+      "uk": "дорогий"
+    },
+    "category": "adjective",
+    "level": "A1.1",
+    "example_nl": "Dat is te duur.",
+    "example_translations": {
+      "uk": "Це занадто дорого."
+    },
+    "tags": [
+      "adjective",
+      "a1.1",
+      "nl-be"
+    ]
+  },
+  {
+    "id": "vocab_056",
+    "nl": "goedkoop",
+    "translations": {
+      "uk": "дешевий"
+    },
+    "category": "adjective",
+    "level": "A1.1",
+    "example_nl": "Deze winkel is goedkoop.",
+    "example_translations": {
+      "uk": "Цей магазин дешевий."
+    },
+    "tags": [
+      "adjective",
+      "a1.1",
+      "nl-be"
+    ]
+  },
+  {
+    "id": "vocab_057",
+    "nl": "links",
+    "translations": {
+      "uk": "ліворуч"
+    },
+    "category": "direction",
+    "level": "A1.1",
+    "example_nl": "Links, alstublieft?",
+    "example_translations": {
+      "uk": "Ліворуч, будь ласка?"
+    },
+    "tags": [
+      "direction",
+      "a1.1",
+      "nl-be"
+    ]
+  },
+  {
+    "id": "vocab_058",
+    "nl": "rechts",
+    "translations": {
+      "uk": "праворуч"
+    },
+    "category": "direction",
+    "level": "A1.1",
+    "example_nl": "Ga naar rechts.",
+    "example_translations": {
+      "uk": "Ідіть праворуч."
+    },
+    "tags": [
+      "direction",
+      "a1.1",
+      "nl-be"
+    ]
+  },
+  {
+    "id": "vocab_059",
+    "nl": "rechtdoor",
+    "translations": {
+      "uk": "прямо"
+    },
+    "category": "direction",
+    "level": "A1.1",
+    "example_nl": "Ga rechtdoor.",
+    "example_translations": {
+      "uk": "Ідіть прямо."
+    },
+    "tags": [
+      "direction",
+      "a1.1",
+      "nl-be"
+    ]
+  },
+  {
+    "id": "vocab_060",
+    "nl": "open",
+    "translations": {
+      "uk": "відчинений"
+    },
+    "category": "daily_life",
+    "level": "A1.1",
+    "example_nl": "Is de winkel open?",
+    "example_translations": {
+      "uk": "Магазин відчинений?"
+    },
+    "tags": [
+      "daily_life",
+      "a1.1",
+      "nl-be"
+    ]
+  },
+  {
+    "id": "vocab_061",
+    "nl": "gesloten",
+    "translations": {
+      "uk": "зачинений"
+    },
+    "category": "daily_life",
+    "level": "A1.1",
+    "example_nl": "De apotheek is gesloten.",
+    "example_translations": {
+      "uk": "Аптека зачинена."
+    },
+    "tags": [
+      "daily_life",
+      "a1.1",
+      "nl-be"
+    ]
+  }
+]
