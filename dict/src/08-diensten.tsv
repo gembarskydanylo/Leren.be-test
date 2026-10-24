@@ -1,0 +1,111 @@
+# administratie, gemeente, bank, post, verzekering, wet
+formulier|het|formulieren|n|1|бланк, форма|form||
+document|het|documenten|n|1|документ|document||
+papieren|de||n|1|документи|papers||
+identiteitskaart|de|identiteitskaarten|n|1|посвідчення особи|ID card||
+eID|de||n|2|електронна ID-картка (BE)|electronic ID card (BE)||
+verblijfskaart|de|verblijfskaarten|n|2|посвідка на проживання|residence card||
+kopie|de|kopieën|n|2|копія|copy||
+handtekening|de|handtekeningen|n|1|підпис|signature||
+ondertekenen|||v|2|підписувати|to sign||
+tekenen|||v|1|малювати; підписувати|to draw; to sign||Teken hier, alstublieft.|Підпишіть тут, будь ласка.
+aanvragen|||v|2|подавати заяву, запитувати|to apply for|sep=aan|
+aanvraag|de|aanvragen|n|2|заява|application||
+inschrijven|||v|2|реєструвати; записувати|to register, to enrol|sep=in|
+inschrijving|de|inschrijvingen|n|2|реєстрація, запис|registration||
+zich inschrijven|||v|2|реєструватися|to register|sep=in|Ik wil me inschrijven voor de cursus.|Я хочу записатися на курс.
+loket|het|loketten|n|1|віконце, каса|counter||
+dienst|de|diensten|n|1|служба; послуга|service||
+dienst burgerzaken|de||phr|2|відділ у справах громадян|civil affairs department||
+ambtenaar|de|ambtenaren|n|2|чиновник|civil servant||
+wachten|||v|1|чекати|to wait||Even wachten, alstublieft.|Зачекайте, будь ласка.
+volgnummer|het|volgnummers|n|2|номерок у черзі|queue ticket||
+nummertje|het|nummertjes|n|1|номерок|ticket (queue)||
+wachtrij|de|wachtrijen|n|2|черга|queue||
+rij|de|rijen|n|1|ряд; черга|row; queue||
+aanschuiven|||v|2|ставати в чергу (BE)|to queue (BE)|sep=aan|
+wijkagent|de|wijkagenten|n|2|дільничний|community police officer||
+domicilie|de||n|2|місце реєстрації (BE)|registered address (BE)||
+verblijf|het|verblijven|n|2|перебування|stay, residence||
+inburgering|de||n|2|інтеграція|civic integration||
+inburgeringscursus|de|inburgeringscursussen|n|2|інтеграційний курс|integration course||
+traject|het|trajecten|n|2|програма, маршрут|programme, route||
+attest|het|attesten|n|2|довідка, сертифікат (BE)|certificate (BE)||
+bewijs|het|bewijzen|n|2|доказ; довідка|proof; certificate||
+uittreksel|het|uittreksels|n|2|витяг|extract (official)||
+geldig||-|adj|2|дійсний|valid||
+verlopen|||v|2|закінчуватися (термін)|to expire|aux=z|Mijn paspoort is verlopen.|Мій паспорт прострочений.
+vernieuwen|||v|2|оновлювати|to renew||
+verliezen|||v|1|губити; програвати|to lose||
+kwijt||-|adj|1|загублений|lost||Ik ben mijn portefeuille kwijt.|Я загубив гаманець.
+stelen|||v|2|красти|to steal||
+diefstal|de|diefstallen|n|2|крадіжка|theft||
+aangifte|de|aangiftes|n|2|заява (в поліцію); декларація|report; declaration||
+belasting|de|belastingen|n|2|податок|tax||
+belastingbrief|de|belastingbrieven|n|2|податкова декларація|tax return||
+rekeningnummer|het|rekeningnummers|n|2|номер рахунку|account number||
+bankrekening|de|bankrekeningen|n|2|банківський рахунок|bank account||
+overschrijving|de|overschrijvingen|n|2|банківський переказ|bank transfer||
+overschrijven|||v|2|переказувати (гроші)|to transfer|sep=over|
+geld afhalen|||phr|2|знімати гроші|to withdraw money||
+bancontact|de||n|2|платіжна картка/система (BE)|debit card system (BE)||
+geldautomaat|de|geldautomaten|n|2|банкомат|cash machine||
+pincode|de|pincodes|n|2|пін-код|PIN||
+sparen|||v|2|заощаджувати|to save (money)||
+lenen|||v|2|позичати|to borrow; to lend||
+schuld|de|schulden|n|2|борг; провина|debt; fault||
+factuur|de|facturen|n|2|рахунок-фактура|invoice||
+betaling|de|betalingen|n|2|оплата|payment||
+domiciliëring|de|domiciliëringen|n|2|автоматичне списання (BE)|direct debit (BE)||
+verzekering|de|verzekeringen|n|2|страхування|insurance||
+brandverzekering|de|brandverzekeringen|n|2|страхування від пожежі|fire insurance||
+pakje|het|pakjes|n|1|посилка, пакунок|parcel||
+pakket|het|pakketten|n|2|посилка|parcel||
+brief|de|brieven|n|1|лист|letter||
+envelop|de|enveloppen|n|1|конверт|envelope||
+omslag|de,het|omslagen|n|2|конверт (BE); обкладинка|envelope (BE); cover||
+postzegel|de|postzegels|n|1|поштова марка|stamp||
+afzender|de|afzenders|n|2|відправник|sender||
+ontvanger|de|ontvangers|n|2|одержувач|recipient||
+versturen|||v|2|відправляти|to send||
+aangetekend||-|adj|2|рекомендований (лист)|registered (mail)||
+kinderbijslag|de||n|2|дитяча допомога|child benefit||
+groeipakket|het||n|2|дитяча допомога (Фландрія)|child benefit (Flanders)||
+uitkering|de|uitkeringen|n|2|допомога, виплата|benefit||
+pensioen|het|pensioenen|n|2|пенсія|pension||
+leefloon|het||n|2|соціальна допомога (BE)|living wage benefit (BE)||
+sociaal assistent|de||phr|2|соціальний працівник|social worker||
+maatschappelijk werker|de||phr|2|соціальний працівник|social worker||
+hulp|de||n|1|допомога|help||
+helpen|||v|1|допомагати|to help||Kunt u mij helpen?|Можете мені допомогти?
+informatie|de||n|1|інформація|information||
+inlichting|de|inlichtingen|n|2|відомості, довідка|information||
+uitleg|de||n|2|пояснення|explanation||
+regel|de|regels|n|1|правило; рядок|rule; line||
+wet|de|wetten|n|2|закон|law||
+recht|het|rechten|n|2|право|right; law||
+plicht|de|plichten|n|2|обов'язок|duty||
+verplicht||-|adj|2|обов'язковий|compulsory||
+toegestaan||-|adj|2|дозволено|allowed||
+verboden||-|adj|1|заборонено|forbidden||Roken verboden.|Курити заборонено.
+boete|de|boetes|n|2|штраф|fine||
+rechtbank|de|rechtbanken|n|2|суд|court||
+advies|het|adviezen|n|2|порада|advice||
+klacht|de|klachten|n|2|скарга|complaint||
+probleem|het|problemen|n|1|проблема|problem||Geen probleem!|Без проблем!
+oplossing|de|oplossingen|n|2|рішення|solution||
+oplossen|||v|2|вирішувати|to solve|sep=op|
+contact|het|contacten|n|2|контакт|contact||
+contacteren|||v|2|зв'язуватися|to contact||
+telefoonnummer|het|telefoonnummers|n|1|номер телефону|phone number||
+noodnummer|het|noodnummers|n|2|номер екстреної служби|emergency number||
+gegevens|de||n|2|дані|data, details||
+persoonsgegevens|de||n|2|особисті дані|personal data||
+privacy|de||n|2|конфіденційність|privacy||
+afspraak maken|||phr|1|домовитися про зустріч, записатися|to make an appointment||
+annuleren|||v|2|скасовувати|to cancel||
+afzeggen|||v|2|скасовувати|to cancel|sep=af|
+verplaatsen|||v|2|переносити|to move, to reschedule||
+bevestigen|||v|2|підтверджувати|to confirm||
+openingsuren|de||n|2|години роботи (BE)|opening hours (BE)||
+gesloten||-|adj|1|зачинено|closed||

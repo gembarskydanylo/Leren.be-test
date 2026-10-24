@@ -1,0 +1,288 @@
+[
+  {
+    "word": "huis",
+    "tr": "будинок",
+    "isDiph": true,
+    "pattern": "ui",
+    "exp": "Сполучення «ui» — дифтонг із ковзанням.",
+    "translations": {
+      "uk": "будинок",
+      "en": "house",
+      "fr": "maison",
+      "ar": "منزل"
+    }
+  },
+  {
+    "word": "trein",
+    "tr": "поїзд",
+    "isDiph": true,
+    "pattern": "ei",
+    "exp": "«ei» вимовляється як дифтонг.",
+    "translations": {
+      "uk": "поїзд",
+      "en": "train",
+      "fr": "train",
+      "ar": "قطار"
+    }
+  },
+  {
+    "word": "kijk",
+    "tr": "дивись",
+    "isDiph": true,
+    "pattern": "ij",
+    "exp": "«ij» вимовляється як дифтонг.",
+    "translations": {
+      "uk": "дивись",
+      "en": "look",
+      "fr": "regarde",
+      "ar": "انظر"
+    }
+  },
+  {
+    "word": "koud",
+    "tr": "холодний",
+    "isDiph": true,
+    "pattern": "ou",
+    "exp": "«ou» вимовляється як дифтонг.",
+    "translations": {
+      "uk": "холодний",
+      "en": "cold",
+      "fr": "froid",
+      "ar": "بارد"
+    }
+  },
+  {
+    "word": "blauw",
+    "tr": "синій",
+    "isDiph": true,
+    "pattern": "auw",
+    "exp": "«auw» містить дифтонг.",
+    "translations": {
+      "uk": "синій",
+      "en": "blue",
+      "fr": "bleu",
+      "ar": "أزرق"
+    }
+  },
+  {
+    "word": "tuin",
+    "tr": "сад",
+    "isDiph": true,
+    "pattern": "ui",
+    "exp": "«ui» — типовий нідерландський дифтонг.",
+    "translations": {
+      "uk": "сад",
+      "en": "garden",
+      "fr": "jardin",
+      "ar": "حديقة"
+    }
+  },
+  {
+    "word": "vrouw",
+    "tr": "жінка",
+    "isDiph": true,
+    "pattern": "ouw",
+    "exp": "«ou» містить дифтонг.",
+    "translations": {
+      "uk": "жінка",
+      "en": "woman",
+      "fr": "femme",
+      "ar": "امرأة"
+    }
+  },
+  {
+    "word": "blij",
+    "tr": "радісний",
+    "isDiph": true,
+    "pattern": "ij",
+    "exp": "«ij» — дифтонг.",
+    "translations": {
+      "uk": "радісний",
+      "en": "happy",
+      "fr": "joyeux",
+      "ar": "سعيد"
+    }
+  },
+  {
+    "word": "saus",
+    "tr": "соус",
+    "isDiph": true,
+    "pattern": "au",
+    "exp": "«au» — дифтонг.",
+    "translations": {
+      "uk": "соус",
+      "en": "sauce",
+      "fr": "sauce",
+      "ar": "صلصة"
+    }
+  },
+  {
+    "word": "mooi",
+    "tr": "красивий",
+    "isDiph": true,
+    "pattern": "ooi",
+    "exp": "«ooi» має перехід голосного до [j].",
+    "translations": {
+      "uk": "красивий",
+      "en": "beautiful",
+      "fr": "beau",
+      "ar": "جميل"
+    }
+  },
+  {
+    "word": "leeuw",
+    "tr": "лев",
+    "isDiph": true,
+    "pattern": "eeuw",
+    "exp": "«eeuw» має перехід до [w].",
+    "translations": {
+      "uk": "лев",
+      "en": "lion",
+      "fr": "lion",
+      "ar": "أسد"
+    }
+  },
+  {
+    "word": "boek",
+    "tr": "книга",
+    "isDiph": false,
+    "pattern": "oe",
+    "exp": "«oe» передає один голосний звук.",
+    "translations": {
+      "uk": "книга",
+      "en": "book",
+      "fr": "livre",
+      "ar": "كتاب"
+    }
+  },
+  {
+    "word": "fiets",
+    "tr": "велосипед",
+    "isDiph": false,
+    "pattern": "ie",
+    "exp": "«ie» передає один голосний звук.",
+    "translations": {
+      "uk": "велосипед",
+      "en": "bicycle",
+      "fr": "vélo",
+      "ar": "دراجة"
+    }
+  },
+  {
+    "word": "neus",
+    "tr": "ніс",
+    "isDiph": false,
+    "pattern": "eu",
+    "exp": "«eu» передає один голосний звук.",
+    "translations": {
+      "uk": "ніс",
+      "en": "nose",
+      "fr": "nez",
+      "ar": "أنف"
+    }
+  },
+  {
+    "word": "stoel",
+    "tr": "стілець",
+    "isDiph": false,
+    "pattern": "oe",
+    "exp": "«oe» — монофтонг.",
+    "translations": {
+      "uk": "стілець",
+      "en": "chair",
+      "fr": "chaise",
+      "ar": "كرسي"
+    }
+  },
+  {
+    "word": "bier",
+    "tr": "пиво",
+    "isDiph": false,
+    "pattern": "ie",
+    "exp": "«ie» — монофтонг.",
+    "translations": {
+      "uk": "пиво",
+      "en": "beer",
+      "fr": "bière",
+      "ar": "بيرة"
+    }
+  },
+  {
+    "word": "leuk",
+    "tr": "класний",
+    "isDiph": false,
+    "pattern": "eu",
+    "exp": "«eu» — монофтонг.",
+    "translations": {
+      "uk": "класний",
+      "en": "nice",
+      "fr": "sympa",
+      "ar": "لطيف"
+    }
+  },
+  {
+    "word": "brood",
+    "tr": "хліб",
+    "isDiph": false,
+    "pattern": "oo",
+    "exp": "«oo» передає довгий голосний звук.",
+    "translations": {
+      "uk": "хліб",
+      "en": "bread",
+      "fr": "pain",
+      "ar": "خبز"
+    }
+  },
+  {
+    "word": "groen",
+    "tr": "зелений",
+    "isDiph": false,
+    "pattern": "oe",
+    "exp": "«oe» — монофтонг.",
+    "translations": {
+      "uk": "зелений",
+      "en": "green",
+      "fr": "vert",
+      "ar": "أخضر"
+    }
+  },
+  {
+    "word": "Oekraïne",
+    "tr": "Україна",
+    "isDiph": false,
+    "pattern": "trema",
+    "exp": "Trema над «ï» позначає межу складів: Oe-kra-ï-ne.",
+    "translations": {
+      "uk": "Україна",
+      "en": "Ukraine",
+      "fr": "Ukraine",
+      "ar": "أوكرانيا"
+    }
+  },
+  {
+    "word": "ruïne",
+    "tr": "руїна",
+    "isDiph": false,
+    "pattern": "trema",
+    "exp": "Trema над «ï» позначає роздільне читання голосних: ru-ï-ne.",
+    "translations": {
+      "uk": "руїна",
+      "en": "ruin",
+      "fr": "ruine",
+      "ar": "أطلال"
+    }
+  },
+  {
+    "word": "poëzie",
+    "tr": "поезія",
+    "isDiph": false,
+    "pattern": "trema",
+    "exp": "Trema над «ë» позначає межу складів: po-ë-zie.",
+    "translations": {
+      "uk": "поезія",
+      "en": "poetry",
+      "fr": "poésie",
+      "ar": "شعر"
+    }
+  }
+]

@@ -1,0 +1,223 @@
+<section class="lbe-diph" data-lbe-diph lang="uk">
+  <header class="lbe-head">
+    <span class="lbe-pill" data-i18n="badge">Фонетика нідерландської</span>
+    <h2 data-i18n="title">🛹 Дифтонги: Звукова гірка</h2>
+    <p data-i18n="subtitle">Навчися розрізняти ковзні звуки й пастки</p>
+  </header>
+  <div class="lbe-toolbar">
+    <label
+      ><span data-i18n="language">Мова</span>
+      <select data-role="language">
+        <option value="uk">🇺🇦 Українська</option>
+        <option value="en">🇬🇧 English</option>
+        <option value="fr">🇫🇷 Français</option>
+        <option value="ar">العربية</option>
+      </select></label
+    >
+  </div>
+  <nav class="lbe-tabs" aria-label="Lesson">
+    <button
+      type="button"
+      data-tab="theory"
+      aria-selected="true"
+      data-i18n="theoryTab"
+    >
+      📖 Теорія та звуки</button
+    ><button type="button" data-tab="pairs" data-i18n="pairsTab">
+      ⚖️ Батл звуків</button
+    ><button type="button" data-tab="artic" data-i18n="articTab">
+      👄 Артикулятор</button
+    ><button type="button" data-tab="dict" data-i18n="dictTab">
+      🎧 Аудіодиктант</button
+    ><button
+      type="button"
+      data-tab="quiz"
+      aria-selected="false"
+      data-i18n="quizTab"
+    >
+      🎮 Тренажер
+    </button>
+  </nav>
+  <div data-pane="theory">
+    <div class="lbe-note">
+      <h3 data-i18n="whatTitle">💡 Що таке дифтонг?</h3>
+      <p data-i18n="whatText">
+        Це плавний перехід від одного голосного до іншого в межах одного складу.
+      </p>
+    </div>
+    <p data-i18n="choose">Обери звук і послухай приклад:</p>
+    <div class="lbe-chips">
+      <button type="button" data-demo="ui">ui</button
+      ><button type="button" data-demo="ij">ij / ei</button
+      ><button type="button" data-demo="ou">ou / au</button
+      ><button type="button" data-demo="eeuw">eeuw / ooi</button>
+    </div>
+    <div class="lbe-track">
+      <span data-role="start">Е-подібний</span><span>🏂 ➜</span
+      ><span data-role="end">І-подібний</span>
+    </div>
+    <button type="button" class="lbe-audio" data-action="demo-speak">
+      🔊 <span data-role="demo-word">huis</span> —
+      <span data-role="demo-tr">будинок</span>
+    </button>
+    <div class="lbe-warn">
+      <strong data-i18n="trap1">⚠️ Пастка: oe, ie, eu — монофтонги.</strong>
+      <p data-i18n="trap2">
+        Trema (ï, ë) позначає роздільну вимову сусідніх голосних.
+      </p>
+    </div>
+    <button
+      type="button"
+      class="lbe-primary"
+      data-action="go-quiz"
+      data-i18n="goQuiz"
+    >
+      Перейти до тренажера 🚀
+    </button>
+  </div>
+  <div data-pane="pairs" hidden>
+    <div class="lbe-note">
+      <strong data-i18n="pairsIntro"
+        >Слухай контрасти: не всі наведені слова є строгими мінімальними
+        парами.</strong
+      >
+    </div>
+    <div class="lbe-pair-list" data-role="pairs"></div>
+  </div>
+  <div data-pane="artic" hidden>
+    <div class="lbe-chips">
+      <button type="button" data-artic="ui">ui</button
+      ><button type="button" data-artic="ij">ij / ei</button
+      ><button type="button" data-artic="ou">ou / au</button>
+    </div>
+    <div class="lbe-track">
+      <span data-role="artic-start"></span><span>➡️</span
+      ><span data-role="artic-end"></span>
+    </div>
+    <div class="lbe-note" data-role="artic-bridge"></div>
+    <div class="lbe-warn" data-role="artic-trap"></div>
+    <button type="button" class="lbe-audio" data-action="artic-speak">
+      🔊 <span data-role="artic-word">huis</span>
+    </button>
+  </div>
+  <div data-pane="dict" hidden>
+    <p data-i18n="dictIntro">
+      Послухай слово та визнач групу звуків. ij/ei та ou/au об'єднані, бо на
+      слух їх не розрізнити.
+    </p>
+    <div class="lbe-meta">
+      <span
+        ><span data-i18n="wordLabel">Слово</span>:
+        <b data-role="dict-index">1</b> / <b data-role="dict-total">8</b></span
+      ><span
+        ><span data-i18n="points">Бали</span>:
+        <b data-role="dict-score">0</b></span
+      >
+    </div>
+    <button
+      type="button"
+      class="lbe-audio"
+      data-action="dict-speak"
+      data-i18n="listen"
+    >
+      🔊 Послухати вимову
+    </button>
+    <div class="lbe-answers lbe-dict-answers" data-role="dict-options"></div>
+    <div
+      class="lbe-feedback"
+      data-role="dict-feedback"
+      role="status"
+      aria-live="polite"
+      hidden
+    ></div>
+    <button
+      type="button"
+      class="lbe-primary"
+      data-action="dict-next"
+      data-i18n="next"
+      hidden
+    >
+      Наступне слово →
+    </button>
+    <div data-role="dict-finished" hidden>
+      <h3 data-i18n="finished">🎉 Раунд завершено!</h3>
+      <p data-role="dict-final"></p>
+      <button
+        type="button"
+        class="lbe-primary"
+        data-action="dict-restart"
+        data-i18n="again"
+      >
+        Спробувати ще раз 🔄
+      </button>
+    </div>
+  </div>
+  <div data-pane="quiz" hidden>
+    <div data-role="quiz-area">
+      <div class="lbe-meta">
+        <span
+          ><span data-i18n="wordLabel">Слово</span>:
+          <b data-role="current">1</b> / <b data-role="total">10</b></span
+        ><span
+          ><span data-i18n="points">Бали</span>:
+          <b data-role="score">0</b></span
+        >
+      </div>
+      <div class="lbe-wordbox">
+        <div class="lbe-word" data-role="word">huis</div>
+        <div data-role="translation">будинок</div>
+        <button
+          type="button"
+          class="lbe-audio"
+          data-action="word-speak"
+          data-i18n="listen"
+        >
+          🔊 Послухати вимову
+        </button>
+      </div>
+      <div class="lbe-answers">
+        <button type="button" data-answer="true" data-i18n="yes">
+          🏂 Це дифтонг!</button
+        ><button type="button" data-answer="false" data-i18n="no">
+          🚶 Не дифтонг
+        </button>
+      </div>
+      <div
+        class="lbe-feedback"
+        data-role="feedback"
+        role="status"
+        aria-live="polite"
+        hidden
+      ></div>
+      <button
+        type="button"
+        class="lbe-primary lbe-next"
+        data-action="next"
+        data-i18n="next"
+        hidden
+      >
+        Наступне слово →
+      </button>
+    </div>
+    <div data-role="finished" hidden>
+      <h3 data-i18n="finished">🎉 Раунд завершено!</h3>
+      <p>
+        <span data-i18n="result">Результат</span>:
+        <strong data-role="final">0 / 100</strong>
+      </p>
+      <p>
+        <span data-i18n="best">Найкращий результат</span>:
+        <strong data-role="best">0 / 100</strong>
+      </p>
+      <button
+        type="button"
+        class="lbe-primary"
+        data-action="restart"
+        data-i18n="again"
+      >
+        Спробувати ще раз 🔄
+      </button>
+    </div>
+  </div>
+  <p class="lbe-status" data-role="status" aria-live="polite"></p>
+</section>
