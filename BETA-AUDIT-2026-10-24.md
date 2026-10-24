@@ -15,6 +15,8 @@
 - Щоденний модуль позначав свої 12 тем як A1.1 + A1.2, хоча використовує лише A1.1. Позначення виправлено; українські назви тем тепер описують тему, а не переклад її першого слова.
 - За невдалого завантаження даних курсу тепер показується екран повторної спроби замість порожнього маршруту.
 
+- GitHub Pages було налаштовано на GitHub Actions, але `Site preview` виконував лише `echo Preview ready`. Через це нові коміти не публікувалися. Workflow тепер перевіряє код, пакує сайт і розгортає його на наявній тестовій адресі. Використано [офіційний workflow GitHub Pages](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages).
+
 ## Перевірено
 
 - `beta-daily`, `runtime-smoke`, `curriculum`, `code-audit`, `clock`, `push-permissions`, `widgets` — пройшли.
