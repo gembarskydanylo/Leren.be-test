@@ -3,7 +3,7 @@ const html=fs.readFileSync('index.html','utf8'),script=html.match(/<script>([\s\
 function fn(name){const start=script.indexOf('function '+name+'(');return script.slice(start,script.indexOf('\n}',start)+2)}
 const grow=script.slice(script.indexOf('const GROW_UI='),script.indexOf('const growU='));
 for(const lang of ['uk','en','fr','ar'])for(const count of [12,17]){
- const ctx=vm.createContext({lsGet:()=>false,el:(tag,cls,text)=>({text,children:[],append(...x){this.children.push(...x)},appendChild(x){this.children.push(x)}}),setTimeout(){}});
+ const ctx=vm.createContext({targetLang:"nl",view:"lesson",lsGet:()=>false,el:(tag,cls,text)=>({text,children:[],append(...x){this.children.push(...x)},appendChild(x){this.children.push(x)}}),setTimeout(){}});
  ctx.popup=build=>{const p={children:[],append(...x){this.children.push(...x)},appendChild(x){this.children.push(x)}};build(p,()=>{},{dataset:{}});ctx.panel=p};
  vm.runInContext(grow+`const growU=()=>GROW_UI.${lang};const TOETS=[{kind:'leveltest',unlocks:'a12',questions:Array(${count})}];`+fn('firstRun')+';firstRun()',ctx);
  const subtitle=ctx.panel.children[2].children[1].children[1].text;

@@ -882,6 +882,7 @@ button.om-chip{cursor:pointer}button.om-chip:hover{border-color:var(--role-v)}
   }
 }
 </style>
+<link rel="stylesheet" href="./modules/learning-path/style.css?v=89">
 </head>
 <body>
 <main data-view="lesson">
@@ -894,6 +895,8 @@ button.om-chip{cursor:pointer}button.om-chip:hover{border-color:var(--role-v)}
     </div>
   </header>
 
+  <section id="learningPath" class="learning-path" data-views="path" aria-label="Learning path"></section>
+  <button type="button" id="pathReturn" data-views="lesson toets games dict progress" hidden></button>
   <button type="button" class="topic-bar" id="topicBar" data-views="lesson" aria-haspopup="dialog"></button>
   <div class="lesson-modes" id="lessonModes" role="tablist" data-views="lesson"></div>
   <span id="toetsTitle" hidden></span>
@@ -1003,8 +1006,10 @@ button.om-chip{cursor:pointer}button.om-chip:hover{border-color:var(--role-v)}
 <div id="searchModal" hidden></div>
 <button type="button" id="searchBtn" hidden></button><button type="button" id="searchClose" hidden></button>
 
-<div style="max-width:980px;margin:12px auto;padding:0 14px"><a href="./modules/daily-learning/index.html" style="display:block;text-align:center;padding:13px;border-radius:14px;background:#fff0b5;color:#29231b;font-weight:800;text-decoration:none">🎯 Нове: Моє навчання A1 · тестова версія</a></div>
+
 <script src="./course-curriculum.js?v=87"></script>
+<script src="./modules/learning-path/core.js?v=89"></script>
+<script src="./modules/learning-path/ui.js?v=89"></script>
 <script>
 "use strict";
 const $=id=>document.getElementById(id);
@@ -2277,6 +2282,7 @@ function bindNavSlider(navId,sliderId,labelKey){
 }
 
 function afterLangChange(){
+ if(view==="path"&&targetLang!=="nl")view="lesson";
  if(mode==="build"&&targetLang!=="nl")mode="quiz";
  if(lessonMode==="build"&&targetLang!=="nl")lessonMode="quiz";
  if(tab!=="all"&&!tabVisible(tab)){const cat=CATEGORIES.find(c=>c.tabs.includes(tab))||CATEGORIES[0];currentCat=cat.id;tab=cat.tabs.find(tabVisible)||"all";}
@@ -2284,7 +2290,7 @@ function afterLangChange(){
  if(!catObj||!catObj.tabs.includes(tab)&&tab!=="all"){
   const c0=levelCats()[0];currentCat=c0.id;tab=c0.tabs.find(tabVisible)||"all";
  }
- saveStore();updateHeader();buildNav();newRound();
+ saveStore();updateHeader();buildNav();if(view==="path"){if(learningPath)learningPath.refresh()}else newRound();
 }
 function changeTargetLang(l){if(!LANGS.includes(l))return;targetLang=l;if(targetLang===uiLang)uiLang=targetLang==="en"?"uk":"en";afterLangChange()}
 function changeUiLang(l){if(!UI_LANGS.includes(l))return;uiLang=l;if(targetLang===uiLang)targetLang=uiLang==="en"?"nl":"en";afterLangChange()}
@@ -4241,19 +4247,23 @@ const NAV_UI={
 };
 const navU=()=>NAV_UI[uiLang]||NAV_UI.uk;
 const LESSON_MODES=()=>["study","quiz","audio"].concat(targetLang==="nl"?["build"]:[],["review"]);
-let view="lesson",lessonMode=validStored("leren_lesson_mode",["study","quiz","audio","build","review"],"quiz");
+let learningPath=null;
+let view=targetLang==="nl"?"path":"lesson",lessonMode=validStored("leren_lesson_mode",["study","quiz","audio","build","review"],"quiz");
 if(lessonMode==="build"&&targetLang!=="nl")lessonMode="quiz";
 mode=lessonMode;
 function applyView(){
  const m=document.querySelector("main");if(m)m.dataset.view=view;
  document.querySelectorAll("[data-views]").forEach(e=>{e.hidden=!e.dataset.views.split(" ").includes(view)});
- syncDiphthongsLesson();
+ syncDiphthongsLesson();if(targetLang!=="nl")$("pathReturn").hidden=true;
 }
 function setView(v){
+ if(v==="path"&&targetLang!=="nl")v="lesson";
+ if(window.LerenLessonWidgets)window.LerenLessonWidgets.stop();
  const prev=view;view=v;if(typeof gStop==="function")gStop();
  if(prev==="games"&&v!=="games"){if(gState&&gState.chat)aiRemember(gState);gState=null;}
  const wasGames=cardOwner==="games";
- if(v==="toets"){cardOwner="lesson";mode="toets";updateModeButtons();newRound()}
+ if(v==="path"){if(learningPath)learningPath.open();updateModeButtons()}
+ else if(v==="toets"){cardOwner="lesson";mode="toets";updateModeButtons();newRound()}
  else if(v==="lesson"){const need=mode!==lessonMode||wasGames;cardOwner="lesson";mode=lessonMode;updateModeButtons();if(need)newRound()}
  else if(v==="games"){if(mode==="toets")mode=lessonMode;updateModeButtons();renderGamesHome()}
  else{updateModeButtons();
@@ -4264,10 +4274,10 @@ function setView(v){
 function renderDock(){
  const u=navU(),wrap=$("modeButtons");if(!wrap)return;wrap.replaceChildren();
  [["lesson",u.lesson],["games",gU().games],["toets",u.toets],["dict",u.dict],["progress",u.progress]].forEach(([v,label])=>{
-  const b=el("button",v===view?"primary":"");b.type="button";b.title=label;b.dataset.view=v;
-  if(v===view)b.setAttribute("aria-current","page");
+  const b=el("button",v===view||(v==="lesson"&&view==="path")?"primary":"");b.type="button";b.title=label;b.dataset.view=v;
+  if(v===view||(v==="lesson"&&view==="path"))b.setAttribute("aria-current","page");
   b.append(ico(v,"dock-ic"),el("span","dock-tx",label));
-  b.onclick=()=>setView(v);wrap.appendChild(b);
+  b.onclick=()=>setView(v==="lesson"&&targetLang==="nl"?"path":v);wrap.appendChild(b);
  });
 }
 function renderLessonModes(){
@@ -4319,6 +4329,7 @@ function renderShellText(){
  $("dictTitle").textContent=n.dictTitle;$("dictHint").textContent=n.dictHint;$("progressTitle").textContent=n.progressTitle;$("toetsTitle").textContent=n.toetsTitle;
  const st=streakState(),sp=$("streakPill");sp.replaceChildren(ico("flame"),el("span","",String(st.n)));sp.classList.toggle("off",!st.n);sp.title=n.streakT(st.n);sp.setAttribute("aria-label",n.streakT(st.n));
  const sc=$("score");sc.replaceChildren(ico("star"),el("span","",String(score)));sc.title=(u.points||"Points")+": "+score;
+ const pathBack=$("pathReturn");if(pathBack)pathBack.textContent=({uk:"‹ До навчального маршруту",en:"‹ Back to my learning path",fr:"‹ Retour au parcours",ar:"العودة إلى مسار التعلّم ›"})[uiLang];
  fillIcons();renderTopicBar();if(typeof renderPushRow==="function")renderPushRow();if(typeof renderCharRow==="function")renderCharRow();
 }
 function renderProgressView(){
@@ -4331,6 +4342,10 @@ function renderProgressView(){
  TOETS.filter(t=>t.kind!=="leveltest").forEach(t=>{const r=el("div","pv-row"),b=best[t.id];
   r.append(el("span","",t.title[uiLang]||t.title.en||t.id),el("strong","",b!=null?b+" / "+t.questions.length:n.pvNone));if(b==null)r.classList.add("none");list.appendChild(r)});
  tb.appendChild(list);
+ if(learningPath&&targetLang==="nl"){
+  const labels=({uk:["Навчальний маршрут","уроків пройдено","Продовжити навчання"],en:["Learning path","lessons completed","Continue learning"],fr:["Parcours","leçons terminées","Continuer"],ar:["مسار التعلّم","دروس مكتملة","تابع التعلّم"]})[uiLang],stats=learningPath.model.stats();
+  tb.append(el("h3","",labels[0]),el("p","",stats.done+" / "+stats.total+" · "+labels[1]));const go=el("button","btn primary",labels[2]);go.type="button";go.onclick=()=>setView("path");tb.appendChild(go);
+ }
  const mk=$("pvMistakes");if(mk&&typeof renderMistakes==="function")renderMistakes(mk);
 }
 
@@ -4359,6 +4374,7 @@ function startLevelTest(){
  view="toets";mode="toets";updateModeButtons();applyView();toetsId=lt.id;toetsQ=0;toetsRight=0;toetsLocked=false;nextToetsQuestion();window.scrollTo({top:0});
 }
 function firstRun(){
+ if(targetLang==="nl"&&view==="path")return; // The route provides its own beginner/placement choice.
  if(lsGet("leren_tour_done",false)){lsSet("leren_level_asked",true);return}
  if(lsGet("leren_level_asked",false)){startTour();return}
  const g=growU();
@@ -5849,12 +5865,37 @@ function acctInit(){
  document.addEventListener("visibilitychange",()=>{if(document.hidden&&acct.user)syncPush().catch(()=>{})});
 }
 
+// Guided learning is beta-only. Existing practice, tests and word IDs remain available.
+function initLearningPath(){
+ const root=$("learningPath");if(!root||learningPath)return;
+ learningPath=LerenLearningPath.mount(root,{
+  data:DATA,curriculum:LerenCurriculum,language:()=>uiLang,
+  lessonLabel:(id,lang)=>(UI[lang]||UI.uk).tabs[id],
+  setLanguage:lang=>{uiLang=lang;saveStore();updateHeader()},
+  speak:text=>window.LerenLessonWidgets.speak(text,false),stop:()=>window.LerenLessonWidgets.stop(),
+  free:()=>{setView("lesson");newRound()},
+  answer:(id,ok,final)=>{if(!final)return;const s=stateFor(id);s.seen++;if(ok){s.correct++;s.streak++;s.due=Date.now()+864e5}else{s.wrong++;s.streak=0;s.due=Date.now()}s.known=s.streak>=2;saveStore();updateStats()},
+  complete:recordPathResult,
+  assess:id=>{const test=TOETS.find(t=>t.id==="course_"+id+"_v1");if(!test)return;curLevel=test.lvl;setView("toets");toetsId=test.id;toetsQ=0;toetsRight=0;toetsLocked=false;nextToetsQuestion()}
+ });
+ $("pathReturn").onclick=()=>setView("path");
+}
+const pathSessionRewards={};
+function recordPathResult(id,correct,total){
+ const lesson=learningPath?learningPath.model.lesson(id):LerenLearningPath.catalog(DATA,LerenCurriculum).lessons.find(l=>l.id===id);
+ if(!lesson||total!==lesson.ids.length||!Number.isInteger(correct)||correct<0||correct>total)return 0;
+ let best=lsGet("leren_path_rewards_v1",{});if(!best||typeof best!=="object"||Array.isArray(best))best={};
+ const old=best[id],previous=Math.max(Number.isInteger(old)&&old>=0&&old<=total?old:0,pathSessionRewards[id]||0);
+ const gain=Math.max(0,correct-previous)*5;if(!gain)return 0;
+ pathSessionRewards[id]=correct;best[id]=correct;lsSet("leren_path_rewards_v1",best);addXP(gain);saveStore();updateStats();return gain;
+}
+
 function start(){
  try{
   const t=localStorage.getItem("poly_theme");
   document.documentElement.dataset.theme=(t==="dark"||t==="glass")?"dark":"light"; // old "glass" was a dark look
  }catch(e){document.documentElement.dataset.theme="light"}
- updateHeader();buildNav();newRound();applyView();loadAudioManifest();pushSync();acctInit();
+ updateHeader();buildNav();if(view!=="path")newRound();initLearningPath();applyView();loadAudioManifest();pushSync();acctInit();
 }
 
 if (document.readyState === "loading") {

@@ -1,0 +1,116 @@
+(() => {
+ 'use strict';
+ const copy={
+  uk:{badge:'Тестова версія · навчальний маршрут',title:'Крок за кроком до нідерландської',intro:'Ми підкажемо, з чого почати, й проведемо через усі теми A1.1 та A1.2.',zero:'Починаю з нуля',know:'Уже знаю основи — перевірити старт',startHint:'Почни зі знайомства: привітайся, назви своє ім’я й зрозумій співрозмовника.',next:'Твій наступний урок',resume:'Продовжити урок',begin:'Почати урок',map:'Твоя карта курсу',free:'Вільна практика',home:'До маршруту',part:'Частина',lesson:'Урок',done:'пройдено',ahead:'Попереду',current:'Ти тут',review:'Варто повторити',reviewBtn:'Повторити мої помилки',reviewHint:'Коротке повторення перед наступним уроком допоможе закріпити складні слова.',study:'Вивчи',listen:'Почуй',check:'Перевір',phaseHint:['Прочитай переклад, послухай і повтори вголос.','Послухай нідерландське слово та вибери його значення.','Прочитай значення й вибери відповідь нідерландською.'],sound:'Послухати',remember:'Зрозуміло, далі',again:'Повтори зі мною',nextQ:'Наступне завдання',right:'Правильно!',wrong:'Запам’ятай цю відповідь:',stepDone:'Цей крок завершено!',nextStep:'Наступний крок',result:'Урок пройдено!',resultReview:'Повторення завершено!',learned:'Сьогодні ти попрактикував:',score:'Правильних відповідей',nextLesson:'До наступного уроку',repeat:'Закріпити цей урок',good:'Гарний результат! Можеш рухатися далі.',help:'Можеш продовжити. Складні слова ми зберегли для повторення.',allDone:'Ти пройшов увесь маршрут A1!',allHint:'Повертайся до складних тем і перевіряй знання в розділі Toets.',minutes:'Три короткі кроки · приблизно 5–10 хв',goal:'Мета заняття',goalText:'Зрозумій та використай ці слова й фрази:',goOn:'Продовжити',place:'Знайдемо зручний старт',placeHint:'12 коротких питань за темами A1.1. Це підказка для старту, а не іспит. Можеш пропустити й почати з першого уроку.',placeDone:'Твоя рекомендована точка старту',placeNote:'Це попередня рекомендація. Будь-яку тему можна відкрити на карті; попередні уроки не позначаємо засвоєними.',accept:'Почати звідси',skip:'Почати з першої теми',lang:'Мова пояснень',saved:'Прогрес зберігається автоматично.',memory:'Сховище браузера недоступне. Прогрес збережеться лише на відкритій сторінці.',points:'балів до загального прогресу',assess:'Перевірка теми',assessHint:'Коли закінчиш тему, пройди її підсумковий тест.',openTest:'Відкрити тест теми',optional:'Можна відкрити будь-який урок. Рекомендований шлях позначений стрілкою.',back:'Назад',retry:'Спробувати ще раз',noItems:'Немає слів для повторення.',newStart:'Змінити точку старту',paused:'Повернися сюди будь-коли — місце в уроці збережене.'},
+  en:{badge:'Test version · learning path',title:'Learn Dutch one step at a time',intro:'We suggest a starting point and guide you through every A1.1 and A1.2 topic.',zero:'Start from zero',know:'I know some Dutch — find my start',startHint:'Start with introductions: greet someone, say your name and understand their reply.',next:'Your next lesson',resume:'Resume lesson',begin:'Start lesson',map:'Your course map',free:'Free practice',home:'Back to my path',part:'Part',lesson:'Lesson',done:'completed',ahead:'Coming up',current:'You are here',review:'To review',reviewBtn:'Review my mistakes',reviewHint:'A short review helps you remember tricky words before your next lesson.',study:'Learn',listen:'Listen',check:'Check',phaseHint:['Read the meaning, listen and repeat aloud.','Listen to the Dutch word and choose its meaning.','Read the meaning and choose the Dutch answer.'],sound:'Listen',remember:'Got it, next',again:'Repeat with me',nextQ:'Next question',right:'Correct!',wrong:'Remember this answer:',stepDone:'Step complete!',nextStep:'Next step',result:'Lesson complete!',resultReview:'Review complete!',learned:'Today you practised:',score:'Correct answers',nextLesson:'Continue to the next lesson',repeat:'Practise this lesson again',good:'Well done! You can move on.',help:'You can continue. We saved the tricky words for review.',allDone:'You completed the A1 path!',allHint:'Revisit tricky topics and test your knowledge in Toets.',minutes:'Three short steps · about 5–10 min',goal:'Lesson goal',goalText:'Understand and use these words and phrases:',goOn:'Continue',place:'Find your starting point',placeHint:'12 short A1.1 questions. This is a starting guide, not an exam. You can skip and start with lesson one.',placeDone:'Your suggested starting point',placeNote:'This is a preliminary suggestion. Open any topic on the map; earlier lessons are not marked as mastered.',accept:'Start here',skip:'Start with the first topic',lang:'Explanation language',saved:'Progress saves automatically.',memory:'Browser storage is unavailable. Progress lasts while this page is open.',points:'points towards your progress',assess:'Topic check',assessHint:'After finishing a topic, take its final test.',openTest:'Open topic test',optional:'Every lesson is available. An arrow marks the recommended path.',back:'Back',retry:'Try again',noItems:'No words to review.',newStart:'Change starting point',paused:'Come back at any time — your place is saved.'},
+  fr:{badge:'Version test · parcours',title:'Le néerlandais, étape par étape',intro:'Nous te proposons un point de départ et te guidons dans tous les thèmes A1.1 et A1.2.',zero:'Je pars de zéro',know:'Je connais les bases — trouver mon départ',startHint:'Commence par les présentations : saluer, dire ton nom et comprendre la réponse.',next:'Ta prochaine leçon',resume:'Reprendre la leçon',begin:'Commencer',map:'Ton parcours',free:'Pratique libre',home:'Retour au parcours',part:'Partie',lesson:'Leçon',done:'terminées',ahead:'À venir',current:'Tu es ici',review:'À revoir',reviewBtn:'Revoir mes erreurs',reviewHint:'Une courte révision aide à retenir les mots difficiles avant la prochaine leçon.',study:'Apprends',listen:'Écoute',check:'Vérifie',phaseHint:['Lis le sens, écoute et répète à voix haute.','Écoute le mot néerlandais et choisis son sens.','Lis le sens et choisis la réponse en néerlandais.'],sound:'Écouter',remember:'Compris, suivant',again:'Répète avec moi',nextQ:'Question suivante',right:'Correct !',wrong:'Retiens cette réponse :',stepDone:'Étape terminée !',nextStep:'Étape suivante',result:'Leçon terminée !',resultReview:'Révision terminée !',learned:'Aujourd’hui, tu as pratiqué :',score:'Bonnes réponses',nextLesson:'Passer à la prochaine leçon',repeat:'Revoir cette leçon',good:'Bravo ! Tu peux continuer.',help:'Tu peux continuer. Les mots difficiles sont sauvegardés pour révision.',allDone:'Tu as terminé le parcours A1 !',allHint:'Revois les thèmes difficiles et vérifie tes acquis dans Toets.',minutes:'Trois étapes courtes · environ 5–10 min',goal:'Objectif',goalText:'Comprendre et utiliser ces mots et expressions :',goOn:'Continuer',place:'Trouvons ton point de départ',placeHint:'12 questions courtes sur A1.1. Un repère pour commencer, pas un examen. Tu peux commencer directement à la première leçon.',placeDone:'Ton point de départ conseillé',placeNote:'Une suggestion préliminaire. Tu peux ouvrir tout thème ; les leçons précédentes ne sont pas marquées comme maîtrisées.',accept:'Commencer ici',skip:'Commencer au premier thème',lang:'Langue des explications',saved:'La progression est sauvegardée automatiquement.',memory:'Stockage indisponible. La progression dure tant que cette page reste ouverte.',points:'points dans ta progression',assess:'Bilan du thème',assessHint:'Après le thème, passe son test final.',openTest:'Ouvrir le test du thème',optional:'Toutes les leçons sont accessibles. Une flèche indique le parcours conseillé.',back:'Retour',retry:'Réessayer',noItems:'Aucun mot à revoir.',newStart:'Changer le point de départ',paused:'Reviens quand tu veux : ta place est sauvegardée.'},
+  ar:{badge:'نسخة تجريبية · مسار التعلّم',title:'تعلّم الهولندية خطوة بخطوة',intro:'نقترح نقطة البداية ونرشدك عبر جميع مواضيع A1.1 وA1.2.',zero:'أبدأ من الصفر',know:'أعرف بعض الهولندية — حدّد بدايتي',startHint:'ابدأ بالتعارف: ألقِ التحية وقل اسمك وافهم الرد.',next:'درسك التالي',resume:'متابعة الدرس',begin:'ابدأ الدرس',map:'خريطة الدورة',free:'تدريب حر',home:'العودة للمسار',part:'الجزء',lesson:'الدرس',done:'مكتمل',ahead:'قادم',current:'أنت هنا',review:'للمراجعة',reviewBtn:'راجع أخطائي',reviewHint:'تساعدك مراجعة قصيرة على تثبيت الكلمات الصعبة قبل الدرس التالي.',study:'تعلّم',listen:'استمع',check:'اختبر',phaseHint:['اقرأ المعنى واستمع وكرّر بصوت عالٍ.','استمع للكلمة الهولندية واختر معناها.','اقرأ المعنى واختر الإجابة الهولندية.'],sound:'استمع',remember:'فهمت، التالي',again:'كرّر معي',nextQ:'السؤال التالي',right:'صحيح!',wrong:'تذكّر هذه الإجابة:',stepDone:'اكتملت الخطوة!',nextStep:'الخطوة التالية',result:'اكتمل الدرس!',resultReview:'اكتملت المراجعة!',learned:'تدرّبت اليوم على:',score:'الإجابات الصحيحة',nextLesson:'تابع إلى الدرس التالي',repeat:'تدرّب على هذا الدرس مجدداً',good:'أحسنت! يمكنك المتابعة.',help:'يمكنك المتابعة. حفظنا الكلمات الصعبة للمراجعة.',allDone:'أكملت مسار A1!',allHint:'راجع المواضيع الصعبة واختبر معرفتك في Toets.',minutes:'ثلاث خطوات قصيرة · نحو ٥–١٠ دقائق',goal:'هدف الدرس',goalText:'افهم واستخدم الكلمات والعبارات التالية:',goOn:'متابعة',place:'لنحدّد نقطة البداية',placeHint:'١٢ سؤالاً قصيراً عن A1.1. إرشاد للبداية وليس امتحاناً. يمكنك البدء من الدرس الأول.',placeDone:'نقطة البداية المقترحة',placeNote:'اقتراح مبدئي. يمكنك فتح أي موضوع، ولا نعتبر الدروس السابقة متقنة.',accept:'ابدأ من هنا',skip:'ابدأ بالموضوع الأول',lang:'لغة الشرح',saved:'يُحفظ التقدّم تلقائياً.',memory:'التخزين غير متاح. يستمر التقدّم ما دامت الصفحة مفتوحة.',points:'نقطة لتقدّمك',assess:'اختبار الموضوع',assessHint:'بعد إنهاء الموضوع أجرِ اختباره النهائي.',openTest:'افتح اختبار الموضوع',optional:'كل الدروس متاحة. يشير السهم إلى المسار المقترح.',back:'عودة',retry:'حاول مجدداً',noItems:'لا كلمات للمراجعة.',newStart:'غيّر نقطة البداية',paused:'عُد في أي وقت، مكانك محفوظ.'}
+ };
+ const names={
+  comm:['👋','Знайомство','Introductions','Présentations','التعارف'],people:['👨‍👩‍👧','Люди навколо','People around you','Les autres','الناس من حولك'],nums:['🔢','Числа, ціни й погода','Numbers, prices and weather','Nombres, prix et météo','الأعداد والأسعار والطقس'],travelTime:['🕒','Котра година?','Telling the time','Quelle heure est-il ?','كم الساعة؟'],birthday:['🎂','День народження','Birthdays','Anniversaires','أعياد الميلاد'],opening:['🗓️','Дні та години роботи','Days and opening hours','Jours et horaires','الأيام وساعات العمل'],forms:['📝','Анкети й документи','Forms and documents','Formulaires et documents','الاستمارات والوثائق'],dag:['☀️','Мій звичайний день','My daily routine','Ma journée','يومي المعتاد'],plans:['🎟️','Плани й запрошення','Plans and invitations','Projets et invitations','الخطط والدعوات'],health:['🩺','Здоров’я та лікар','Health and the doctor','Santé et médecin','الصحة والطبيب'],food:['🥗','Їжа та корисні звички','Food and healthy habits','Alimentation et habitudes','الغذاء والعادات الصحية'],shopping:['🛒','Покупки та продукти','Shopping and groceries','Courses et produits','التسوق والمنتجات'],past:['⏪','Розповідаємо про минуле','Talking about the past','Parler du passé','الحديث عن الماضي'],holiday:['🧳','Сім’я та відпустка','Family and holidays','Famille et vacances','العائلة والعطلة'],travel:['🚆','Подорожі','Travel','Voyages','السفر'],service:['🛍️','Магазини й покупки','Shops and purchases','Magasins et achats','المتاجر والمشتريات'],wonen:['🏡','Житло','Housing','Logement','السكن'],contact:['✉️','Повідомлення й зустрічі','Messages and appointments','Messages et rendez-vous','الرسائل والمواعيد'],reading:['📰','Читання і відповіді','Reading and responding','Lire et répondre','القراءة والرد'],grammar2:['📘','Граматика в житті','Grammar in everyday life','Grammaire au quotidien','القواعد في الحياة اليومية']
+ };
+ function mount(root,bridge){
+  const course=LerenLearningPath.catalog(bridge.data,bridge.curriculum),model=LerenLearningPath.create(course,{getItem:k=>localStorage.getItem(k),setItem:(k,v)=>localStorage.setItem(k,v)});
+  const languages=['uk','en','fr','ar'];let lang=bridge.language(),screen=model.state.placement?'placement':model.state.session?'lesson':'home',feedback=null;
+  const t=k=>copy[lang][k],word=id=>course.cards.get(id),translation=w=>w[lang]||w.uk,title=ch=>(names[ch.id]||['📖',ch.nl,ch.nl,ch.nl,ch.nl])[languages.indexOf(lang)+1],icon=ch=>(names[ch.id]||['📖'])[0];
+  const node=(tag,cls,text)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(text!=null)e.textContent=text;return e};
+  const button=(label,fn,primary=false)=>{const b=node('button',primary?'lp-button lp-primary':'lp-button',label);b.type='button';b.onclick=fn;return b};
+  const lessonTitle=l=>(bridge.lessonLabel(l.tab,lang)||l.tab)+(l.parts>1?' · '+t('part')+' '+l.part+'/'+l.parts:'');
+  const chapter=l=>course.chapters.find(c=>c.id===l.chapter);
+  function go(next){bridge.stop();feedback=null;screen=next;render();root.scrollIntoView({block:'start',behavior:'smooth'})}
+  function begin(l){const s=model.state.session;if(s?.kind==='lesson'&&s.lesson===l.id&&(s.phase<2||s.index<s.ids.length)){go('lesson');return}model.begin(l.id);go('intro')}
+  function shell(){
+   root.replaceChildren();root.lang=lang;root.dir=lang==='ar'?'rtl':'ltr';
+   const tools=node('div','lp-toolbar'),label=node('label','',t('lang')),select=node('select');
+   select.setAttribute('aria-label',t('lang'));[['uk','🇺🇦 Українська'],['en','English'],['fr','Français'],['ar','العربية']].forEach(([v,name])=>{const o=node('option','',name);o.value=v;select.appendChild(o)});select.value=lang;select.onchange=()=>{lang=select.value;bridge.setLanguage(lang);render()};label.appendChild(select);
+   tools.append(label,button(t('free'),()=>{bridge.stop();bridge.free()}));root.appendChild(tools);
+   if(screen!=='home')root.appendChild(button('‹ '+t('home'),()=>go('home')));
+  }
+  function note(){root.appendChild(node('p','lp-caption',t(model.persistent?'saved':'memory')))}
+  function hero(){
+   const box=node('div','lp-hero');box.append(node('span','lp-eyebrow',t('badge')),node('h2','',t('title')),node('p','',t('intro')));root.appendChild(box);
+   if(!model.state.started){
+    const start=node('div','lp-card lp-start');start.append(node('span','lp-illustration','👋'),node('h3','',title(course.chapters[0])),node('p','',t('startHint')),node('p','lp-caption',t('minutes')),
+     button(t('zero'),()=>{model.start();begin(course.lessons[0])},true),button(t('know'),()=>{model.place();go('placement')}));root.appendChild(start);
+   }else{
+    const next=model.recommended(),session=model.state.session,resuming=session&&(session.phase<2||session.index<session.ids.length),box=node('div','lp-card lp-next');
+    box.appendChild(node('span','lp-eyebrow',t('next')));
+    if(next){const ch=chapter(next);box.append(node('p','lp-caption',ch.level+' · '+title(ch)),node('h3','',resuming&&session.kind==='review'?t('review'):lessonTitle(next)),node('p','',t('goalText')),node('p','lp-preview',(resuming?session.ids:next.ids).slice(0,3).map(id=>word(id).nl).join(' · ')),node('p','lp-caption',t('minutes')),
+     button(resuming?t('resume'):t('begin'),()=>{if(resuming)go('lesson');else begin(next)},true));}
+    else box.append(node('h3','',t('allDone')),node('p','',t('allHint')));
+    root.appendChild(box);
+   }
+   if(model.state.mistakes.length){const box=node('div','lp-review');box.append(node('h3','',t('review')+' · '+model.state.mistakes.length),node('p','',t('reviewHint')),button(t('reviewBtn'),()=>{model.beginReview();go('lesson')}));root.appendChild(box)}
+   root.append(node('h2','lp-map-title',t('map')),node('p','lp-caption',t('optional')));
+   for(const level of ['A1.1','A1.2']){
+    const section=node('section','lp-map');section.appendChild(node('h3','lp-level',level+' · A1'));
+    for(const ch of course.chapters.filter(c=>c.level===level)){
+     const st=model.stats(ch.id),details=node('details','lp-chapter'),summary=node('summary'),here=model.recommended()?.chapter===ch.id;
+     details.open=here;summary.append(node('span','lp-chapter-icon',icon(ch)),node('span','lp-chapter-title',title(ch)),node('span','lp-chapter-count',(here?'→ ':'')+st.done+'/'+st.total));details.appendChild(summary);
+     details.appendChild(node('p','lp-caption',ch.nl+' · '+st.done+'/'+st.total+' '+t('done')));
+     const list=node('ol','lp-lessons');
+     for(const l of ch.lessons){const done=Object.hasOwn(model.state.completed,l.id),active=model.recommended()?.id===l.id,b=button((active?'→ ':done?'✓ ':'○ ')+lessonTitle(l),()=>begin(l));b.classList.toggle('lp-current',active);if(active)b.setAttribute('aria-current','step');
+      const li=node('li');li.appendChild(b);if(done&&!model.mastered(l.id))li.appendChild(node('span','lp-caption',t('review')));list.appendChild(li)}
+     details.appendChild(list);
+     if(st.done===st.total){const end=node('div','lp-topic-check');end.append(node('p','',t('assessHint')),button(t('openTest'),()=>bridge.assess(ch.id)));details.appendChild(end)}
+     section.appendChild(details);
+    }root.appendChild(section);
+   }
+   root.appendChild(button(t('newStart'),()=>{model.place();go('placement')}));note();
+  }
+  function intro(){const s=model.state.session,l=model.lesson(s.lesson),ch=chapter(l),box=node('div','lp-card');box.append(node('span','lp-eyebrow',ch.level+' · '+title(ch)),node('h2','',lessonTitle(l)),node('p','',t('goalText')));
+   const list=node('ul','lp-preview-list');l.ids.forEach(id=>{const w=word(id);list.appendChild(node('li','',w.nl+' — '+translation(w)))});box.append(list,node('p','lp-caption',t('minutes')),button(t('begin'),()=>go('lesson'),true));root.appendChild(box);note()}
+  function options(w,listen){
+   const key=listen?lang:'nl',value=w[key]||w.uk,session=screen==='placement'?null:model.state.session,lesson=session?.lesson&&model.lesson(session.lesson),chapterWords=lesson?chapter(lesson).lessons.flatMap(l=>l.ids):[],nearby=[...new Set([...(session?.ids||[]),...chapterWords])].map(word),pool=[...nearby.sort(()=>Math.random()-.5),...[...course.cards.values()].sort(()=>Math.random()-.5)],seen=new Set([value]),opts=[{text:value,ok:true}];
+   // Distinct text prevents two visually identical valid answers.
+   for(const x of pool){const text=x[key]||x.uk;if(!seen.has(text)){seen.add(text);opts.push({text,ok:false});if(opts.length===4)break}}
+   return opts.sort(()=>Math.random()-.5);
+  }
+  function exercises(){
+   const s=model.state.session;if(!s){go('home');return}
+   const box=node('div','lp-card lp-exercise');
+   if(s.kind==='lesson'){const l=model.lesson(s.lesson),ch=chapter(l);box.append(node('span','lp-eyebrow',ch.level+' · '+title(ch)),node('h2','',lessonTitle(l)))}else box.appendChild(node('h2','',t('review')));
+   const steps=node('ol','lp-steps');['study','listen','check'].forEach((key,i)=>{const li=node('li',i===s.phase?'lp-active':'',(i<s.phase?'✓ ':i+1+'. ')+t(key));if(i===s.phase)li.setAttribute('aria-current','step');steps.appendChild(li)});box.appendChild(steps);
+   if(feedback){
+    const fb=node('div','lp-feedback '+(feedback.ok?'lp-correct':'lp-wrong'));fb.setAttribute('role','status');const w=word(feedback.id);fb.append(node('strong','',t(feedback.ok?'right':'wrong')),node('p','lp-word',w.nl),node('p','',translation(w)),button('🔊 '+t('sound'),()=>bridge.speak(w.nl)));
+    const next=button(t('nextQ'),()=>{feedback=null;render()},true);box.append(fb,next);root.appendChild(box);next.focus({preventScroll:true});return;
+   }
+   if(s.index===s.ids.length){
+    if(s.phase<2){box.append(node('h3','',t('stepDone')),node('p','',t('phaseHint')[s.phase+1]),button(t('nextStep')+' → '+t(['study','listen','check'][s.phase+1]),()=>{model.nextPhase();render()},true));root.appendChild(box);return}
+    const result=model.finish(),gain=result.kind==='lesson'?bridge.complete(result.id,result.correct,result.total):0;
+    box.append(node('h3','',t(result.kind==='lesson'?'result':'resultReview')),node('p','lp-result',result.correct+' / '+result.total),node('p','',t(result.correct/result.total>=.8?'good':'help')));
+    if(gain)box.appendChild(node('p','lp-points','+'+gain+' '+t('points')));
+    box.appendChild(node('p','',t('learned')));const list=node('ul');s.ids.forEach(id=>list.appendChild(node('li','',word(id).nl+' — '+translation(word(id)))));box.appendChild(list);
+    if(model.state.mistakes.length)box.appendChild(button(t('reviewBtn'),()=>{model.beginReview();go('lesson')}));
+    if(result.kind==='lesson'){const ch=chapter(model.lesson(result.id)),stats=model.stats(ch.id);if(stats.done===stats.total){box.append(node('h3','',t('assess')),node('p','',t('assessHint')),button(t('openTest'),()=>bridge.assess(ch.id)))}}
+    box.appendChild(button(t('nextLesson'),()=>{const l=model.continueRoute();go(l?'intro':'home')},true));
+    if(result.kind==='lesson')box.appendChild(button(t('repeat'),()=>begin(model.lesson(result.id))));
+    root.appendChild(box);note();return;
+   }
+   const w=model.current(),listen=s.phase===1;
+   box.append(node('p','lp-caption',(s.index+1)+' / '+s.ids.length),node('p','',t('phaseHint')[s.phase]));
+   if(s.phase===0){const text=node('p','lp-word',w.nl);text.lang='nl';text.dir='ltr';box.append(text,node('p','lp-meaning',translation(w)));
+    if(w.ex_nl){const example=node('p','lp-example',w.ex_nl);example.lang='nl';example.dir='ltr';box.appendChild(example);if(w['ex_'+lang])box.appendChild(node('p','',w['ex_'+lang]))}
+    box.append(button('🔊 '+t('sound'),()=>bridge.speak(w.nl)),button(t('remember'),()=>{model.advance(w.id,true);render()},true));
+   }else{
+    box.appendChild(node('p',listen?'lp-sound':'lp-word',listen?'🎧':translation(w)));
+    if(listen)box.appendChild(button('🔊 '+t('sound'),()=>bridge.speak(w.nl),true));
+    const choices=node('div','lp-options');for(const o of options(w,listen)){const b=button(o.text,()=>{if(model.advance(w.id,o.ok)){feedback={id:w.id,ok:o.ok};bridge.answer(w.id,o.ok,s.phase===2);render()}});if(!listen){b.lang='nl';b.dir='ltr'}choices.appendChild(b)}box.appendChild(choices);
+   }
+   root.appendChild(box);note();
+  }
+  function placement(){
+   const box=node('div','lp-card'),p=model.state.placement;if(!p){go('home');return}
+   box.append(node('h2','',t('place')),node('p','',t('placeHint')));
+   if(p.answers.length===12){const first=p.answers.indexOf(false),ch=course.chapters[first<0?12:first];box.append(node('h3','',t('placeDone')),node('p','lp-meaning',ch.level+' · '+title(ch)),node('p','',t('placeNote')),button(t('accept'),()=>{model.acceptPlacement();begin(model.recommended())},true));}
+   else{
+    const w=model.placementCard();box.append(node('p','lp-caption',(p.answers.length+1)+' / 12'),node('p','lp-word',w.nl));
+    const opts=node('div','lp-options');options(w,true).forEach(o=>opts.appendChild(button(o.text,()=>{if(model.placementAnswer(w.id,o.ok))render()})));box.appendChild(opts);
+   }
+   box.appendChild(button(t('skip'),()=>{model.start();begin(course.lessons[0])}));root.appendChild(box);
+  }
+  function render(){bridge.stop();lang=languages.includes(lang)?lang:'uk';shell();if(screen==='home')hero();else if(screen==='intro')intro();else if(screen==='placement')placement();else exercises()}
+  render();return {refresh(){lang=bridge.language();render()},open(){go(model.state.placement?'placement':model.state.session?'lesson':'home')},model};
+ }
+ globalThis.LerenLearningPath.mount=mount;
+})();
