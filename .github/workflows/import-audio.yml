@@ -1,0 +1,30 @@
+name: Import audio into beta
+on:
+  push:
+    paths:
+      - '.github/workflows/import-audio.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  import-audio:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Copy all audio directories from original repository
+        shell: bash
+        run: |
+          set -euo pipefail
+          git clone --depth 1 --filter=blob:none https://github.com/gembarskydanylo/Leren.be.git /tmp/leren-source
+          test -d /tmp/leren-source/audio
+          mkdir -p audio
+          rsync -a /tmp/leren-source/audio/ audio/
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add audio/
+          if ! git diff --cached --quiet; then
+            git commit -m "Import complete audio folder from Leren.be"
+            git push origin HEAD:main
+          fi
