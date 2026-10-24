@@ -1,0 +1,83 @@
+{
+  "id": "./",
+  "name": "Leren.be — Nederlands A1.1",
+  "short_name": "Leren.be",
+  "description": "Вивчення нідерландської мови A1.1: картки, тести, аудіювання, складання речень і міні-іспити Toets A1.",
+  "lang": "uk",
+  "dir": "ltr",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#FFF6EC",
+  "theme_color": "#EB6A00",
+  "categories": [
+    "education",
+    "productivity"
+  ],
+  "prefer_related_applications": false,
+  "icons": [
+    {
+      "src": "./icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "./screenshots/1-chat.png",
+      "sizes": "1080x2160",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Praat met Peter: розмова з AI, що виправляє помилки"
+    },
+    {
+      "src": "./screenshots/2-ask.png",
+      "sizes": "1080x2160",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Запитай Пітера: граматика й слова з прикладами"
+    },
+    {
+      "src": "./screenshots/3-study.png",
+      "sizes": "1080x2160",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Тест: обери правильне значення"
+    },
+    {
+      "src": "./screenshots/4-toets.png",
+      "sizes": "1080x2160",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Міні-іспити Toets A1 і тест на рівень A1.2"
+    },
+    {
+      "src": "./screenshots/5-games.png",
+      "sizes": "1080x2160",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Ігри: історія, діалоги, говоріння"
+    },
+    {
+      "src": "./screenshots/6-dict.png",
+      "sizes": "1080x2160",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Словник: понад 2700 слів з артиклем і формами"
+    }
+  ]
+}
