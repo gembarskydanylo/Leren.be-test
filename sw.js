@@ -1,6 +1,6 @@
 /* Leren.be offline cache. Relative paths support GitHub Pages project sites. */
-const CACHE_NAME = "leren-be-v86";
-const APP_FILES = ["./modules/daily-learning/index.html","./modules/belgium-lab/lab.js", "./course-curriculum.js", "./modules/clock/clock.js", "./", "./index.html", "./manifest.webmanifest", "./favicon-32.png", "./apple-touch-icon.png", "./icon-192.png", "./icon-512.png", "./icon-maskable-512.png", "./privacy.html", "./fonts/nunito.woff", "./fonts/unbounded.woff", "./dict/nl.json", "./img/chars/peter.webp", "./img/chars/peter-wow.webp", "./img/chars/peter-think.webp", "./img/chars/peter-sad.webp", "./img/chars/dafna.webp", "./img/chars/dafna-wow.webp", "./img/chars/dafna-think.webp", "./img/chars/dafna-sad.webp", "./modules/clock/widget.html", "./modules/clock/widget.js", "./modules/diphthongs/widget.js", "./modules/diphthongs/widget.html", "./modules/diphthongs/widget.css", "./modules/diphthongs/words.json"];
+const CACHE_NAME = "leren-be-v87";
+const APP_FILES = ["./modules/daily-learning/index.html","./course-curriculum.js?v=87", "./modules/clock/clock.js", "./", "./index.html", "./manifest.webmanifest", "./favicon-32.png", "./apple-touch-icon.png", "./icon-192.png", "./icon-512.png", "./icon-maskable-512.png", "./privacy.html", "./fonts/nunito.woff", "./fonts/unbounded.woff", "./dict/nl.json", "./img/chars/peter.webp", "./img/chars/peter-wow.webp", "./img/chars/peter-think.webp", "./img/chars/peter-sad.webp", "./img/chars/dafna.webp", "./img/chars/dafna-wow.webp", "./img/chars/dafna-think.webp", "./img/chars/dafna-sad.webp", "./modules/clock/widget.html", "./modules/clock/widget.js", "./modules/diphthongs/widget.js", "./modules/diphthongs/widget.html", "./modules/diphthongs/widget.css", "./modules/diphthongs/words.json"];
 
 self.addEventListener("install", event => {
   event.waitUntil((async () => {
@@ -23,6 +23,7 @@ self.addEventListener("fetch", event => {
   if (request.method !== "GET") return;
   const url = new URL(request.url);
   if (url.origin !== self.location.origin) return;
+  if (url.pathname.endsWith("/sw.js") || request.cache === "no-store") return;
 
   if (request.mode === "navigate") {
     event.respondWith((async () => {

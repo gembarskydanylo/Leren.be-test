@@ -1004,7 +1004,7 @@ button.om-chip{cursor:pointer}button.om-chip:hover{border-color:var(--role-v)}
 <button type="button" id="searchBtn" hidden></button><button type="button" id="searchClose" hidden></button>
 
 <div style="max-width:980px;margin:12px auto;padding:0 14px"><a href="./modules/daily-learning/index.html" style="display:block;text-align:center;padding:13px;border-radius:14px;background:#fff0b5;color:#29231b;font-weight:800;text-decoration:none">🎯 Нове: Моє навчання A1 · тестова версія</a></div>
-<script src="./course-curriculum.js"></script>
+<script src="./course-curriculum.js?v=87"></script>
 <script>
 "use strict";
 const $=id=>document.getElementById(id);
@@ -3286,6 +3286,7 @@ function startToets(){
   $("prog").textContent = "";
   $("rnd").textContent = "Toets · " + levelById(curLevel).name;
   $("barfill").style.width = "0%";
+  $("barfill").parentElement.setAttribute("aria-valuenow", "0");
   const title = el("div","q");
   title.appendChild(el("h2","",u.toetsChoose || "Обери тест"));
   card.appendChild(title);
@@ -3419,6 +3420,7 @@ function endToets(){
   const pct = total ? Math.round(toetsRight / total * 100) : 0;
   const u = getUI();
   $("barfill").style.width = "100%";
+  $("barfill").parentElement.setAttribute("aria-valuenow", "100");
   const card = $("card");
   card.replaceChildren();
   const end = el("div","end");
@@ -4336,10 +4338,10 @@ function renderProgressView(){
 const PLAY_PACKAGE="be.leren.app"; // change here if the Play package name changes
 const SITE_URL="https://lerenbe.com/";
 const GROW_UI={
- uk:{lvlQ:"З чого почнемо?",lvlHint:"Можна змінити будь-коли через «Змінити» над уроком.",lvlNew:"Я тільки починаю",lvlNewS:"Рівень A1.1 з перших слів",lvlKnow:"Я вже знаю основи A1.1",lvlKnowS:"Тест на рівень A1.2 (15 питань)",rateQ:"Подобається Leren.be?",rateT:"Оціни застосунок у Google Play. Це допоможе іншим українцям у Бельгії його знайти.",rateYes:"⭐ Оцінити",rateLater:"Пізніше",share:"Поділитися",shareTxt:(t,p)=>"Я склав «"+t+"» на "+p+" % у Leren.be 🇧🇪 Вчу нідерландську: ",shareTry:(t,p)=>"Мій результат «"+t+"»: "+p+" % у Leren.be 🇧🇪 Вчу нідерландську: ",copied:"Текст скопійовано — встав його в чат",passed:"Склав!",result:"Мій результат"},
- en:{lvlQ:"Where shall we start?",lvlHint:"You can change it anytime with “Change” above the lesson.",lvlNew:"I'm just starting",lvlNewS:"Level A1.1 from the first words",lvlKnow:"I already know A1.1 basics",lvlKnowS:"Level test for A1.2 (15 questions)",rateQ:"Enjoying Leren.be?",rateT:"Rate the app on Google Play. It helps other learners in Belgium find it.",rateYes:"⭐ Rate",rateLater:"Later",share:"Share",shareTxt:(t,p)=>"I passed “"+t+"” with "+p+"% on Leren.be 🇧🇪 Learning Dutch: ",shareTry:(t,p)=>"My result on “"+t+"”: "+p+"% on Leren.be 🇧🇪 Learning Dutch: ",copied:"Text copied — paste it in a chat",passed:"Passed!",result:"My result"},
- fr:{lvlQ:"Par où commencer ?",lvlHint:"Tu peux changer à tout moment avec « Changer » au-dessus de la leçon.",lvlNew:"Je débute",lvlNewS:"Niveau A1.1 dès les premiers mots",lvlKnow:"Je connais déjà les bases A1.1",lvlKnowS:"Test de niveau A1.2 (15 questions)",rateQ:"Leren.be te plaît ?",rateT:"Note l'appli sur Google Play. Ça aide d'autres apprenants en Belgique à la trouver.",rateYes:"⭐ Noter",rateLater:"Plus tard",share:"Partager",shareTxt:(t,p)=>"J'ai réussi « "+t+" » avec "+p+" % sur Leren.be 🇧🇪 J'apprends le néerlandais : ",shareTry:(t,p)=>"Mon résultat à « "+t+" » : "+p+" % sur Leren.be 🇧🇪 J'apprends le néerlandais : ",copied:"Texte copié — colle-le dans une discussion",passed:"Réussi !",result:"Mon résultat"},
- ar:{lvlQ:"من أين نبدأ؟",lvlHint:"يمكنك التغيير في أي وقت عبر «تغيير» فوق الدرس.",lvlNew:"أنا مبتدئ",lvlNewS:"المستوى A1.1 من الكلمات الأولى",lvlKnow:"أعرف أساسيات A1.1",lvlKnowS:"اختبار المستوى A1.2 (15 سؤالًا)",rateQ:"هل يعجبك Leren.be؟",rateT:"قيّم التطبيق في Google Play، فهذا يساعد متعلمين آخرين في بلجيكا على إيجاده.",rateYes:"⭐ قيّم",rateLater:"لاحقًا",share:"مشاركة",shareTxt:(t,p)=>"نجحت في «"+t+"» بنسبة "+p+"% على Leren.be 🇧🇪 أتعلّم الهولندية: ",shareTry:(t,p)=>"نتيجتي في «"+t+"»: "+p+"% على Leren.be 🇧🇪 أتعلّم الهولندية: ",copied:"تم نسخ النص — الصقه في محادثة",passed:"نجحت!",result:"نتيجتي"}
+ uk:{lvlQ:"З чого почнемо?",lvlHint:"Можна змінити будь-коли через «Змінити» над уроком.",lvlNew:"Я тільки починаю",lvlNewS:"Рівень A1.1 з перших слів",lvlKnow:"Я вже знаю основи A1.1",lvlKnowS:"Тест на рівень A1.2 ({n} питань)",rateQ:"Подобається Leren.be?",rateT:"Оціни застосунок у Google Play. Це допоможе іншим українцям у Бельгії його знайти.",rateYes:"⭐ Оцінити",rateLater:"Пізніше",share:"Поділитися",shareTxt:(t,p)=>"Я склав «"+t+"» на "+p+" % у Leren.be 🇧🇪 Вчу нідерландську: ",shareTry:(t,p)=>"Мій результат «"+t+"»: "+p+" % у Leren.be 🇧🇪 Вчу нідерландську: ",copied:"Текст скопійовано — встав його в чат",passed:"Склав!",result:"Мій результат"},
+ en:{lvlQ:"Where shall we start?",lvlHint:"You can change it anytime with “Change” above the lesson.",lvlNew:"I'm just starting",lvlNewS:"Level A1.1 from the first words",lvlKnow:"I already know A1.1 basics",lvlKnowS:"Level test for A1.2 ({n} questions)",rateQ:"Enjoying Leren.be?",rateT:"Rate the app on Google Play. It helps other learners in Belgium find it.",rateYes:"⭐ Rate",rateLater:"Later",share:"Share",shareTxt:(t,p)=>"I passed “"+t+"” with "+p+"% on Leren.be 🇧🇪 Learning Dutch: ",shareTry:(t,p)=>"My result on “"+t+"”: "+p+"% on Leren.be 🇧🇪 Learning Dutch: ",copied:"Text copied — paste it in a chat",passed:"Passed!",result:"My result"},
+ fr:{lvlQ:"Par où commencer ?",lvlHint:"Tu peux changer à tout moment avec « Changer » au-dessus de la leçon.",lvlNew:"Je débute",lvlNewS:"Niveau A1.1 dès les premiers mots",lvlKnow:"Je connais déjà les bases A1.1",lvlKnowS:"Test de niveau A1.2 ({n} questions)",rateQ:"Leren.be te plaît ?",rateT:"Note l'appli sur Google Play. Ça aide d'autres apprenants en Belgique à la trouver.",rateYes:"⭐ Noter",rateLater:"Plus tard",share:"Partager",shareTxt:(t,p)=>"J'ai réussi « "+t+" » avec "+p+" % sur Leren.be 🇧🇪 J'apprends le néerlandais : ",shareTry:(t,p)=>"Mon résultat à « "+t+" » : "+p+" % sur Leren.be 🇧🇪 J'apprends le néerlandais : ",copied:"Texte copié — colle-le dans une discussion",passed:"Réussi !",result:"Mon résultat"},
+ ar:{lvlQ:"من أين نبدأ؟",lvlHint:"يمكنك التغيير في أي وقت عبر «تغيير» فوق الدرس.",lvlNew:"أنا مبتدئ",lvlNewS:"المستوى A1.1 من الكلمات الأولى",lvlKnow:"أعرف أساسيات A1.1",lvlKnowS:"اختبار المستوى A1.2 ({n} سؤالًا)",rateQ:"هل يعجبك Leren.be؟",rateT:"قيّم التطبيق في Google Play، فهذا يساعد متعلمين آخرين في بلجيكا على إيجاده.",rateYes:"⭐ قيّم",rateLater:"لاحقًا",share:"مشاركة",shareTxt:(t,p)=>"نجحت في «"+t+"» بنسبة "+p+"% على Leren.be 🇧🇪 أتعلّم الهولندية: ",shareTry:(t,p)=>"نتيجتي في «"+t+"»: "+p+"% على Leren.be 🇧🇪 أتعلّم الهولندية: ",copied:"تم نسخ النص — الصقه في محادثة",passed:"نجحت!",result:"نتيجتي"}
 };
 const growU=()=>GROW_UI[uiLang]||GROW_UI.uk;
 try{if(document.referrer.startsWith("android-app://"))lsSet("leren_twa",true)}catch(e){}
@@ -4364,7 +4366,7 @@ function firstRun(){
   m.dataset.lock="1";
   panel.append(el("h2","goal-title",g.lvlQ),el("p","goal-hint",g.lvlHint));
   const list=el("div","goal-list");
-  [[g.lvlNew,g.lvlNewS,false],[g.lvlKnow,g.lvlKnowS,true]].forEach(([t,sub,test])=>{
+  [[g.lvlNew,g.lvlNewS,false],[g.lvlKnow,g.lvlKnowS.replace("{n}",String(TOETS.find(t=>t.kind==="leveltest"&&t.unlocks==="a12")?.questions.length||0)),true]].forEach(([t,sub,test])=>{
    const b=el("button","opt goal-opt");b.type="button";b.append(el("strong","",t),el("span","",sub));
    b.onclick=()=>{lsSet("leren_level_asked",true);pendingLevelTest=test;close();setTimeout(()=>pickCharPopup(startTour),250)};list.appendChild(b)});
   panel.appendChild(list);
@@ -4694,12 +4696,12 @@ function gameDone(id,xp){
 }
 function gHead(title,sub,keep){
  if(!keep)gStop();cardOwner="games";
- $("prog").textContent=title;$("rnd").textContent=sub||"";$("barfill").style.width="0%";
+ $("prog").textContent=title;$("rnd").textContent=sub||"";gBar(0);
  const card=$("card");card.replaceChildren();
  const top=el("div","g-top");const back=el("button","g-back",gU().back);back.type="button";back.onclick=renderGamesHome;top.appendChild(back);card.appendChild(top);
  return card;
 }
-function gBar(p){$("barfill").style.width=Math.round(Math.max(0,Math.min(1,p))*100)+"%"}
+function gBar(p){const value=String(Math.round(Math.max(0,Math.min(1,p))*100));$("barfill").style.width=value+"%";$("barfill").parentElement.setAttribute("aria-valuenow",value)}
 function speakSeq(lines,i=0){ // dialogue with two voices
  try{const s=window.speechSynthesis;if(!s)return;if(audioEl){audioEl.pause();audioEl=null}
   const voices=s.getVoices().filter(v=>v.lang.toLowerCase().startsWith("nl"));
@@ -4911,7 +4913,7 @@ th:first-child,td:first-child{width:31%}.fold{display:flex;justify-content:flex-
 </style></head><body><h1>📄 ${esc(u.pTitle)}</h1><div class="f">${esc(u.formula)}</div><p>${esc(u.pHow)}</p>
 <div class="fold"><span>✂ ${esc(u.foldL)}</span><span>✂ ${esc(u.foldL)}</span><span>✂ ${esc(u.foldL)}</span></div>
 <table>${head}${blank}</table>
-<div class="pb"></div><h1>✅ ${esc(u.pKey)}</h1><table class="key">${head}${key}</table><script src="./modules/belgium-lab/lab.js" defer><\/script>
+<div class="pb"></div><h1>✅ ${esc(u.pKey)}</h1><table class="key">${head}${key}</table>
 </body></html>`;
  let fr=document.getElementById("ksFrame");if(fr)fr.remove();
  fr=document.createElement("iframe");fr.id="ksFrame";fr.title=u.print;fr.style.cssText="position:fixed;right:0;bottom:0;width:0;height:0;border:0;visibility:hidden";
@@ -5868,7 +5870,7 @@ const UPD_UI={uk:{t:"Вийшла нова версія застосунку",ve
  fr:{t:"Une nouvelle version de l’application est disponible",ver:"version",go:"Mettre à jour",done:"✓ Application mise à jour vers la version "},
  ar:{t:"يتوفر إصدار جديد من التطبيق",ver:"الإصدار",go:"تحديث",done:"✓ تم تحديث التطبيق إلى الإصدار "}};
 const updU=()=>UPD_UI[uiLang]||UPD_UI.uk;
-async function swVersion(){try{const t=await (await fetch("sw.js",{cache:"no-store"})).text();return (t.match(/leren-be-v(\d+)/)||[])[1]||""}catch(e){return ""}}
+async function swVersion(){try{const t=await (await fetch("sw.js?version-check="+Date.now(),{cache:"no-store"})).text();return (t.match(/leren-be-v(\d+)/)||[])[1]||""}catch(e){return ""}}
 async function showUpdateBar(){
  if($("updBar"))return;const u=updU(),v=await swVersion();
  const bar=el("div","upd-bar");bar.id="updBar";bar.setAttribute("role","status");
@@ -6046,6 +6048,6 @@ setTimeout(firstRun,600);
    <!-- LEREN.BE — МОДУЛЬ ДИФТОНГІВ -->
 <script src="./modules/diphthongs/widget.js" defer></script>
 <!-- Cloudflare Web Analytics (cookieless visit statistics) --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "3149b6230dac4574be45cc1c1a12cdbd"}'></script><!-- End Cloudflare Web Analytics -->
-<script src="./modules/belgium-lab/lab.js" defer></script>
+
 </body>
 </html>

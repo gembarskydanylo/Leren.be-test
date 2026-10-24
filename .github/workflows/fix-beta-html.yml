@@ -1,39 +1,28 @@
-name: Fix beta page script parsing
+name: Beta checks
 on:
   push:
+    branches: [main]
     paths:
+      - '**.html'
+      - '**.js'
+      - '**.cjs'
       - '.github/workflows/fix-beta-html.yml'
+  pull_request:
   workflow_dispatch:
 permissions:
-  contents: write
+  contents: read
 jobs:
-  fix:
+  test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Escape embedded closing script tag
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Check app, beta lessons and offline dependencies
+        shell: bash
         run: |
-          python3 - <<'PY'
-          from pathlib import Path
-          p=Path('index.html')
-          s=p.read_text()
-          old='<script src="./modules/belgium-lab/lab.js" defer></script>'
-          new='<script src="./modules/belgium-lab/lab.js" defer><' + '/script>'
-          # An embedded HTML template literal cannot contain a literal closing script tag.
-          new='<script src="./modules/belgium-lab/lab.js" defer><\\/script>'
-          if old not in s:
-              print('Target not found; no changes')
-          else:
-              s=s.replace(old,new)
-              p.write_text(s)
-              print('Escaped embedded script closing tag')
-          PY
-      - name: Commit beta fix
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add index.html
-          if ! git diff --cached --quiet; then
-            git commit -m "Fix HTML parsing and raw JS rendering on beta"
-            git push origin HEAD:main
-          fi
+          set -e
+          for test in tests/*.cjs; do
+            node "$test"
+          done

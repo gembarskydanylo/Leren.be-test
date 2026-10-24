@@ -33,7 +33,7 @@ rp.view='lesson';timers[0]();assert.equal(steps,0,'leaving game cancels delayed 
 // Cache entries and manifest assets must all exist locally.
 const sw=fs.readFileSync(path.join(root,'sw.js'),'utf8');new vm.Script(sw);
 const appFiles=JSON.parse(sw.match(/const APP_FILES = (\[[^;]+\]);/)[1]);
-for(const file of appFiles)assert(fs.existsSync(path.join(root,file)),`Missing offline asset: ${file}`);
+for(const file of appFiles)assert(fs.existsSync(path.join(root,file.split("?")[0])),`Missing offline asset: ${file}`);
 const manifest=JSON.parse(fs.readFileSync(path.join(root,'manifest.webmanifest'),'utf8'));
 for(const item of [...manifest.icons,...manifest.screenshots])assert(fs.existsSync(path.join(root,item.src)),`Missing manifest asset: ${item.src}`);
 (async()=>{

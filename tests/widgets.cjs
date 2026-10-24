@@ -56,7 +56,7 @@ async function cache(){
  listeners.install({waitUntil:p=>promise=p});await promise;
  listeners.activate({waitUntil:p=>promise=p});await promise;
  for(const file of ['clock/widget.html','clock/clock.js','clock/widget.js','diphthongs/widget.html','diphthongs/widget.css','diphthongs/widget.js','diphthongs/words.json'])assert(cacheFiles.includes('./modules/'+file));
- assert.deepEqual(removed,['leren-be-v79']);for(const file of cacheFiles)assert(fs.existsSync(file));
+ assert.deepEqual(removed,['leren-be-v79']);for(const file of cacheFiles)assert(fs.existsSync(file.split("?")[0]));
  assert(!read('index.html').includes('frame.srcdoc='));
  console.log('PASS: new cache preloads all lesson dependencies, removes old app cache, preserves unrelated caches; clock has one HTML source');
 }
