@@ -11,13 +11,17 @@
  };
  function mount(root,bridge){
   const course=LerenLearningPath.catalog(bridge.data,bridge.curriculum),model=LerenLearningPath.create(course,{getItem:k=>localStorage.getItem(k),setItem:(k,v)=>localStorage.setItem(k,v)});
-  const languages=['uk','en','fr','ar'];let lang=bridge.language(),screen=model.state.placement?'placement':model.state.session?'lesson':'home',feedback=null;
+  const conversation=LerenLessonConversation.create(course,{getItem:k=>localStorage.getItem(k),setItem:(k,v)=>localStorage.setItem(k,v)});
+  const languages=['uk','en','fr','ar'];let lang=bridge.language(),screen=conversation.state.open?'talk':model.state.placement?'placement':model.state.session?'lesson':'home',feedback=null;
+  const talkText=key=>LerenLessonConversation.tr(key,lang);
+  const talkView=LerenLessonConversation.createView(conversation,{...bridge,render:()=>render(),lessonWords:id=>(model.lesson(id)?.ids||[]).map(id=>course.cards.get(id).nl),nextLesson(){const s=model.state.session;if(s&&s.kind==='lesson'&&(s.phase<2||s.index<s.ids.length)){go('lesson');return}const l=model.continueRoute();go(l?'intro':'home')}});
+  function beginTalk(id){if(conversation.state.lesson===id&&conversation.state.index<3)conversation.resume();else conversation.begin(id);talkView.clear();go('talk')}
   const t=k=>copy[lang][k],word=id=>course.cards.get(id),translation=w=>w[lang]||w.uk,title=ch=>(names[ch.id]||['📖',ch.nl,ch.nl,ch.nl,ch.nl])[languages.indexOf(lang)+1],icon=ch=>(names[ch.id]||['📖'])[0];
   const node=(tag,cls,text)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(text!=null)e.textContent=text;return e};
   const button=(label,fn,primary=false)=>{const b=node('button',primary?'lp-button lp-primary':'lp-button',label);b.type='button';b.onclick=fn;return b};
   const lessonTitle=l=>(bridge.lessonLabel(l.tab,lang)||l.tab)+(l.parts>1?' · '+t('part')+' '+l.part+'/'+l.parts:'');
   const chapter=l=>course.chapters.find(c=>c.id===l.chapter);
-  function go(next){bridge.stop();feedback=null;screen=next;render();root.scrollIntoView({block:'start',behavior:'smooth'})}
+  function go(next){talkView.cancel();if(screen==='talk'&&next!=='talk')conversation.pause();bridge.stop();feedback=null;screen=next;render();root.scrollIntoView({block:'start',behavior:'smooth'})}
   function begin(l){const s=model.state.session;if(s?.kind==='lesson'&&s.lesson===l.id&&(s.phase<2||s.index<s.ids.length)){go('lesson');return}model.begin(l.id);go('intro')}
   function shell(){
    root.replaceChildren();root.lang=lang;root.dir=lang==='ar'?'rtl':'ltr';
@@ -40,7 +44,9 @@
     else box.append(node('h3','',t('allDone')),node('p','',t('allHint')));
     root.appendChild(box);
    }
+   if(conversation.state.lesson&&conversation.state.index<3){const box=node('div','lp-review');box.append(node('h3','',talkText('talk')),button(talkText('resume'),()=>{conversation.resume();go('talk')},true));root.appendChild(box)}
    if(model.state.mistakes.length){const box=node('div','lp-review');box.append(node('h3','',t('review')+' · '+model.state.mistakes.length),node('p','',t('reviewHint')),button(t('reviewBtn'),()=>{model.beginReview();go('lesson')}));root.appendChild(box)}
+   const talkLesson=model.recommended()||course.lessons[0];if(talkLesson&&!(conversation.state.lesson&&conversation.state.index<3)){const box=node('div','lp-review');box.append(node('h3','',talkText('talk')),node('p','lp-caption',talkText('guided')),button(talkText('try'),()=>beginTalk(talkLesson.id)));root.appendChild(box)}
    root.append(node('h2','lp-map-title',t('map')),node('p','lp-caption',t('optional')));
    for(const level of ['A1.1','A1.2']){
     const section=node('section','lp-map');section.appendChild(node('h3','lp-level',level+' · A1'));
@@ -81,9 +87,10 @@
     box.append(node('h3','',t(result.kind==='lesson'?'result':'resultReview')),node('p','lp-result',result.correct+' / '+result.total),node('p','',t(result.correct/result.total>=.8?'good':'help')));
     if(gain)box.appendChild(node('p','lp-points','+'+gain+' '+t('points')));
     box.appendChild(node('p','',t('learned')));const list=node('ul');s.ids.forEach(id=>list.appendChild(node('li','',word(id).nl+' — '+translation(word(id)))));box.appendChild(list);
+    if(result.kind==='lesson')box.appendChild(button(talkText('talk'),()=>beginTalk(result.id),true));
     if(model.state.mistakes.length)box.appendChild(button(t('reviewBtn'),()=>{model.beginReview();go('lesson')}));
     if(result.kind==='lesson'){const ch=chapter(model.lesson(result.id)),stats=model.stats(ch.id);if(stats.done===stats.total){box.append(node('h3','',t('assess')),node('p','',t('assessHint')),button(t('openTest'),()=>bridge.assess(ch.id)))}}
-    box.appendChild(button(t('nextLesson'),()=>{const l=model.continueRoute();go(l?'intro':'home')},true));
+    box.appendChild(button(t('nextLesson'),()=>{const l=model.continueRoute();go(l?'intro':'home')},result.kind!=='lesson'));
     if(result.kind==='lesson')box.appendChild(button(t('repeat'),()=>begin(model.lesson(result.id))));
     root.appendChild(box);note();return;
    }
@@ -109,8 +116,8 @@
    }
    box.appendChild(button(t('skip'),()=>{model.start();begin(course.lessons[0])}));root.appendChild(box);
   }
-  function render(){bridge.stop();lang=languages.includes(lang)?lang:'uk';shell();if(screen==='home')hero();else if(screen==='intro')intro();else if(screen==='placement')placement();else exercises()}
-  render();return {refresh(){lang=bridge.language();render()},open(){go(model.state.placement?'placement':model.state.session?'lesson':'home')},model};
+  function render(){talkView.cancel();bridge.stop();lang=languages.includes(lang)?lang:'uk';shell();if(screen==='home')hero();else if(screen==='intro')intro();else if(screen==='placement')placement();else if(screen==='talk')talkView.render(root,lang);else exercises()}
+  render();return {refresh(){lang=bridge.language();render()},open(){go(conversation.state.open?'talk':model.state.placement?'placement':model.state.session?'lesson':'home')},pauseSpeech(){talkView.cancel()},model};
  }
  globalThis.LerenLearningPath.mount=mount;
 })();

@@ -882,7 +882,7 @@ button.om-chip{cursor:pointer}button.om-chip:hover{border-color:var(--role-v)}
   }
 }
 </style>
-<link rel="stylesheet" href="./modules/learning-path/style.css?v=89">
+<link rel="stylesheet" href="./modules/learning-path/style.css?v=90">
 </head>
 <body>
 <main data-view="lesson">
@@ -1008,8 +1008,11 @@ button.om-chip{cursor:pointer}button.om-chip:hover{border-color:var(--role-v)}
 
 
 <script src="./course-curriculum.js?v=87"></script>
+<script src="./modules/lesson-conversation/content.js?v=90"></script>
+<script src="./modules/lesson-conversation/core.js?v=90"></script>
+<script src="./modules/lesson-conversation/ui.js?v=90"></script>
 <script src="./modules/learning-path/core.js?v=89"></script>
-<script src="./modules/learning-path/ui.js?v=89"></script>
+<script src="./modules/learning-path/ui.js?v=90"></script>
 <script>
 "use strict";
 const $=id=>document.getElementById(id);
@@ -4259,6 +4262,7 @@ function applyView(){
 function setView(v){
  if(v==="path"&&targetLang!=="nl")v="lesson";
  if(window.LerenLessonWidgets)window.LerenLessonWidgets.stop();
+ if(learningPath)learningPath.pauseSpeech();
  const prev=view;view=v;if(typeof gStop==="function")gStop();
  if(prev==="games"&&v!=="games"){if(gState&&gState.chat)aiRemember(gState);gState=null;}
  const wasGames=cardOwner==="games";
@@ -5788,7 +5792,7 @@ const ACCT_UI={
   delQ:"حذف حسابك وكل البيانات السحابية؟ يبقى التقدّم على هذا الجهاز.",deleted:"تم حذف الحساب والبيانات السحابية.",err:"لم ينجح ذلك. تحقّق من الاتصال وحاول مرة أخرى.",
   keepQ:"في حسابك تقدّم سابق: {c} نقطة. على هذا الجهاز: {l} نقطة.\n\nموافق: استخدم التقدّم من الحساب.\nإلغاء: احتفظ بتقدّم هذا الجهاز (سيحل محل بيانات الحساب)."}};
 const acctU=()=>ACCT_UI[uiLang]||ACCT_UI.en;
-const SYNC_SKIP=new Set(["leren_ai_endpoint","leren_push","leren_rate","leren_twa","leren_voice_force_tts","leren_sync_at","leren_acct","leren_acct_email"]);
+const SYNC_SKIP=new Set(["leren_ai_endpoint","leren_push","leren_rate","leren_twa","leren_voice_force_tts","leren_sync_at","leren_acct","leren_acct_email","leren_path_talk_v1"]);
 const syncable=k=>/^(poly_|leren_)/.test(k)&&!SYNC_SKIP.has(k)&&!k.startsWith("leren_voice_"); // voices and push are per device
 function syncSnapshot(){const o={};for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(syncable(k))o[k]=localStorage.getItem(k)}return o}
 function syncApply(o){if(!o||typeof o!=="object"||Array.isArray(o))throw new Error("Invalid cloud progress");Object.keys(syncSnapshot()).forEach(k=>{if(!(k in o))localStorage.removeItem(k)});Object.entries(o).forEach(([k,v])=>{if(syncable(k)&&typeof v==="string")localStorage.setItem(k,v)})}
@@ -5874,6 +5878,11 @@ function initLearningPath(){
   setLanguage:lang=>{uiLang=lang;saveStore();updateHeader()},
   speak:text=>window.LerenLessonWidgets.speak(text,false),stop:()=>window.LerenLessonWidgets.stop(),
   free:()=>{setView("lesson");newRound()},
+  person:()=>{const id=charId();return {name:id==="dafna"?"Dafna":"Peter",image:"./img/chars/"+id+".webp"}},
+  canListen:()=>!!(window.SpeechRecognition||window.webkitSpeechRecognition),
+  listen:(ok,fail)=>listenOnce(ok,fail,"nl-BE"),
+  stopListening:()=>{if(gRec)gRec.abort()},
+  ai:chapter=>{const ids={comm:"buren",people:"buren",nums:"super",travelTime:"station",forms:"gemeente",health:"huisarts",food:"cafe",shopping:"super",travel:"station",service:"super",wonen:"gemeente",contact:"gemeente"};setView("games");aiStart(SCENES.find(sc=>sc.id===(ids[chapter]||"buren")))},
   answer:(id,ok,final)=>{if(!final)return;const s=stateFor(id);s.seen++;if(ok){s.correct++;s.streak++;s.due=Date.now()+864e5}else{s.wrong++;s.streak=0;s.due=Date.now()}s.known=s.streak>=2;saveStore();updateStats()},
   complete:recordPathResult,
   assess:id=>{const test=TOETS.find(t=>t.id==="course_"+id+"_v1");if(!test)return;curLevel=test.lvl;setView("toets");toetsId=test.id;toetsQ=0;toetsRight=0;toetsLocked=false;nextToetsQuestion()}

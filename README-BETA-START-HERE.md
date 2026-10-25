@@ -1,3 +1,9 @@
+# Поточні тести та майбутнє перенесення
+
+- [Журнал усіх змін і перевірок](TESTING-JOURNAL.md)
+- [План перенесення в основний проєкт](PRODUCTION-TRANSFER.md)
+- [Навчальний маршрут](GUIDED-LEARNING-PREVIEW.md)
+
 # leren.be — FULL BETA for GitHub Pages
 
 This archive contains the full October 23 application plus the language-first daily-learning beta overlay. It is not a production release.
