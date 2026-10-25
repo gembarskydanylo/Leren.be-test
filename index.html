@@ -882,7 +882,7 @@ button.om-chip{cursor:pointer}button.om-chip:hover{border-color:var(--role-v)}
   }
 }
 </style>
-<link rel="stylesheet" href="./modules/learning-path/style.css?v=91">
+<link rel="stylesheet" href="./modules/learning-path/style.css?v=92">
 </head>
 <body>
 <main data-view="lesson">
@@ -1011,6 +1011,8 @@ button.om-chip{cursor:pointer}button.om-chip:hover{border-color:var(--role-v)}
 <script src="./modules/lesson-conversation/content.js?v=90"></script>
 <script src="./modules/lesson-conversation/core.js?v=90"></script>
 <script src="./modules/lesson-conversation/ui.js?v=90"></script>
+<script src="./modules/ai-coach/core.js?v=92"></script>
+<script src="./modules/ai-coach/ui.js?v=92"></script>
 <script src="./modules/personal-coach/core.js?v=91"></script>
 <script src="./modules/personal-coach/ui.js?v=91"></script>
 <script src="./modules/learning-path/core.js?v=89"></script>
@@ -5674,15 +5676,15 @@ function aiConsent(title,go){
 }
 function aiStart(scene){
  if(!aiConsent(cx(AI_TITLE[targetLang]||AI_TITLE.nl),()=>aiStart(scene)))return;
- gState={chat:true,msgs:[],busy:false,scene:targetLang==="nl"&&scene&&scene.id||null};aiRender();aiSend(null);
+ gState={chat:true,msgs:[],busy:false,draft:"",target:targetLang,lang:uiLang,scene:targetLang==="nl"&&scene&&scene.id||null};aiRender();aiSend(null);
 }
 function aiRender(){
- const g=aiU(),s=gState,card=gHead(cx(AI_TITLE[targetLang]||AI_TITLE.nl),g.sub[targetLang]||g.sub.nl);
+ const g=aiU(),s=gState;if(!aiCurrent(s))return;const card=gHead(cx(AI_TITLE[targetLang]||AI_TITLE.nl),g.sub[targetLang]||g.sub.nl);
  if(s.scene){const b=el("div","st-banner sm");b.innerHTML=sceneArt(s.scene);card.appendChild(b)}
  const chat=el("div","g-chat ai-chat");
  s.msgs.forEach(m=>{
   if(m.role==="user"){const b=el("div","g-bub me");b.appendChild(tgt(el("span","",m.content)));chat.appendChild(b);
-   if(m.fix){const f=el("div","ai-fix");f.append(el("small","",g.fix));const c=tgt(el("b","",m.fix.corrected));c.onclick=()=>say(m.fix.corrected);f.append(c);if(m.fix.explanation)f.append(el("span","",m.fix.explanation));chat.appendChild(f)}
+   if(m.fix){const f=el("div","ai-fix");f.append(el("small","",g.fix));const c=tgt(el("b","",m.fix.corrected));c.onclick=()=>say(m.fix.corrected);f.append(c);if(m.fix.explanation)f.append(el("span","",m.fix.explanation));const practise=el("button","btn",LerenAICoach.tr("practise",uiLang));practise.type="button";practise.disabled=s.busy||s.helpBusy||s.failed;practise.onclick=()=>{if(!aiCurrent(s)||s.busy||s.helpBusy)return;s.practice={corrected:m.fix.corrected,draft:"",status:""};s.help=null;aiRender()};f.appendChild(practise);chat.appendChild(f)}
   }else{const row=el("div","ai-row");const av=el("div","st-av xs");av.innerHTML=charSvg("happy");const col=el("div","ai-col");
    const b=el("button","g-bub them");b.type="button";b.appendChild(tgt(el("span","",m.content)));b.onclick=()=>say(m.content); // tap = listen
    col.appendChild(b);
@@ -5694,29 +5696,47 @@ function aiRender(){
  });
  if(s.busy){const row=el("div","ai-row");const av=el("div","st-av xs");av.innerHTML=charSvg("think");row.append(av,el("div","g-bub them ai-typing","• • •"));chat.appendChild(row)}
  {const mb0=aiMemoryBox(aiRender);if(mb0)card.appendChild(mb0)}card.appendChild(chat);
- if(s.err)card.appendChild(el("p","st-fb bad",s.err));
- const mb=micBox(alts=>aiSend(alts[0],alts));const f=mb.querySelector(".g-type");if(f){f.hidden=false;f.classList.add("ai-type");
+ LerenAICoach.tools(card,s,{lang:uiLang,target:targetLang,limit:g.limit,retry:()=>aiSend(null),edit:()=>{if(s.pendingUser&&s.msgs.at(-1)===s.pendingUser){s.msgs.pop();s.draft=s.pendingUser.content;s.pendingUser=null}s.failed=false;s.errorCode="";aiRender()},help:corrected=>aiHelp(corrected),use:text=>{s.draft=text;s.draftAlts=null;s.recognized=false;s.practice=null;s.help=null;aiRender()},close:()=>{s.practice=null;s.help=null;aiRender()}});
+ const mb=micBox(alts=>{if(!aiCurrent(s)||s.busy||s.helpBusy||s.failed||s.practice)return;s.draft=String(alts[0]||"").slice(0,300);s.draftAlts=alts;s.recognized=true;aiRender()});const f=mb.querySelector(".g-type");if(f){f.hidden=false;f.classList.add("ai-type");
   const tb=mb.querySelector(".g-mic-row .btn:not(.g-mic-btn)");if(tb)tb.hidden=true;
-  const inp=f.querySelector("input");if(inp)inp.placeholder=({uk:"Напиши повідомлення…",en:"Type a message…",fr:"Écris un message…",ar:"اكتب رسالة…"})[uiLang]||"Type a message…";
+  const inp=f.querySelector("input");if(inp){inp.value=s.draft||"";inp.maxLength=300;inp.oninput=()=>{s.draft=inp.value;s.draftAlts=null;s.recognized=false};f.onsubmit=e=>{e.preventDefault();if(aiCurrent(s))aiSend(inp.value,s.draftAlts)}}
+  if(inp)inp.placeholder=({uk:"Напиши повідомлення…",en:"Type a message…",fr:"Écris un message…",ar:"اكتب رسالة…"})[uiLang]||"Type a message…";
   const sb=f.querySelector("button[type=submit]");if(sb){sb.textContent="➤";sb.setAttribute("aria-label",({uk:"Надіслати",en:"Send",fr:"Envoyer",ar:"إرسال"})[uiLang]||"Send")}}
+ for(const control of mb.querySelectorAll("button,input"))control.disabled=!!(s.busy||s.helpBusy||s.failed||s.practice);
+ if(s.recognized){const note=mb.querySelector(".g-heard");if(note)note.textContent=LerenAICoach.tr("heard",uiLang)}
  card.appendChild(mb);
  const key=s.msgs.length+(s.busy?"b":"");const last=chat.lastElementChild;if(last&&s.seen!==key){s.seen=key;last.scrollIntoView({block:"nearest"})}
 }
-async function aiSend(text,alts){
- const s=gState;if(s.busy)return;if(text)s.msgs.push({role:"user",content:String(text).trim().slice(0,300),alts:alts||null});
- s.busy=true;s.err="";aiRender();
+function aiCurrent(s){return !!s&&s.chat&&gState===s&&view==="games"&&s.target===targetLang&&s.lang===uiLang}
+async function aiHelp(corrected){
+ const s=gState;if(!aiCurrent(s)||s.busy||s.helpBusy||s.failed)return;
+ const question=[...s.msgs].reverse().find(m=>m.role==="assistant")?.content;if(!question&&!corrected)return;
+ s.helpBusy=true;s.helpError=false;aiRender();
+ const profile=aiProfile(),target=s.target,lang=s.lang;
  try{
-  const r=await fetch(AI_ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({mode:"chat",target:targetLang,lang:uiLang,level:aiProfile().level,scene:s.scene,char:charId(),profile:aiProfile(),memory:aiMemory(),messages:aiMsgs(s.msgs)})});
-  const j=await r.json().catch(()=>({}));
-  if(r.status===429){s.busy=false;s.err=aiU().limit;aiRender();return}
-  const reply=j.reply||j.reply_nl;
-  if(!r.ok||!reply)throw new Error(j.error||("HTTP "+r.status));
-  const lastUser=[...s.msgs].reverse().find(m=>m.role==="user");
-  if(lastUser&&j.correction&&j.correction.corrected&&gNorm(j.correction.corrected)!==gNorm(lastUser.content)){lastUser.fix=j.correction;if(targetLang==="nl")logMistake(j.correction.corrected,j.correction.explanation||"")}
-  s.msgs.push({role:"assistant",content:reply,tr:j.translation||""});s.busy=false;aiRender();say(reply);
+  const data=await LerenAICoach.request(AI_ENDPOINT,{mode:"ask",target,lang,level:profile.level,char:charId(),profile,memory:aiMemory(),messages:[{role:"user",content:LerenAICoach.helpPrompt({target,question,corrected})}]});
+  if(!aiCurrent(s))return;if(typeof data.answer!=="string"||!data.answer.trim())throw Error("format");
+  s.help={answer:data.answer.slice(0,1500),examples:LerenAICoach.examples(data,target)};
+ }catch(e){if(!aiCurrent(s))return;s.helpError=true}
+ finally{ s.helpBusy=false;if(aiCurrent(s))aiRender() }
+}
+async function aiSend(text,alts){
+ const s=gState;if(!aiCurrent(s)||s.busy||s.helpBusy||s.practice)return;
+ const typed=typeof text==="string"?text.trim().slice(0,300):"";
+ if(typeof text==="string"&&!typed)return;
+ if(typed){if(s.failed)return;const user={role:"user",content:typed,alts:alts||null};s.msgs.push(user);s.pendingUser=user;s.draft="";s.draftAlts=null;s.recognized=false;s.help=null}
+ s.busy=true;s.failed=false;s.errorCode="";aiRender();
+ const profile=aiProfile(),target=s.target,lang=s.lang;
+ try{
+  const j=await LerenAICoach.request(AI_ENDPOINT,{mode:"chat",target,lang,level:aiProfile().level,scene:s.scene,char:charId(),profile,memory:aiMemory(),messages:aiMsgs(s.msgs)});
+  if(!aiCurrent(s))return;
+  const reply=j.reply||j.reply_nl;if(typeof reply!=="string"||!reply.trim())throw Error("format");
+  const lastUser=s.pendingUser;
+  if(lastUser&&j.correction&&typeof j.correction.corrected==="string"&&j.correction.corrected.trim()&&gNorm(j.correction.corrected)!==gNorm(lastUser.content)){lastUser.fix={corrected:j.correction.corrected.slice(0,300),explanation:typeof j.correction.explanation==="string"?j.correction.explanation.slice(0,300):""};if(target==="nl")logMistake(lastUser.fix.corrected,lastUser.fix.explanation)}
+  s.msgs.push({role:"assistant",content:reply.slice(0,400),tr:typeof j.translation==="string"?j.translation.slice(0,400):""});s.pendingUser=null;s.busy=false;aiRender();say(reply.slice(0,400));
   const uc=s.msgs.filter(m=>m.role==="user").length;if(uc===5)gameDone("ai",30);
   if(uc>=2&&uc%3===2)aiRemember(s);
- }catch(e){s.busy=false;s.err=aiU().err;aiRender()}
+ }catch(e){s.busy=false;if(!aiCurrent(s))return;s.failed=true;s.errorCode=e.code||"network";aiRender()}
 }
 // ========== ASK {N}: questions about Dutch, English or French, answered in the interface language ==========
 function sayIn(text,lang){ // examples may be in another language than the one being studied
@@ -5781,7 +5801,7 @@ function renderMistakes(box){
  const list=el("div","pv-list");m.slice(0,6).forEach(x=>{const r=el("button","pv-row mk");r.type="button";const n=tgt(el("strong","","🔊 "+x.nl));r.append(n,el("span","",x.why||""));r.onclick=()=>say(x.nl);list.appendChild(r)});box.appendChild(list);
 }
 
-// ========== ACCOUNT (optional): Google sign-in; progress, settings and AI memory synced to Firestore users/{uid} ==========
+// ========== ACCOUNT (optional): Google sign-in; progress and settings synced to Firestore users/{uid} ==========
 // Without signing in nothing changes. Firebase is loaded only when the user signs in (or signed in before on this device).
 const FB_SDK="https://www.gstatic.com/firebasejs/10.12.2/";
 const ACCT_UI={
