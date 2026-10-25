@@ -50,6 +50,6 @@ assert.equal(uiModel.state.draft,'Hallo!','Recognising after playback must still
 const stale=recognizer;view.cancel();stale.ok(['late callback']);assert.equal(uiModel.state.draft,'Hallo!','Late microphone callbacks must not change the conversation');
 canListen=false;bridge.render();assert(!flat(root).some(e=>e.tag==='button'&&e.textContent==='🎤 Відповісти голосом'));assert(flat(root).some(e=>e.tag==='textarea'));
 for(const lang of api.langs){assert(api.tr('hint3',lang));assert(api.tr('unknown',lang));assert(api.tr('limits',lang))}
-assert(script.includes('"leren_path_talk_v1"]);'),'Conversation transcripts must be excluded from account sync');
+assert(script.includes('"leren_path_talk_v1",'),'Conversation transcripts must be excluded from account sync');
 const cache=JSON.parse(read('sw.js').match(/const APP_FILES = (\[[^;]+\]);/)[1]);for(const f of ['content','core','ui'])assert(cache.includes('./modules/lesson-conversation/'+f+'.js?v=90'));
 console.log(`PASS: ${turns} authored turns across 20 topics; four languages, seven correction patterns, sentence repetition and transfer, interrupted-conversation restoration, hints/assisted counts, duplicate/stale guards, speech-after-playback and stale microphone callbacks, text fallback, corrupt/blocked storage and offline assets`);

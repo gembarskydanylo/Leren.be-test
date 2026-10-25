@@ -1,0 +1,28 @@
+const assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm');
+const read=p=>fs.readFileSync(p,'utf8'),html=read('index.html'),script=html.match(/<script>\s*([\s\S]*?)<\/script>/)[1];
+const ctx=vm.createContext({console});vm.runInContext(read('modules/personal-coach/core.js'),ctx);const api=ctx.LerenPersonalCoach;
+const data={},storage={getItem:k=>data[k]||null,setItem:(k,v)=>data[k]=v},c=api.create(storage);
+assert.equal(c.settings().minutes,10);assert.equal(c.memory(),'');c.update({goal:'work',minutes:15});assert.equal(api.create(storage).settings().goal,'work');
+c.edit('I like cycling.');const old=c.ticket();c.forget();assert.equal(c.accept(old,'old notes'),false);assert.equal(c.memory(),'');
+const first=c.ticket(),second=c.ticket();assert.equal(c.accept(first,'older conversation'),false);assert(c.accept(second,'new notes'));assert.equal(c.memory(),'new notes');
+const pending=c.ticket();c.edit('My own corrected note');assert.equal(c.accept(pending,'automatic outdated note'),false);assert.equal(c.memory(),'My own corrected note');
+const toggle=c.ticket();c.update({enabled:false});assert.equal(c.accept(toggle,'restore'),false);assert.equal(c.memory(),'');assert.equal(c.ticket(),null);c.update({enabled:true});assert.equal(c.memory(),'');
+c.edit('a'.repeat(1000));assert.equal(c.memory().length,500);
+const blocked=api.create({getItem(){throw Error()},setItem(){throw Error()}});blocked.update({minutes:5});assert.equal(blocked.settings().minutes,5);assert.equal(blocked.persistent,false);
+const quota=api.create({getItem(){return null},setItem(){throw Error('quota')}});quota.update({minutes:15});assert.equal(quota.settings().minutes,15);quota.edit('temporary');assert.equal(quota.memory(),'temporary');
+for(const raw of ['null','[]','1','{']){data[api.KEY]=raw;assert.equal(api.create(storage).settings().minutes,10)}
+let session=null,mistakes=[],lesson={id:'next'};const model={state:{get session(){return session},get mistakes(){return mistakes},started:false},recommended:()=>lesson,stats:()=>({done:3,total:178})};
+c.update({minutes:5});assert.equal(c.plan(model).items[0].reason,'start');mistakes=['word'];assert.equal(c.plan(model).items[0].kind,'review');
+session={kind:'lesson',lesson:'paused',phase:1,index:1,ids:['a','b']};assert.equal(c.plan(model).items[0].kind,'resume');assert.equal(c.plan(model).items[0].lesson,'paused');
+c.update({minutes:15});const plan=c.plan(model);assert.equal(plan.items[1].locked,true);assert.deepEqual(Array.from(plan.items,x=>x.kind),['resume','review','talk']);
+const talk={state:{lesson:'saved-talk',index:1}};assert.equal(c.plan(model,talk).items[2].lesson,'saved-talk');session=null;mistakes=[];lesson=null;assert.equal(c.plan(model).items.length,0);
+const el=tag=>({tag,children:[],textContent:'',append(...x){this.children.push(...x)},appendChild(x){this.children.push(x)},setAttribute(){}});ctx.document={createElement:el};vm.runInContext(read('modules/personal-coach/ui.js'),ctx);const flat=e=>[e,...e.children.flatMap(flat)];
+for(const lang of ['uk','en','fr','ar']){const panel=api.memoryPanel(c,lang);assert(flat(panel).some(x=>x.tag==='textarea'));assert(api.tr('title',lang));}
+const panel=api.memoryPanel(c,'uk'),all=flat(panel),notes=all.find(x=>x.tag==='textarea');notes.value='<script>fictional note</script>';all.find(x=>x.tag==='button'&&x.textContent==='Зберегти нотатки').onclick();assert.equal(c.memory(),notes.value);assert.equal(notes.children.length,0);
+const profileRuntime=vm.createContext({personalCoach:c,targetLang:'nl',getUI:()=>({tabs:{all:'fallback'}}),store:{},allItems:()=>[],lsGet:()=>[],tab:'all',currentCat:'all',curLevel:'a11',learnedCount:()=>4,learningPath:{model:{recommended:()=>({id:'l',chapter:'later'}),course:{chapters:[{id:'later',level:'A1.2',nl:'Travel'}],cards:new Map([['weak',{nl:'trein'}]])},state:{mistakes:['weak']}}}});
+c.update({goal:'work'});vm.runInContext(script.slice(script.indexOf('function aiProfile(){'),script.indexOf('// Report an AI answer')),profileRuntime);const profile=profileRuntime.aiProfile();assert.equal(profile.level,'a12');assert.equal(profile.topic,'work: Travel');assert.equal(profile.weak[0],'trein');
+const syncLine=script.match(/const SYNC_SKIP=new Set\(([^;]+)\);/)[1];for(const key of ['leren_ai_memory','leren_coach_v1','leren_path_talk_v1'])assert(syncLine.includes('"'+key+'"'));
+assert(script.includes('personalCoach.accept(memoryTicket,j.memory)'));assert(script.includes('!personalCoach.settings().enabled'));assert(script.includes('level:aiProfile().level'));
+const files=JSON.parse(read('sw.js').match(/const APP_FILES = (\[[^;]+\]);/)[1]);for(const part of ['core','ui']){assert(files.includes('./modules/personal-coach/'+part+'.js?v=91'));assert(html.includes('./modules/personal-coach/'+part+'.js?v=91'));}
+// Run the actual asynchronous host memory function: forgetting while fetch is pending must win.
+(async()=>{let finish;const runtime=vm.createContext({personalCoach:c,AI_ENDPOINT:'test',targetLang:'nl',uiLang:'uk',aiMemory:()=>c.memory(),aiMsgs:x=>x,lsGet:()=>true,fetch:()=>new Promise(resolve=>finish=resolve)});vm.runInContext(script.slice(script.indexOf('async function aiRemember(s){'),script.indexOf('function aiMemoryBox(')),runtime);const task=runtime.aiRemember({msgs:[{role:'user',content:'fictional practice'}]});c.forget();finish({ok:true,json:async()=>({memory:'late notes'})});await task;assert.equal(c.memory(),'');console.log('PASS: local editable/disabled memory, forget-vs-late-request race, latest-conversation wins, four languages, blocked storage, progress-based 5/10/15 minute plans, unfinished lessons and conversations, no cloud sync and offline dependencies');})().catch(e=>{console.error(e);process.exitCode=1});

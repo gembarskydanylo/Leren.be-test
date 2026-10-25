@@ -882,7 +882,7 @@ button.om-chip{cursor:pointer}button.om-chip:hover{border-color:var(--role-v)}
   }
 }
 </style>
-<link rel="stylesheet" href="./modules/learning-path/style.css?v=90">
+<link rel="stylesheet" href="./modules/learning-path/style.css?v=91">
 </head>
 <body>
 <main data-view="lesson">
@@ -1011,8 +1011,10 @@ button.om-chip{cursor:pointer}button.om-chip:hover{border-color:var(--role-v)}
 <script src="./modules/lesson-conversation/content.js?v=90"></script>
 <script src="./modules/lesson-conversation/core.js?v=90"></script>
 <script src="./modules/lesson-conversation/ui.js?v=90"></script>
+<script src="./modules/personal-coach/core.js?v=91"></script>
+<script src="./modules/personal-coach/ui.js?v=91"></script>
 <script src="./modules/learning-path/core.js?v=89"></script>
-<script src="./modules/learning-path/ui.js?v=90"></script>
+<script src="./modules/learning-path/ui.js?v=91"></script>
 <script>
 "use strict";
 const $=id=>document.getElementById(id);
@@ -5637,7 +5639,11 @@ function aiProfile(){
  const weak=allItems().filter(x=>store[x.id]&&store[x.id].wrong>0&&x[targetLang]).sort((a,b)=>k(b)-k(a)).slice(0,8).map(x=>x[targetLang]);
  const mistakes=targetLang==="nl"?lsGet("leren_mistakes",[]).slice(0,5).map(m=>m.nl):[];
  const topic=tab==="all"?((u.cats||{})[currentCat]||""):String((u.tabs||{})[tab]||tab).replace(/^\d+\.\s*/,"");
- return {level:curLevel,topic,learned:learnedCount(),weak,mistakes};
+ const route=targetLang==="nl"&&learningPath&&learningPath.model,lesson=route&&route.recommended();
+ const goal={daily:"daily life",work:"work",study:"study"}[personalCoach.settings().goal];
+ const routeTopic=lesson?route.course.chapters.find(c=>c.id===lesson.chapter).nl:topic;
+ const routeWeak=route?route.state.mistakes.slice(0,8).map(id=>route.course.cards.get(id)?.nl).filter(Boolean):[];
+ return {level:lesson?(route.course.chapters.find(c=>c.id===lesson.chapter).level==="A1.2"?"a12":"a11"):curLevel,topic:(goal+": "+routeTopic).slice(0,60),learned:learnedCount(),weak:[...new Set([...routeWeak,...weak])].slice(0,8),mistakes};
 }
 // Report an AI answer (Google Play AI-generated content policy): the text goes to the worker log.
 async function aiReport(text,mode){
@@ -5646,18 +5652,18 @@ async function aiReport(text,mode){
  toast(g.reportOk,true);
 }
 // Memory between conversations: short notes about the learner, written by the tutor, kept only on this device.
-const aiMemory=()=>String(lsGet("leren_ai_memory","")||"");
+const personalCoach=LerenPersonalCoach.create({getItem:k=>localStorage.getItem(k),setItem:(k,v)=>localStorage.setItem(k,v)});
+LerenPersonalCoach.shared=personalCoach;
+const aiMemory=()=>personalCoach.memory();
 async function aiRemember(s){
- const uc=s.msgs.filter(m=>m.role==="user").length;if(s.memoBusy||uc<=(s.memoAt||0)||!AI_ENDPOINT)return;
- s.memoBusy=true;s.memoAt=uc;
+ const uc=s.msgs.filter(m=>m.role==="user").length;if(s.memoBusy||uc<=(s.memoAt||0)||!AI_ENDPOINT||!personalCoach.settings().enabled)return;
+ s.memoBusy=true;s.memoAt=uc;const memoryTicket=personalCoach.ticket();
  try{const r=await fetch(AI_ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({mode:"memo",target:targetLang,lang:uiLang,memory:aiMemory(),messages:aiMsgs(s.msgs)})});
-  const j=await r.json().catch(()=>({}));if(r.ok&&typeof j.memory==="string"&&lsGet("leren_ai_consent18",false))lsSet("leren_ai_memory",j.memory.trim())}catch(e){}
+  const j=await r.json().catch(()=>({}));if(r.ok&&typeof j.memory==="string"&&lsGet("leren_ai_consent18",false))personalCoach.accept(memoryTicket,j.memory)}catch(e){}
  s.memoBusy=false;
 }
 function aiMemoryBox(rerender){
- const mem=aiMemory();if(!mem)return null;const g=aiU();
- const d=el("details","ai-mem");d.append(el("summary","",g.memT),el("p","",mem),el("small","",g.memNote));
- const f=el("button","btn",g.memForget);f.type="button";f.onclick=()=>{lsSet("leren_ai_memory","");rerender()};d.appendChild(f);return d;
+ return LerenPersonalCoach.memoryPanel(personalCoach,uiLang);
 }
 // Voice input: send the other transcriptions too, so the tutor can guess what was really said.
 const aiMsgs=msgs=>msgs.slice(-12).map(m=>({role:m.role,content:m.alts&&m.alts.length>1?m.content+"\n[spoken; other possible transcriptions: "+m.alts.slice(1,4).join(" | ")+"]":m.content}));
@@ -5700,7 +5706,7 @@ async function aiSend(text,alts){
  const s=gState;if(s.busy)return;if(text)s.msgs.push({role:"user",content:String(text).trim().slice(0,300),alts:alts||null});
  s.busy=true;s.err="";aiRender();
  try{
-  const r=await fetch(AI_ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({mode:"chat",target:targetLang,lang:uiLang,level:curLevel,scene:s.scene,char:charId(),profile:aiProfile(),memory:aiMemory(),messages:aiMsgs(s.msgs)})});
+  const r=await fetch(AI_ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({mode:"chat",target:targetLang,lang:uiLang,level:aiProfile().level,scene:s.scene,char:charId(),profile:aiProfile(),memory:aiMemory(),messages:aiMsgs(s.msgs)})});
   const j=await r.json().catch(()=>({}));
   if(r.status===429){s.busy=false;s.err=aiU().limit;aiRender();return}
   const reply=j.reply||j.reply_nl;
@@ -5760,7 +5766,7 @@ async function askSend(text,alts){
  const s=gState;if(s.busy||!s.ask)return;s.msgs.push({role:"user",content:String(text).trim().slice(0,600),alts:alts||null});
  s.busy=true;s.err="";askRender();
  try{
-  const r=await fetch(AI_ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({mode:"ask",target:targetLang,lang:uiLang,level:curLevel,char:charId(),profile:aiProfile(),memory:aiMemory(),messages:aiMsgs(s.msgs)})});
+  const r=await fetch(AI_ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({mode:"ask",target:targetLang,lang:uiLang,level:aiProfile().level,char:charId(),profile:aiProfile(),memory:aiMemory(),messages:aiMsgs(s.msgs)})});
   const j=await r.json().catch(()=>({}));
   if(gState!==s)return;
   if(r.status===429){s.msgs.pop();s.busy=false;s.err=aiU().limit;askRender();return}
@@ -5779,20 +5785,20 @@ function renderMistakes(box){
 // Without signing in nothing changes. Firebase is loaded only when the user signs in (or signed in before on this device).
 const FB_SDK="https://www.gstatic.com/firebasejs/10.12.2/";
 const ACCT_UI={
- uk:{label:"Акаунт (необов’язково)",out:"Прогрес і пам’ять AI на всіх пристроях. Без входу все працює як і раніше.",signIn:"Увійти через Google",synced:"синхронізовано",never:"ще не синхронізовано",emailIn:"Увійти через e-mail",emailQ:"Твоя e-mail адреса:",emailSent:"Лист із посиланням для входу надіслано на {e}. Відкрий його на цьому пристрої.",emailAgain:"Підтвердь e-mail, на який прийшов лист:",signOut:"Вийти",del:"Видалити акаунт",
+ uk:{label:"Акаунт (необов’язково)",out:"Прогрес на всіх пристроях. Без входу все працює як і раніше.",signIn:"Увійти через Google",synced:"синхронізовано",never:"ще не синхронізовано",emailIn:"Увійти через e-mail",emailQ:"Твоя e-mail адреса:",emailSent:"Лист із посиланням для входу надіслано на {e}. Відкрий його на цьому пристрої.",emailAgain:"Підтвердь e-mail, на який прийшов лист:",signOut:"Вийти",del:"Видалити акаунт",
   delQ:"Видалити акаунт і всі дані в хмарі? Прогрес на цьому пристрої залишиться.",deleted:"Акаунт і дані в хмарі видалено.",err:"Не вдалося. Перевір інтернет і спробуй ще раз.",
   keepQ:"В акаунті вже є прогрес: {c} балів. На цьому пристрої: {l} балів.\n\nOK: взяти прогрес з акаунта.\nСкасувати: залишити прогрес цього пристрою (він замінить дані в акаунті)."},
- en:{label:"Account (optional)",out:"Progress and AI memory on all your devices. Without it everything works as before.",signIn:"Sign in with Google",synced:"synced",never:"not synced yet",emailIn:"Sign in with e-mail",emailQ:"Your e-mail address:",emailSent:"A sign-in link was sent to {e}. Open it on this device.",emailAgain:"Confirm the e-mail address the link was sent to:",signOut:"Sign out",del:"Delete account",
+ en:{label:"Account (optional)",out:"Progress on all your devices. Without it everything works as before.",signIn:"Sign in with Google",synced:"synced",never:"not synced yet",emailIn:"Sign in with e-mail",emailQ:"Your e-mail address:",emailSent:"A sign-in link was sent to {e}. Open it on this device.",emailAgain:"Confirm the e-mail address the link was sent to:",signOut:"Sign out",del:"Delete account",
   delQ:"Delete your account and all cloud data? Progress on this device stays.",deleted:"Account and cloud data deleted.",err:"That didn't work. Check your connection and try again.",
   keepQ:"Your account already has progress: {c} points. This device: {l} points.\n\nOK: use the progress from your account.\nCancel: keep this device's progress (it will replace the account data)."},
- fr:{label:"Compte (facultatif)",out:"Progression et mémoire de l’IA sur tous tes appareils. Sans compte, tout fonctionne comme avant.",signIn:"Se connecter avec Google",synced:"synchronisé",never:"pas encore synchronisé",emailIn:"Se connecter par e-mail",emailQ:"Ton adresse e-mail :",emailSent:"Un lien de connexion a été envoyé à {e}. Ouvre-le sur cet appareil.",emailAgain:"Confirme l’adresse e-mail qui a reçu le lien :",signOut:"Se déconnecter",del:"Supprimer le compte",
+ fr:{label:"Compte (facultatif)",out:"Progression sur tous tes appareils. Sans compte, tout fonctionne comme avant.",signIn:"Se connecter avec Google",synced:"synchronisé",never:"pas encore synchronisé",emailIn:"Se connecter par e-mail",emailQ:"Ton adresse e-mail :",emailSent:"Un lien de connexion a été envoyé à {e}. Ouvre-le sur cet appareil.",emailAgain:"Confirme l’adresse e-mail qui a reçu le lien :",signOut:"Se déconnecter",del:"Supprimer le compte",
   delQ:"Supprimer ton compte et toutes les données en ligne ? La progression sur cet appareil reste.",deleted:"Compte et données en ligne supprimés.",err:"Échec. Vérifie ta connexion et réessaie.",
   keepQ:"Ton compte a déjà une progression : {c} points. Cet appareil : {l} points.\n\nOK : prendre la progression du compte.\nAnnuler : garder celle de cet appareil (elle remplacera les données du compte)."},
- ar:{label:"الحساب (اختياري)",out:"تقدّمك وذاكرة الذكاء الاصطناعي على كل أجهزتك. بدونه يعمل كل شيء كما كان.",signIn:"تسجيل الدخول عبر Google",synced:"تمت المزامنة",never:"لم تتم المزامنة بعد",emailIn:"تسجيل الدخول عبر البريد الإلكتروني",emailQ:"بريدك الإلكتروني:",emailSent:"أُرسل رابط تسجيل الدخول إلى {e}. افتحه على هذا الجهاز.",emailAgain:"أكّد البريد الإلكتروني الذي وصل إليه الرابط:",signOut:"تسجيل الخروج",del:"حذف الحساب",
+ ar:{label:"الحساب (اختياري)",out:"تقدّمك على كل أجهزتك. بدونه يعمل كل شيء كما كان.",signIn:"تسجيل الدخول عبر Google",synced:"تمت المزامنة",never:"لم تتم المزامنة بعد",emailIn:"تسجيل الدخول عبر البريد الإلكتروني",emailQ:"بريدك الإلكتروني:",emailSent:"أُرسل رابط تسجيل الدخول إلى {e}. افتحه على هذا الجهاز.",emailAgain:"أكّد البريد الإلكتروني الذي وصل إليه الرابط:",signOut:"تسجيل الخروج",del:"حذف الحساب",
   delQ:"حذف حسابك وكل البيانات السحابية؟ يبقى التقدّم على هذا الجهاز.",deleted:"تم حذف الحساب والبيانات السحابية.",err:"لم ينجح ذلك. تحقّق من الاتصال وحاول مرة أخرى.",
   keepQ:"في حسابك تقدّم سابق: {c} نقطة. على هذا الجهاز: {l} نقطة.\n\nموافق: استخدم التقدّم من الحساب.\nإلغاء: احتفظ بتقدّم هذا الجهاز (سيحل محل بيانات الحساب)."}};
 const acctU=()=>ACCT_UI[uiLang]||ACCT_UI.en;
-const SYNC_SKIP=new Set(["leren_ai_endpoint","leren_push","leren_rate","leren_twa","leren_voice_force_tts","leren_sync_at","leren_acct","leren_acct_email","leren_path_talk_v1"]);
+const SYNC_SKIP=new Set(["leren_ai_endpoint","leren_push","leren_rate","leren_twa","leren_voice_force_tts","leren_sync_at","leren_acct","leren_acct_email","leren_path_talk_v1","leren_ai_memory","leren_coach_v1"]);
 const syncable=k=>/^(poly_|leren_)/.test(k)&&!SYNC_SKIP.has(k)&&!k.startsWith("leren_voice_"); // voices and push are per device
 function syncSnapshot(){const o={};for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(syncable(k))o[k]=localStorage.getItem(k)}return o}
 function syncApply(o){if(!o||typeof o!=="object"||Array.isArray(o))throw new Error("Invalid cloud progress");Object.keys(syncSnapshot()).forEach(k=>{if(!(k in o))localStorage.removeItem(k)});Object.entries(o).forEach(([k,v])=>{if(syncable(k)&&typeof v==="string")localStorage.setItem(k,v)})}
