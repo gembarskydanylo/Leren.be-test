@@ -12,7 +12,7 @@ vm.runInNewContext(fs.readFileSync(path.join(root,'course-curriculum.js'),'utf8'
 `);
 function fn(name){const start=script.indexOf('function '+name+'(');assert(start>=0,name);return script.slice(start,script.indexOf('\n}',start)+2)}
 const saved={},ctx=vm.createContext({xp:0,stats:0,saves:0,
- addXP(n){ctx.xp+=n},weekState:()=>saved.week||{played:[],done:false},
+ LerenRewards:{gameGain:(_,id,n)=>n},rewardStorage:{},dayStr:()=>"2026-10-25",rewardCheck(){},queueProgressSync(){},addXP(n){ctx.xp+=n},weekState:()=>saved.week||{played:[],done:false},
  lsSet:(_,v)=>{saved.week=v},saveStore:()=>{ctx.saves++},updateStats:()=>{ctx.stats++},toast:()=>{},gU:()=>({})});
 vm.runInContext(fn('gameDone'),ctx);
 for(const id of ['rp','mm','dlg','bl','dc'])vm.runInContext(`gameDone('${id}',10)`,ctx);

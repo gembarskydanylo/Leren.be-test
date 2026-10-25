@@ -17,6 +17,9 @@
 <link rel="icon" href="./icon-192.png" sizes="192x192" type="image/png">
 <link rel="apple-touch-icon" href="./apple-touch-icon.png">
 <title>Leren.be — Nederlands A1.1 &amp; A1.2</title>
+<link rel="stylesheet" href="./modules/rewards/style.css?v=93">
+<script src="./modules/rewards/core.js?v=93"></script>
+<script src="./modules/rewards/ui.js?v=93"></script>
 <style>
 /* =========================================================
    Leren.be design system v2 — "Oranje × België"
@@ -1016,7 +1019,7 @@ button.om-chip{cursor:pointer}button.om-chip:hover{border-color:var(--role-v)}
 <script src="./modules/personal-coach/core.js?v=91"></script>
 <script src="./modules/personal-coach/ui.js?v=91"></script>
 <script src="./modules/learning-path/core.js?v=89"></script>
-<script src="./modules/learning-path/ui.js?v=91"></script>
+<script src="./modules/learning-path/ui.js?v=93"></script>
 <script>
 "use strict";
 const $=id=>document.getElementById(id);
@@ -1954,8 +1957,36 @@ function saveStore(){
   localStorage.setItem("poly_level",curLevel);
   localStorage.setItem("poly_buildLevel",String(buildLevel));
  }catch(e){}
+ if(typeof queueProgressSync==="function")queueProgressSync();
 }
 const getUI=()=>UI[uiLang]||UI.uk;
+const rewardStorage={getItem:k=>localStorage.getItem(k),setItem:(k,v)=>localStorage.setItem(k,v)};
+const rewards=LerenRewards.create(rewardStorage);
+let rewardTimer=0,rewardPending=[];
+function rewardFacts(){
+ const path=lsGet("leren_path_v1",{}),done=path&&typeof path.completed==="object"?path.completed:{};
+ const course=LerenLearningPath.catalog(DATA,LerenCurriculum),best=lsGet("poly_toetsbest",{});
+ return {xp:score,lessons:Object.keys(done||{}).filter(id=>course.lessons.some(l=>l.id===id)).length,
+  chapters:course.chapters.filter(c=>c.lessons.length&&c.lessons.every(l=>Object.hasOwn(done||{},l.id))).length,
+  perfect:TOETS.filter(t=>best[t.id]===t.questions.length&&t.questions.length>0).length,streak:streakState().n};
+}
+function rewardCheck(celebrate=false){
+ const added=rewards.observe(rewardFacts());if(!celebrate||!added.length)return;
+ rewardPending.push(...added);clearTimeout(rewardTimer);rewardTimer=setTimeout(()=>{
+  if(!rewardPending.length)return;const b=rewardPending.at(-1);rewardPending=[];
+  if(document.querySelector('dialog[open]'))return;
+  LerenRewards.celebrate(b,uiLang,rewards.state.earned[b.id]);
+ },450);
+}
+function renderRewards(){
+ const host=$("pvToets");if(!host)return;document.getElementById("rewardsPanel")?.remove();rewardCheck();
+ const panel=LerenRewards.panel(rewards,{lang:uiLang,score,user:acct.user,
+  synced:acct.lastSnap===JSON.stringify(syncSnapshot())?lsGet("leren_sync_at",0):0,
+  onLogin:acctSignIn,onBackup:()=>$("exportProgBtn").click()});panel.id="rewardsPanel";host.before(panel);
+}
+function queueProgressSync(){
+ if(!acct.user||!acct.scopeReady)return;clearTimeout(acct.saveTimer);acct.saveTimer=setTimeout(()=>syncPush().catch(()=>acctRender()),1500);
+}
 
 function itemsFor(k=tab){
  if(k==="all"){
@@ -2011,7 +2042,7 @@ function streakState(){const s=lsGet("poly_streak",{n:0,last:""});const live=s.l
 const dailyGoal=()=>{const g=Number(lsGet("poly_goal",50));return [30,50,100,200].includes(g)?g:50};
 // every XP gain goes through here
 function addXP(n){
- if(!(n>0))return;
+ if(!Number.isFinite(n)||!(n>0))return;
  const before=rankInfo().cur.id;
  score+=n;
  const d=dailyState();d.xp+=n;
@@ -2022,6 +2053,7 @@ function addXP(n){
   toast(pgU().goalDone+" · "+pgU().streak(s.n));
  }
  lsSet("poly_daily",d);
+ saveStore();rewardCheck(true);queueProgressSync();
  if(typeof pushSync==="function")pushSync();
  const after=rankInfo().cur;
  if(after.id!==before)toast(pgU().levelUp(after.name),true);
@@ -2141,7 +2173,7 @@ function updateHeader(){
  const exp=$("exportProgBtn"), imp=$("importProgBtn");
  if(exp){ exp.textContent=u.exportProg||"💾 Save progress";
   exp.onclick=()=>{
-   const data={score,store,v:1,ts:Date.now()};
+   rewardCheck();const data={score,store,v:2,progress:syncSnapshot(),ts:Date.now()};
    const txt=JSON.stringify(data);
    try{
     navigator.clipboard.writeText(txt).then(()=>alert("OK — progress copied. Paste on another device.")).catch(()=>{prompt("Copy this:", txt)});
@@ -2157,9 +2189,10 @@ function updateHeader(){
     if(data&&data.store&&typeof data.store==="object"&&!Array.isArray(data.store)&&
        Object.values(data.store).every(v=>v&&typeof v==="object"&&!Array.isArray(v))&&
        (data.score===undefined||typeof data.score==="number"&&Number.isFinite(data.score)&&data.score>=0)){
-     store=data.store;
-     if(typeof data.score==="number")score=data.score;
-     saveStore();updateStats();alert("OK");
+     const incoming=data.v===2&&data.progress&&typeof data.progress==="object"&&!Array.isArray(data.progress)?data.progress:{poly_progress:JSON.stringify(data.store),poly_score:String(data.score||0)};
+     const merged=LerenRewards.mergeSnapshots(syncSnapshot(),incoming,syncable);syncApply(merged);
+     store=loadStore();score=loadNumber("poly_score",0);rewards.refresh();saveStore();rewardCheck();
+     queueProgressSync();alert("OK");location.reload();
     }else alert("Invalid data");
    }catch(e){alert("Invalid JSON")}
   };
@@ -4354,6 +4387,7 @@ function renderProgressView(){
   const labels=({uk:["Навчальний маршрут","уроків пройдено","Продовжити навчання"],en:["Learning path","lessons completed","Continue learning"],fr:["Parcours","leçons terminées","Continuer"],ar:["مسار التعلّم","دروس مكتملة","تابع التعلّم"]})[uiLang],stats=learningPath.model.stats();
   tb.append(el("h3","",labels[0]),el("p","",stats.done+" / "+stats.total+" · "+labels[1]));const go=el("button","btn primary",labels[2]);go.type="button";go.onclick=()=>setView("path");tb.appendChild(go);
  }
+ renderRewards();
  const mk=$("pvMistakes");if(mk&&typeof renderMistakes==="function")renderMistakes(mk);
 }
 
@@ -4711,12 +4745,17 @@ function gRecords(){return lsGet("leren_games",{})}
 function gSetRecord(k,v,lower){const r=gRecords();if(r[k]==null||(lower?v<r[k]:v>r[k])){r[k]=v;lsSet("leren_games",r);return true}return false}
 function isoWeek(d=new Date()){const t=new Date(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate()));const day=t.getUTCDay()||7;t.setUTCDate(t.getUTCDate()+4-day);const y=new Date(Date.UTC(t.getUTCFullYear(),0,1));return t.getUTCFullYear()+"-W"+Math.ceil(((t-y)/864e5+1)/7)}
 function weekState(){const w=lsGet("leren_week",{});return w.w===isoWeek()?w:{w:isoWeek(),played:[],done:false}}
+function rewardGameStep(id,n){
+ try{const today=lsGet(LerenRewards.GAME_KEY,{})[dayStr()]||{},gain=LerenRewards.gameGain(rewardStorage,id,(Number(today[id])||0)+n,dayStr());if(gain)addXP(gain)}catch{}
+}
 function gameDone(id,xp){
- if(xp>0)addXP(xp);
+ let gain=0;try{gain=LerenRewards.gameGain(rewardStorage,id,xp,dayStr())}catch{gain=0}
+ if(gain>0)addXP(gain);
+ if(xp>0&&gain!==xp)toast("+"+gain+" · "+LerenRewards.tr(uiLang).points);
  const w=weekState();if(!w.played.includes(id))w.played.push(id);
  if(!w.done&&w.played.length>=5){w.done=true;addXP(100);toast(gU().weekDone,true)}
  lsSet("leren_week",w);
- saveStore();updateStats();
+ saveStore();rewardCheck(true);queueProgressSync();updateStats();
 }
 function gHead(title,sub,keep){
  if(!keep)gStop();cardOwner="games";
@@ -5607,7 +5646,7 @@ function storyFree(alts){
 }
 function storyAnswer(k,spoken,loose){
  const s=gState,t=s.sc.turns[s.i],o=t[3][k];
- if(o[1]){if(!s.tried.length)addXP(spoken?(loose?6:8):5);s.i++;s.tried=[];s.order=null;s.mood=loose?"happy":"wow";
+ if(o[1]){if(!s.tried.length)rewardGameStep("story",spoken?(loose?6:8):5);s.i++;s.tried=[];s.order=null;s.mood=loose?"happy":"wow";
   s.fb=loose?{ok:true,text:stU().understood,nl:o[0]}:{ok:true,text:(spoken?"🎤 ":"")+(uiLang==="uk"?"Так! ":"Yes! "),nl:o[0]};
   const next=s.sc.turns[s.i];storyRender();if(next){
    // The next character waits until the previous utterance really finishes.
@@ -5818,39 +5857,79 @@ const ACCT_UI={
   delQ:"حذف حسابك وكل البيانات السحابية؟ يبقى التقدّم على هذا الجهاز.",deleted:"تم حذف الحساب والبيانات السحابية.",err:"لم ينجح ذلك. تحقّق من الاتصال وحاول مرة أخرى.",
   keepQ:"في حسابك تقدّم سابق: {c} نقطة. على هذا الجهاز: {l} نقطة.\n\nموافق: استخدم التقدّم من الحساب.\nإلغاء: احتفظ بتقدّم هذا الجهاز (سيحل محل بيانات الحساب)."}};
 const acctU=()=>ACCT_UI[uiLang]||ACCT_UI.en;
-const SYNC_SKIP=new Set(["leren_ai_endpoint","leren_push","leren_rate","leren_twa","leren_voice_force_tts","leren_sync_at","leren_acct","leren_acct_email","leren_path_talk_v1","leren_ai_memory","leren_coach_v1"]);
+const SYNC_SKIP=new Set(["leren_ai_endpoint","leren_push","leren_rate","leren_twa","leren_voice_force_tts","leren_sync_at","leren_acct","leren_acct_email","leren_path_talk_v1","leren_ai_memory","leren_coach_v1","leren_progress_owner_v1","leren_profiles_v1","leren_beta_progress_v1","leren_sync_base","leren_sync_backup"]);
 const syncable=k=>/^(poly_|leren_)/.test(k)&&!SYNC_SKIP.has(k)&&!k.startsWith("leren_voice_"); // voices and push are per device
 function syncSnapshot(){const o={};for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(syncable(k))o[k]=localStorage.getItem(k)}return o}
 function syncApply(o){if(!o||typeof o!=="object"||Array.isArray(o))throw new Error("Invalid cloud progress");Object.keys(syncSnapshot()).forEach(k=>{if(!(k in o))localStorage.removeItem(k)});Object.entries(o).forEach(([k,v])=>{if(syncable(k)&&typeof v==="string")localStorage.setItem(k,v)})}
-const acct={mod:null,auth:null,user:null,lastSnap:"",busy:false};
+const acct={mod:null,auth:null,user:null,lastSnap:"",busy:false,scopeReady:false,syncing:null,saveTimer:0};
+const scopePrivate=["leren_path_talk_v1","leren_ai_memory","leren_coach_v1"];
+function scopeSnapshot(){const snap=syncSnapshot();for(const key of scopePrivate){const v=localStorage.getItem(key);if(v!==null)snap[key]=v}return snap}
+function scopeAccount(uid){
+ const desired=uid||"guest",owner=lsGet("leren_progress_owner_v1","guest");if(owner===desired){acct.scopeReady=true;return false}
+ let profiles=lsGet("leren_profiles_v1",{});if(!profiles||typeof profiles!=="object"||Array.isArray(profiles))profiles={};
+ const current=scopeSnapshot();profiles[owner]=current;
+ // Guest work follows the first explicit sign-in; signing out starts a fresh guest space.
+ const next=owner==="guest"&&uid?LerenRewards.mergeSnapshots(current,profiles[desired]||{},k=>syncable(k)||scopePrivate.includes(k)):profiles[desired]||{};
+ if(owner==="guest"&&uid)profiles.guest={};
+ localStorage.setItem("leren_profiles_v1",JSON.stringify(profiles));
+ const keys=new Set([...Object.keys(current),...Object.keys(next)]);
+ try{for(const k of keys){if(typeof next[k]==="string")localStorage.setItem(k,next[k]);else localStorage.removeItem(k)}
+  localStorage.setItem("leren_progress_owner_v1",JSON.stringify(desired));
+ }catch(e){for(const k of keys){try{if(typeof current[k]==="string")localStorage.setItem(k,current[k]);else localStorage.removeItem(k)}catch{}}throw e}
+ localStorage.removeItem("leren_sync_at");acct.lastSnap="";acct.scopeReady=true;
+ clearTimeout(rewardTimer);rewardPending=[];
+ if(owner==="guest"&&uid&&JSON.stringify(next)===JSON.stringify(current))return false;
+ location.reload();return true;
+}
 async function acctLoad(){
  if(acct.mod)return acct.mod;
  const [a,b]=await Promise.all([import(FB_SDK+"firebase-app.js"),import(FB_SDK+"firebase-auth.js")]);
  acct.auth=b.getAuth(a.initializeApp({apiKey:PUSH_CONFIG.apiKey,authDomain:"leren-be.firebaseapp.com",projectId:PUSH_CONFIG.projectId},"acct"));
- b.onAuthStateChanged(acct.auth,u=>{acct.user=u;acctRender();if(u)syncPull().catch(()=>{})});
- acct.mod=b;return b;
+ acct.mod=b;
+ b.onAuthStateChanged(acct.auth,u=>{clearTimeout(acct.saveTimer);acct.scopeReady=false;acct.user=u;acct.lastSnap="";
+  try{if(scopeAccount(u?.uid))return}catch{toast(acctU().err,true);return}
+  acctRender();if(u)syncPull().catch(()=>acctRender());
+ });
+ return b;
 }
-async function fsUserDoc(method,body){
- const t=await acct.user.getIdToken();
- return fetch("https://firestore.googleapis.com/v1/projects/"+PUSH_CONFIG.projectId+"/databases/(default)/documents/users/"+acct.user.uid,{method,headers:{Authorization:"Bearer "+t,"Content-Type":"application/json"},body:body?JSON.stringify(body):undefined});
-}
-async function syncPush(){
- if(!acct.user)return;const snap=JSON.stringify(syncSnapshot());if(snap===acct.lastSnap)return;
- const ts=Date.now(),r=await fsUserDoc("PATCH",{fields:{blob:{stringValue:snap},updated:{integerValue:String(ts)},v:{integerValue:"1"}}});
- if(r.ok){acct.lastSnap=snap;lsSet("leren_sync_at",ts);acctRender()}
-}
-async function syncPull(){ // newest copy wins; the first sign-in on a device asks when both sides have progress
- const r=await fsUserDoc("GET");if(r.status===404){await syncPush();return}if(!r.ok)return;
- const d=await r.json(),cloudTs=Number(d.fields&&d.fields.updated&&d.fields.updated.integerValue||0);let cloud;try{cloud=JSON.parse(d.fields.blob.stringValue)}catch(e){return}
- if(!cloud||typeof cloud!=="object"||Array.isArray(cloud))return;
- const localAt=Number(lsGet("leren_sync_at",0)),take=()=>{syncApply(cloud);lsSet("leren_sync_at",cloudTs);location.reload()};
- if(!localAt){
-  const c=Number(cloud.poly_score||0),l=Number(localStorage.getItem("poly_score")||0);
-  if(c>0&&(l===0||confirm(acctU().keepQ.replace("{c}",c).replace("{l}",l)))){take();return}
-  acct.lastSnap="";await syncPush();return;
+async function fsUserDoc(method,body,revision){
+ const user=acct.user;if(!user||!acct.scopeReady)throw Error("No account scope");const t=await user.getIdToken();
+ if(acct.user?.uid!==user.uid)throw Error("Account changed");
+ const query=new URLSearchParams();if(method==="PATCH"){
+  for(const field of ["blob","updated","v"])query.append("updateMask.fieldPaths",field);
+  if(revision)query.set("currentDocument.updateTime",revision);else if(revision===null)query.set("currentDocument.exists","false");
  }
- if(cloudTs>localAt){take();return}
- await syncPush();
+ return fetch("https://firestore.googleapis.com/v1/projects/"+PUSH_CONFIG.projectId+"/databases/(default)/documents/users/"+user.uid+(query.size?"?"+query:""),{method,headers:{Authorization:"Bearer "+t,"Content-Type":"application/json"},body:body?JSON.stringify(body):undefined});
+}
+function syncOnce(){
+ const run=(acct.syncing||Promise.resolve()).catch(()=>{}).then(()=>syncProgress());
+ const pending=run.finally(()=>{if(acct.syncing===pending)acct.syncing=null});acct.syncing=pending;return pending;
+}
+function syncPush(){return syncOnce()}
+function syncPull(){return syncOnce()}
+async function syncProgress(tries=0){
+ if(!acct.user||!acct.scopeReady||tries>3)return;const uid=acct.user.uid;
+ const r=await fsUserDoc("GET");if(acct.user?.uid!==uid||!acct.scopeReady)return;
+ if(!r.ok&&r.status!==404)throw Error("Cloud read failed");
+ let cloud={},envelope={},revision=null;
+ if(r.ok){const doc=await r.json();revision=doc.updateTime;
+  const raw=doc.fields?.blob?.stringValue;
+  if(raw!==undefined){envelope=JSON.parse(raw);if(!envelope||typeof envelope!=="object"||Array.isArray(envelope))throw Error("Invalid cloud progress")}
+  if(envelope.leren_beta_progress_v1!==undefined){cloud=JSON.parse(envelope.leren_beta_progress_v1);if(!cloud||typeof cloud!=="object"||Array.isArray(cloud))throw Error("Invalid beta progress")}
+  if(!revision)throw Error("Missing cloud revision");
+ }
+ const local=syncSnapshot(),merged=LerenRewards.mergeSnapshots(local,cloud,syncable),snapshot=JSON.stringify(merged),ts=Date.now();
+ // Same authenticated user document, separate beta envelope. Keep all main-app values intact.
+ envelope.leren_beta_progress_v1=snapshot;
+ const write=await fsUserDoc("PATCH",{fields:{blob:{stringValue:JSON.stringify(envelope)},updated:{integerValue:String(ts)},v:{integerValue:"1"}}},revision);
+ if(acct.user?.uid!==uid||!acct.scopeReady)return;
+ if(write.status===409||write.status===412){if(tries>=3)throw Error("Sync conflict");return syncProgress(tries+1)}
+ if(!write.ok)throw Error("Cloud write failed");
+ // Merge once more: an answer may have been completed during the network request.
+ const latest=syncSnapshot(),next=LerenRewards.mergeSnapshots(latest,merged,syncable),changed=JSON.stringify(next)!==JSON.stringify(latest);
+ if(changed){localStorage.setItem("leren_sync_backup",JSON.stringify(latest));syncApply(next)}
+ acct.lastSnap=snapshot;lsSet("leren_sync_at",ts);acctRender();
+ if(changed)location.reload();
 }
 async function acctSignIn(){
  const u=acctU();try{const b=await acctLoad(),p=new b.GoogleAuthProvider();
@@ -5871,24 +5950,22 @@ async function acctEmailLinkReturn(){ // the page was opened from the sign-in e-
  }catch(e){toast(u.err)}
  history.replaceState(null,"",location.origin+location.pathname); // drop the one-time code from the address
 }
-async function acctSignOut(){try{await acct.mod.signOut(acct.auth)}catch(e){}lsSet("leren_acct",false);localStorage.removeItem("leren_sync_at");acct.lastSnap="";acctRender()}
-async function acctDelete(){
- const u=acctU();if(!acct.user||!confirm(u.delQ))return;
- try{const r=await fsUserDoc("DELETE");if(!r.ok&&r.status!==404)throw new Error("fs "+r.status);
-  try{await acct.user.delete()}catch(e){if(e&&e.code==="auth/requires-recent-login"){await acct.mod.reauthenticateWithPopup(acct.user,new acct.mod.GoogleAuthProvider());await acct.user.delete()}else throw e}
-  await acctSignOut();toast(u.deleted,true);
- }catch(e){toast(u.err)}
+async function acctSignOut(){
+ try{clearTimeout(acct.saveTimer);try{await syncPush()}catch{toast(acctU().err,true)}await acct.mod.signOut(acct.auth);lsSet("leren_acct",false);acct.lastSnap="";acctRender()}catch{toast(acctU().err,true)}
 }
+async function acctDelete(){toast(({uk:"Видалення основного акаунта недоступне в тестовій версії.",en:"Account deletion is unavailable in the test app.",fr:"Suppression du compte indisponible dans le test.",ar:"حذف الحساب غير متاح في النسخة التجريبية."})[uiLang],true)}
 function acctRender(){
  const u=acctU(),lab=$("acctLabel");if(!lab)return;lab.textContent=u.label;
  const btn=$("acctBtn"),del=$("acctDelBtn"),hint=$("acctHint"),user=acct.user;
  if(user){const at=Number(lsGet("leren_sync_at",0));
   hint.textContent=(user.email||user.displayName||"")+" · "+(at?u.synced+" "+new Date(at).toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"}):u.never);
-  btn.textContent=u.signOut;btn.onclick=acctSignOut;del.hidden=false;del.textContent=u.del;del.onclick=acctDelete;
+  btn.textContent=u.signOut;btn.onclick=acctSignOut;del.hidden=true;
  }else{hint.textContent=u.out;btn.textContent=u.signIn;btn.onclick=acctSignIn;del.hidden=false;del.textContent=u.emailIn;del.onclick=acctEmailIn}
+ if(view==="progress")renderRewards();
 }
 function acctInit(){
  acctRender();
+ if(!lsGet("leren_acct",false)&&lsGet("leren_progress_owner_v1","guest")!=="guest")acctLoad().catch(()=>{});
  if(/[?&]oobCode=/.test(location.search)&&/[?&]mode=signIn/.test(location.search))acctEmailLinkReturn();
  else if(lsGet("leren_acct",false))acctLoad().catch(()=>{}); // signed in before on this device: restore the session
  setInterval(()=>{if(acct.user)syncPush().catch(()=>{})},60000);
@@ -5910,7 +5987,7 @@ function initLearningPath(){
   stopListening:()=>{if(gRec)gRec.abort()},
   ai:chapter=>{const ids={comm:"buren",people:"buren",nums:"super",travelTime:"station",forms:"gemeente",health:"huisarts",food:"cafe",shopping:"super",travel:"station",service:"super",wonen:"gemeente",contact:"gemeente"};setView("games");aiStart(SCENES.find(sc=>sc.id===(ids[chapter]||"buren")))},
   answer:(id,ok,final)=>{if(!final)return;const s=stateFor(id);s.seen++;if(ok){s.correct++;s.streak++;s.due=Date.now()+864e5}else{s.wrong++;s.streak=0;s.due=Date.now()}s.known=s.streak>=2;saveStore();updateStats()},
-  complete:recordPathResult,
+  complete:recordPathResult,rewards:()=>setView("progress"),
   assess:id=>{const test=TOETS.find(t=>t.id==="course_"+id+"_v1");if(!test)return;curLevel=test.lvl;setView("toets");toetsId=test.id;toetsQ=0;toetsRight=0;toetsLocked=false;nextToetsQuestion()}
  });
  $("pathReturn").onclick=()=>setView("path");
@@ -5921,8 +5998,8 @@ function recordPathResult(id,correct,total){
  if(!lesson||total!==lesson.ids.length||!Number.isInteger(correct)||correct<0||correct>total)return 0;
  let best=lsGet("leren_path_rewards_v1",{});if(!best||typeof best!=="object"||Array.isArray(best))best={};
  const old=best[id],previous=Math.max(Number.isInteger(old)&&old>=0&&old<=total?old:0,pathSessionRewards[id]||0);
- const gain=Math.max(0,correct-previous)*5;if(!gain)return 0;
- pathSessionRewards[id]=correct;best[id]=correct;lsSet("leren_path_rewards_v1",best);addXP(gain);saveStore();updateStats();return gain;
+ const gain=Math.max(0,correct-previous)*5;if(!gain){rewardCheck(true);queueProgressSync();return 0}
+ pathSessionRewards[id]=correct;best[id]=correct;lsSet("leren_path_rewards_v1",best);addXP(gain);saveStore();rewardCheck(true);queueProgressSync();updateStats();return gain;
 }
 
 function start(){
@@ -5930,7 +6007,7 @@ function start(){
   const t=localStorage.getItem("poly_theme");
   document.documentElement.dataset.theme=(t==="dark"||t==="glass")?"dark":"light"; // old "glass" was a dark look
  }catch(e){document.documentElement.dataset.theme="light"}
- updateHeader();buildNav();if(view!=="path")newRound();initLearningPath();applyView();loadAudioManifest();pushSync();acctInit();
+ rewardCheck();updateHeader();buildNav();if(view!=="path")newRound();initLearningPath();applyView();loadAudioManifest();pushSync();acctInit();
 }
 
 if (document.readyState === "loading") {

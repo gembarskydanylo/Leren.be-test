@@ -34,6 +34,7 @@
   function note(){root.appendChild(node('p','lp-caption',t(model.persistent?'saved':'memory')))}
   function hero(){
    const box=node('div','lp-hero');box.append(node('span','lp-eyebrow',t('badge')),node('h2','',t('title')),node('p','',t('intro')));root.appendChild(box);
+   root.appendChild(button(({uk:'🆕 Нове: кубки, привітання та збереження досягнень',en:'🆕 New: trophies, celebrations and saved achievements',fr:'🆕 Nouveau : coupes, félicitations et réussites sauvegardées',ar:'🆕 جديد: كؤوس وتهنئة وحفظ الإنجازات'})[lang],()=>bridge.rewards()));
    if(!model.state.started){
     const start=node('div','lp-card lp-start');start.append(node('span','lp-illustration','👋'),node('h3','',title(course.chapters[0])),node('p','',t('startHint')),node('p','lp-caption',t('minutes')),
      button(t('zero'),()=>{model.start();begin(course.lessons[0])},true),button(t('know'),()=>{model.place();go('placement')}));root.appendChild(start);
