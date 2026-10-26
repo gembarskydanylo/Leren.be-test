@@ -1,3 +1,5 @@
+> UPDATE 2026-10-26 13:58 Europe/Brussels: The user explicitly approved TEST-007. It is now live on lerenbe.com as production v102, commit d3a7575. Required TEST-002/006 dependencies were adapted; TEST-003/004/005 and the beta cloud envelope were NOT transferred. Older pending-status notes below describe the prior evaluation stage.
+
 # Перенесення з тесту в основний проєкт
 
 Статус: користувач просить спочатку оцінити тест. Жоден експеримент цього журналу автоматично не переносити на lerenbe.com.
