@@ -33,14 +33,11 @@
   }
   function note(){root.appendChild(node('p','lp-caption',t(model.persistent?'saved':'memory')))}
   function hero(){
-   const box=node('div','lp-hero');box.append(node('span','lp-eyebrow',t('badge')),node('h2','',t('title')),node('p','',t('intro')));root.appendChild(box);
-   root.appendChild(button(({uk:'🆕 Нове: кубки, привітання та збереження досягнень',en:'🆕 New: trophies, celebrations and saved achievements',fr:'🆕 Nouveau : coupes, félicitations et réussites sauvegardées',ar:'🆕 جديد: كؤوس وتهنئة وحفظ الإنجازات'})[lang],()=>bridge.rewards()));
-   if(!model.state.started){
-    const start=node('div','lp-card lp-start');start.append(node('span','lp-illustration','👋'),node('h3','',title(course.chapters[0])),node('p','',t('startHint')),node('p','lp-caption',t('minutes')),
-     button(t('zero'),()=>{model.start();begin(course.lessons[0])},true),button(t('know'),()=>{model.place();go('placement')}));root.appendChild(start);
-   }
+   const session=model.state.session,paused=session?.kind==='lesson'&&(session.phase<2||session.index<session.ids.length)?model.lesson(session.lesson):null,next=paused||model.recommended(),started=model.state.started||Object.keys(model.state.completed).length>0;
+   root.appendChild(LerenCompanion.welcome({lang,started,lesson:next?lessonTitle(next):'',onBegin(){if(!next){document.getElementById('courseMapTitle')?.scrollIntoView({block:'start'});return}if(!model.state.started)model.start();begin(next)},onPlacement(){model.place();go('placement')},onMap(){document.getElementById('courseMapTitle')?.scrollIntoView({block:'start',behavior:'smooth'})}}));
+   root.appendChild(button(({uk:'🎁 Подарунки кота та твої досягнення',en:'🎁 Cat gifts and your achievements',fr:'🎁 Cadeaux du chat et tes réussites',ar:'🎁 هدايا القط وإنجازاتك'})[lang],()=>bridge.rewards()));
    LerenPersonalCoach.render(root,coach,{model,conversation,lang,label:lessonTitle,render,act(task){if(task.kind==='resume'){go('lesson')}else if(task.kind==='review'){if(model.beginReview())go('lesson')}else if(task.kind==='talk'){beginTalk(task.lesson)}else{begin(model.lesson(task.lesson))}}});
-   root.append(node('h2','lp-map-title',t('map')),node('p','lp-caption',t('optional')));
+   const mapTitle=node('h2','lp-map-title',t('map'));mapTitle.id='courseMapTitle';root.append(mapTitle,node('p','lp-caption',t('optional')));
    for(const level of ['A1.1','A1.2']){
     const section=node('section','lp-map');section.appendChild(node('h3','lp-level',level+' · A1'));
     for(const ch of course.chapters.filter(c=>c.level===level)){
@@ -71,7 +68,14 @@
    if(s.kind==='lesson'){const l=model.lesson(s.lesson),ch=chapter(l);box.append(node('span','lp-eyebrow',ch.level+' · '+title(ch)),node('h2','',lessonTitle(l)))}else box.appendChild(node('h2','',t('review')));
    const steps=node('ol','lp-steps');['study','listen','check'].forEach((key,i)=>{const li=node('li',i===s.phase?'lp-active':'',(i<s.phase?'✓ ':i+1+'. ')+t(key));if(i===s.phase)li.setAttribute('aria-current','step');steps.appendChild(li)});box.appendChild(steps);
    if(feedback){
-    const fb=node('div','lp-feedback '+(feedback.ok?'lp-correct':'lp-wrong'));fb.setAttribute('role','status');const w=word(feedback.id);fb.append(node('strong','',t(feedback.ok?'right':'wrong')),node('p','lp-word',w.nl),node('p','',translation(w)),button('🔊 '+t('sound'),()=>bridge.speak(w.nl)));
+    const fb=node('div','lp-feedback '+(feedback.ok?'lp-correct':'lp-wrong'));fb.setAttribute('role','status');fb.appendChild(LerenCompanion.feedback(feedback.ok,lang,s.index));const w=word(feedback.id);fb.append(node('strong','',t(feedback.ok?'right':'wrong')),node('p','lp-word',w.nl),node('p','',translation(w)),button('🔊 '+t('sound'),()=>bridge.speak(w.nl)));
+    if(!feedback.ok){
+     if(!feedback.practice)fb.appendChild(button(LerenCompanion.tr(lang).retry,()=>{feedback.practice=true;render()}));
+     else{const practice=node('div','comp-practice');practice.appendChild(node('p','',LerenCompanion.tr(lang).practice));
+      if(feedback.practiceDone)practice.append(LerenCompanion.feedback(true,lang),node('strong','',LerenCompanion.tr(lang).retryDone));
+      else{const choices=node('div','lp-options');for(const o of options(w,false)){const choice=button(o.text,()=>{if(o.ok){feedback.practiceDone=true;render()}else{choice.disabled=true;choice.classList.add('lp-wrong')}});choice.lang='nl';choice.dir='ltr';choices.appendChild(choice)}practice.appendChild(choices)}fb.appendChild(practice);
+     }
+    }
     const next=button(t('nextQ'),()=>{feedback=null;render()},true);box.append(fb,next);root.appendChild(box);next.focus({preventScroll:true});return;
    }
    if(s.index===s.ids.length){
@@ -110,7 +114,7 @@
    box.appendChild(button(t('skip'),()=>{model.start();begin(course.lessons[0])}));root.appendChild(box);
   }
   function render(){talkView.cancel();bridge.stop();lang=languages.includes(lang)?lang:'uk';shell();if(screen==='home')hero();else if(screen==='intro')intro();else if(screen==='placement')placement();else if(screen==='talk')talkView.render(root,lang);else exercises()}
-  render();return {refresh(){lang=bridge.language();render()},open(){go(conversation.state.open?'talk':model.state.placement?'placement':model.state.session?'lesson':'home')},pauseSpeech(){talkView.cancel()},model};
+  render();return {refresh(){lang=bridge.language();render()},home(){go('home')},open(){go(conversation.state.open?'talk':model.state.placement?'placement':model.state.session?'lesson':'home')},pauseSpeech(){talkView.cancel()},model};
  }
  globalThis.LerenLearningPath.mount=mount;
 })();

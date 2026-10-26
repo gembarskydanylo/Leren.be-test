@@ -40,7 +40,7 @@ function runtime(initial){const disk=storage(initial),requests=[],server={rev:'r
  vm.runInContext(script.slice(script.indexOf('function addXP(n){'),script.indexOf('// XP for a correct answer')),xp);xp.addXP(10);assert.equal(xp.score,100);assert.equal(saved,1);assert.equal(observed,1);xp.addXP(Infinity);assert.equal(xp.score,100);
  // UI translations, safe text and offline resources are part of this release.
  c.document={};vm.runInContext(read('modules/rewards/ui.js'),c);for(const lang of ['uk','en','fr','ar'])assert.equal(api.tr(lang).names.length,api.badges.length);
- const files=JSON.parse(read('sw.js').match(/const APP_FILES = (\[[^;]+\]);/)[1]);for(const file of ['core.js','ui.js','style.css']){assert(files.includes('./modules/rewards/'+file+'?v=93'));assert(read('index.html').includes('./modules/rewards/'+file+'?v=93'))}
+ const files=JSON.parse(read('sw.js').match(/const APP_FILES = (\[[^;]+\]);/)[1]);for(const file of ['core.js','ui.js','style.css']){assert(files.includes('./modules/rewards/'+file+'?v='+(file==='ui.js'?'94':'93')));assert(read('index.html').includes('./modules/rewards/'+file+'?v='+(file==='ui.js'?'94':'93')))}
  assert(read('modules/rewards/style.css').includes('prefers-reduced-motion'));assert(script.includes('progress:syncSnapshot()'));assert(!script.slice(script.indexOf('async function acctDelete(){'),script.indexOf('function acctRender()')).includes('DELETE'));
  console.log('PASS: durable/idempotent milestones, corrupt/blocked storage, capped daily game improvements, non-destructive progress merge, beta envelope preserves production, revision retry, failed sync, account isolation including local AI memory, full backup, four languages and offline assets');
 })().catch(e=>{console.error(e);process.exitCode=1});

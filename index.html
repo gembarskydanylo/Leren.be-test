@@ -19,7 +19,9 @@
 <title>Leren.be — Nederlands A1.1 &amp; A1.2</title>
 <link rel="stylesheet" href="./modules/rewards/style.css?v=93">
 <script src="./modules/rewards/core.js?v=93"></script>
-<script src="./modules/rewards/ui.js?v=93"></script>
+<script src="./modules/companion/ui.js?v=94"></script>
+<script src="./modules/rewards/gifts.js?v=94"></script>
+<script src="./modules/rewards/ui.js?v=94"></script>
 <style>
 /* =========================================================
    Leren.be design system v2 — "Oranje × België"
@@ -886,11 +888,13 @@ button.om-chip{cursor:pointer}button.om-chip:hover{border-color:var(--role-v)}
 }
 </style>
 <link rel="stylesheet" href="./modules/learning-path/style.css?v=92">
+<link rel="stylesheet" href="./modules/companion/style.css?v=94">
 </head>
 <body>
 <main data-view="lesson">
   <header>
     <div class="brand"><h1 id="appTitle">Leren.be</h1><p id="tagline"></p></div>
+    <button type="button" class="comp-header-route" id="headerRoute"></button>
     <div class="hdr-stats">
       <button type="button" class="hdr-pill streak-pill" id="streakPill"></button>
       <span id="score" class="hdr-pill score-pill" aria-live="polite"></span>
@@ -902,6 +906,7 @@ button.om-chip{cursor:pointer}button.om-chip:hover{border-color:var(--role-v)}
   <button type="button" id="pathReturn" data-views="lesson toets games dict progress" hidden></button>
   <button type="button" class="topic-bar" id="topicBar" data-views="lesson" aria-haspopup="dialog"></button>
   <div class="lesson-modes" id="lessonModes" role="tablist" data-views="lesson"></div>
+  <section id="lessonGuide" data-views="lesson" aria-label="Lesson help"></section>
   <span id="toetsTitle" hidden></span>
 
   <div class="meta" data-views="lesson toets games"><span id="prog"></span><span id="rnd"></span></div>
@@ -1019,7 +1024,7 @@ button.om-chip{cursor:pointer}button.om-chip:hover{border-color:var(--role-v)}
 <script src="./modules/personal-coach/core.js?v=91"></script>
 <script src="./modules/personal-coach/ui.js?v=91"></script>
 <script src="./modules/learning-path/core.js?v=89"></script>
-<script src="./modules/learning-path/ui.js?v=93"></script>
+<script src="./modules/learning-path/ui.js?v=94"></script>
 <script>
 "use strict";
 const $=id=>document.getElementById(id);
@@ -2657,6 +2662,7 @@ function answer(ok,btn){
  if(item[exK])fb.appendChild(tgt(el("p","example",item[exK])));
  if(item[trK])fb.appendChild(el("p","",item[trK]));
  if(gain===2)fb.appendChild(el("p","xp-note",pgU().easyXp));
+ if(tab!=="diphthongs")fb.prepend(LerenCompanion.feedback(ok,uiLang,q));
  const nx=$("nx");
  nx.disabled=false;
  revealNext();
@@ -4295,6 +4301,8 @@ function applyView(){
  const m=document.querySelector("main");if(m)m.dataset.view=view;
  document.querySelectorAll("[data-views]").forEach(e=>{e.hidden=!e.dataset.views.split(" ").includes(view)});
  syncDiphthongsLesson();if(targetLang!=="nl")$("pathReturn").hidden=true;
+ const guide=$("lessonGuide");if(guide)guide.hidden=view!=="lesson"||tab==="diphthongs";
+ const route=$("headerRoute");if(route)route.hidden=targetLang!=="nl";
 }
 function setView(v){
  if(v==="path"&&targetLang!=="nl")v="lesson";
@@ -4322,6 +4330,7 @@ function renderDock(){
  });
 }
 function renderLessonModes(){
+ const guide=$("lessonGuide");if(guide){guide.setAttribute("aria-label",LerenCompanion.tr(uiLang).help);guide.replaceChildren(LerenCompanion.help(uiLang,mode));guide.hidden=view!=="lesson"||tab==="diphthongs"}
  const wrap=$("lessonModes");if(!wrap)return;wrap.replaceChildren();
  const u=getUI(),d=DOCK[uiLang]||DOCK.uk;
  LESSON_MODES().forEach(m=>{
@@ -4333,15 +4342,12 @@ function renderLessonModes(){
  });
 }
 function renderTopicBar(){
- const b=$("topicBar");if(!b)return;const u=getUI(),n=navU();
- const cat=CATEGORIES.find(c=>c.id===currentCat);
- b.replaceChildren();
- const lv=el("span","tb-level",(levelById(curLevel)||{}).name||"A1.1");
- const txt=el("span","tb-text");
- txt.append(el("small","",cat?(u.cats[cat.id]||cat.id):""),el("strong","",tab==="all"?u.all:(u.tabs[tab]||tab).replace(/^\d+\.\s*/,"")));
- const ch=el("span","tb-change");ch.append(el("span","",n.change),ico("chevron"));
- b.append(lv,txt,ch);b.title=n.topics;
+ const b=$("topicBar");if(!b)return;const u=getUI(),cat=CATEGORIES.find(c=>c.id===currentCat);
+ const topic=LerenCompanion.topic({lang:uiLang,id:tab,title:tab==="all"?u.all:(u.tabs[tab]||tab).replace(/^\d+\.\s*/,""),category:cat?(u.cats[cat.id]||cat.id):"",level:(levelById(curLevel)||{}).name||"A1.1",onChoose:()=>openSheet("topicsSheet")});
+ b.className=topic.className;b.replaceChildren(...topic.childNodes);b.title=LerenCompanion.tr(uiLang).choose;b.setAttribute("aria-label",topic.getAttribute("aria-label"));
+ const guide=$("lessonGuide");if(guide){guide.setAttribute("aria-label",LerenCompanion.tr(uiLang).help);guide.replaceChildren(LerenCompanion.help(uiLang,mode));guide.hidden=view!=="lesson"||tab==="diphthongs"}
 }
+
 function openSheet(id){
  const s=$(id);if(!s)return;s.hidden=false;document.body.classList.add("sheet-open");
  if(id==="topicsSheet"){buildNav();const a=s.querySelector('#subNav [aria-selected="true"]');if(a)a.scrollIntoView({block:"nearest"})}
@@ -4353,6 +4359,7 @@ document.querySelectorAll("[data-close]").forEach(b=>b.addEventListener("click",
 document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!$("voiceDialog")?.open){const open=[...document.querySelectorAll(".sheet:not([hidden])")].pop();if(open)closeSheet(open.id)}});
 $("topicBar").addEventListener("click",()=>openSheet("topicsSheet"));
 $("settingsBtn").addEventListener("click",()=>{acctRender();openSheet("settingsSheet")});
+$("headerRoute").addEventListener("click",()=>{setView("path");if(learningPath)learningPath.home()});
 $("streakPill").addEventListener("click",()=>setView("progress"));
 $("goalBtn").addEventListener("click",openGoalModal);
 function renderShellText(){
@@ -4369,7 +4376,9 @@ function renderShellText(){
  $("helpRowLabel").textContent=n.guide;$("helpBtn").textContent=n.guideBtn;
  $("dictTitle").textContent=n.dictTitle;$("dictHint").textContent=n.dictHint;$("progressTitle").textContent=n.progressTitle;$("toetsTitle").textContent=n.toetsTitle;
  const st=streakState(),sp=$("streakPill");sp.replaceChildren(ico("flame"),el("span","",String(st.n)));sp.classList.toggle("off",!st.n);sp.title=n.streakT(st.n);sp.setAttribute("aria-label",n.streakT(st.n));
- const sc=$("score");sc.replaceChildren(ico("star"),el("span","",String(score)));sc.title=(u.points||"Points")+": "+score;
+ const guideText=LerenCompanion.tr(uiLang),route=$("headerRoute");route.replaceChildren(el("strong","","🐾 "+guideText.route),el("small","",guideText.routeHint));route.hidden=targetLang!=="nl";
+ $("tagline").textContent=targetLang==="nl"?guideText.brand:({en:"English",fr:"Français"})[targetLang]||guideText.brand;
+ const sc=$("score");sc.replaceChildren(ico("star"),el("span","",String(score)),el("span","comp-points-label",pgU().xp));sc.title=(u.points||"Points")+": "+score;
  const pathBack=$("pathReturn");if(pathBack)pathBack.textContent=({uk:"‹ До навчального маршруту",en:"‹ Back to my learning path",fr:"‹ Retour au parcours",ar:"العودة إلى مسار التعلّم ›"})[uiLang];
  fillIcons();renderTopicBar();if(typeof renderPushRow==="function")renderPushRow();if(typeof renderCharRow==="function")renderCharRow();
 }
@@ -5429,10 +5438,10 @@ const charSvg=(mood,full)=>curChar().svg(mood||"happy",full);
 // text templates: {N}=name (nl/en/fr), {Nu}=Ukrainian name, {Na}=Arabic name, {male|female}
 const cx=t=>{if(typeof t!=="string")return t;const c=curChar();return t.replace(/\{([^{}|]*)\|([^{}|]*)\}/g,(_,m,f)=>c.m?m:f).replace(/\{Nu\}/g,c.u).replace(/\{Na\}/g,c.a).replace(/\{N\}/g,c.n)};
 const cxDeep=o=>typeof o==="string"?cx(o):Array.isArray(o)?o.map(cxDeep):o&&typeof o==="object"?Object.fromEntries(Object.entries(o).map(([k,v])=>[k,typeof v==="function"?v:cxDeep(v)])):o;
-const CHAR_UI={uk:{pick:"Обери свого персонажа",pickHint:"Він або вона вестиме тебе через діалоги й ігри. Змінити можна в налаштуваннях.",row:"Персонаж",peter:"Вчитель. Пояснює правила спокійно, як на дошці",dafna:"Бельгійка. Весела й швидка, як у житті",chosen:"Обрано",go:"Далі"},
- en:{pick:"Choose your character",pickHint:"They'll guide you through dialogues and games. You can change this in Settings.",row:"Character",peter:"Teacher. Explains rules calmly, like on the whiteboard",dafna:"Belgian. Cheerful and quick, like real life",chosen:"Chosen",go:"Next"},
- fr:{pick:"Choisis ton personnage",pickHint:"Il ou elle te guidera dans les dialogues et les jeux. Modifiable dans les réglages.",row:"Personnage",peter:"Professeur. Explique calmement, comme au tableau",dafna:"Belge. Joyeuse et rapide, comme dans la vraie vie",chosen:"Choisi",go:"Suivant"},
- ar:{pick:"اختر شخصيتك",pickHint:"سيرافقك في الحوارات والألعاب. يمكنك تغييره من الإعدادات.",row:"الشخصية",peter:"معلّم. يشرح القواعد بهدوء كما على السبورة",dafna:"بلجيكية. مرحة وسريعة كما في الحياة",chosen:"تم الاختيار",go:"التالي"}};
+const CHAR_UI={uk:{pick:"Обери вчителя",pickHint:"Пітер і Дафна навчають нас із котом. Обери, з ким практикувати розмови; змінити вчителя можна в налаштуваннях.",row:"Вчитель",peter:"Вчитель. Пояснює правила спокійно, як на дошці",dafna:"Вчителька з Бельгії. Практикує живі щоденні розмови",chosen:"Обрано",go:"Далі"},
+ en:{pick:"Choose your teacher",pickHint:"Peter and Dafna teach you and the cat. Choose a teacher for conversation practice; change this in Settings.",row:"Teacher",peter:"Teacher. Explains rules calmly, like on the whiteboard",dafna:"Belgian teacher. Practise everyday conversations",chosen:"Chosen",go:"Next"},
+ fr:{pick:"Choisis ton professeur",pickHint:"Peter et Dafna vous enseignent, à toi et au chat. Choisis un professeur pour les dialogues, modifiable dans les réglages.",row:"Professeur",peter:"Professeur. Explique calmement, comme au tableau",dafna:"Professeure belge. Pratique les conversations du quotidien",chosen:"Choisi",go:"Suivant"},
+ ar:{pick:"اختر معلّمك",pickHint:"بيتر ودافنا يعلّمانك أنت والقط. اختر معلّماً للمحادثة ويمكنك تغييره من الإعدادات.",row:"المعلّم",peter:"معلّم. يشرح القواعد بهدوء كما على السبورة",dafna:"معلّمة بلجيكية. تدرّب على محادثات الحياة اليومية",chosen:"تم الاختيار",go:"التالي"}};
 const chU=()=>CHAR_UI[uiLang]||CHAR_UI.uk;
 function charPicker(onPick){
  const u=chU(),wrap=el("div","ch-pick");wrap.setAttribute("role","radiogroup");wrap.setAttribute("aria-label",u.pick);
