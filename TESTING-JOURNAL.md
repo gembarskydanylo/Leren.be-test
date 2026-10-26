@@ -120,3 +120,6 @@
 - Обмеження: не фізичні телефони; озвучення в headless без звуку (перевірено лише стан кнопки); живий AI/Firebase не торкалися. Автовідтворення може блокуватися браузером без жесту — тоді працює кнопка.
 
 - Публікація TEST-008: [коміт 9ce59d0](https://github.com/gembarskydanylo/Leren.be-test/commit/9ce59d0ff4613ab774198420fa9f58a3d3e638f6). [Beta checks](https://github.com/gembarskydanylo/Leren.be-test/actions/runs/40373964226) і [Site preview](https://github.com/gembarskydanylo/Leren.be-test/actions/runs/40373963504) успішні (build: валідація всіх тестів перед публікацією; deploy success). Побайтову звірку live-файлів цього разу не виконано: проксі робочого середовища блокує github.io (403), а комп’ютер користувача не підключено — це перевірка, яку варто зробити, відкривши сайт. URL: https://gembarskydanylo.github.io/Leren.be-test/ .
+
+## TEST-003 / TEST-005 / частина TEST-008 → production 112 · 2026-10-27 00:35 Europe/Brussels
+- За явним рішенням користувача перенесено в основний додаток: 🔊 біля слова, підписаний прогрес, розмова після уроку (TEST-003), допомога в AI-чаті (TEST-005). Production коміт d01f0cd, кеш/реліз 112. Деталі, перевірки й обмеження — PRODUCTION-TRANSFER.md цього репозиторію та TESTING-JOURNAL.md основного (UI-112).
