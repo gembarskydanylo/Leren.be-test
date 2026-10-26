@@ -26,13 +26,17 @@
   box.append(save,button(t('forget'),()=>{coach.forget();input.value='';status.textContent=t(coach.persistent?'forgot':'blocked')}),status);return box;
  }
  function render(root,coach,bridge){
-  const lang=bridge.lang,t=k=>tr(k,lang),p=coach.plan(bridge.model,bridge.conversation),box=node('section','lp-card pc-plan');box.append(node('h2','',t('title')),node('p','lp-caption',t('intro')));
+  const lang=bridge.lang,t=k=>tr(k,lang),p=coach.plan(bridge.model,bridge.conversation),compact=!!bridge.compact;
+  const box=node('section','lp-card pc-plan'+(compact?' pc-compact':''));box.append(node('h2','',compact?({uk:'План на сьогодні',en:'Today’s plan',fr:'Programme du jour',ar:'خطة اليوم'})[lang]||t('title'):t('title')));if(!compact)box.appendChild(node('p','lp-caption',t('intro')));
   const prefs=node('div','pc-prefs');
   for(const [key,label,options] of [['goal','goal',['daily','work','study']],['minutes','time',[5,10,15]]]){const lab=node('label','',t(label)),sel=node('select');sel.setAttribute('aria-label',t(label));for(const v of options){const o=node('option','',key==='goal'?t(v):v+' '+t('min'));o.value=String(v);sel.appendChild(o)}sel.value=String(p[key]);sel.onchange=()=>{coach.update({[key]:key==='minutes'?Number(sel.value):sel.value});bridge.render()};lab.appendChild(sel);prefs.appendChild(lab)}
-  box.append(prefs,node('p','lp-caption',t('note')));
   if(!p.items.length)box.appendChild(node('p','',t('complete')));
-  const list=node('ol','pc-steps');for(const task of p.items){const li=node('li');li.append(node('strong','',t(task.kind)),node('p','lp-caption',t(task.reason)));if(task.lesson){const l=bridge.model.lesson(task.lesson);li.appendChild(node('p','',bridge.label(l)))}const action=button(t(task.kind),()=>{if(!task.locked)bridge.act(task)});action.disabled=!!task.locked;li.appendChild(action);list.appendChild(li)}box.appendChild(list);
-  box.appendChild(memoryPanel(coach,lang));if(!coach.persistent)box.appendChild(node('p','lp-caption',t('blocked')));root.appendChild(box);
+  const list=node('ol','pc-steps');p.items.forEach((task,n)=>{const li=node('li');const txt=node('div','pc-step-text');txt.append(node('strong','',t(task.kind)));if(task.lesson){const l=bridge.model.lesson(task.lesson);txt.appendChild(node('span','pc-step-lesson',bridge.label(l)))}else txt.appendChild(node('span','pc-step-lesson',t(task.reason)));
+   const action=button(compact?'→':t(task.kind),()=>{if(!task.locked)bridge.act(task)});action.disabled=!!task.locked;if(compact){action.setAttribute('aria-label',t(task.kind));action.classList.add('pc-go');if(n===0&&!task.locked)action.classList.add('lp-primary')}
+   if(!compact)txt.appendChild(node('p','lp-caption',t(task.reason)));li.append(node('span','pc-num',String(n+1)),txt,action);list.appendChild(li)});box.appendChild(list);
+  if(compact){const more=node('details','pc-more');more.appendChild(node('summary','',bridge.settingsLabel||'⚙️'));more.append(prefs,node('p','lp-caption',t('note')),memoryPanel(coach,lang));box.appendChild(more)}
+  else{box.insertBefore(prefs,list);box.insertBefore(node('p','lp-caption',t('note')),list);box.appendChild(memoryPanel(coach,lang))}
+  if(!coach.persistent)box.appendChild(node('p','lp-caption',t('blocked')));root.appendChild(box);
  }
  Object.assign(api,{tr,memoryPanel,render});
 })();

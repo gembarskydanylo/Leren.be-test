@@ -46,3 +46,10 @@
 - Промпти, джерело й збережений файл — img/mascot/ASSETS.md; повний журнал — TESTING-JOURNAL.md / TEST-007.
 
 - Уточнення v95: перший екран після входу — привітання кота, навіть якщо збережено урок/розмову/перевірку старту. Головна кнопка відновлює саме відповідну сесію; мовні налаштування й результати не скидаються. companion/ui.js і learning-path/ui.js мають окремі оновлені URL v95.
+
+## TEST-008 · Спрощений перший екран і карта курсу · v96
+- **Статус:** тестова пропозиція для оцінки користувача. Залежить від TEST-007 (вже в production v102).
+- Переносити: companion welcome v2 (ui.js + CSS TEST-008), learning-path ui.js (EXTRA-тексти 4 мовами, toolbar, today, карта-картки, About, study card, speakBtn) і CSS, compact-режим personal-coach лише якщо в production є план (інакше компактний план пропускається — hero викликає його тільки коли модуль присутній).
+- index.html: у bridge маршруту додати today/gifts/isDark/toggleTheme (dailyState, dailyGoal, streakState, rewards.state.earned, #themeToggle); CSS лівої панелі ≥1180px перед першим </style>. Узгодити версії URL та CACHE_NAME з поточною production-нумерацією (там уже v102+).
+- Не замінювати production index.html цілком; зберегти екзаменаційний модуль, голоси, push, Firestore.
+- Перед production: оцінка користувачем; фізичні Android/iPhone; перевірка автовідтворення на iOS Safari; клавіатурна навігація по карті.

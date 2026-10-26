@@ -9,6 +9,17 @@
  const names={
   comm:['👋','Знайомство','Introductions','Présentations','التعارف'],people:['👨‍👩‍👧','Люди навколо','People around you','Les autres','الناس من حولك'],nums:['🔢','Числа, ціни й погода','Numbers, prices and weather','Nombres, prix et météo','الأعداد والأسعار والطقس'],travelTime:['🕒','Котра година?','Telling the time','Quelle heure est-il ?','كم الساعة؟'],birthday:['🎂','День народження','Birthdays','Anniversaires','أعياد الميلاد'],opening:['🗓️','Дні та години роботи','Days and opening hours','Jours et horaires','الأيام وساعات العمل'],forms:['📝','Анкети й документи','Forms and documents','Formulaires et documents','الاستمارات والوثائق'],dag:['☀️','Мій звичайний день','My daily routine','Ma journée','يومي المعتاد'],plans:['🎟️','Плани й запрошення','Plans and invitations','Projets et invitations','الخطط والدعوات'],health:['🩺','Здоров’я та лікар','Health and the doctor','Santé et médecin','الصحة والطبيب'],food:['🥗','Їжа та корисні звички','Food and healthy habits','Alimentation et habitudes','الغذاء والعادات الصحية'],shopping:['🛒','Покупки та продукти','Shopping and groceries','Courses et produits','التسوق والمنتجات'],past:['⏪','Розповідаємо про минуле','Talking about the past','Parler du passé','الحديث عن الماضي'],holiday:['🧳','Сім’я та відпустка','Family and holidays','Famille et vacances','العائلة والعطلة'],travel:['🚆','Подорожі','Travel','Voyages','السفر'],service:['🛍️','Магазини й покупки','Shops and purchases','Magasins et achats','المتاجر والمشتريات'],wonen:['🏡','Житло','Housing','Logement','السكن'],contact:['✉️','Повідомлення й зустрічі','Messages and appointments','Messages et rendez-vous','الرسائل والمواعيد'],reading:['📰','Читання і відповіді','Reading and responding','Lire et répondre','القراءة والرد'],grammar2:['📘','Граматика в житті','Grammar in everyday life','Grammaire au quotidien','القواعد في الحياة اليومية']
  };
+ const EXTRA={
+  theme:{uk:['Увімкнути темну тему','Увімкнути світлу тему'],en:['Switch to dark mode','Switch to light mode'],fr:['Passer en mode sombre','Passer en mode clair'],ar:['الوضع الداكن','الوضع الفاتح']},
+  today:{uk:'Сьогодні',en:'Today',fr:'Aujourd’hui',ar:'اليوم'},goalPts:{uk:'балів із',en:'points of',fr:'points sur',ar:'نقطة من'},streak:{uk:'днів поспіль',en:'day streak',fr:'jours d’affilée',ar:'أيام متتالية'},lessonsDone:{uk:'уроків пройдено',en:'lessons done',fr:'leçons terminées',ar:'دروس مكتملة'},
+  ofTotal:{uk:'з',en:'of',fr:'sur',ar:'من'},gifts:{uk:'🎁 Подарунки кота',en:'🎁 Cat gifts',fr:'🎁 Cadeaux du chat',ar:'🎁 هدايا القط'},
+  done:{uk:'Пройдено',en:'Completed',fr:'Terminé',ar:'مكتمل'},here:{uk:'Ти тут',en:'You are here',fr:'Tu es ici',ar:'أنت هنا'},started:{uk:'Розпочато',en:'In progress',fr:'Commencé',ar:'بدأت'},notYet:{uk:'Ще попереду',en:'Not started',fr:'À venir',ar:'لم يبدأ'},
+  lessonsN:{uk:'уроків',en:'lessons',fr:'leçons',ar:'دروس'},approx:{uk:'≈ хв',en:'≈ min',fr:'≈ min',ar:'≈ د'},open:{uk:'Відкрити',en:'Open',fr:'Ouvrir',ar:'افتح'},mapHint:{uk:'Будь-яку тему можна відкрити. Поточна тема розгорнута.',en:'Every topic is open to you. Your current topic is expanded.',fr:'Tous les thèmes sont accessibles. Ton thème actuel est ouvert.',ar:'كل المواضيع متاحة. موضوعك الحالي مفتوح.'},
+  about:{uk:'Про Leren.be',en:'About Leren.be',fr:'À propos de Leren.be',ar:'عن Leren.be'},
+  aboutText:{uk:['Leren.be створив українець, який сам вивчає нідерландську в Бельгії (CVO, inburgering). Теми йдуть за курсом A1.1 та A1.2.','Безкоштовно, без реклами. Прогрес зберігається на твоєму пристрої; вхід у акаунт — лише за бажанням.','Пітер і Дафна — вчителі: пояснюють і розмовляють з тобою. Кіт — твій однокласник.'],en:['Leren.be was made by a Ukrainian who is learning Dutch in Belgium himself (CVO, inburgering). Topics follow the A1.1 and A1.2 course.','Free, with no ads. Progress stays on your device; an account is optional.','Peter and Dafna are the teachers who explain and talk with you. The cat is your classmate.'],fr:['Leren.be a été créé par un Ukrainien qui apprend lui-même le néerlandais en Belgique (CVO, inburgering). Les thèmes suivent le cours A1.1 et A1.2.','Gratuit et sans publicité. La progression reste sur ton appareil ; le compte est facultatif.','Peter et Dafna sont les professeurs. Le chat est ton camarade de classe.'],ar:['أنشأ Leren.be أوكراني يتعلّم الهولندية بنفسه في بلجيكا (CVO، الاندماج). تتبع المواضيع دورة A1.1 وA1.2.','مجاني وبلا إعلانات. يبقى تقدّمك على جهازك، والحساب اختياري.','بيتر ودافنا هما المعلّمان. والقط زميلك في الصف.']},
+  privacy:{uk:'Конфіденційність',en:'Privacy',fr:'Confidentialité',ar:'الخصوصية'},
+  planSettings:{uk:'⚙️ Налаштувати план',en:'⚙️ Plan settings',fr:'⚙️ Réglages du programme',ar:'⚙️ إعدادات الخطة'}
+ };
  function mount(root,bridge){
   const course=LerenLearningPath.catalog(bridge.data,bridge.curriculum),model=LerenLearningPath.create(course,{getItem:k=>localStorage.getItem(k),setItem:(k,v)=>localStorage.setItem(k,v)});
   const coach=LerenPersonalCoach.shared||LerenPersonalCoach.create({getItem:k=>localStorage.getItem(k),setItem:(k,v)=>localStorage.setItem(k,v)});
@@ -17,42 +28,70 @@
   const talkText=key=>LerenLessonConversation.tr(key,lang);
   const talkView=LerenLessonConversation.createView(conversation,{...bridge,render:()=>render(),lessonWords:id=>(model.lesson(id)?.ids||[]).map(id=>course.cards.get(id).nl),nextLesson(){const s=model.state.session;if(s&&s.kind==='lesson'&&(s.phase<2||s.index<s.ids.length)){go('lesson');return}const l=model.continueRoute();go(l?'intro':'home')}});
   function beginTalk(id){if(conversation.state.lesson===id&&conversation.state.index<3)conversation.resume();else conversation.begin(id);talkView.clear();go('talk')}
+  const X=k=>{const v=EXTRA[k];return v?(v[lang]||v.uk):k};
   const t=k=>copy[lang][k],word=id=>course.cards.get(id),translation=w=>w[lang]||w.uk,title=ch=>(names[ch.id]||['📖',ch.nl,ch.nl,ch.nl,ch.nl])[languages.indexOf(lang)+1],icon=ch=>(names[ch.id]||['📖'])[0];
   const node=(tag,cls,text)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(text!=null)e.textContent=text;return e};
   const button=(label,fn,primary=false)=>{const b=node('button',primary?'lp-button lp-primary':'lp-button',label);b.type='button';b.onclick=fn;return b};
+  // Audio buttons show that sound is playing (pulse) — feedback reviewers missed.
+  const speakBtn=(text,label,primary=false)=>{const b=button(label,()=>{b.classList.add('lp-playing');b.setAttribute('aria-busy','true');bridge.speak(text);if(typeof setTimeout==='function'){clearTimeout(b._t);b._t=setTimeout(()=>{b.classList.remove('lp-playing');b.removeAttribute('aria-busy')},1800)}},primary);b.classList.add('lp-speak');return b};
   const lessonTitle=l=>(bridge.lessonLabel(l.tab,lang)||l.tab)+(l.parts>1?' · '+t('part')+' '+l.part+'/'+l.parts:'');
   const chapter=l=>course.chapters.find(c=>c.id===l.chapter);
   function go(next){talkView.cancel();if(screen==='talk'&&next!=='talk')conversation.pause();bridge.stop();feedback=null;screen=next;render();root.scrollIntoView({block:'start',behavior:'smooth'})}
   function begin(l){const s=model.state.session;if(s?.kind==='lesson'&&s.lesson===l.id&&(s.phase<2||s.index<s.ids.length)){go('lesson');return}model.begin(l.id);go('intro')}
   function shell(){
    root.replaceChildren();root.lang=lang;root.dir=lang==='ar'?'rtl':'ltr';
-   const tools=node('div','lp-toolbar'),label=node('label','',t('lang')),select=node('select');
-   select.setAttribute('aria-label',t('lang'));[['uk','🇺🇦 Українська'],['en','English'],['fr','Français'],['ar','العربية']].forEach(([v,name])=>{const o=node('option','',name);o.value=v;select.appendChild(o)});select.value=lang;select.onchange=()=>{lang=select.value;bridge.setLanguage(lang);render()};label.appendChild(select);
-   tools.append(label,button(t('free'),()=>{bridge.stop();bridge.free()}));root.appendChild(tools);
-   if(screen!=='home')root.appendChild(button('‹ '+t('home'),()=>go('home')));
+   // TEST-008: language + light/dark switch are visible at the top; free practice is a quiet link.
+   const tools=node('div','lp-toolbar'),label=node('label','lp-lang'),select=node('select');label.appendChild(node('span','lp-lang-label',t('lang')));
+   select.setAttribute('aria-label',t('lang'));[['uk','🇺🇦 Українська'],['en','🇬🇧 English'],['fr','🇫🇷 Français'],['ar','العربية']].forEach(([v,name])=>{const o=node('option','',name);o.value=v;select.appendChild(o)});select.value=lang;select.onchange=()=>{lang=select.value;bridge.setLanguage(lang);render()};label.appendChild(select);
+   const dark=bridge.isDark?bridge.isDark():globalThis.document?.documentElement?.dataset?.theme==='dark',theme=button(dark?'☀️':'🌙',()=>{bridge.toggleTheme&&bridge.toggleTheme();render()});theme.className='lp-icon-btn';theme.setAttribute('aria-label',X('theme')[dark?1:0]);theme.title=X('theme')[dark?1:0];
+   const free=button(t('free')+' →',()=>{bridge.stop();bridge.free()});free.className='lp-link';
+   const left=node('div','lp-tools-left');left.append(label,theme);tools.append(left,free);root.appendChild(tools);
+   if(screen!=='home'){const back=button('← '+t('home'),()=>go('home'));back.className='lp-back';root.appendChild(back)}
   }
   function note(){root.appendChild(node('p','lp-caption',t(model.persistent?'saved':'memory')))}
   function hero(){
    const session=model.state.session,paused=session?.kind==='lesson'&&(session.phase<2||session.index<session.ids.length)?model.lesson(session.lesson):null,next=paused||model.recommended(),placing=!!model.state.placement,talking=!paused&&conversation.state.open&&conversation.state.index<3&&!!model.lesson(conversation.state.lesson),started=model.state.started||Object.keys(model.state.completed).length>0||placing||talking;
-   root.appendChild(LerenCompanion.welcome({lang,started,lesson:placing?t('place'):talking?lessonTitle(model.lesson(conversation.state.lesson)):next?lessonTitle(next):'',primaryLabel:placing?({uk:'Продовжити перевірку старту',en:'Continue my starting check',fr:'Continuer le bilan de départ',ar:'تابع تحديد البداية'})[lang]:talking?({uk:'Продовжити розмову',en:'Continue my conversation',fr:'Continuer la conversation',ar:'تابع المحادثة'})[lang]:null,onBegin(){if(placing){go('placement');return}if(talking){beginTalk(conversation.state.lesson);return}if(!next){document.getElementById('courseMapTitle')?.scrollIntoView({block:'start'});return}if(!model.state.started)model.start();begin(next)},onPlacement(){model.place();go('placement')},onMap(){document.getElementById('courseMapTitle')?.scrollIntoView({block:'start',behavior:'smooth'})}}));
-   root.appendChild(button(({uk:'🎁 Подарунки кота та твої досягнення',en:'🎁 Cat gifts and your achievements',fr:'🎁 Cadeaux du chat et tes réussites',ar:'🎁 هدايا القط وإنجازاتك'})[lang],()=>bridge.rewards()));
-   LerenPersonalCoach.render(root,coach,{model,conversation,lang,label:lessonTitle,render,act(task){if(task.kind==='resume'){go('lesson')}else if(task.kind==='review'){if(model.beginReview())go('lesson')}else if(task.kind==='talk'){beginTalk(task.lesson)}else{begin(model.lesson(task.lesson))}}});
-   const mapTitle=node('h2','lp-map-title',t('map'));mapTitle.id='courseMapTitle';root.append(mapTitle,node('p','lp-caption',t('optional')));
+   const allLessons=course.chapters.reduce((n,c)=>n+c.lessons.length,0),doneLessons=Object.keys(model.state.completed).length;
+   const nextCh=next&&chapter(next);
+   root.appendChild(LerenCompanion.welcome({lang,started,lesson:placing?t('place'):talking?lessonTitle(model.lesson(conversation.state.lesson)):next?(nextCh?icon(nextCh)+' '+title(nextCh)+' · ':'')+lessonTitle(next):'',lessonMeta:next&&!placing&&!talking?(next.ids.length+' '+((n=>({uk:n%10===1&&n%100!==11?'слово':n%10>=2&&n%10<=4&&(n%100<12||n%100>14)?'слова':'слів',en:n===1?'word':'words',fr:n===1?'mot':'mots',ar:'كلمات'}))(next.ids.length))[lang]+' · '+({uk:'≈ 5–10 хв',en:'≈ 5–10 min',fr:'≈ 5–10 min',ar:'≈ ٥–١٠ د'})[lang]):'',progress:{pct:allLessons?doneLessons/allLessons*100:0,label:doneLessons+' '+X('ofTotal')+' '+allLessons+' '+X('lessonsDone')},primaryLabel:placing?({uk:'Продовжити перевірку старту',en:'Continue my starting check',fr:'Continuer le bilan de départ',ar:'تابع تحديد البداية'})[lang]:talking?({uk:'Продовжити розмову',en:'Continue my conversation',fr:'Continuer la conversation',ar:'تابع المحادثة'})[lang]:null,onBegin(){if(placing){go('placement');return}if(talking){beginTalk(conversation.state.lesson);return}if(!next){document.getElementById('courseMapTitle')?.scrollIntoView({block:'start'});return}if(!model.state.started)model.start();begin(next)},onPlacement(){model.place();go('placement')},onMap(){document.getElementById('courseMapTitle')?.scrollIntoView({block:'start',behavior:'smooth'})}}));
+   // Today strip: daily goal, streak and gifts in one quiet line (gifts only once there is something to show).
+   if(started&&bridge.today){const d=bridge.today(),strip=node('div','lp-today');
+    const goal=node('div','lp-today-item'),gbar=node('span','lp-mini-bar'),gfill=node('i');gfill.style.width=Math.min(100,Math.round(d.xp/Math.max(1,d.goal)*100))+'%';gbar.appendChild(gfill);goal.append(node('strong','',(d.done?'✅ ':'🎯 ')+X('today')),node('span','',d.xp+' '+X('goalPts')+' '+d.goal),gbar);strip.appendChild(goal);
+    const st=node('div','lp-today-item');st.append(node('strong','','🔥 '+d.streak),node('span','',X('streak')));strip.appendChild(st);
+    const gifts=bridge.gifts?bridge.gifts():0;if(gifts>0){const g=button(X('gifts')+' · '+gifts,()=>bridge.rewards());g.className='lp-today-item lp-today-btn';strip.appendChild(g)}
+    root.appendChild(strip)}
+   if(started)LerenPersonalCoach.render(root,coach,{model,conversation,lang,label:lessonTitle,render,compact:true,settingsLabel:X('planSettings'),act(task){if(task.kind==='resume'){go('lesson')}else if(task.kind==='review'){if(model.beginReview())go('lesson')}else if(task.kind==='talk'){beginTalk(task.lesson)}else{begin(model.lesson(task.lesson))}}});
+   // Course map: chapter cards with progress bars and a clear state (done / you are here / started / not yet).
+   const mapTitle=node('h2','lp-map-title',t('map'));mapTitle.id='courseMapTitle';root.append(mapTitle,node('p','lp-caption',X('mapHint')));
+   const rec=model.recommended();
    for(const level of ['A1.1','A1.2']){
-    const section=node('section','lp-map');section.appendChild(node('h3','lp-level',level+' · A1'));
-    for(const ch of course.chapters.filter(c=>c.level===level)){
-     const st=model.stats(ch.id),details=node('details','lp-chapter'),summary=node('summary'),here=model.recommended()?.chapter===ch.id;
-     details.open=here;summary.append(node('span','lp-chapter-icon',icon(ch)),node('span','lp-chapter-title',title(ch)),node('span','lp-chapter-count',(here?'→ ':'')+st.done+'/'+st.total));details.appendChild(summary);
-     details.appendChild(node('p','lp-caption',ch.nl+' · '+st.done+'/'+st.total+' '+t('done')));
+    const chs=course.chapters.filter(c=>c.level===level),lvDone=chs.reduce((n,c)=>n+model.stats(c.id).done,0),lvTotal=chs.reduce((n,c)=>n+model.stats(c.id).total,0);
+    const section=node('section','lp-map'),head=node('div','lp-level-head'),lb=node('span','lp-mini-bar'),lf=node('i');lf.style.width=(lvTotal?Math.round(lvDone/lvTotal*100):0)+'%';lb.appendChild(lf);
+    head.append(node('h3','lp-level',level+' · A1'),node('span','lp-level-count',lvDone+' / '+lvTotal),lb);section.appendChild(head);
+    const grid=node('div','lp-chapters');
+    chs.forEach((ch,k)=>{
+     const st=model.stats(ch.id),here=rec?.chapter===ch.id,complete=st.total>0&&st.done===st.total,state=complete?'done':here?'here':st.done>0?'started':'todo';
+     const details=node('details','lp-chapter lp-ch-'+state),summary=node('summary');details.open=here;
+     const num=node('span','lp-chapter-icon',complete?'✓':icon(ch));
+     const text=node('span','lp-chapter-text');text.append(node('span','lp-chapter-title',title(ch)),node('small','lp-chapter-nl',ch.nl));
+     const bar=node('span','lp-mini-bar'),fill=node('i');fill.style.width=(st.total?Math.round(st.done/st.total*100):0)+'%';bar.appendChild(fill);text.appendChild(bar);
+     const badge=node('span','lp-chip lp-chip-'+state,X(state==='done'?'done':state==='here'?'here':state==='started'?'started':'notYet'));
+     const meta=node('small','lp-chapter-count',st.done+'/'+st.total);
+     const side=node('span','lp-chapter-side');side.append(badge,meta);
+     summary.append(num,text,side);details.appendChild(summary);
      const list=node('ol','lp-lessons');
-     for(const l of ch.lessons){const done=Object.hasOwn(model.state.completed,l.id),active=model.recommended()?.id===l.id,b=button((active?'→ ':done?'✓ ':'○ ')+lessonTitle(l),()=>begin(l));b.classList.toggle('lp-current',active);if(active)b.setAttribute('aria-current','step');
-      const li=node('li');li.appendChild(b);if(done&&!model.mastered(l.id))li.appendChild(node('span','lp-caption',t('review')));list.appendChild(li)}
+     for(const l of ch.lessons){const done=Object.hasOwn(model.state.completed,l.id),active=rec?.id===l.id,b=button('',()=>begin(l));b.append(node('span','lp-dot '+(done?'is-done':active?'is-here':''),done?'✓':active?'▶':''),node('span','lp-lesson-name',lessonTitle(l)),node('small','lp-lesson-min',l.ids.length+' · '+({uk:'≈5 хв',en:'≈5 min',fr:'≈5 min',ar:'≈٥ د'})[lang]));b.classList.toggle('lp-current',active);b.classList.toggle('lp-done',done);if(active)b.setAttribute('aria-current','step');
+      const li=node('li');li.appendChild(b);if(done&&!model.mastered(l.id))li.appendChild(node('span','lp-caption lp-review-note','↻ '+t('review')));list.appendChild(li)}
      details.appendChild(list);
-     if(st.done===st.total){const end=node('div','lp-topic-check');end.append(node('p','',t('assessHint')),button(t('openTest'),()=>bridge.assess(ch.id)));details.appendChild(end)}
-     section.appendChild(details);
-    }root.appendChild(section);
+     if(complete){const end=node('div','lp-topic-check');end.append(node('p','',t('assessHint')),button(t('openTest'),()=>bridge.assess(ch.id),true));details.appendChild(end)}
+     grid.appendChild(details);
+    });section.appendChild(grid);root.appendChild(section);
    }
-   root.appendChild(button(t('newStart'),()=>{model.place();go('placement')}));note();
+   const start=button(t('newStart'),()=>{model.place();go('placement')});start.className='lp-link';root.appendChild(start);
+   // About / trust block
+   const about=node('section','lp-about');about.appendChild(node('h3','',X('about')));X('aboutText').forEach(p=>about.appendChild(node('p','',p)));
+   const pv=node('a','lp-link',X('privacy')+' →');pv.href='./privacy.html';about.appendChild(pv);root.appendChild(about);
+   note();
   }
   function intro(){const s=model.state.session,l=model.lesson(s.lesson),ch=chapter(l),box=node('div','lp-card');box.append(node('span','lp-eyebrow',ch.level+' · '+title(ch)),node('h2','',lessonTitle(l)),node('p','',t('goalText')));
    const list=node('ul','lp-preview-list');l.ids.forEach(id=>{const w=word(id);list.appendChild(node('li','',w.nl+' — '+translation(w)))});box.append(list,node('p','lp-caption',t('minutes')),button(t('begin'),()=>go('lesson'),true));root.appendChild(box);note()}
@@ -68,7 +107,7 @@
    if(s.kind==='lesson'){const l=model.lesson(s.lesson),ch=chapter(l);box.append(node('span','lp-eyebrow',ch.level+' · '+title(ch)),node('h2','',lessonTitle(l)))}else box.appendChild(node('h2','',t('review')));
    const steps=node('ol','lp-steps');['study','listen','check'].forEach((key,i)=>{const li=node('li',i===s.phase?'lp-active':'',(i<s.phase?'✓ ':i+1+'. ')+t(key));if(i===s.phase)li.setAttribute('aria-current','step');steps.appendChild(li)});box.appendChild(steps);
    if(feedback){
-    const fb=node('div','lp-feedback '+(feedback.ok?'lp-correct':'lp-wrong'));fb.setAttribute('role','status');fb.appendChild(LerenCompanion.feedback(feedback.ok,lang,s.index));const w=word(feedback.id);fb.append(node('strong','',t(feedback.ok?'right':'wrong')),node('p','lp-word',w.nl),node('p','',translation(w)),button('🔊 '+t('sound'),()=>bridge.speak(w.nl)));
+    const fb=node('div','lp-feedback '+(feedback.ok?'lp-correct':'lp-wrong'));fb.setAttribute('role','status');fb.appendChild(LerenCompanion.feedback(feedback.ok,lang,s.index));const w=word(feedback.id);fb.append(node('strong','',t(feedback.ok?'right':'wrong')),node('p','lp-word',w.nl),node('p','',translation(w)),speakBtn(w.nl,'🔊 '+t('sound')));
     if(!feedback.ok){
      if(!feedback.practice)fb.appendChild(button(LerenCompanion.tr(lang).retry,()=>{feedback.practice=true;render()}));
      else{const practice=node('div','comp-practice');practice.appendChild(node('p','',LerenCompanion.tr(lang).practice));
@@ -93,12 +132,14 @@
    }
    const w=model.current(),listen=s.phase===1;
    box.append(node('p','lp-caption',(s.index+1)+' / '+s.ids.length),node('p','',t('phaseHint')[s.phase]));
-   if(s.phase===0){const text=node('p','lp-word',w.nl);text.lang='nl';text.dir='ltr';box.append(text,node('p','lp-meaning',translation(w)));
-    if(w.ex_nl){const example=node('p','lp-example',w.ex_nl);example.lang='nl';example.dir='ltr';box.appendChild(example);if(w['ex_'+lang])box.appendChild(node('p','',w['ex_'+lang]))}
-    box.append(button('🔊 '+t('sound'),()=>bridge.speak(w.nl)),button(t('remember'),()=>{model.advance(w.id,true);render()},true));
+   if(s.phase===0){ // TEST-008: big word + sound first; the example sentence is one tap away
+    const row=node('div','lp-word-row'),text=node('p','lp-word',w.nl);text.lang='nl';text.dir='ltr';const snd=speakBtn(w.nl,'🔊');snd.classList.add('lp-round');snd.setAttribute('aria-label',t('sound'));row.append(text,snd);box.append(row,node('p','lp-meaning',translation(w)));
+    if(w.ex_nl){const ex=node('details','lp-example-box'),sum=node('summary','',({uk:'Приклад речення',en:'Example sentence',fr:'Phrase d’exemple',ar:'جملة مثال'})[lang]),example=node('p','lp-example',w.ex_nl);example.lang='nl';example.dir='ltr';ex.append(sum,example);if(w['ex_'+lang])ex.appendChild(node('p','lp-caption',w['ex_'+lang]));const exs=speakBtn(w.ex_nl,'🔊 '+t('sound'));ex.appendChild(exs);box.appendChild(ex)}
+    const go2=button(t('remember'),()=>{model.advance(w.id,true);render()},true);go2.classList.add('lp-wide');box.appendChild(go2);
+    if(typeof setTimeout==='function'&&globalThis.document?.body?.contains)setTimeout(()=>{if(document.body.contains(snd))snd.click()},250);
    }else{
     box.appendChild(node('p',listen?'lp-sound':'lp-word',listen?'🎧':translation(w)));
-    if(listen)box.appendChild(button('🔊 '+t('sound'),()=>bridge.speak(w.nl),true));
+    if(listen){const ls=speakBtn(w.nl,'🔊 '+t('sound'),true);ls.classList.add('lp-wide');box.appendChild(ls)}
     const choices=node('div','lp-options');for(const o of options(w,listen)){const b=button(o.text,()=>{if(model.advance(w.id,o.ok)){feedback={id:w.id,ok:o.ok};bridge.answer(w.id,o.ok,s.phase===2);render()}});if(!listen){b.lang='nl';b.dir='ltr'}choices.appendChild(b)}box.appendChild(choices);
    }
    root.appendChild(box);note();

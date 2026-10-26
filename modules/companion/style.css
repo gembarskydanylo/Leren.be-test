@@ -21,3 +21,33 @@ header .brand{display:grid;grid-template-columns:38px auto;column-gap:10px;row-g
 .comp-header-route[hidden]{display:none}
 
 .rw-scene.is-gifted .comp-cat{animation:comp-jump .65s ease both}@keyframes comp-jump{0%,100%{transform:translateY(0)}35%{transform:translateY(-18px) rotate(-5deg)}70%{transform:translateY(-4px) rotate(4deg)}}@media(prefers-reduced-motion:reduce){.rw-scene.is-gifted .comp-cat{animation:none}}
+
+/* ---------- TEST-008: calmer welcome, one primary action ---------- */
+.comp-welcome-v2{grid-template-columns:200px minmax(0,1fr);gap:22px;padding:26px 28px;border-radius:28px;margin:0 0 18px}
+.comp-welcome-v2 .comp-scene>.comp-cat{width:190px;height:190px}
+.comp-welcome-v2 .comp-content h2{margin:0 0 8px;font-size:clamp(24px,3.2vw,32px)}
+.comp-welcome-v2 .comp-intro{font-size:16px;margin:0 0 16px;max-width:52ch}
+.comp-next-card{display:grid;gap:3px;padding:14px 16px;border-radius:18px;background:var(--surface-2);border:1px solid var(--line);margin:0 0 14px}
+.comp-next-card strong{font-size:17px;line-height:1.35}
+.comp-meta{font-size:13px;color:var(--ink-2);font-weight:700}
+.comp-button.comp-cta{display:flex;width:100%;min-height:56px;font-size:17px;border-radius:18px}
+.comp-progress{display:grid;gap:6px;margin:14px 0 0}.comp-progress small{font-size:12.5px;color:var(--ink-2);font-weight:700}
+.comp-bar{display:block;height:8px;border-radius:99px;background:var(--line);overflow:hidden}.comp-bar i{display:block;height:100%;border-radius:inherit;background:var(--ok);transition:width .4s ease}
+.comp-alt{margin:14px 0 0;font-size:14px;color:var(--ink-2);line-height:1.5}
+.comp-link{display:inline;border:0;background:none;padding:6px 0;min-height:44px;color:var(--oranje-deep);font:800 14px/1.4 var(--font-body);text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.comp-link:focus-visible{outline:3px solid var(--oranje);outline-offset:2px;border-radius:6px}
+.comp-welcome-v2 .comp-how{margin-top:16px}
+@media(max-width:620px){
+ .comp-welcome-v2{grid-template-columns:1fr;padding:20px 18px;gap:6px;text-align:center}
+ .comp-welcome-v2 .comp-scene{flex-direction:row;justify-content:center;gap:10px;padding:0}
+ .comp-welcome-v2 .comp-scene>.comp-cat{width:110px;height:110px}
+ .comp-welcome-v2 .comp-bubble{margin:0;max-width:170px;font-size:12.5px}
+ .comp-welcome-v2 .comp-bubble:before{top:45%;inset-inline-start:-7px;transform:rotate(-45deg)}
+ .comp-welcome-v2 .comp-content{text-align:start}
+ .comp-welcome-v2 .comp-content h2{display:none}
+ .comp-welcome-v2 .comp-intro{font-size:15px}
+}
+@media (prefers-reduced-motion:reduce){.comp-bar i{transition:none}}
+/* TEST-008 polish: desktop shows the heading, so the bubble would repeat it */
+@media(min-width:621px){.comp-welcome-v2 .comp-bubble{display:none}}
+[data-theme="dark"] .comp-link{color:#FFB070}

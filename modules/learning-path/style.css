@@ -68,3 +68,74 @@
 .pc-plan button:disabled{opacity:.5;cursor:default}
 
 .ac-tools{margin-block:16px}.ac-hint,.ac-practice{padding:18px;margin-block:14px;border:1px solid var(--line);border-radius:20px;background:var(--surface-2);overflow-wrap:anywhere}.ac-hint p,.ac-practice p{white-space:pre-wrap}.ac-tools .btn,.ai-fix .btn{margin:6px 6px 6px 0;white-space:normal;min-height:44px}.ac-example{font-weight:800;font-size:20px;line-height:1.5}.ac-repeat textarea{display:block;width:100%;box-sizing:border-box;font:inherit;padding:12px;border:1px solid var(--line);border-radius:14px;background:var(--surface);color:var(--ink);resize:vertical}.ac-repeat small,.ac-tools small{display:block;color:var(--ink-2);line-height:1.5}.ac-tools button:disabled{opacity:.5}
+
+/* ---------- TEST-008: clearer home, course map with states, calmer study card ---------- */
+.lp-toolbar{margin:0 0 14px}
+.lp-tools-left{display:flex;align-items:center;gap:8px}
+.lp-lang-label{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.lp-toolbar select{min-height:44px}
+.lp-icon-btn{display:grid;place-items:center;width:44px;height:44px;border:1px solid var(--line);border-radius:14px;background:var(--surface);font-size:19px;cursor:pointer}
+.lp-icon-btn:focus-visible,.lp-link:focus-visible,.lp-back:focus-visible{outline:3px solid var(--oranje);outline-offset:2px}
+.lp-link{display:inline-flex;align-items:center;min-height:44px;border:0;background:none;padding:6px 2px;color:var(--oranje-deep);font:800 14px/1.4 var(--font-body);text-decoration:none;cursor:pointer}
+.lp-link:hover{text-decoration:underline;text-underline-offset:3px}
+.lp-back{display:inline-flex;align-items:center;gap:6px;min-height:44px;margin:0 0 12px;padding:8px 16px 8px 12px;border:1px solid var(--line);border-radius:99px;background:var(--surface);color:var(--ink);font:800 15px/1.2 var(--font-body);cursor:pointer;box-shadow:0 2px 0 var(--edge)}
+.lp-today{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 18px}
+.lp-today-item{flex:1 1 140px;display:grid;gap:4px;align-content:start;padding:12px 14px;border:1px solid var(--line);border-radius:18px;background:var(--surface);font-size:13px;color:var(--ink-2);text-align:start}
+.lp-today-item strong{color:var(--ink);font-size:15px}
+.lp-today-btn{cursor:pointer;font:800 14px/1.4 var(--font-body);color:var(--ink);display:flex;align-items:center}
+.lp-mini-bar{display:block;height:6px;border-radius:99px;background:var(--line);overflow:hidden;margin-top:4px}
+.lp-mini-bar i{display:block;height:100%;width:0;border-radius:inherit;background:var(--ok)}
+/* compact daily plan */
+.pc-compact{padding:18px 20px;margin:0 0 8px}
+.pc-compact h2{font-size:19px!important;margin:0 0 10px!important}
+.pc-compact .pc-steps{list-style:none;padding:0;margin:0;display:grid;gap:8px}
+.pc-compact .pc-steps li{display:grid;grid-template-columns:30px minmax(0,1fr) auto;align-items:center;gap:10px;padding:10px 12px;border-radius:16px;background:var(--surface-2)}
+.pc-num{display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--surface);border:1px solid var(--line);font-weight:900;font-size:13px}
+.pc-step-text{display:grid;gap:2px;min-width:0}.pc-step-text strong{font-size:15px}.pc-step-lesson{font-size:13px;color:var(--ink-2);overflow-wrap:anywhere}
+.pc-go{min-width:48px;min-height:44px;padding:8px 12px;font-size:18px}
+.pc-more{margin-top:10px}.pc-more>summary{cursor:pointer;font-weight:800;font-size:14px;color:var(--ink-2);min-height:44px;display:flex;align-items:center}
+.pc-more .pc-prefs{display:flex;flex-wrap:wrap;gap:10px}
+/* course map */
+.lp-map-title{margin-top:26px!important}
+.lp-level-head{display:grid;grid-template-columns:1fr auto;align-items:center;gap:4px 12px;margin:18px 0 10px}
+.lp-level-head .lp-level{border:0;padding:0;margin:0;color:var(--ink)!important}
+.lp-level-count{font-weight:800;color:var(--ink-2);font-size:13px}
+.lp-level-head .lp-mini-bar{grid-column:1/-1}
+.lp-chapters{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;align-items:start}
+.lp-chapter{margin:0;border-radius:20px;border-width:2px}
+.lp-chapter summary{min-height:84px;padding:14px;gap:12px}
+.lp-chapter-text{display:grid;gap:2px;flex:1;min-width:0}
+.lp-chapter-title{font-size:16px;line-height:1.3}
+.lp-chapter-nl{font-size:12.5px;color:var(--ink-2);font-weight:700}
+.lp-chapter-side{display:grid;justify-items:end;gap:4px;flex:none}
+.lp-chip{display:inline-block;padding:3px 9px;border-radius:99px;font-size:11.5px;font-weight:900;white-space:nowrap;background:var(--surface-2);color:var(--ink-2)}
+.lp-chip-done{background:var(--ok-soft);color:var(--ok)}
+.lp-chip-here{background:var(--oranje);color:var(--on-oranje)}
+.lp-chip-started{background:color-mix(in srgb,var(--be-yellow) 32%,var(--surface));color:var(--ink)}
+.lp-ch-done{border-color:var(--ok)}.lp-ch-done .lp-chapter-icon{background:var(--ok);color:#fff;font-weight:900;font-size:22px}
+.lp-ch-here{border-color:var(--oranje);box-shadow:0 4px 0 var(--oranje-soft,#ffe7cf)}
+.lp-ch-todo .lp-chapter-icon{filter:grayscale(.35);opacity:.85}
+.lp-chapter[open]{grid-column:1/-1}
+.lp-lessons:before{display:none}
+.lp-lessons .lp-button{display:grid;grid-template-columns:28px minmax(0,1fr) auto;align-items:center;gap:10px;min-height:52px;padding:10px 12px;border-bottom-width:2px}
+.lp-dot{display:grid;place-items:center;width:26px;height:26px;border-radius:50%;border:2px solid var(--line);font-size:12px;font-weight:900;color:var(--ink-2)}
+.lp-dot.is-done{background:var(--ok);border-color:var(--ok);color:#fff}
+.lp-dot.is-here{background:var(--oranje);border-color:var(--oranje);color:var(--on-oranje)}
+.lp-lesson-name{min-width:0}.lp-lesson-min{font-size:12px;color:var(--ink-2);font-weight:700;white-space:nowrap}
+.lp-lessons .lp-done{background:var(--surface);opacity:.92}
+.lp-review-note{color:var(--ink-2)}
+.lp-about{margin:28px 0 8px;padding:20px 22px;border-radius:22px;background:var(--surface-2);border:1px solid var(--line)}
+.lp-about h3{font-size:18px!important;margin:0 0 8px!important}.lp-about p{margin:0 0 8px;color:var(--ink-2);font-size:14px;line-height:1.6}
+/* study card */
+.lp-word-row{display:flex;align-items:center;gap:14px;margin:22px 0 6px}
+.lp-word-row .lp-word{margin:0}
+.lp-round{flex:none;width:56px;height:56px;min-height:56px;padding:0;border-radius:50%;font-size:22px}
+.lp-example-box{margin:12px 0 4px;border:1px solid var(--line);border-radius:14px;padding:6px 14px;background:var(--surface)}
+.lp-example-box summary{cursor:pointer;font-weight:800;font-size:14px;color:var(--ink-2);min-height:40px;display:flex;align-items:center}
+.lp-example-box .lp-example{margin:6px 0}
+.lp-wide{display:flex;width:100%;margin-top:14px}
+.lp-speak.lp-playing{border-color:var(--oranje);box-shadow:0 0 0 0 #eb6a0066;animation:lp-pulse 1s ease-out infinite}
+@keyframes lp-pulse{0%{box-shadow:0 0 0 0 #eb6a0059}100%{box-shadow:0 0 0 12px #eb6a0000}}
+@media (prefers-reduced-motion:reduce){.lp-speak.lp-playing{animation:none;background:var(--oranje-soft,#ffe7cf)}}
+@media(max-width:480px){.lp-chapters{grid-template-columns:1fr}.lp-today-item{flex-basis:120px;padding:10px 12px}.lp-chapter-side .lp-chip{font-size:11px}}
+[data-theme="dark"] .lp-link,[data-theme="dark"] .lp-about a{color:#FFB070}

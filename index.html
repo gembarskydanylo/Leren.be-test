@@ -19,7 +19,7 @@
 <title>Leren.be — Nederlands A1.1 &amp; A1.2</title>
 <link rel="stylesheet" href="./modules/rewards/style.css?v=93">
 <script src="./modules/rewards/core.js?v=93"></script>
-<script src="./modules/companion/ui.js?v=95"></script>
+<script src="./modules/companion/ui.js?v=96"></script>
 <script src="./modules/rewards/gifts.js?v=94"></script>
 <script src="./modules/rewards/ui.js?v=94"></script>
 <style>
@@ -886,9 +886,17 @@ button.om-chip{cursor:pointer}button.om-chip:hover{border-color:var(--role-v)}
     padding-bottom: calc(138px + env(safe-area-inset-bottom, 0px));
   }
 }
+
+/* ---------- TEST-008: desktop navigation rail (wide screens) ---------- */
+@media (min-width:1180px){
+ .modes-wrapper{left:20px;top:50%;bottom:auto;transform:translateY(-50%);width:104px;flex-direction:column;gap:6px;padding:10px 8px;border-radius:24px}
+ .modes-wrapper button{flex:0 0 auto;flex-direction:column;min-height:72px;padding:10px 4px;font-size:12.5px;gap:6px}
+ .modes-wrapper button.primary{transform:none}
+ main{padding-left:150px;padding-bottom:48px}
+}
 </style>
-<link rel="stylesheet" href="./modules/learning-path/style.css?v=92">
-<link rel="stylesheet" href="./modules/companion/style.css?v=94">
+<link rel="stylesheet" href="./modules/learning-path/style.css?v=96">
+<link rel="stylesheet" href="./modules/companion/style.css?v=96">
 </head>
 <body>
 <main data-view="lesson">
@@ -1022,9 +1030,9 @@ button.om-chip{cursor:pointer}button.om-chip:hover{border-color:var(--role-v)}
 <script src="./modules/ai-coach/core.js?v=92"></script>
 <script src="./modules/ai-coach/ui.js?v=92"></script>
 <script src="./modules/personal-coach/core.js?v=91"></script>
-<script src="./modules/personal-coach/ui.js?v=91"></script>
+<script src="./modules/personal-coach/ui.js?v=96"></script>
 <script src="./modules/learning-path/core.js?v=89"></script>
-<script src="./modules/learning-path/ui.js?v=95"></script>
+<script src="./modules/learning-path/ui.js?v=96"></script>
 <script>
 "use strict";
 const $=id=>document.getElementById(id);
@@ -5997,6 +6005,10 @@ function initLearningPath(){
   ai:chapter=>{const ids={comm:"buren",people:"buren",nums:"super",travelTime:"station",forms:"gemeente",health:"huisarts",food:"cafe",shopping:"super",travel:"station",service:"super",wonen:"gemeente",contact:"gemeente"};setView("games");aiStart(SCENES.find(sc=>sc.id===(ids[chapter]||"buren")))},
   answer:(id,ok,final)=>{if(!final)return;const s=stateFor(id);s.seen++;if(ok){s.correct++;s.streak++;s.due=Date.now()+864e5}else{s.wrong++;s.streak=0;s.due=Date.now()}s.known=s.streak>=2;saveStore();updateStats()},
   complete:recordPathResult,rewards:()=>setView("progress"),
+  today:()=>{const d=dailyState(),st=streakState();return {xp:d.xp,goal:dailyGoal(),done:!!d.done,streak:st.n}},
+  gifts:()=>{try{return Object.keys(rewards.state.earned||{}).length}catch(e){return 0}},
+  isDark:()=>document.documentElement.dataset.theme==="dark",
+  toggleTheme:()=>{const b=$("themeToggle");if(b)b.click();else{const n=document.documentElement.dataset.theme==="dark"?"light":"dark";document.documentElement.dataset.theme=n;try{localStorage.setItem("poly_theme",n)}catch(e){}}},
   assess:id=>{const test=TOETS.find(t=>t.id==="course_"+id+"_v1");if(!test)return;curLevel=test.lvl;setView("toets");toetsId=test.id;toetsQ=0;toetsRight=0;toetsLocked=false;nextToetsQuestion()}
  });
  $("pathReturn").onclick=()=>setView("path");

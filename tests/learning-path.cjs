@@ -54,6 +54,6 @@ const from=script.indexOf('function recordPathResult('),to=script.indexOf('\nfun
 function host(){const x=vm.createContext({learningPath:{model:m},lsGet:k=>ledger[k],lsSet:(k,v)=>ledger[k]=v,rewardCheck(){},queueProgressSync(){},addXP(){},saveStore(){},updateStats(){}});vm.runInContext('const pathSessionRewards={};'+script.slice(from,to),x);return x}
 let h=host();assert.equal(h.recordPathResult(first.id,2,first.ids.length),10);assert.equal(h.recordPathResult(first.id,2,first.ids.length),0);
 h=host();assert.equal(h.recordPathResult(first.id,2,first.ids.length),0);assert.equal(h.recordPathResult(first.id,5,first.ids.length),15);assert.equal(h.recordPathResult('bad',5,5),0);
-const files=JSON.parse(read('sw.js').match(/const APP_FILES = (\[[^;]+\]);/)[1]);for(const file of ['core.js','ui.js','style.css'])assert(files.includes('./modules/learning-path/'+file+'?v='+(file==='core.js'?'89':file==='ui.js'?'95':'92')));
+const files=JSON.parse(read('sw.js').match(/const APP_FILES = (\[[^;]+\]);/)[1]);for(const file of ['core.js','ui.js','style.css'])assert(files.includes('./modules/learning-path/'+file+'?v='+(file==='core.js'?'89':file==='ui.js'?'96':'96')));
 new vm.Script(read('modules/learning-path/ui.js'));
 console.log(`PASS: ${course.chapters.length} chapters, ${course.lessons.length} lessons, all ${actual.length} course cards; phase-by-phase resume, stale answers, next lesson, targeted review, 12-question placement, corrupt/blocked storage, repeat-safe host XP and offline dependencies`);
