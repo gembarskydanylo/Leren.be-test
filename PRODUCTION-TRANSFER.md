@@ -69,3 +69,7 @@
 ## TEST-009 · Desktop layout (waiting for evaluation)
 - Lives in `desktop/` as production snapshot 11ff8b5 + changes. To transfer: copy modules/desktop-home/*, the focused-home topic/hero changes and the learning-path chapterId line; add the two asset tags, the mount block in start() and the two LerenDesktop.refresh() calls; keep production cache naming (leren-be-vN) — the preview's own cache name/cleanup must NOT be copied.
 - Re-check against the production version at transfer time: production keeps changing (other sessions).
+
+## TEST-010 · Top app navigation + bottom lesson modes (waiting for evaluation)
+- Test-only CSS change in `desktop/modules/desktop-home/style.css`: at desktop widths, app sections stay in the top tab bar and the five lesson modes are shown in a bottom dock. Phone/tablet behavior stays as in TEST-009.
+- No logic, data, storage, or production integration changed. Evaluate at `https://gembarskydanylo.github.io/Leren.be-test/desktop/` before considering transfer.
