@@ -1,5 +1,4 @@
-/* TEST-009 · Desktop layout (≥1024px). Phones and tablets keep the current design. */
-.dh-tools{display:none}
+/* TEST-009 · Desktop layout (≥1024px) + the phone variant (<1024px) at the end of this file. */
 @media(min-width:1024px){
  body{overflow-x:clip}
  body>main{padding-top:0}
@@ -83,6 +82,37 @@
  [data-theme="dark"] .fh-hero .fh-eyebrow,[data-theme="dark"] .fh-topic .fh-pct b{color:#FFB070}
  [data-theme="dark"] main>.modes-wrapper button.primary,[data-theme="dark"] main>.modes-wrapper button.primary:hover{color:#FFB070}
 }
-.fh-topic-desc,.fh-topic-foot,.fh-topic-cta{display:none}
 @media(min-width:1024px){.fh-topic .fh-topic-foot{display:flex}.fh-topic .fh-topic-desc{display:block}.fh-topic .fh-topic-cta{display:inline-flex}.fh-topic .fh-topic-body>small{display:none}}
 @media(min-width:1024px) and (prefers-reduced-motion:reduce){.fh-hero .fh-primary::after{transition:none}}
+
+/* ---------- TEST-009 · phones and tablets (<1024px) ---------- */
+@media(max-width:1023.98px){
+ /* language as a round flag in the header; the native list opens on tap */
+ .dh-tools{display:flex;align-items:center;flex:none}
+ .dh-tools .dh-sep,.dh-tools .dh-icon,.dh-tools .dh-account{display:none}
+ .dh-lang{position:relative;display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.95);box-shadow:0 var(--depth-sm,3px) 0 rgba(120,50,0,.35);cursor:pointer}
+ .dh-flag{display:grid;width:26px;height:26px;border-radius:50%;overflow:hidden}.dh-flag svg{width:100%;height:100%}
+ .dh-lang select{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer;font-size:16px}
+ .dh-lang:focus-within{outline:3px solid #fff;outline-offset:2px}
+ main>header .hdr-stats{gap:6px}
+ .learning-path .fh-tools .fh-language{display:none}
+
+ /* topic cards: one per row, picture left, description, thicker bar, % and action */
+ .fh-topic-grid,.fh-preview-grid{grid-template-columns:1fr;gap:12px}
+ .fh-topic,.fh-preview-grid .fh-topic{display:grid;grid-template-columns:76px minmax(0,1fr);align-items:start;gap:14px;padding:16px;border-radius:20px}
+ .fh-topic .fh-topic-picture,.fh-preview-grid .fh-topic-picture{width:76px;height:76px;padding:0;border-radius:50%;overflow:hidden;display:grid;place-items:center;background:#FFF1E4}
+ .fh-topic .fh-topic-picture img{width:100%;height:100%;object-fit:contain;transform:scale(1.25)}
+ .fh-topic .fh-topic-body,.fh-preview-grid .fh-topic-body{padding:0;gap:6px}
+ .fh-topic .fh-topic-title{font-size:18px}
+ .fh-topic .fh-topic-desc{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:14px;line-height:1.4;color:var(--ink-2)}
+ .fh-topic .fh-topic-body>small{display:none}
+ .fh-topic .fh-meter{height:10px;max-width:none}
+ .fh-topic .fh-topic-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:2px}
+ .fh-topic .fh-pct{font-size:14px;color:var(--ink-2)}.fh-topic .fh-pct b{color:#C2410C}
+ .fh-topic .fh-topic-cta{display:inline-flex;align-items:center;min-height:40px;padding:8px 14px;border:2px solid #F2A469;border-radius:12px;color:#C2410C;font-weight:800;font-size:14px;background:var(--surface)}
+ .fh-topic.is-current{border:2px solid #EB6A00}
+ [data-theme="dark"] .fh-topic .fh-topic-picture{background:#3A2A1E}
+ [data-theme="dark"] .fh-topic .fh-topic-cta{color:#FFB070;border-color:#9A5A2A}
+ [data-theme="dark"] .fh-topic .fh-pct b{color:#FFB070}
+}
+@media(max-width:360px){.fh-topic,.fh-preview-grid .fh-topic{grid-template-columns:60px minmax(0,1fr);gap:10px;padding:14px}.fh-topic .fh-topic-picture,.fh-preview-grid .fh-topic-picture{width:60px;height:60px}}

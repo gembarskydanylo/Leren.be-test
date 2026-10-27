@@ -101,3 +101,5 @@
 .fh-meter::-webkit-progress-value,.fh-meter::-moz-progress-bar{border-radius:999px}
 .fh-topic-body .fh-meter{height:8px}
 .fh-chapter-summary .fh-meter{height:12px}
+/* Words are never split; the title shrinks instead (fitTitle in ui.js) */
+.learning-path .fh-hero h2{overflow-wrap:normal;word-break:normal;hyphens:manual;min-width:0}
