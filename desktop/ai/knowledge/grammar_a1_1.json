@@ -1,0 +1,223 @@
+[
+  {
+    "id": "gram_word_order_basic",
+    "title": "Базовий порядок слів",
+    "level": "A1.1",
+    "explanation": {
+      "uk": "У простому розповідному реченні дієслово зазвичай стоїть на другому місці: підмет + дієслово + решта речення."
+    },
+    "pattern": "Subject + conjugated verb + rest",
+    "examples": [
+      {
+        "nl": "Ik woon in België.",
+        "uk": "Я живу в Бельгії."
+      },
+      {
+        "nl": "Wij leren Nederlands.",
+        "uk": "Ми вивчаємо нідерландську."
+      }
+    ],
+    "common_errors": [
+      {
+        "wrong": "Ik in België woon.",
+        "correct": "Ik woon in België.",
+        "why_uk": "У простому розповідному реченні особова форма дієслова стоїть після підмета."
+      }
+    ],
+    "tags": [
+      "word-order",
+      "sentence",
+      "A1.1"
+    ]
+  },
+  {
+    "id": "gram_verb_zijn",
+    "title": "Дієслово zijn — бути",
+    "level": "A1.1",
+    "explanation": {
+      "uk": "Вивчи основні форми: ik ben, jij bent, u bent, hij/zij is, wij/jullie/zij zijn."
+    },
+    "pattern": "ik ben; jij bent; u bent; hij/zij is; wij zijn",
+    "examples": [
+      {
+        "nl": "Ik ben moe.",
+        "uk": "Я втомлений / втомлена."
+      },
+      {
+        "nl": "U bent op tijd.",
+        "uk": "Ви вчасно."
+      }
+    ],
+    "common_errors": [
+      {
+        "wrong": "Ik is thuis.",
+        "correct": "Ik ben thuis.",
+        "why_uk": "З ik вживаємо ben."
+      }
+    ],
+    "tags": [
+      "verb",
+      "zijn",
+      "A1.1"
+    ]
+  },
+  {
+    "id": "gram_verb_hebben",
+    "title": "Дієслово hebben — мати",
+    "level": "A1.1",
+    "explanation": {
+      "uk": "Основні форми: ik heb, jij hebt, u heeft/hebt, hij/zij heeft, wij hebben. У ввічливій формі u heeft дуже поширене."
+    },
+    "pattern": "ik heb; jij hebt; u heeft/hebt; hij/zij heeft; wij hebben",
+    "examples": [
+      {
+        "nl": "Ik heb een vraag.",
+        "uk": "У мене є запитання."
+      },
+      {
+        "nl": "Heeft u een afspraak?",
+        "uk": "У Вас є запис?"
+      }
+    ],
+    "common_errors": [
+      {
+        "wrong": "Ik heeft een vraag.",
+        "correct": "Ik heb een vraag.",
+        "why_uk": "З ik вживаємо heb."
+      }
+    ],
+    "tags": [
+      "verb",
+      "hebben",
+      "A1.1"
+    ]
+  },
+  {
+    "id": "gram_de_het",
+    "title": "Артиклі de та het",
+    "level": "A1.1",
+    "explanation": {
+      "uk": "У нідерландській іменники мають граматичний рід. Багато слів мають de, а зменшувальні слова на -je зазвичай мають het. Артикль краще вивчати разом зі словом; є винятки."
+    },
+    "pattern": "de + noun; het + noun",
+    "examples": [
+      {
+        "nl": "de winkel",
+        "uk": "магазин"
+      },
+      {
+        "nl": "het station",
+        "uk": "станція / вокзал"
+      },
+      {
+        "nl": "de apotheek",
+        "uk": "аптека"
+      }
+    ],
+    "common_errors": [
+      {
+        "wrong": "de station",
+        "correct": "het station",
+        "why_uk": "Station — слово з артиклем het; запам'ятовуй його як єдину одиницю: het station."
+      }
+    ],
+    "tags": [
+      "articles",
+      "de",
+      "het",
+      "A1.1"
+    ]
+  },
+  {
+    "id": "gram_questions",
+    "title": "Прості запитання",
+    "level": "A1.1",
+    "explanation": {
+      "uk": "Запитання часто починається з питального слова, після якого йде дієслово, а потім підмет: Waar woont u? У запитанні без питального слова дієслово часто стоїть першим: Spreekt u Nederlands?"
+    },
+    "pattern": "Question word + verb + subject + rest?",
+    "examples": [
+      {
+        "nl": "Waar woont u?",
+        "uk": "Де Ви живете?"
+      },
+      {
+        "nl": "Hoe heet u?",
+        "uk": "Як Вас звати?"
+      },
+      {
+        "nl": "Spreekt u Nederlands?",
+        "uk": "Ви говорите нідерландською?"
+      }
+    ],
+    "common_errors": [
+      {
+        "wrong": "Waar u woont?",
+        "correct": "Waar woont u?",
+        "why_uk": "У такому прямому запитанні дієслово ставимо перед підметом."
+      }
+    ],
+    "tags": [
+      "questions",
+      "word-order",
+      "A1.1"
+    ]
+  },
+  {
+    "id": "gram_negation_niet_geen",
+    "title": "Заперечення: niet і geen",
+    "level": "A1.1",
+    "explanation": {
+      "uk": "Niet заперечує дію, ознаку або ціле висловлювання. Geen часто вживається перед іменником без означеного артикля, коли хочемо сказати «немає / не маю жодного»."
+    },
+    "pattern": "niet + negated idea; geen + noun",
+    "examples": [
+      {
+        "nl": "Ik begrijp het niet.",
+        "uk": "Я цього не розумію."
+      },
+      {
+        "nl": "Ik heb geen afspraak.",
+        "uk": "У мене немає запису."
+      }
+    ],
+    "common_errors": [
+      {
+        "wrong": "Ik heb niet afspraak.",
+        "correct": "Ik heb geen afspraak.",
+        "why_uk": "Перед afspraak у значенні «немає жодного запису» потрібне geen."
+      }
+    ],
+    "tags": [
+      "negation",
+      "niet",
+      "geen",
+      "A1.1"
+    ]
+  },
+  {
+    "id": "gram_polite_requests",
+    "title": "Ввічливі прохання",
+    "level": "A1.1",
+    "explanation": {
+      "uk": "Для ввічливого прохання використовуй alstublieft / alsjeblieft, graag та конструкції Mag ik…? або Kunt u…?"
+    },
+    "pattern": "Mag ik ...? / Kunt u ...? / ..., alstublieft.",
+    "examples": [
+      {
+        "nl": "Mag ik een koffie, alstublieft?",
+        "uk": "Можна мені каву, будь ласка?"
+      },
+      {
+        "nl": "Kunt u mij helpen?",
+        "uk": "Чи можете Ви мені допомогти?"
+      }
+    ],
+    "common_errors": [],
+    "tags": [
+      "politeness",
+      "requests",
+      "A1.1"
+    ]
+  }
+]

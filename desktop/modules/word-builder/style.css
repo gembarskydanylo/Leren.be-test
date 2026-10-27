@@ -1,0 +1,56 @@
+/* Spell the word */
+.wb{display:flex;flex-direction:column;gap:12px}
+.wb-top{display:flex;justify-content:space-between;align-items:center;font-size:13px;font-weight:800;color:var(--ink-2)}
+.wb-xp{color:var(--oranje-deep,#B04A00);font-weight:900}
+.wb-pic{margin:0;padding:14px 14px 16px;border:2px solid var(--line);border-radius:24px;background:var(--surface)}
+.wb-pic figcaption{font-weight:800;font-size:15px;margin:0 0 10px;color:var(--ink)}
+.wb-art{display:flex;justify-content:center}.wb-art svg{width:min(100%,320px);height:auto;display:block}
+.wb-hint-line{margin:0;min-height:1.4em;text-align:center;font-weight:700;color:var(--ink-2)}
+.wb-slots{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin-top:4px}
+.wb-slot{width:40px;height:48px;min-height:48px;padding:0;border:0;border-bottom:3px solid var(--ink-2);border-radius:8px 8px 4px 4px;background:var(--surface-2);font:800 24px/1 var(--font-body);color:var(--ink);cursor:pointer}
+.wb-slot:disabled{cursor:default;opacity:1;color:var(--ink)}
+.wb-slot.is-filled{border-bottom-color:var(--oranje)}
+.wb-slot.is-bad{background:var(--bad-soft);border-bottom-color:var(--bad);color:var(--bad)}
+.wb-slots.is-done .wb-slot{background:var(--ok-soft);border-bottom-color:var(--ok);color:var(--ok-deep)}
+.wb-slots.is-shown .wb-slot{background:var(--surface-2);border-bottom-color:var(--ink-2)}
+:root[data-theme="dark"] .wb-slots.is-done .wb-slot{color:var(--ok)}
+.wb-shake{animation:wb-shake .35s ease}
+@keyframes wb-shake{20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
+.wb-live{margin:0;min-height:1.3em;text-align:center;font-size:14px;font-weight:700;color:var(--ink-2)}
+.wb-pool{display:flex;flex-wrap:wrap;justify-content:center;gap:8px}
+.wb-tile{width:52px;height:56px;min-height:56px;padding:0;border:2px solid var(--line);border-radius:14px;background:var(--surface);box-shadow:0 4px 0 var(--edge);font:800 24px/1 var(--font-body);color:var(--ink);cursor:pointer;transition:transform .12s ease,box-shadow .12s ease,opacity .12s ease}
+.wb-tile:active{transform:translateY(3px);box-shadow:0 1px 0 var(--edge)}
+.wb-tile.is-used{opacity:.25;box-shadow:none;transform:translateY(3px)}
+.wb-tile:focus-visible,.wb-slot:focus-visible,.wb-erase:focus-visible{outline:3px solid var(--oranje);outline-offset:2px}
+.wb-tools{display:flex;justify-content:center;align-items:center;gap:10px;flex-wrap:wrap}
+.wb-tools .btn{flex:0 1 auto}
+.wb-erase{width:56px;height:52px;min-height:52px;border:2px solid var(--line);border-radius:14px;background:var(--surface);font-size:22px;color:var(--ink);cursor:pointer}
+.wb-erase:disabled{opacity:.4;cursor:default}
+.wb-result{padding:16px;border-radius:20px;border:2px solid var(--ok);background:var(--ok-soft);display:grid;gap:4px;text-align:center}
+.wb-result.is-shown{border-color:var(--line);background:var(--surface-2)}
+.wb-res-title{font-size:15px}
+.wb-res-word{margin:0;font-size:28px;font-weight:800}.wb-art-de{color:var(--ink-2);font-weight:700}
+.wb-res-tr,.wb-res-pl{margin:0;color:var(--ink-2)}
+.wb-result .row{margin-top:8px}
+.wb-keys{margin:0;text-align:center;font-size:12px;color:var(--ink-2)}
+@media(hover:none){.wb-keys{display:none}}
+.wb-end{text-align:center}.wb-end h2{margin:4px 0}.wb-big{font-size:36px;font-weight:900;margin:0}
+.wb-list{list-style:none;padding:0;margin:0;display:grid;gap:8px;text-align:start}
+.wb-list li{display:flex;align-items:center;gap:12px;padding:8px;border:1px solid var(--line);border-radius:16px;background:var(--surface)}
+.wb-list li.is-miss{border-color:var(--bad)}
+.wb-mini svg{width:64px;height:48px;display:block}
+.wb-li-txt{display:flex;flex-direction:column;flex:1;min-width:0}.wb-li-txt small{color:var(--ink-2)}
+.wb-say{width:44px;height:44px;border:2px solid var(--line);border-radius:50%;background:var(--surface);cursor:pointer;font-size:18px}
+@media(max-width:380px){.wb-slot{width:32px;height:42px;min-height:42px;font-size:20px}.wb-tile{width:44px;height:50px;min-height:50px;font-size:21px}}
+@media(prefers-reduced-motion:reduce){.wb-shake{animation:none}.wb-tile{transition:none}}
+.wb-art svg{max-height:min(30vh,220px);width:auto;max-width:100%}
+.wb-host .g-top{margin-bottom:0}
+.wb{gap:8px}.wb-pic{padding:10px 12px 12px}.wb-pic figcaption{margin-bottom:6px;font-size:14px}
+.wb-art svg{max-height:min(24vh,200px)}
+.wb-hint-line:empty,.wb-live:empty{display:none}
+@media(max-height:700px){.wb-art svg{max-height:140px}.wb-slot{height:42px;min-height:42px}.wb-tile{height:48px;min-height:48px}}
+/* Solved: tiles and keyboard tip disappear, result with "Next" right under the word */
+.wb.is-solved .wb-pool,.wb.is-solved .wb-keys,.wb.is-solved .wb-live{display:none}
+.wb-result{scroll-margin-bottom:120px;gap:2px;padding:12px 14px}
+.wb-res-word{font-size:24px}
+.wb-result .row{margin-top:6px}

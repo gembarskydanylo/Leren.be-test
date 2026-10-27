@@ -1,0 +1,346 @@
+<!doctype html><html lang="uk"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head><body style="margin:0;background:#fff"><!-- ПОЧАТОК ІНТЕРАКТИВНОГО ГОДИННИКА ДЛЯ LERENBE.COM -->
+<div class="lbe-clock-wrapper">
+  <div class="lbe-clock-card">
+    
+    <div class="lbe-clock-header" hidden>
+      
+      <h2>🕒 Крути стрілки</h2>
+      <p>Торкнись циферблата і веди стрілку колом. Відпусти — і почуєш вимову!</p>
+    </div>
+
+    <nav class="clock-tabs" aria-label="Режим годинника">
+      <button type="button" id="clockLearnTab" class="active" onclick="clockSetMode('learn')">🖐️ Навчання</button>
+      <button type="button" id="clockQuizTab" onclick="clockSetMode('quiz')">🎯 Вистав час</button>
+    </nav>
+    <div id="clockQuizPanel" class="clock-quiz" hidden>
+      <div class="clock-quiz-caption">Послухай або прочитай час і вистав стрілки</div>
+      <strong id="clockTarget">half drie</strong>
+      <div class="clock-quiz-actions">
+        <button type="button" onclick="clockSpeakTarget()">🔊 Послухати завдання</button>
+        <span id="clockScore">Правильно: 0 / 0</span>
+      </div>
+      <p id="clockQuizFeedback" aria-live="polite">Вистав час і відпусти стрілку — перевірка через 1 секунду.</p>
+
+    </div>
+    <!-- Інтерактивний циферблат -->
+    <div class="lbe-clock-container">
+      <div class="lbe-clock-face" id="clockDial" role="slider" tabindex="0" aria-valuemin="0" aria-valuemax="1435" dir="ltr">
+        <!-- Стрілки -->
+        <div class="lbe-hand lbe-hour-hand" id="hourHand"></div>
+        <div class="lbe-hand lbe-min-hand" id="minuteHand">
+          <div class="lbe-hand-handle"></div> <!-- Наконечник-стрілка -->
+        </div>
+        <div class="lbe-center-cap"></div>
+
+        <!-- Цифри на циферблаті -->
+        <span class="num n12">12</span>
+        <span class="num n1">1</span>
+        <span class="num n2">2</span>
+        <span class="num n3">3</span>
+        <span class="num n4">4</span>
+        <span class="num n5">5</span>
+        <span class="num n6">6</span>
+        <span class="num n7">7</span>
+        <span class="num n8">8</span>
+        <span class="num n9">9</span>
+        <span class="num n10">10</span>
+        <span class="num n11">11</span>
+      </div>
+    </div>
+
+    <!-- Текстовий блок -->
+    <div class="lbe-clock-output" id="clockLearnOutput">
+      <div class="lbe-time-row">
+        <span class="lbe-digital-pill" id="digitalTime">14:20</span>
+        <div class="lbe-quick-hours">
+          <button onclick="changeHour(-1)">−1 година</button>
+          <button onclick="changeHour(1)">+1 година</button>
+        </div>
+      </div>
+
+      <div class="lbe-dutch-box">
+        <div class="lbe-dutch-text" id="dutchTime">tien voor half drie</div>
+      </div>
+
+      <div class="lbe-logic-hint" id="uaHint">
+        💡 <b>Логіка:</b> За 10 хвилин буде пів на третю
+      </div>
+
+      <div>
+        <button class="lbe-speak-btn" onclick="speakCurrentTime()">
+          🔊 Послухати ще раз
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<style>
+  .lbe-clock-wrapper {
+    max-width: 500px;
+    margin: 20px auto;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    color: #1e293b;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+  .lbe-clock-wrapper * { box-sizing: border-box; }
+
+  .lbe-clock-card {
+    background: #ffffff;
+    border-radius: 28px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+    border: 1px solid #e2e8f0;
+    overflow: hidden;
+  }
+
+  .lbe-clock-header {
+    background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);
+    padding: 20px 24px;
+    text-align: center;
+    border-bottom: 1px solid #fed7aa;
+  }
+  .lbe-clock-tag {
+    background: #ea580c;
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 800;
+    padding: 4px 12px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .lbe-clock-header h2 { margin: 10px 0 4px; color: #9a3412; font-size: 1.35rem; }
+  .lbe-clock-header p { margin: 0; color: #c2410c; font-size: 0.9rem; }
+
+  /* Циферблат для пальця */
+  .lbe-clock-container {
+    display: flex;
+    justify-content: center;
+    padding: 24px 0 10px;
+  }
+  .lbe-clock-face {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    background: #f8fafc;
+    border: 8px solid #0f172a;
+    position: relative;
+    cursor: grab;
+    touch-action: none; /* Забороняє скрол сторінки при крутінні */
+    box-shadow: inset 0 3px 12px rgba(0,0,0,0.06), 0 8px 24px rgba(0,0,0,0.08);
+  }
+  .lbe-clock-face:active { cursor: grabbing; }
+
+  /* Стрілки */
+  .lbe-hand {
+    position: absolute;
+    bottom: 50%;
+    left: 50%;
+    transform-origin: bottom center;
+    border-radius: 6px;
+    pointer-events: none; /* Кліки ловить сам циферблат */
+    transition: transform 0.05s ease-out;
+  }
+  .lbe-hour-hand {
+    width: 8px;
+    height: 64px;
+    background: #334155;
+    margin-left: -4px;
+    z-index: 5;
+  }
+  .lbe-min-hand {
+    width: 5px;
+    height: 96px;
+    background: #ff7a00;
+    margin-left: -2.5px;
+    z-index: 6;
+  }
+  /* Ручка-кружечок на кінці хвилинної стрілки */
+  .lbe-hand-handle {
+    width: 20px;
+    height: 20px;
+    background: #ff7a00;
+    border: 3px solid #fff;
+    border-radius: 50%;
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+  }
+  .lbe-center-cap {
+    width: 18px;
+    height: 18px;
+    background: #0f172a;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    border: 3px solid #fff;
+  }
+
+  /* Цифри */
+  .num {
+    position: absolute;
+    font-size: 1rem;
+    font-weight: 800;
+    color: #64748b;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+  }
+  .n12 { top: 12%; left: 50%; }
+  .n1  { top: 17%; left: 70%; }
+  .n2  { top: 30%; left: 83%; }
+  .n3  { top: 50%; left: 88%; }
+  .n4  { top: 70%; left: 83%; }
+  .n5  { top: 83%; left: 70%; }
+  .n6  { top: 88%; left: 50%; }
+  .n7  { top: 83%; left: 30%; }
+  .n8  { top: 70%; left: 17%; }
+  .n9  { top: 50%; left: 12%; }
+  .n10 { top: 30%; left: 17%; }
+  .n11 { top: 17%; left: 30%; }
+
+  /* Вивід тексту */
+  .lbe-clock-output {
+    padding: 12px 24px 24px;
+    text-align: center;
+  }
+  .lbe-time-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .lbe-digital-pill {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #475569;
+    background: #f1f5f9;
+    padding: 4px 16px;
+    border-radius: 20px;
+    border: 1px solid #cbd5e1;
+  }
+  .lbe-quick-hours button {
+    background: #fff;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    padding: 5px 10px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .lbe-quick-hours button:hover {
+    background: #f8fafc;
+    border-color: #94a3b8;
+  }
+  .lbe-dutch-text {
+    font-size: 1.85rem;
+    font-weight: 800;
+    color: #0f172a;
+    letter-spacing: 0.3px;
+    min-height: 2.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .lbe-logic-hint {
+    font-size: 0.95rem;
+    color: #166534;
+    background: #dcfce7;
+    border: 1px solid #bbf7d0;
+    padding: 10px 16px;
+    border-radius: 12px;
+    display: inline-block;
+    margin: 8px 0 16px;
+    line-height: 1.4;
+  }
+  .lbe-speak-btn {
+    background: #ff7a00;
+    color: #fff;
+    border: none;
+    padding: 11px 22px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 0.95rem;
+    box-shadow: 0 4px 12px rgba(255, 122, 0, 0.25);
+    transition: background 0.15s;
+  }
+  .lbe-speak-btn:hover { background: #ea580c; }
+  .clock-tabs{display:flex;gap:8px;padding:14px 18px 4px}
+  .clock-tabs button,.clock-quiz-actions button{flex:1;border:2px solid #fed7aa;background:#fff7ed;color:#9a3412;border-radius:12px;padding:10px 12px;font-weight:800;cursor:pointer}
+  .clock-tabs button.active,.clock-quiz-actions button:first-child{background:#ea580c;color:#fff;border-color:#ea580c}
+  .clock-quiz{text-align:center;margin:12px 18px 0;padding:16px;border:2px solid #fed7aa;border-radius:18px;background:#fff7ed;color:#1e293b}
+  .clock-quiz[hidden],.clock-quiz-actions button[hidden]{display:none!important}
+  .clock-quiz-caption{font-size:13px;color:#9a3412;font-weight:700}
+  #clockTarget{display:block;font-size:clamp(20px,5vw,26px);margin:8px 0;color:#0f172a}
+  .clock-quiz-actions{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;margin:8px 0}
+  .clock-quiz-actions button{flex:0 1 auto}
+  #clockScore{font-size:13px;font-weight:800}
+  #clockQuizFeedback{font-size:14px;margin:10px 0;min-height:22px}
+
+/* Compact native-feeling clock layout for mobile */
+:root{color-scheme:light dark}
+html,body{margin:0;padding:0;background:transparent}
+.lbe-clock-wrapper{max-width:100%;margin:0;color:#f4e9dc;font-family:inherit}
+.lbe-clock-card{background:#30251e;border:1px solid #4e3c30;border-radius:18px;box-shadow:none;overflow:hidden}
+.lbe-clock-header{background:transparent;border:0;padding:12px 12px 0;text-align:left}
+.lbe-clock-header h2{font-size:16px;color:#f8ede2;margin:0;font-weight:800}
+.lbe-clock-header h2 small{font-size:12px;color:#bdaea2;font-weight:500}
+.lbe-clock-header p,.lbe-clock-tag{display:none}
+.clock-tabs{padding:10px 12px 0;gap:8px}
+.clock-tabs button{padding:9px 6px;font-size:13px;border-radius:12px;background:#3d3027;border-color:#68503d;color:#e7d4c2}
+.clock-tabs button.active{background:#f57600;border-color:#f57600;color:#fff}
+.lbe-clock-container{padding:12px 8px 4px}
+.lbe-clock-face{width:min(67vw,246px);height:min(67vw,246px);background:#f7f5f2;border:6px solid #151b2b;box-shadow:none}
+.lbe-hour-hand{height:26%;}
+.lbe-min-hand{height:39%;}
+.lbe-clock-output{padding:8px 12px 18px}
+.lbe-time-row{gap:8px;margin-bottom:8px;flex-wrap:wrap}
+.lbe-digital-pill{padding:5px 12px;font-size:16px}
+.lbe-quick-hours button{padding:7px 10px;font-size:12px}
+.lbe-dutch-text{font-size:clamp(19px,5.4vw,25px);min-height:30px;color:#fff3e6;line-height:1.2}
+.lbe-logic-hint{margin:8px 0 10px;padding:8px 10px;font-size:12px;background:#253e30;border-color:#41634b;color:#c6f0cf}
+.lbe-speak-btn{padding:10px 18px;font-size:13px}
+.clock-quiz{margin:10px 12px 0;padding:10px;border-radius:12px;background:#3b3028;border-color:#674d38;color:#fff}
+.clock-quiz-caption{font-size:12px;color:#f4b77f}
+#clockTarget{font-size:21px;margin:4px 0;color:#fff}
+.clock-quiz-actions{margin:5px 0;gap:8px}
+.clock-quiz-actions button{padding:7px 10px;font-size:12px}
+#clockScore,#clockQuizFeedback{font-size:12px;color:#f1dfcc}
+#clockQuizFeedback{margin:5px 0;min-height:0}
+@media(prefers-color-scheme:light){.lbe-clock-card{background:#fffaf4;border-color:#ead9c7}.lbe-clock-header h2,.lbe-dutch-text{color:#28201b}.lbe-clock-header h2 small{color:#776c65}.clock-tabs button{background:#fff2e5;color:#8d410e;border-color:#f4cfaa}.clock-quiz{background:#fff5e9;color:#32221a}.clock-quiz-caption{color:#9c5019}#clockTarget,#clockScore,#clockQuizFeedback{color:#34241b}}
+
+/* Brushed silver interactive clock and accessible dark controls */
+.lbe-clock-card{background:linear-gradient(150deg,#34271e,#2c211b);border:1px solid #554236}
+.lbe-clock-header{display:none!important}
+.clock-tabs{padding-top:12px}
+.lbe-clock-face{
+  border:2px solid #c9c9c9;
+  background:repeating-radial-gradient(circle at 50% 50%,transparent 0px,rgba(45,45,45,.027) 1px,transparent 2px,transparent 4px),
+  conic-gradient(from 15deg at 50% 50%,#b0b0b0 0deg,#eeeeee 35deg,#999 78deg,#e3e3e3 140deg,#a2a2a2 200deg,#f6f6f6 275deg,#aaa 320deg,#d0d0d0 360deg);
+  box-shadow:inset 0 0 0 4px rgba(255,255,255,.22),inset 0 1px 12px #7778,0 5px 15px #0006;
+}
+.lbe-clock-face .num{color:#333;font-weight:600;text-shadow:0 1px 1px #fff9}
+.lbe-hour-hand{background:linear-gradient(90deg,#222 0%,#9a9a9a 35%,#f5f5f5 52%,#4d4d4d 100%);box-shadow:2px 1px 3px #0007;border-radius:4px 4px 2px 2px}
+.lbe-min-hand{background:linear-gradient(90deg,#ba4100,#ff8100 45%,#ffb04b 75%,#db5700);box-shadow:1px 2px 3px #0005;border-radius:3px}
+.lbe-hand-handle{width:0;height:0;background:transparent;border-left:13px solid transparent;border-right:13px solid transparent;border-bottom:23px solid #ff7900;border-top:0;border-radius:0;top:-19px;left:50%;transform:translateX(-50%);filter:drop-shadow(0 1px 1px #fff) drop-shadow(0 2px 2px #0008);box-shadow:none}
+.lbe-center-cap{background:radial-gradient(circle at 32% 30%,#fff,#a4a4a4 42%,#383838 85%);border:1px solid #ddd;box-shadow:1px 2px 4px #0008}
+.lbe-quick-hours{display:flex;gap:7px}
+.lbe-quick-hours button{background:#3c2e25!important;color:#fff7ef!important;border:1px solid #806452!important;min-height:34px;font-weight:700;white-space:nowrap}
+.lbe-quick-hours button:active{background:#f57600!important}
+.lbe-digital-pill{background:#f2f2f4;color:#24212a;border:1px solid #d5d4da}
+.lbe-logic-hint{background:#1e4430;color:#d4f4dc;border:1px solid #356a48}
+@media(prefers-color-scheme:light){.lbe-clock-card{background:#fff8f0;border-color:#e9d3c1}.lbe-quick-hours button{background:#fff0e4!important;color:#562b13!important;border-color:#ddad83!important}}
+</style>
+
+<script src="../emoji/renderer.js?v=1"></script>
+<script src="./clock.js"></script>
+<script src="./widget.js"></script>
+<!-- КІНЕЦЬ ІНТЕРАКТИВНОГО ГОДИННИКА --></body></html>

@@ -1,0 +1,11 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "be.leren.app",
+    "sha256_cert_fingerprints": [
+      "66:24:85:02:67:EA:FB:94:61:9F:33:73:E7:9F:73:57:AF:49:89:88:EF:FD:EA:89:6E:45:F8:7C:CA:08:3B:52",
+      "FF:C6:EA:DC:36:BC:57:56:D1:E9:90:88:4A:4D:DE:B7:F4:5E:9B:55:94:2D:2C:23:76:AC:AF:CD:EE:92:E6:8C"
+    ]
+  }
+}]

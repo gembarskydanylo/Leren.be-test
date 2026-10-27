@@ -1,0 +1,79 @@
+{
+  "version": 111,
+  "tool": "built-in image_gen",
+  "reference": "img/tests/practice-v109.webp (character and style reference; inspected before use)",
+  "assets": [
+    {
+      "id": "story",
+      "file": "story-v111.webp",
+      "source": "exec-36b0db07-ae15-41a5-ac61-c8505e5073f7.png",
+      "prompt": "Use case: illustration-story. Create ONE NEW landscape 3:2 game-card illustration for a Dutch-learning app. Attached image is CHARACTER AND STYLE REFERENCE ONLY. Preserve the same fluffy round ORANGE kitten, glossy dark eyes, cream muzzle, small pink nose, BLUE AND YELLOW knitted Ukrainian scarf. A day in Belgium adventure game. The kitten wearing a small teal backpack stands in a sunny Flemish town square, holding an unfolded paper map with simple colored paths and NO lettering. Cozy cafe and stepped-gable houses softly blurred behind it. Premium detailed 3D storybook rendering, tactile soft fur and wood, cozy Flemish environment, warm natural light, cream and teal palette, clean medium-shot composition legible at 180px width. Entire ears, face, paws and key game prop visible with generous margins, keep subjects in central 75% of frame. No text, no letters, no numbers, no emoji, no humans, no robot, no logos, no watermark, no UI frame, no collage."
+    },
+    {
+      "id": "ai",
+      "file": "ai-v111.webp",
+      "source": "exec-30b271d1-49f3-420c-8a2f-a4d33c9d9e91.png",
+      "prompt": "Use case: illustration-story. Create ONE new landscape 3:2 game-card illustration for the Dutch-learning app Leren.be. The attached image is a reference for CHARACTER IDENTITY and rendering style only: preserve this same fluffy round orange kitten with glossy dark eyes, cream muzzle, small pink nose and blue-and-yellow knitted Ukrainian scarf. New scene: AI conversation practice. The cat happily talks into the small microphone of a teal headset while seated beside a tablet on a warm cafe table. The tablet has two simple blank speech panels, no writing. Show the cat as the student learning, not as a teacher or robot.. Premium detailed 3D storybook illustration, soft natural warm light, tactile fur and wood, cream and teal palette, cozy Flemish setting, clean simple composition readable at 180px wide. Medium shot, entire face, ears, paws and key game prop visible with generous margins; keep key subject in central 75% of image. No humans, no robot, no lettering, no numbers, no emoji, no logos, no text, no UI frame, no watermark. One standalone scene, not a collage. Match the reference's kitten face and high-quality lighting."
+    },
+    {
+      "id": "ask",
+      "file": "ask-v111.webp",
+      "source": "exec-44b11b36-6403-42db-a6ed-5c55e30ee670.png",
+      "prompt": "Use case: illustration-story. Create ONE new landscape 3:2 game-card illustration for the Dutch-learning app Leren.be. The attached image is a reference for CHARACTER IDENTITY and rendering style only: preserve this same fluffy round orange kitten with glossy dark eyes, cream muzzle, small pink nose and blue-and-yellow knitted Ukrainian scarf. New scene: Ask your language teacher. The curious cat raises one paw to ask a question while looking at a large open book at a library desk. A small warm desk lamp illuminates the book. The cat looks inquisitive and engaged.. Premium detailed 3D storybook illustration, soft natural warm light, tactile fur and wood, cream and teal palette, cozy Flemish setting, clean simple composition readable at 180px wide. Medium shot, entire face, ears, paws and key game prop visible with generous margins; keep key subject in central 75% of image. No humans, no robot, no lettering, no numbers, no emoji, no logos, no text, no UI frame, no watermark. One standalone scene, not a collage. Match the reference's kitten face and high-quality lighting."
+    },
+    {
+      "id": "dlg",
+      "file": "dlg-v111.webp",
+      "source": "exec-6146c21e-9639-4f32-9a7d-d302e95ac1ab.png",
+      "prompt": "Use case: illustration-story. Create ONE new landscape 3:2 game-card illustration for the Dutch-learning app Leren.be. The attached image is a reference for CHARACTER IDENTITY and rendering style only: preserve this same fluffy round orange kitten with glossy dark eyes, cream muzzle, small pink nose and blue-and-yellow knitted Ukrainian scarf. New scene: Dialogue puzzle game. The cat carefully joins three large colorful wooden jigsaw pieces on a low table, forming one smooth speech-bubble silhouette. The puzzle and the cat's paws are clearly visible.. Premium detailed 3D storybook illustration, soft natural warm light, tactile fur and wood, cream and teal palette, cozy Flemish setting, clean simple composition readable at 180px wide. Medium shot, entire face, ears, paws and key game prop visible with generous margins; keep key subject in central 75% of image. No humans, no robot, no lettering, no numbers, no emoji, no logos, no text, no UI frame, no watermark. One standalone scene, not a collage. Match the reference's kitten face and high-quality lighting."
+    },
+    {
+      "id": "rp",
+      "file": "rp-v111.webp",
+      "source": "exec-58e31c26-1594-4328-a680-8656849d6d5c.png",
+      "prompt": "Use case: illustration-story. Create ONE NEW landscape 3:2 game-card illustration for a Dutch-learning app. Attached image is CHARACTER AND STYLE REFERENCE ONLY. Preserve the same fluffy round ORANGE kitten, glossy dark eyes, cream muzzle, small pink nose, BLUE AND YELLOW knitted Ukrainian scarf. Role-play game. On a tiny theater stage with dusty teal curtains, the cat playfully holds one friendly theatrical wooden mask beside its face, with a second cheerful wooden mask on the stage floor. These are physical sculpted stage props, not emojis. Premium detailed 3D storybook rendering, tactile soft fur and wood, cozy Flemish room, warm natural light, cream and teal palette, clean medium-shot composition legible at 180px width. Entire ears, face, paws and game prop visible with generous margins, keep subjects in central 75% of frame. No text, no letters, no numbers, no emoji, no humans, no robot, no logos, no watermark, no UI frame, no collage."
+    },
+    {
+      "id": "sp",
+      "file": "sp-v111.webp",
+      "source": "exec-156bb9c7-91ab-45d1-9991-75e6a1f75fcc.png",
+      "prompt": "Use case: illustration-story. Create ONE new landscape 3:2 game-card illustration for the Dutch-learning app Leren.be. The attached image is a reference for CHARACTER IDENTITY and rendering style only: preserve this same fluffy round orange kitten with glossy dark eyes, cream muzzle, small pink nose and blue-and-yellow knitted Ukrainian scarf. New scene: Speaking practice. The cat confidently speaks into a large studio microphone with a round pop filter at a cozy desk. One paw rests on its chest. Clearly visible microphone and the cat's face.. Premium detailed 3D storybook illustration, soft natural warm light, tactile fur and wood, cream and teal palette, cozy Flemish setting, clean simple composition readable at 180px wide. Medium shot, entire face, ears, paws and key game prop visible with generous margins; keep key subject in central 75% of image. No humans, no robot, no lettering, no numbers, no emoji, no logos, no text, no UI frame, no watermark. One standalone scene, not a collage. Match the reference's kitten face and high-quality lighting."
+    },
+    {
+      "id": "bl",
+      "file": "bl-v111.webp",
+      "source": "exec-10d79eaa-6258-4642-b9bd-9a7dcbf6b6bf.png",
+      "prompt": "Use case: illustration-story. Create ONE NEW landscape 3:2 game-card illustration for a Dutch-learning app. Attached image is CHARACTER AND STYLE REFERENCE ONLY. Preserve the same fluffy round ORANGE kitten, glossy dark eyes, cream muzzle, small pink nose, BLUE AND YELLOW knitted Ukrainian scarf. Timed vocabulary blitz game. The energetic cat eagerly reaches toward colorful study flashcards beside a large brass stopwatch with a clean blank dial and two hands, no numerals. Slight lively motion of one paw, focused expression. Premium detailed 3D storybook rendering, tactile soft fur and wood, cozy Flemish room, warm natural light, cream and teal palette, clean medium-shot composition legible at 180px width. Entire ears, face, paws and game prop visible with generous margins, keep subjects in central 75% of frame. No text, no letters, no numbers, no emoji, no humans, no robot, no logos, no watermark, no UI frame, no collage."
+    },
+    {
+      "id": "mm",
+      "file": "mm-v111.webp",
+      "source": "exec-018adb74-8d02-47db-ac9a-05351d78a9c5.png",
+      "prompt": "Use case: illustration-story. Create ONE NEW landscape 3:2 game-card illustration for a Dutch-learning app. Attached image is CHARACTER AND STYLE REFERENCE ONLY. Preserve the same fluffy round ORANGE kitten, glossy dark eyes, cream muzzle, small pink nose, BLUE AND YELLOW knitted Ukrainian scarf. Memory matching game. The cat turns over one of six thick rounded study cards on a table. Two cards show the same softly painted red tulip, two show the same ceramic blue cup, two have teal backs. Real physical cards, no emojis. Premium detailed 3D storybook rendering, tactile soft fur and wood, cozy Flemish room, warm natural light, cream and teal palette, clean medium-shot composition legible at 180px width. Entire ears, face, paws and game prop visible with generous margins, keep subjects in central 75% of frame. No text, no letters, no numbers, no emoji, no humans, no robot, no logos, no watermark, no UI frame, no collage."
+    },
+    {
+      "id": "dc",
+      "file": "dc-v111.webp",
+      "source": "exec-96fb20a8-8936-4cda-a549-36789288366f.png",
+      "prompt": "Use case: illustration-story. Create ONE NEW landscape 3:2 game-card illustration for a Dutch-learning app. Attached image is CHARACTER AND STYLE REFERENCE ONLY. Preserve the same fluffy round ORANGE kitten, glossy dark eyes, cream muzzle, small pink nose, BLUE AND YELLOW knitted Ukrainian scarf. Dictation game. The cat wears dark teal over-ear headphones and carefully writes with a yellow pencil in an open blank cream notebook. Attentive listening expression. No trophy, no writing on the page. Pencil, headphones and notebook clearly visible. Premium detailed 3D storybook rendering, tactile soft fur and wood, cozy Flemish room, warm natural light, cream and teal palette, clean medium-shot composition legible at 180px width. Entire ears, face, paws and game prop visible with generous margins, keep subjects in central 75% of frame. No text, no letters, no numbers, no emoji, no humans, no robot, no logos, no watermark, no UI frame, no collage."
+    },
+    {
+      "id": "md",
+      "file": "md-v111.webp",
+      "source": "exec-b7472fc5-873e-41ab-99b2-c6ec26383ed4.png",
+      "prompt": "Use case: illustration-story. Create ONE NEW landscape 3:2 game-card illustration for a Dutch-learning app. Attached image is CHARACTER AND STYLE REFERENCE ONLY. Preserve the same fluffy round ORANGE kitten, glossy dark eyes, cream muzzle, small pink nose, BLUE AND YELLOW knitted Ukrainian scarf. My day routine game. The kitten plans its day at a table with a small standing calendar showing blank square date cells and no numerals. A round clock with two hands but no numerals and a little breakfast cup sit beside it. Warm morning sunlight. Premium detailed 3D storybook rendering, tactile soft fur and wood, cozy Flemish environment, warm natural light, cream and teal palette, clean medium-shot composition legible at 180px width. Entire ears, face, paws and key game prop visible with generous margins, keep subjects in central 75% of frame. No text, no letters, no numbers, no emoji, no humans, no robot, no logos, no watermark, no UI frame, no collage."
+    },
+    {
+      "id": "om",
+      "file": "om-v111.webp",
+      "source": "exec-cc53fcfc-10bf-484f-a1eb-cac27beadee0.png",
+      "prompt": "Use case: illustration-story. Create ONE NEW landscape 3:2 game-card illustration for a Dutch-learning app. Attached image is CHARACTER AND STYLE REFERENCE ONLY. Preserve the same fluffy round ORANGE kitten, glossy dark eyes, cream muzzle, small pink nose, BLUE AND YELLOW knitted Ukrainian scarf. Dutch word-order catapult game. The kitten operates a cute small wooden tabletop toy catapult that gently tosses one colorful blank rectangular wooden block toward the END of an orderly row of five wooden blocks. Whimsical classroom toy, no danger, no lettering. Show cat, tiny catapult and block row clearly. Premium detailed 3D storybook rendering, tactile soft fur and wood, cozy Flemish environment, warm natural light, cream and teal palette, clean medium-shot composition legible at 180px width. Entire ears, face, paws and key game prop visible with generous margins, keep subjects in central 75% of frame. No text, no letters, no numbers, no emoji, no humans, no robot, no logos, no watermark, no UI frame, no collage."
+    },
+    {
+      "id": "ks",
+      "file": "ks-v111.webp",
+      "source": "exec-9d764781-8c25-45e7-a0ef-921ff7463966.png",
+      "prompt": "Use case: illustration-story. Create ONE NEW landscape 3:2 game-card illustration for a Dutch-learning app. Attached image is CHARACTER AND STYLE REFERENCE ONLY. Preserve the same fluffy round ORANGE kitten, glossy dark eyes, cream muzzle, small pink nose, BLUE AND YELLOW knitted Ukrainian scarf. Folded-sheet verb study game. The kitten proudly unfolds a cream paper accordion sheet with FOUR narrow columns indicated by fine blue grid lines and no writing. Pencil on the desk, a few closed study books. The folded paper and kitten paws are clearly visible. Premium detailed 3D storybook rendering, tactile soft fur and wood, cozy Flemish environment, warm natural light, cream and teal palette, clean medium-shot composition legible at 180px width. Entire ears, face, paws and key game prop visible with generous margins, keep subjects in central 75% of frame. No text, no letters, no numbers, no emoji, no humans, no robot, no logos, no watermark, no UI frame, no collage."
+    }
+  ]
+}

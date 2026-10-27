@@ -65,3 +65,7 @@
 - **Додатково (запит користувача):** нова гра «Склади слово» — тільки в production, у тесті її немає.
 - **Не перенесено з TEST-008:** головна/карта, бічна панель, «Сьогодні», план (TEST-004), пам'ять AI (TEST-004), beta-хмара, бали beta-daily.
 - Перевірки й обмеження — production TESTING-JOURNAL.md, розділ UI-112. Pages deployment успішний: https://github.com/gembarskydanylo/Leren.be/actions/runs/40420328685 . Побайтова звірка live не виконана: проксі середовища блокує lerenbe.com.
+
+## TEST-009 · Desktop layout (waiting for evaluation)
+- Lives in `desktop/` as production snapshot 11ff8b5 + changes. To transfer: copy modules/desktop-home/*, the focused-home topic/hero changes and the learning-path chapterId line; add the two asset tags, the mount block in start() and the two LerenDesktop.refresh() calls; keep production cache naming (leren-be-vN) — the preview's own cache name/cleanup must NOT be copied.
+- Re-check against the production version at transfer time: production keeps changing (other sessions).

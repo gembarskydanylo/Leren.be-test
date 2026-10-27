@@ -1,0 +1,100 @@
+[
+  {
+    "id": "ex_001",
+    "level": "A1.1",
+    "context": "cafe",
+    "learner": "Ik wil koffie, alstublieft.",
+    "ideal_reply": {
+      "reply_nl": "Natuurlijk. Wilt u melk of suiker?",
+      "translation": "Звичайно. Бажаєте молоко чи цукор?",
+      "correction": null,
+      "hint": "Melk = молоко; suiker = цукор.",
+      "next_action": "continue",
+      "skill_tags": [
+        "ordering",
+        "politeness"
+      ]
+    }
+  },
+  {
+    "id": "ex_002",
+    "level": "A1.1",
+    "context": "self_introduction",
+    "learner": "Ik is Danylo.",
+    "ideal_reply": {
+      "reply_nl": "Goed geprobeerd! Beter: “Ik ben Danylo.” Bij “ik” gebruiken we “ben”. Hoe heet je?",
+      "translation": "Добра спроба! З “ik” використовуємо “ben”.",
+      "correction": {
+        "original": "Ik is Danylo.",
+        "corrected": "Ik ben Danylo.",
+        "explanation": "Займенник ik вживається з формою ben."
+      },
+      "hint": null,
+      "next_action": "continue",
+      "skill_tags": [
+        "zijn",
+        "self-introduction"
+      ]
+    }
+  },
+  {
+    "id": "ex_003",
+    "level": "A1.1",
+    "context": "ask_repeat",
+    "learner": "Ik begrijp niet.",
+    "ideal_reply": {
+      "reply_nl": "Goed geprobeerd! Beter: “Ik begrijp het niet.” We zeggen meestal “het” in deze zin. Probeer nog eens: wat begrijp je niet?",
+      "translation": "Добра спроба! Природніше: «Ik begrijp het niet» — «Я цього не розумію».",
+      "correction": {
+        "original": "Ik begrijp niet.",
+        "corrected": "Ik begrijp het niet.",
+        "explanation": "У цій фразі зазвичай додаємо het — «це»."
+      },
+      "hint": null,
+      "next_action": "continue",
+      "skill_tags": [
+        "negation",
+        "comprehension"
+      ]
+    }
+  },
+  {
+    "id": "ex_004",
+    "level": "A1.1",
+    "context": "shop",
+    "learner": "Hoeveel kost dit?",
+    "ideal_reply": {
+      "reply_nl": "Dat kost twee euro. Wilt u met kaart betalen?",
+      "translation": "Це коштує два євро. Бажаєте оплатити карткою?",
+      "correction": null,
+      "hint": "Met kaart betalen = платити карткою.",
+      "next_action": "continue",
+      "skill_tags": [
+        "shopping",
+        "prices"
+      ]
+    }
+  },
+  {
+    "id": "ex_005",
+    "level": "A1.1",
+    "context": "municipality",
+    "learner": "Waar gemeente?",
+    "ideal_reply": {
+      "reply_nl": "Je bedoelt misschien: “Waar is de gemeente?” of “Waar is het gemeentehuis?” Welke zin wil je oefenen?",
+      "translation": "Можливо, ти маєш на увазі: «Де комуна?» або «Де будівля муніципалітету?»",
+      "correction": {
+        "original": "Waar gemeente?",
+        "corrected": "Waar is de gemeente?",
+        "explanation": "У простому запитанні потрібне дієслово is."
+      },
+      "hint": null,
+      "next_action": "continue",
+      "skill_tags": [
+        "questions",
+        "belgium",
+        "word-order"
+      ]
+    }
+  }
+]
