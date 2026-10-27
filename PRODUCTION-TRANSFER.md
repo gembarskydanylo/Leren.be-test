@@ -71,5 +71,5 @@
 - Re-check against the production version at transfer time: production keeps changing (other sessions).
 
 ## TEST-010 · Top app navigation + bottom lesson modes (waiting for evaluation)
-- Test-only CSS and cache-version change in `desktop/modules/desktop-home/style.css`, `desktop/index.html`, and `desktop/sw.js`: at desktop widths, app sections stay in the top tab bar and the five lesson modes are shown in a bottom dock. Phone/tablet behavior stays as in TEST-009.
+- Test-only CSS and cache-version change in `desktop/modules/desktop-home/style.css`, `desktop/index.html`, and `desktop/sw.js` (stylesheet precache/version included): at desktop widths, app sections stay in the top tab bar and the five lesson modes are shown in a bottom dock. Phone/tablet behavior stays as in TEST-009.
 - No logic, data, storage, or production integration changed. Evaluate at `https://gembarskydanylo.github.io/Leren.be-test/desktop/` before considering transfer.
