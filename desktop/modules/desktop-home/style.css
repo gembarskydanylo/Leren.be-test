@@ -34,12 +34,12 @@
  main>.modes-wrapper button.primary:hover{color:#C2410C}
 
  /* Two-level navigation: app sections stay at the top, lesson modes dock at the bottom. */
- main[data-view="lesson"] #lessonModes{position:fixed;z-index:45;left:50%;bottom:14px;transform:translateX(-50%);width:min(760px,calc(100% - 48px));margin:0;padding:8px;gap:6px;border:1px solid #ffffff20;border-radius:22px;background:var(--be-black);box-shadow:0 12px 32px rgba(0,0,0,.32)}
- main[data-view="lesson"] #lessonModes .seg-btn{flex:1 1 0;min-width:0;min-height:54px;gap:7px;border:0;border-radius:14px;color:rgba(255,255,255,.8);font-size:14px}
- main[data-view="lesson"] #lessonModes .seg-btn .ico{width:20px;height:20px}
- main[data-view="lesson"] #lessonModes .seg-btn[aria-selected="true"]{background:var(--be-yellow);color:#2A1D12;box-shadow:0 3px 0 var(--be-yellow-deep)}
- main[data-view="lesson"] #lessonModes .seg-btn:focus-visible{outline-color:var(--be-yellow);outline-offset:3px}
- [data-theme="dark"] main[data-view="lesson"] #lessonModes{border-color:#ffffff26;background:#14100D}
+ #lessonModes:not([hidden]){position:fixed;z-index:45;left:50%;bottom:14px;transform:translateX(-50%);width:min(760px,calc(100% - 48px));margin:0;padding:8px;gap:6px;border:1px solid #ffffff20;border-radius:22px;background:var(--be-black);box-shadow:0 12px 32px rgba(0,0,0,.32)}
+ #lessonModes:not([hidden]) .seg-btn{flex:1 1 0;min-width:0;min-height:54px;gap:7px;border:0;border-radius:14px;color:rgba(255,255,255,.8);font-size:14px}
+ #lessonModes:not([hidden]) .seg-btn .ico{width:20px;height:20px}
+ #lessonModes:not([hidden]) .seg-btn[aria-selected="true"]{background:var(--be-yellow);color:#2A1D12;box-shadow:0 3px 0 var(--be-yellow-deep)}
+ #lessonModes:not([hidden]) .seg-btn:focus-visible{outline-color:var(--be-yellow);outline-offset:3px}
+ [data-theme="dark"] #lessonModes:not([hidden]){border-color:#ffffff26;background:#14100D}
 
  /* hero: text on the left, our cat on the right */
  .learning-path{max-width:1240px}
