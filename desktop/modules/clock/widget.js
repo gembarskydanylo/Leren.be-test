@@ -14,7 +14,7 @@
       caption: "Послухай або прочитай час і вистав стрілки",
       task: "🔊 Послухати завдання",
       score: "Правильно",
-      wait: "Вистав час і відпусти стрілку — перевірка через 1 секунду.",
+      wait: "Вистав години й хвилини окремими стрілками та відпусти — перевірка через 1 секунду.",
       checking: "⏳ Перевіряємо через 1 секунду…",
       correct: "🎉 Правильно! Наступне завдання через 2 секунди.",
       wrong: "❌ Спробуй ще раз! Перевір годину та хвилини.",
@@ -27,7 +27,7 @@
       caption: "Listen or read the time and set the hands",
       task: "🔊 Listen to the task",
       score: "Correct",
-      wait: "Set the time and release — checked after 1 second.",
+      wait: "Set the hours and minutes with their hands, then release — checked after 1 second.",
       checking: "⏳ Checking after 1 second…",
       correct: "🎉 Correct! Next task in 2 seconds.",
       wrong: "❌ Try again! Check the hour and minutes.",
@@ -40,7 +40,7 @@
       caption: "Écoutez ou lisez l’heure et réglez les aiguilles",
       task: "🔊 Écouter la consigne",
       score: "Correct",
-      wait: "Réglez l’heure et relâchez — vérification après 1 seconde.",
+      wait: "Réglez les heures et les minutes avec leurs aiguilles, puis relâchez — vérification après 1 seconde.",
       checking: "⏳ Vérification après 1 seconde…",
       correct: "🎉 Bravo ! Prochaine question dans 2 secondes.",
       wrong: "❌ Réessayez ! Vérifiez l’heure et les minutes.",
@@ -53,7 +53,7 @@
       caption: "استمع أو اقرأ الوقت ثم اضبط العقارب",
       task: "🔊 استمع إلى السؤال",
       score: "الصحيح",
-      wait: "اضبط الوقت ثم ارفع إصبعك — التحقق بعد ثانية.",
+      wait: "اضبط الساعات والدقائق بعقربيهما ثم ارفع إصبعك — التحقق بعد ثانية.",
       checking: "⏳ التحقق بعد ثانية…",
       correct: "🎉 صحيح! السؤال التالي بعد ثانيتين.",
       wrong: "❌ حاول مرة أخرى! تحقق من الساعة والدقائق.",
@@ -87,6 +87,7 @@
     raw = total,
     previous = 0,
     pointer = null,
+    activeHand = "minute",
     mode = "learn",
     target = 150,
     answered = false,
@@ -196,7 +197,9 @@
   function move(e) {
     if (e.pointerId !== pointer) return;
     const a = angle(e);
-    raw = LerenClock.dragTime(raw, previous, a);
+    raw = activeHand === "hour"
+      ? LerenClock.dragHourTime(raw, previous, a)
+      : LerenClock.dragTime(raw, previous, a);
     previous = a;
     total = LerenClock.timeInfo(raw).total;
     render();
@@ -213,8 +216,11 @@
     stopSpeech();
     pointer = e.pointerId;
     previous = angle(e);
-    raw = Math.floor(total / 60) * 60 + previous / 6;
-    total = LerenClock.timeInfo(raw).total;
+    activeHand = e.target.closest?.("#hourHand") ? "hour" : "minute";
+    raw = activeHand === "hour"
+      ? total
+      : Math.floor(total / 60) * 60 + previous / 6;
+    if (activeHand === "minute") total = LerenClock.timeInfo(raw).total;
     dial.setPointerCapture(pointer);
     render();
     e.preventDefault();
@@ -225,10 +231,12 @@
     move(e);
     pointer = null;
     dial.releasePointerCapture(e.pointerId);
+    activeHand = "minute";
     schedule();
   });
   const cancelPointer = () => {
     pointer = null;
+    activeHand = "minute";
   };
   dial.addEventListener("pointercancel", cancelPointer);
   dial.addEventListener("lostpointercapture", cancelPointer);

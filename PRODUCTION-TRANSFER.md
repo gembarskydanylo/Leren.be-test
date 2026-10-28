@@ -73,3 +73,12 @@
 ## TEST-010 · Top app navigation + bottom lesson modes (waiting for evaluation)
 - Test-only CSS and cache-version change in `desktop/modules/desktop-home/style.css`, `desktop/index.html`, and `desktop/sw.js` (stylesheet precache/version included): at desktop widths, app sections stay in the top tab bar and the five lesson modes are shown in a bottom dock. Phone/tablet behavior stays as in TEST-009.
 - No logic, data, storage, or production integration changed. Evaluate at `https://gembarskydanylo.github.io/Leren.be-test/desktop/` before considering transfer.
+
+## TEST-011 · Незалежне керування стрілками годинника (очікує оцінки користувача)
+- Зміна стосується `desktop/` preview: коротка годинникова стрілка перетягується окремо від довгої хвилинної. Під час перенесення врахувати `modules/clock/{clock.js,widget.js,widget.html}`, адресу iframe у `index.html` і URL/cache у `sw.js`.
+- Схему прогресу, картки курсу та сховище не змінено. Production не змінювався; переносити лише після окремого схвалення користувача та перевірки на актуальній production-версії. Фізичний телефон ще не тестувався.
+
+## TEST-012 · Самостійне навчання з головного банера (очікує оцінки користувача)
+- У desktop-preview помаранчева кнопка запускає наявний режим самостійного навчання, а «⋯» прибрано. Врахувати `desktop/modules/focused-home/ui.js` та `desktop/modules/learning-path/ui.js`.
+- Дані прогресу й сховище не змінюються. Перед переносом звірити з актуальним production-кодом; публікація тестового сайту не є схваленням перенесення.
+

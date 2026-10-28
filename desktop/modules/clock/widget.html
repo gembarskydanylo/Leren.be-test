@@ -149,7 +149,17 @@
     background: #334155;
     margin-left: -4px;
     z-index: 5;
+    pointer-events: auto;
+    cursor: grab;
   }
+  .lbe-hour-hand::before {
+    content: "";
+    position: absolute;
+    inset: 0 -12px;
+    border-radius: 18px;
+  }
+  .lbe-hour-hand:active { cursor: grabbing; }
+  .lbe-hour-hand:active { cursor: grabbing; }
   .lbe-min-hand {
     width: 5px;
     height: 96px;
@@ -341,6 +351,6 @@ html,body{margin:0;padding:0;background:transparent}
 </style>
 
 <script src="../emoji/renderer.js?v=1"></script>
-<script src="./clock.js"></script>
-<script src="./widget.js"></script>
+<script src="./clock.js?v=213"></script>
+<script src="./widget.js?v=213"></script>
 <!-- КІНЕЦЬ ІНТЕРАКТИВНОГО ГОДИННИКА --></body></html>

@@ -6,4 +6,8 @@ for(let t=0;t<1440;t+=5)for(const lang of ['uk','en','fr','ar']){const x=clock.t
 assert.equal(clock.timeInfo(23*60+55).phrase,'vijf voor twaalf');assert.equal(clock.timeInfo(1440).digital,'00:00');assert.equal(clock.timeInfo(-5).digital,'23:55');
 let raw=23*60+55;raw=clock.dragTime(raw,330,359);assert.equal(clock.timeInfo(raw).digital,'00:00');raw=clock.dragTime(raw,359,1);assert.equal(clock.timeInfo(raw).digital,'00:00');
 raw=clock.dragTime(0,0,330);assert.equal(clock.timeInfo(raw).digital,'23:55');
-console.log('PASS: all 288 five-minute times in four languages; half-hour phrases; midnight and dragging across 12 in both directions');
+const preview=vm.createContext({});vm.runInContext(fs.readFileSync('desktop/modules/clock/clock.js','utf8')+'\nthis.clock=LerenClock;',preview);const previewClock=preview.clock;
+let draggedHour=14*60+20,previousHourAngle=70;for(const angle of [100,130,160,190,220,250,280,310,330]){draggedHour=previewClock.dragHourTime(draggedHour,previousHourAngle,angle);previousHourAngle=angle}assert.equal(previewClock.timeInfo(draggedHour).digital,'23:00');
+assert.equal(previewClock.timeInfo(previewClock.dragHourTime(23*60,359,29)).digital,'00:00');
+assert.equal(previewClock.timeInfo(previewClock.dragHourTime(0,29,359)).digital,'23:00');
+console.log('PASS: all 288 five-minute times in four languages; half-hour phrases; midnight, minute dragging and independent hour-hand dragging');

@@ -126,3 +126,16 @@ Total output lines: 142
 - Phone/tablet (<1024px): language as a round flag in the header (native list opens on tap), the language select under the header is gone; topic cards one per row: picture in a circle, description (2 lines), 10px bar, «89% завершено» and «Продовжити → / Почати → / Повторити →». Desktop unchanged.
 - Production fixes UI-142 copied into the snapshot: complete Fluent 3D pictures instead of cut ones, cleaned cat pictures, hero title never splits a word, card-header topic name wraps, study buttons do not squeeze.
 - Checks (Playwright): 390 home/topics/all topics, 320, dark, Arabic RTL, 820 tablet, desktop 1100/1366/1440 — no horizontal scroll, no JS errors; full-screen sweep of the preview (home, study, 5 lesson modes, 13 games, toets, dictionary, progress) found no broken images or clipped text. Beta tests pass. Cache `leren-desktop-preview-212`, desktop-home CSS ?v=212.
+
+## TEST-011 · Окреме обертання годинникової та хвилинної стрілок · 2026-10-28 07:53 CET (Europe/Brussels)
+- Запит: швидко виставляти час на інтерактивному циферблаті, зокрема 23:00, не прокручуючи хвилинну стрілку через багато годин.
+- Зміна лише в desktop preview: коротку годинникову стрілку можна перетягувати окремо; вона змінює години, зберігаючи хвилини. Довга хвилинна стрілка лишається окремим керуванням із кроком п’ять хвилин; кнопки ±1 година збережені. Додав ширшу прозору зону захоплення короткої стрілки та пояснення українською, англійською, французькою й арабською. Перехід через 12/00 підтримано.
+- Файли: `desktop/modules/clock/{clock.js,widget.js,widget.html}`, `desktop/index.html` (URL iframe), `desktop/sw.js`, `tests/clock.cjs`, цей журнал і `PRODUCTION-TRANSFER.md`.
+- Перевірки локально: `node tests/clock.cjs` успішний (усі 288 часів у 4 мовах, хвилинна та окрема годинникова стрілки, перехід через північ); `git diff --check` без зауважень.
+- Розгортання й ручна перевірка браузера очікують на публікацію. Лише тестова версія; production і його дані не змінювалися. Фізичний телефон не перевірявся.
+
+## TEST-012 · Самостійне навчання з головного банера · 2026-10-28 07:55 CET (Europe/Brussels)
+- На desktop-preview помаранчева кнопка банера запускає наявну вільну практику, підпис — «Продовжити самостійне навчання» (відповідники EN/FR/AR). Кнопку «⋯» з меню прибрано; інші налаштування верхньої панелі залишилися.
+- Файли: `desktop/modules/focused-home/ui.js`, `desktop/modules/learning-path/ui.js`, цей журнал і `PRODUCTION-TRANSFER.md`.
+- Перевірка коду: кнопка викликає той самий `bridge.free()` маршрут, що й попередній пункт меню. Дії банера для карти курсу та перевірки старту збережені. Публікація та браузерна перевірка — після завершення оновлення тестового сайту.
+- Лише тестова версія; production не змінювався. Не переносити до production без окремої оцінки й актуального зіставлення з його кодом.

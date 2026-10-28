@@ -28,7 +28,7 @@
 <script src="./modules/card-art/more-things.js?v=135"></script>
 <script src="./modules/rewards/gifts.js?v=102"></script>
 <script src="./modules/rewards/ui.js?v=102"></script>
-<script src="./modules/focused-home/ui.js?v=211"></script>
+<script src="./modules/focused-home/ui.js?v=213"></script>
 <script src="./modules/desktop-home/ui.js?v=209"></script>
 <script src="./modules/test-library/ui.js?v=109"></script>
 <script src="./modules/lesson-conversation/content.js?v=112"></script>
@@ -40,7 +40,7 @@
 <script src="./modules/emoji/cards.js?v=142"></script>
 <script src="./modules/emoji/renderer.js?v=142"></script>
 <script src="./modules/word-builder/game.js?v=114"></script>
-<script src="./modules/learning-path/ui.js?v=209"></script>
+<script src="./modules/learning-path/ui.js?v=213"></script>
 <title>Leren.be — Nederlands A1.1 &amp; A1.2</title>
 <style>
 /* =========================================================
@@ -3031,7 +3031,7 @@ function showInteractiveClock(){
  card.hidden=false;
  card.replaceChildren();
  const frame=document.createElement("iframe");
- frame.src="./modules/clock/widget.html";
+ frame.src="./modules/clock/widget.html?v=213";
  frame.dataset.clock="1";
  frame.title=(UI[uiLang]||UI.en).tabs.clock;
  frame.loading="eager";
