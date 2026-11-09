@@ -1,0 +1,292 @@
+{
+ "version": 1,
+ "note": "Порожнє значення (null) — графіку ще не надано; інтерфейс показує запасний вигляд. Шляхи — від кореня сайту, лише всередині assets/lerenbe-life/. Формати: webp, avif, png, jpg.",
+ "base": "assets/lerenbe-life/",
+ "breakpoint": 768,
+ "characters": {
+  "annick": {
+   "name": "Annick",
+   "role": "волонтерка, подруга й наставниця",
+   "alt": "Annick — усміхнена жінка, наставниця з перших днів у Бельгії",
+   "full": {
+    "neutral": null,
+    "happy": null,
+    "thinking": null,
+    "surprised": null
+   },
+   "portrait": {
+    "neutral": null,
+    "happy": null,
+    "thinking": null,
+    "surprised": null
+   }
+  },
+  "jan": {
+   "name": "Jan",
+   "role": "сусід (у референсі художника — колега, майстер)",
+   "alt": "Jan — сусід",
+   "full": {
+    "neutral": null,
+    "happy": null,
+    "thinking": null,
+    "surprised": null
+   },
+   "portrait": {
+    "neutral": null,
+    "happy": null,
+    "thinking": null,
+    "surprised": null
+   }
+  },
+  "peter": {
+   "name": "Peter",
+   "role": "у референсі художника — сусід, господар",
+   "alt": "Peter — літній чоловік в окулярах",
+   "full": {
+    "neutral": null,
+    "happy": null,
+    "thinking": null,
+    "surprised": null
+   },
+   "portrait": {
+    "neutral": null,
+    "happy": null,
+    "thinking": null,
+    "surprised": null
+   }
+  }
+ },
+ "stories": {
+  "first-day": {
+   "cover": {
+    "mobile": null,
+    "desktop": null,
+    "alt": "Перший день у Бельгії: зустріч на вокзалі Gent-Sint-Pieters"
+   },
+   "scenes": {
+    "station": {
+     "type": "illustration-2d",
+     "background": {
+      "mobile": null,
+      "desktop": null
+     },
+     "characters": [
+      {
+       "id": "annick",
+       "pose": "full",
+       "emotion": "happy",
+       "position": "right"
+      }
+     ],
+     "alt": "Вокзал Gent-Sint-Pieters: Annick зустрічає тебе біля табло"
+    },
+    "machine": {
+     "type": "illustration-2d",
+     "background": {
+      "mobile": null,
+      "desktop": null
+     },
+     "characters": [
+      {
+       "id": "annick",
+       "pose": "full",
+       "emotion": "neutral",
+       "position": "right"
+      }
+     ],
+     "alt": "Автомат для квитків De Lijn на трамвайній зупинці"
+    },
+    "meet": {
+     "type": "illustration-2d",
+     "background": {
+      "mobile": null,
+      "desktop": null
+     },
+     "characters": [
+      {
+       "id": "annick",
+       "pose": "full",
+       "emotion": "happy",
+       "position": "right"
+      }
+     ],
+     "alt": "Привокзальна площа: Annick і ти знайомитеся"
+    },
+    "tram": {
+     "type": "illustration-2d",
+     "background": {
+      "mobile": null,
+      "desktop": null
+     },
+     "characters": [
+      {
+       "id": "annick",
+       "pose": "full",
+       "emotion": "neutral",
+       "position": "right"
+      }
+     ],
+     "alt": "Трамвай 1 у Генті, всередині вагона"
+    },
+    "flat": {
+     "type": "illustration-2d",
+     "background": {
+      "mobile": null,
+      "desktop": null
+     },
+     "characters": [
+      {
+       "id": "annick",
+       "pose": "full",
+       "emotion": "neutral",
+       "position": "right"
+      }
+     ],
+     "alt": "Твоя нова квартира: кімната з ліжком, вікном, радіатором і ключами"
+    },
+    "neighbour": {
+     "type": "illustration-2d",
+     "background": {
+      "mobile": null,
+      "desktop": null
+     },
+     "characters": [
+      {
+       "id": "jan",
+       "pose": "full",
+       "emotion": "happy",
+       "position": "right"
+      }
+     ],
+     "alt": "Сходовий майданчик: сусід Jan стоїть у дверях"
+    },
+    "tomorrow": {
+     "type": "illustration-2d",
+     "background": {
+      "mobile": null,
+      "desktop": null
+     },
+     "characters": [
+      {
+       "id": "annick",
+       "pose": "full",
+       "emotion": "happy",
+       "position": "right"
+      }
+     ],
+     "alt": "Вечір у квартирі: Annick прощається до завтра"
+    }
+   }
+  },
+  "supermarket": {
+   "cover": {
+    "mobile": null,
+    "desktop": null,
+    "alt": "Покупки в супермаркеті"
+   },
+   "scenes": {
+    "list": {
+     "type": "illustration-2d",
+     "background": {
+      "mobile": null,
+      "desktop": null
+     },
+     "characters": [
+      {
+       "id": "annick",
+       "pose": "full",
+       "emotion": "neutral",
+       "position": "right"
+      }
+     ],
+     "alt": "Annick надсилає список покупок"
+    },
+    "shelves": {
+     "type": "illustration-2d",
+     "background": {
+      "mobile": null,
+      "desktop": null
+     },
+     "characters": [],
+     "alt": "Супермаркет: полиці з молоком, хлібом, яблуками, яйцями"
+    },
+    "help": {
+     "type": "illustration-2d",
+     "background": {
+      "mobile": null,
+      "desktop": null
+     },
+     "characters": [],
+     "alt": "Працівник Tom біля полиць"
+    },
+    "counter": {
+     "type": "illustration-2d",
+     "background": {
+      "mobile": null,
+      "desktop": null
+     },
+     "characters": [],
+     "alt": "Прилавок із сиром"
+    },
+    "till": {
+     "type": "illustration-2d",
+     "background": {
+      "mobile": null,
+      "desktop": null
+     },
+     "characters": [],
+     "alt": "Каса: касирка Lien"
+    },
+    "home": {
+     "type": "illustration-2d",
+     "background": {
+      "mobile": null,
+      "desktop": null
+     },
+     "characters": [
+      {
+       "id": "annick",
+       "pose": "full",
+       "emotion": "neutral",
+       "position": "right"
+      }
+     ],
+     "alt": "Дорога додому з покупками"
+    }
+   },
+   "status": "draft story, not published yet"
+  },
+  "commune": {
+   "cover": {
+    "mobile": null,
+    "desktop": null,
+    "alt": "Реєстрація в комуні (gemeentehuis)"
+   },
+   "scenes": {},
+   "status": "story not written yet"
+  },
+  "fence": {
+   "cover": {
+    "mobile": null,
+    "desktop": null,
+    "alt": "Будівництво паркану із сусідом"
+   },
+   "scenes": {},
+   "status": "separate page learn-life.html, not on the story engine yet"
+  },
+  "doctor": {
+   "cover": {
+    "mobile": null,
+    "desktop": null,
+    "alt": "Візит до лікаря"
+   },
+   "scenes": {},
+   "status": "story not written yet"
+  }
+ },
+ "ui": {
+  "logo": null,
+  "xp-badge": null,
+  "scene-complete": null
+ }
+}
