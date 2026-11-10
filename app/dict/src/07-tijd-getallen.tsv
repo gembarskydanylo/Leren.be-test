@@ -1,0 +1,158 @@
+# tijd, kalender, getallen, hoeveelheden
+tijd|de|tijden|n|1|час|time||Ik heb geen tijd.|У мене немає часу.
+uur|het|uren|n|1|година; година (о...)|hour; o'clock||Het is drie uur.|Зараз третя година.
+minuut|de|minuten|n|1|хвилина|minute||
+seconde|de|seconden|n|2|секунда|second||
+kwartier|het|kwartieren|n|1|чверть години|quarter of an hour||
+kwart|het|kwarten|n|1|чверть|quarter||Het is kwart over vijf.|Зараз чверть на шосту.
+half||-|adj|1|половина; пів|half||Het is half acht.|Зараз пів на восьму.
+over||-|prep|1|після (про час); про|past; about||
+voor||-|prep|1|до (про час)|to (time)||
+dag|de|dagen|n|1|день|day||
+week|de|weken|n|1|тиждень|week||
+weekend|het|weekends|n|1|вихідні|weekend||
+maand|de|maanden|n|1|місяць|month||
+jaar|het|jaren|n|1|рік|year||
+eeuw|de|eeuwen|n|2|століття|century||
+datum|de|data|n|1|дата|date||
+kalender|de|kalenders|n|2|календар|calendar||
+agenda|de|agenda's|n|2|щоденник, розклад|diary, agenda||
+ochtend|de|ochtenden|n|1|ранок|morning||
+morgen|de|morgens|n|1|ранок|morning||
+morgen||-|adv|1|завтра|tomorrow||Tot morgen!|До завтра!
+voormiddag|de|voormiddagen|n|1|перша половина дня (BE)|morning (BE)||
+middag|de|middagen|n|1|полудень; день|noon; afternoon||
+namiddag|de|namiddagen|n|1|друга половина дня (BE)|afternoon (BE)||
+avond|de|avonden|n|1|вечір|evening||
+nacht|de|nachten|n|1|ніч|night||
+vandaag||-|adv|1|сьогодні|today||
+gisteren||-|adv|1|учора|yesterday||
+eergisteren||-|adv|2|позавчора|the day before yesterday||
+overmorgen||-|adv|2|післязавтра|the day after tomorrow||
+nu||-|adv|1|зараз|now||
+straks||-|adv|1|згодом, незабаром|later, soon||Tot straks!|До зустрічі!
+dadelijk||-|adv|2|зараз же, скоро|right away||
+meteen||-|adv|2|відразу|immediately||
+direct||-|adv|2|негайно|directly||
+vroeg||-|adj|1|рано; ранній|early||
+laat||-|adj|1|пізно; пізній|late||Hoe laat is het?|Котра година?
+op tijd|||phr|1|вчасно|on time||
+te laat|||phr|1|запізно|too late||Sorry, ik ben te laat.|Вибач, я запізнився.
+altijd||-|adv|1|завжди|always||
+nooit||-|adv|1|ніколи|never||
+soms||-|adv|1|іноді|sometimes||
+vaak||-|adv|1|часто|often||
+meestal||-|adv|1|зазвичай|usually||
+af en toe|||phr|2|час від часу|now and then||
+elke dag|||phr|1|щодня|every day||
+dagelijks||-|adj|2|щоденний|daily||
+wekelijks||-|adj|2|щотижневий|weekly||
+eerst||-|adv|1|спочатку|first||
+dan||-|adv|1|тоді, потім|then||
+daarna||-|adv|1|після цього|after that||
+later||-|adv|1|пізніше|later||
+vroeger||-|adv|2|раніше, колись|in the past||
+al||-|adv|1|вже|already||
+nog||-|adv|1|ще|still, yet||
+pas||-|adv|2|щойно; лише|just; only||
+net||-|adv|2|щойно; якраз|just||
+binnenkort||-|adv|2|незабаром|soon||
+geleden||-|adv|1|тому (про час)|ago||twee jaar geleden|два роки тому
+sinds||-|prep|1|з (якогось часу)|since||Ik woon hier sinds maart.|Я живу тут з березня.
+tot||-|prep|1|до|until||
+tijdens||-|prep|2|під час|during||
+na||-|prep|1|після|after||
+volgend||-|adj|1|наступний|next||volgende week|наступного тижня
+vorig||-|adj|1|минулий|last||vorige week|минулого тижня
+maandag|de|maandagen|n|1|понеділок|Monday||
+dinsdag|de|dinsdagen|n|1|вівторок|Tuesday||
+woensdag|de|woensdagen|n|1|середа|Wednesday||
+donderdag|de|donderdagen|n|1|четвер|Thursday||
+vrijdag|de|vrijdagen|n|1|п'ятниця|Friday||
+zaterdag|de|zaterdagen|n|1|субота|Saturday||
+zondag|de|zondagen|n|1|неділя|Sunday||
+januari|||n|1|січень|January||
+februari|||n|1|лютий|February||
+maart|||n|1|березень|March||
+april|||n|1|квітень|April||
+mei|||n|1|травень|May||
+juni|||n|1|червень|June||
+juli|||n|1|липень|July||
+augustus|||n|1|серпень|August||
+september|||n|1|вересень|September||
+oktober|||n|1|жовтень|October||
+november|||n|1|листопад|November||
+december|||n|1|грудень|December||
+feest|het|feesten|n|1|свято, вечірка|party, celebration||
+feestdag|de|feestdagen|n|2|свято (державне)|public holiday||
+Kerstmis|||n|2|Різдво|Christmas||
+Pasen|||n|2|Великдень|Easter||
+Nieuwjaar|het||n|2|Новий рік|New Year||
+nul|||num|1|нуль|zero||
+een|||num|1|один|one||
+twee|||num|1|два|two||
+drie|||num|1|три|three||
+vier|||num|1|чотири|four||
+vijf|||num|1|п'ять|five||
+zes|||num|1|шість|six||
+zeven|||num|1|сім|seven||
+acht|||num|1|вісім|eight||
+negen|||num|1|дев'ять|nine||
+tien|||num|1|десять|ten||
+elf|||num|1|одинадцять|eleven||
+twaalf|||num|1|дванадцять|twelve||
+dertien|||num|1|тринадцять|thirteen||
+veertien|||num|1|чотирнадцять|fourteen||
+vijftien|||num|1|п'ятнадцять|fifteen||
+zestien|||num|1|шістнадцять|sixteen||
+zeventien|||num|1|сімнадцять|seventeen||
+achttien|||num|1|вісімнадцять|eighteen||
+negentien|||num|1|дев'ятнадцять|nineteen||
+twintig|||num|1|двадцять|twenty||
+eenentwintig|||num|1|двадцять один|twenty-one||
+dertig|||num|1|тридцять|thirty||
+veertig|||num|1|сорок|forty||
+vijftig|||num|1|п'ятдесят|fifty||
+zestig|||num|1|шістдесят|sixty||
+zeventig|||num|1|сімдесят|seventy||
+tachtig|||num|1|вісімдесят|eighty||
+negentig|||num|1|дев'яносто|ninety||
+honderd|||num|1|сто|hundred||
+duizend|||num|1|тисяча|thousand||
+miljoen|het|miljoenen|num|2|мільйон|million||
+miljard|het|miljarden|num|2|мільярд|billion||
+eerste|||num|1|перший|first||
+tweede|||num|1|другий|second||
+derde|||num|1|третій|third||
+vierde|||num|1|четвертий|fourth||
+vijfde|||num|1|п'ятий|fifth||
+tiende|||num|2|десятий|tenth||
+laatste|||adj|1|останній|last||
+getal|het|getallen|n|1|число|number||
+nummer|het|nummers|n|1|номер|number||
+cijfer|het|cijfers|n|2|цифра; оцінка|digit; mark||
+helft|de|helften|n|2|половина|half||
+procent|het|procent|n|2|відсоток|per cent||
+keer|de|keren|n|1|раз|time (occurrence)||twee keer per week|двічі на тиждень
+paar|het|paren|n|1|пара; кілька|pair; a couple||een paar dagen|кілька днів
+veel||-|det|1|багато|much, many|cmp=meer,meest|
+weinig||-|det|1|мало|little, few|cmp=minder,minst|
+genoeg||-|adv|1|досить, достатньо|enough||
+meer||-|det|1|більше|more||
+minder||-|det|2|менше|less||
+alle||-|det|1|всі|all||
+allemaal||-|adv|1|усі разом|all (of them)||
+elk||-|det|1|кожен|each||
+ieder||-|det|2|кожен|every||
+geen||-|det|1|жоден, не|no, not a||Ik heb geen auto.|У мене немає машини.
+sommige||-|det|2|деякі|some||
+hoeveel||-|adv|1|скільки|how much, how many||
+ongeveer||-|adv|1|приблизно|about, approximately||
+bijna||-|adv|1|майже|almost||
+precies||-|adv|2|точно|exactly||
+maat|de|maten|n|2|розмір; міра|size; measure||
+meter|de|meters|n|1|метр|metre||
+kilometer|de|kilometers|n|1|кілометр|kilometre||
+centimeter|de|centimeters|n|2|сантиметр|centimetre||
+lengte|de|lengtes|n|2|довжина; зріст|length; height||
+gewicht|het|gewichten|n|2|вага|weight||

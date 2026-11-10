@@ -1,0 +1,9 @@
+{
+  "version": 114,
+  "date": "2026-10-27",
+  "tool": "built-in image_gen",
+  "file": "wb-v114.webp",
+  "reference": "img/games/mm-v111.webp",
+  "sourcePNG": "exec-437c1a0a-8d1f-4c45-8b5b-0d1000f82ad2.png",
+  "prompt": "Use case: illustration-story. Create ONE new landscape 3:2 cover illustration for the Dutch vocabulary game 'Build the word'. Attached picture is a CHARACTER AND STYLE reference only: preserve exactly this fluffy round orange Ukrainian kitten with glossy dark eyes, cream muzzle, little pink nose and knitted BLUE AND YELLOW scarf. Scene: the kitten sits at a cozy wooden learning table, happily arranging three chunky wooden alphabet tiles in a clear left-to-right row K A T, placing the final T with one paw. The three letters must be K, A, T in that exact order, each one printed on its own separate tile. A few other blank colorful tiles to the side, no distracting props. Soft warm window daylight, books and Flemish rooftops softly blurred in background, cream and teal palette, premium tactile 3D storybook render consistent with the reference. Entire face, ears, paws and tiles visible, central composition with generous margins, readable at 180px card width. No other text, no watermark, no logos, no UI frame, no emoji, no humans, no robot, no collage."
+}

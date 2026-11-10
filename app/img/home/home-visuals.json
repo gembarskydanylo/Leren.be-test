@@ -1,0 +1,45 @@
+{
+ "version": 1,
+ "note": "Зображення нової головної (TEST-016). Шляхи — від кореня застосунку (у тесті: Leren.be-test/app/, у production: корінь сайту). Показуються лише записи зі status \"approved\" (файл існує); missing — HERO лишається з CSS-заповнювачем. width/height — справжні розміри файлу (без зсуву макета).",
+ "hero": {
+  "alt": "Anastasia й Annick ідуть набережною Гента: міст, трамвай, гільдійські будинки, тепле ранкове світло",
+  "status": "missing",
+  "desktop": {
+   "src": "img/home/home-hero-desktop.webp",
+   "width": 1920,
+   "height": 1080,
+   "status": "missing"
+  },
+  "mobile": {
+   "src": "img/home/home-hero-mobile.webp",
+   "width": 1280,
+   "height": 800,
+   "status": "missing"
+  },
+  "candidate": "PR #3 (Codex): img/home/home-hero-option-c.webp, 1600×900 — обраний напрямок; фінальні desktop/mobile ще не надані"
+ },
+ "lifePromo": {
+  "alt": "Anastasia й Annick на вокзалі Gent-Sint-Pieters",
+  "status": "missing",
+  "desktop": {
+   "src": "img/home/life-promo-desktop.webp",
+   "width": 1200,
+   "height": 675,
+   "status": "missing"
+  },
+  "mobile": {
+   "src": "img/home/life-promo-mobile.webp",
+   "width": 960,
+   "height": 540,
+   "status": "missing"
+  }
+ },
+ "mascot": {
+  "src": "img/home/hero-cat-v196-320.webp",
+  "width": 320,
+  "height": 320,
+  "status": "approved",
+  "alt": "Котик LerenBe з книжкою",
+  "from": "img/home/hero-cat-v196.png (production, 512×512 PNG 213 КБ → 320×320 WebP)"
+ }
+}

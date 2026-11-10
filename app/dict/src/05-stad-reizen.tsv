@@ -1,0 +1,150 @@
+# stad, verkeer, reizen, richting
+stad|de|steden|n|1|місто|city, town||
+centrum|het|centra|n|1|центр|centre||
+dorp|het|dorpen|n|1|село|village||
+hoofdstad|de|hoofdsteden|n|2|столиця|capital||
+plein|het|pleinen|n|1|площа|square||
+markt|de|markten|n|1|ринкова площа; ринок|market (square)||
+laan|de|lanen|n|2|алея, проспект|avenue||
+weg|de|wegen|n|1|дорога, шлях|road, way||
+snelweg|de|snelwegen|n|2|автомагістраль|motorway||
+autosnelweg|de|autosnelwegen|n|2|автомагістраль (BE)|motorway (BE)||
+brug|de|bruggen|n|1|міст|bridge||
+hoek|de|hoeken|n|1|ріг, кут|corner||Op de hoek is een bakker.|На розі є пекарня.
+kruispunt|het|kruispunten|n|1|перехрестя|crossroads||
+rotonde|de|rotondes|n|2|кільце (дорожнє)|roundabout||
+verkeerslicht|het|verkeerslichten|n|1|світлофор|traffic light||
+zebrapad|het|zebrapaden|n|2|пішохідний перехід|zebra crossing||
+oversteken|||v|2|переходити (дорогу)|to cross|sep=over|
+voetpad|het|voetpaden|n|2|тротуар (BE)|pavement (BE)||
+stoep|de|stoepen|n|2|тротуар|pavement||
+fietspad|het|fietspaden|n|1|велодоріжка|cycle path||
+parking|de|parkings|n|1|парковка (BE)|car park (BE)||
+parkeerplaats|de|parkeerplaatsen|n|2|місце для паркування|parking space||
+parkeren|||v|1|паркувати|to park||
+verkeer|het||n|1|рух (дорожній)|traffic||
+file|de|files|n|1|затор|traffic jam||Er staat een file op de ring.|На кільцевій затор.
+ongeluk|het|ongelukken|n|2|аварія; нещастя|accident||
+politie|de||n|1|поліція|police||
+politiekantoor|het|politiekantoren|n|2|поліцейська дільниця|police station||
+brandweer|de||n|2|пожежна служба|fire brigade||
+station|het|stations|n|1|вокзал, станція|station||
+trein|de|treinen|n|1|потяг|train||
+tram|de|trams|n|1|трамвай|tram||
+metro|de|metro's|n|1|метро|underground||
+halte|de|haltes|n|1|зупинка|stop||Waar is de bushalte?|Де автобусна зупинка?
+bushalte|de|bushaltes|n|1|автобусна зупинка|bus stop||
+perron|het|perrons|n|2|перон|platform||
+spoor|het|sporen|n|1|колія|track, platform||De trein vertrekt van spoor 3.|Потяг відправляється з колії 3.
+loket|het|loketten|n|1|каса, віконце|ticket office, counter||
+kaartje|het|kaartjes|n|1|квиток|ticket||
+ticket|het|tickets|n|1|квиток|ticket||
+biljet|het|biljetten|n|2|квиток; банкнота|ticket; banknote||
+abonnement|het|abonnementen|n|2|абонемент, проїзний|season ticket, subscription||
+enkele reis|de||phr|2|квиток в один бік|single ticket||
+heen en terug|||phr|1|туди й назад|return||
+dienstregeling|de|dienstregelingen|n|2|розклад руху|timetable||
+vertraging|de|vertragingen|n|1|запізнення, затримка|delay||De trein heeft tien minuten vertraging.|Потяг запізнюється на десять хвилин.
+aankomst|de||n|2|прибуття|arrival||
+vertrek|het||n|2|відправлення|departure||
+reiziger|de|reizigers|n|2|пасажир, мандрівник|traveller||
+passagier|de|passagiers|n|2|пасажир|passenger||
+chauffeur|de|chauffeurs|n|1|водій|driver||
+auto|de|auto's|n|1|автомобіль|car||
+wagen|de|wagens|n|2|машина (BE); вагон|car (BE)||
+taxi|de|taxi's|n|1|таксі|taxi||
+fiets|de|fietsen|n|1|велосипед|bike||Ik ga met de fiets naar school.|Я їду до школи на велосипеді.
+step|de|steps|n|2|самокат|scooter||
+brommer|de|brommers|n|2|мопед|moped||
+motor|de|motoren|n|2|мотоцикл; двигун|motorbike; engine||
+vrachtwagen|de|vrachtwagens|n|2|вантажівка|lorry||
+vliegtuig|het|vliegtuigen|n|1|літак|plane||
+luchthaven|de|luchthavens|n|1|аеропорт|airport||
+vliegveld|het|vliegvelden|n|2|аеродром, аеропорт|airfield, airport||
+boot|de|boten|n|1|човен|boat||
+schip|het|schepen|n|2|корабель|ship||
+haven|de|havens|n|2|порт|port||
+rijbewijs|het|rijbewijzen|n|1|посвідчення водія|driving licence||
+benzine|de||n|2|бензин|petrol||
+diesel|de||n|2|дизель|diesel||
+tankstation|het|tankstations|n|2|автозаправка|petrol station||
+garage|de|garages|n|1|автосервіс; гараж|garage||
+rijden|||v|1|їхати, кермувати|to drive, to ride|aux=hz|Ik rijd met de auto naar mijn werk.|Я їжджу на роботу машиною.
+fietsen|||v|1|їздити на велосипеді|to cycle|aux=hz|
+stappen|||v|2|крокувати; ходити (BE)|to step; to walk (BE)|aux=hz|
+wandelen|||v|1|гуляти|to walk||
+lopen|||v|1|йти; бігти|to walk; to run|aux=hz|
+gaan|||v|1|іти, їхати|to go||Ik ga naar huis.|Я йду додому.
+komen|||v|1|приходити, приїжджати|to come||Waar kom je vandaan?|Звідки ти?
+vertrekken|||v|1|відправлятися, від'їжджати|to leave, to depart|aux=z|
+aankomen|||v|1|прибувати|to arrive|sep=aan|De trein komt om tien uur aan.|Потяг прибуває о десятій.
+instappen|||v|1|сідати (в транспорт)|to get on|sep=in;aux=z|
+uitstappen|||v|1|виходити (з транспорту)|to get off|sep=uit;aux=z|Waar moet ik uitstappen?|Де мені виходити?
+overstappen|||v|2|робити пересадку|to change (trains)|sep=over;aux=z|
+vliegen|||v|2|літати|to fly|aux=hz|
+reizen|||v|1|подорожувати|to travel|aux=hz|
+reis|de|reizen|n|1|подорож|trip, journey||Goede reis!|Щасливої дороги!
+vakantie|de|vakanties|n|1|відпустка, канікули|holiday||
+uitstap|de|uitstappen|n|2|екскурсія, поїздка (BE)|day trip (BE)||
+uitstapje|het|uitstapjes|n|2|невелика поїздка|outing||
+toerist|de|toeristen|n|2|турист|tourist||
+hotel|het|hotels|n|1|готель|hotel||
+camping|de|campings|n|2|кемпінг|campsite||
+kamer|de|kamers|n|1|номер (у готелі); кімната|room||
+receptie|de|recepties|n|2|рецепція|reception||
+bagage|de||n|2|багаж|luggage||
+koffer|de|koffers|n|1|валіза|suitcase||
+paspoort|het|paspoorten|n|1|паспорт|passport||
+visum|het|visa|n|2|віза|visa||
+grens|de|grenzen|n|2|кордон|border||
+buitenland|het||n|2|закордон|abroad||
+plan|het|plannen|n|1|план; мапа|plan; map||
+stadsplan|het|stadsplannen|n|2|мапа міста|city map||
+kaart|de|kaarten|n|1|мапа|map||
+richting|de|richtingen|n|1|напрямок|direction||
+links||-|adv|1|ліворуч|left||Ga hier links.|Тут поверни ліворуч.
+rechts||-|adv|1|праворуч|right||
+rechtdoor||-|adv|1|прямо|straight on||Ga rechtdoor tot aan het plein.|Ідіть прямо до площі.
+afslaan|||v|1|повертати|to turn|sep=af;aux=hz|Sla de tweede straat links af.|Поверніть на другу вулицю ліворуч.
+draaien|||v|2|повертати; крутити|to turn||
+volgen|||v|2|йти за; стежити|to follow||
+zoeken|||v|1|шукати|to look for||
+vinden|||v|1|знаходити; вважати|to find; to think||
+verdwalen|||v|2|заблукати|to get lost|aux=z|
+noorden|het||n|2|північ|north||
+zuiden|het||n|2|південь|south||
+oosten|het||n|2|схід|east||
+westen|het||n|2|захід|west||
+dichtbij||-|adv|1|близько|nearby||
+ver||-|adj|1|далекий; далеко|far||Is het ver?|Це далеко?
+in de buurt|||phr|1|поблизу|nearby||
+tegenover||-|prep|1|навпроти|opposite||
+naast||-|prep|1|поруч з|next to||
+achter||-|prep|1|за, позаду|behind||
+voor||-|prep|1|перед; для|in front of; for||
+tussen||-|prep|1|між|between||
+boven||-|adv|1|нагорі; над|upstairs; above||
+beneden||-|adv|1|внизу|downstairs||
+onder||-|prep|1|під|under||
+bij||-|prep|1|біля; у (когось)|at, near||
+gebouw|het|gebouwen|n|1|будівля|building||
+kerk|de|kerken|n|1|церква|church||
+moskee|de|moskeeën|n|2|мечеть|mosque||
+museum|het|musea|n|1|музей|museum||
+bibliotheek|de|bibliotheken|n|1|бібліотека|library||
+postkantoor|het|postkantoren|n|2|пошта|post office||
+post|de||n|1|пошта|post, mail||
+bank|de|banken|n|1|банк|bank||
+gemeentehuis|het|gemeentehuizen|n|1|мерія, комуна|town hall||
+stadhuis|het|stadhuizen|n|2|ратуша, мерія|city hall||
+zwembad|het|zwembaden|n|1|басейн|swimming pool||
+sporthal|de|sporthallen|n|2|спортзал|sports hall||
+bioscoop|de|bioscopen|n|1|кінотеатр|cinema||
+cinema|de|cinema's|n|1|кінотеатр (BE)|cinema (BE)||
+theater|het|theaters|n|2|театр|theatre||
+schouwburg|de|schouwburgen|n|2|театр|theatre||
+winkelcentrum|het|winkelcentra|n|2|торговий центр|shopping centre||
+speeltuin|de|speeltuinen|n|2|дитячий майданчик|playground||
+kinderopvang|de||n|2|дитячий садок, ясла|childcare||
+crèche|de|crèches|n|2|ясла|nursery||
+OCMW|het||n|2|соціальна служба (BE)|public social welfare centre (BE)||

@@ -93,3 +93,10 @@
 - Разом із TEST-013 переносити: маніфест v2, `ART_REQUEST.md`, оновлені `visuals.mjs`, `story-ui.mjs`, `story.css`.
 - **Olena → Anastasia у production:** змінити 2 репліки й переклади в `modules/learn-life/stories/first-day.mjs`, записати 2 нові фрази обома голосами (`tools/collect-life-audio.mjs` + `make-audio-azure.sh`), фільтр списку повторення в `story-engine.mjs` (стара фраза зникає, прогрес лишається). Ідентифікатори сцен не змінюються.
 - Перед малюванням супермаркету: рішення Tom/Lien ↔ Sofie. Можливий збіг імені Peter з AI-персонажем основного курсу.
+
+## TEST-016 · Нова головна (очікує фінальної графіки й схвалення)
+Безпечне перенесення в production — окремими PR, кожен із тестами й без зміни даних прогресу:
+1. **Код без графіки:** `modules/home-v2/{ui.js,style.css}`, виклик у `modules/learning-path/ui.js` (hero(): homeTop, приховування старого перемикача рівнів і картки прогресу), рядки в `index.html` і `sw.js` (+ підняти `?v=` і `RELEASE_VERSION`/кеш), `img/home/home-visuals.json` (усе missing → CSS-заповнювач), оптимізований котик. Тест `tests/home-v2.cjs` (шлях `app/` → корінь; CSP-перевірку замінити на production-CSP). Сховище, Firebase, App Check, XP не змінюються.
+2. **Графіка Codex:** після схвалення фінальних `home-hero-desktop/mobile.webp` і `life-promo-*.webp` — додати файли, у маніфесті `approved` + справжні розміри; HERO не кешувати наперед усім (лише при показі).
+3. **LIFE:** TEST-013/014 (візуальна система, Anastasia з новими записами).
+4. Після кожного кроку — перевірка на lerenbe.com (версія в `sw.js`), фізичний телефон користувача, можливість відкоту (вимкнути модуль: без `LerenHomeV2` повертається старий банер).

@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; connect-src 'self'; img-src 'self' data:; media-src 'self'; style-src 'self'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,interactive-widget=resizes-content">
+<meta name="theme-color" content="#123c37">
+<meta name="description" content="LerenBe LIFE: інтерактивні історії з життя в Бельгії. Перший день у Генті: вокзал, трамвай, квартира, сусід. Нідерландська для початківців.">
+<link rel="canonical" href="https://lerenbe.com/learn-life-story.html">
+<link rel="icon" href="./favicon-32.png" sizes="32x32" type="image/png">
+<link rel="stylesheet" href="./modules/learn-life/story.css?v=3">
+<title>LerenBe LIFE · Історії — lerenbe.com</title>
+</head>
+<body>
+<header class="ls-top">
+ <a href="./learn-life.html" class="ls-back" id="back">← LIFE</a>
+ <span class="ls-mark">LEARN <span>LIFE</span></span>
+ <div class="ls-mode" role="group" aria-label="Рівень допомоги">
+  <button type="button" data-mode="learn" aria-pressed="true">🟢 Початківець</button>
+  <button type="button" data-mode="practice" aria-pressed="false">🟡 Практика</button>
+  <button type="button" data-mode="real" aria-pressed="false">🔴 Реальне життя</button>
+ </div>
+</header>
+<main id="app" class="ls-main" aria-live="polite"><p class="ls-loading">Завантаження…</p></main>
+<noscript><p class="ls-loading">Для історій потрібен JavaScript.</p></noscript>
+<script type="module" src="./modules/learn-life/story-ui.mjs?v=3"></script>
+</body>
+</html>
