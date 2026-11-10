@@ -1,30 +1,23 @@
-# LerenBe LIFE — графіка (для AI-художника)
+# LerenBe Visual Pack v1 — reference bundle
 
-Кожен файл підключається через `visual-manifest.json`: у потрібне поле вписують шлях замість `null`. Поки там `null`,
-застосунок показує запасний вигляд (темна сцена з іконкою), тож історії працюють і без графіки.
+This archive contains **7 existing AI-generated concept images** for visual direction and character references. It does **not** yet contain individually drawn, approved production scenes, transparent character sprites, or a complete story illustration library.
 
-## Куди класти
-| Папка | Що | Назви файлів (приклад) |
-|---|---|---|
-| `stories/<історія>/` | фон сцени й обкладинка історії | `station-mobile.webp`, `station-desktop.webp`, `cover-mobile.webp`, `cover-desktop.webp` |
-| `characters/<персонаж>/` | персонаж у повний зріст і портрет, 4 емоції | `full-neutral.webp`, `full-happy.webp`, `full-thinking.webp`, `full-surprised.webp`, `portrait-neutral.webp` … |
-| `backgrounds/` | спільні фони (якщо один фон для кількох сцен) | `gent-street-mobile.webp` |
-| `ui/` | елементи інтерфейсу (значок XP, екран «Сцену завершено») | `scene-complete.webp` |
-| `reference/` | **лише для художника**: стиль, аркуші персонажів. Застосунок ці файли **не показує** | — |
+## Art direction
+Warm semi-realistic 2D illustrations; recognizable recurring characters; Belgian streets, railway stations, homes, shops, commune, clinics and construction scenes. UI: dark navy, bright yellow/orange, rounded cards, responsive layouts.
 
-Історії: `first-day`, `supermarket`, `commune`, `fence`, `doctor`. Персонажі: `anastasia` (головна героїня), `annick`, `jan`, `peter`, `sofie`, `van-den-berg`, `hero-male` (майбутній вибір героя).
-**Повне завдання з точними назвами файлів — [ART_REQUEST.md](ART_REQUEST.md).**
-Сцени «Перший день у Бельгії»: `station`, `machine`, `meet`, `tram`, `flat`, `neighbour`, `tomorrow` (опис кожної — поле `alt` у маніфесті).
+## Claude Code workflow
+1. Create/use a **separate test repository**, e.g. `LerenBe-Design-Lab`, not a branch deployed from the production site. If repository creation isn't authorized/possible, work locally in a separate directory and ask for approval before creating a remote repository.
+2. Copy only reference images into `assets/lerenbe-life/reference/`. They are not final scene artwork.
+3. Build a mobile-first prototype of dashboard, course selection, story catalog and story player with HTML/CSS and reusable components. Text, buttons, dialogue, badges and progress bars MUST be real UI, not baked into the reference pictures.
+4. Do not claim missing scenes are supplied; use clearly labeled temporary placeholders and list the missing artwork. Do not crop composite mockups and pass them off as final production assets.
+5. Do not copy secrets or production Firebase configuration into test repo. Use mock data. Do not alter production repository, Firebase, App Check, XP or user data.
+6. Make a migration plan: reusable components, asset manifest, tests, and a PR back to the production repository **only after explicit approval**.
 
-## Розміри й формат
-- **Формат:** WebP (або AVIF); PNG лише для персонажів з прозорістю, якщо WebP з альфою недоступний. JPG — тільки фони.
-- **Фон сцени:** телефон 1200×900 (4:3), ≤ 250 КБ; ПК 1920×1320 (≈16:11), ≤ 400 КБ. Головне — у центрі, низ кадру лишити спокійним (там вікно діалогу ~30 % висоти).
-- **Без персонажів на фоні**, якщо персонаж буде окремим шаром (щоб не було «двох Анік»). Якщо персонаж намальований прямо у фоні — у маніфесті сцени `characters: []`.
-- **Персонаж у повний зріст:** прозорий фон, висота 1600 px, ноги внизу кадру, без тіні на підлозі. Однаковий масштаб для всіх емоцій.
-- **Портрет:** 512×512, обличчя по центру, прозорий або однотонний фон.
-- **Обкладинка історії:** 1600×900 (телефон може мати 1080×1080).
-- Емоції: `neutral`, `happy`, `thinking`, `surprised`. Якщо якоїсь немає — застосунок бере `neutral`.
-- Аркуші-референси **не ріжуться автоматично**: кожну позу/емоцію — окремим файлом.
+## Initial story set
+First day in Belgium; supermarket; commune registration; building a fence; doctor visit.
 
-## Тексти
-У маніфесті для кожної сцени є `alt` — опис для людей з порушеннями зору. Якщо намальоване відрізняється від опису, оновіть `alt`.
+## Files in this folder (TEST-013 / TEST-014)
+- **`ART_REQUEST.md`** — the exact list of illustrations for the artist: style, sizes, the 7 approved characters (Anastasia, Annick, Jan, Peter, Sofie, Dr. Van den Berg, male protagonist), the 7 scenes of «Перший день у Бельгії», 40 first-queue files with exact paths.
+- **`visual-manifest.json`** — what the story player (`life/learn-life-story.html`) actually loads: covers, scene backgrounds (mobile/desktop), character layers (`full-*` / `portrait-*` × 4 emotions), alt texts, dialogue zone. `null` = not delivered yet; the player shows a placeholder.
+- **`manifest.json`** — the reference pack inventory (concept images only, `ready_for_direct_ui_use: false`).
+- **`reference/`** — concept images for the artist; the app never displays them.
