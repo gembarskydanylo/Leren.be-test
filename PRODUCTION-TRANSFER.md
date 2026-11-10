@@ -88,3 +88,8 @@
 - Production додатково: файли в `sw.js` (visuals.mjs, маніфест; ілюстрації — кешувати при показі, не всі наперед), версії `?v=`, тест `tests/life-visuals.cjs` (шлях `life/` → корінь).
 - Сховище й прогрес не змінюються. Не переносити `reference/` у кеш застосунку.
 - Відкрите питання: у референсі художника Ян — «колега, майстер», Петер — «сусід», а в історії 1 сусід — Jan; жінка в жовтій куртці на всіх сценах підписана як Анік, хоча в історіях вона — учениця (Олена). Узгодити ролі до малювання.
+
+## TEST-015 · Homepage HERO art candidates (awaiting user selection)
+- `img/home/home-hero-option-{a,b,c}.webp` are test-only candidate assets; none is referenced by HTML, CSS, service worker or a LIFE manifest. No storage migration, Firebase change or course logic dependency.
+- After the user chooses one, create and validate `home-hero-desktop.webp` and `home-hero-mobile.webp`, then integrate into the agreed test homepage with real HTML text and buttons. Recheck contrast and crops at phone and desktop widths before any production proposal.
+- Do not copy all three candidates into production or infer that the test root already contains the concept dashboard. The approved LIFE cast in the separate `feature/lerenbe-life-characters` branch and the main test branch need reconciliation before final character sheets or story scenes. Production transfer remains unapproved.
