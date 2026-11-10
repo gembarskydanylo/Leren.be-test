@@ -1,4 +1,4 @@
-// Story 1 of LerenBe LIFE: «Перший день у Бельгії» (Flemish Dutch, A1). Olena arrives in Ghent; Annick (a volunteer
+// Story 1 of LerenBe LIFE: «Перший день у Бельгії» (Flemish Dutch, A1). Anastasia (the learner, main character) arrives in Ghent; Annick (a volunteer
 // buddy) meets her at the station, takes her home by tram, shows the flat; the neighbour Jan says hello; plan for
 // tomorrow (the town hall — story 2). Step types: line, reply, listen, find, say — see modules/learn-life/story-engine.mjs.
 // Every Dutch line is natural spoken Flemish at A1; `repeat` options let the learner ask again instead of guessing.
@@ -15,11 +15,11 @@ export const firstDay = {
  },
  scenes: [
   {id: 'station', icon: '🚉', title: 'На вокзалі Gent-Sint-Pieters', steps: [
-   {type: 'line', who: 'annick', nl: 'Hallo! Ben jij Olena?', uk: 'Привіт! Ти Олена?'},
+   {type: 'line', who: 'annick', nl: 'Hallo! Ben jij Anastasia?', uk: 'Привіт! Ти Анастасія?'},
    {type: 'reply', prompt: 'Що відповіси?', options: [
     {nl: 'Ja, dat ben ik!', uk: 'Так, це я!', ok: true},
     {nl: 'Sorry, ik begrijp het niet.', uk: 'Вибач, я не розумію.', repeat: true},
-    {nl: 'Nee, ik woon in Gent.', uk: 'Ні, я живу в Генті.', why: 'Вона питає, чи ти Олена. Ben jij…? — «Ти…?»'}]},
+    {nl: 'Nee, ik woon in Gent.', uk: 'Ні, я живу в Генті.', why: 'Вона питає, чи ти Анастасія. Ben jij…? — «Ти…?»'}]},
    {type: 'line', who: 'annick', nl: 'Welkom in Gent! Ik ben Annick. Ik help je vandaag.', uk: 'Ласкаво просимо до Гента! Я Анік. Я сьогодні тобі допомагаю.'},
    {type: 'reply', prompt: 'Привітайся у відповідь.', options: [
     {nl: 'Aangenaam, Annick!', uk: 'Приємно познайомитися, Анік!', ok: true},
@@ -83,7 +83,7 @@ export const firstDay = {
   {id: 'neighbour', icon: '🚪', title: 'Сусід Jan', steps: [
    {type: 'line', who: 'jan', nl: 'Goeiedag! Ik ben Jan, uw buurman.', uk: 'Добрий день! Я Ян, ваш сусід.'},
    {type: 'reply', prompt: 'Привітайся й скажи, що живеш тут від сьогодні.', options: [
-    {nl: 'Goeiedag! Ik ben Olena. Ik woon hier sinds vandaag.', uk: 'Добрий день! Я Олена. Я живу тут від сьогодні.', ok: true},
+    {nl: 'Goeiedag! Ik ben Anastasia. Ik woon hier sinds vandaag.', uk: 'Добрий день! Я Анастасія. Я живу тут від сьогодні.', ok: true},
     {nl: 'Hoeveel kost het?', uk: 'Скільки це коштує?', why: 'Це питання про ціну. sinds vandaag — від сьогодні.'},
     {nl: 'Sorry, ik begrijp het niet.', uk: 'Вибачте, я не розумію.', repeat: true}]},
    {type: 'listen', who: 'jan', nl: 'Als u iets nodig hebt, bel gerust aan. Ik woon op nummer twaalf.', uk: 'Якщо вам щось знадобиться, сміливо дзвоніть у двері. Я живу в номері дванадцять.',

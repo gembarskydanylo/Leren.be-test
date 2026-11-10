@@ -79,3 +79,10 @@ a.ls-btn{display:block;text-align:center;text-decoration:none;box-sizing:border-
 .ls-cover{display:block;margin:0 0 12px}.ls-cover img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:18px}
 .ls-log .ls-bubble{font-size:15px}.ls-log{margin:0}
 @media (min-width:900px){.ls-main{max-width:1100px}.ls-scene-body{grid-template-columns:minmax(0,1.4fr) minmax(320px,1fr);align-items:start}.ls-stage{max-height:none;aspect-ratio:16/11;position:sticky;top:76px}}
+/* characters: never taller than the area above the dialogue box; the learner's character on the left */
+.ls-stage-char{height:calc((1 - var(--ls-dialogue,.32)) * 100% + 12%);max-height:96%}
+.ls-stage-char:not(.is-speaking){height:calc((1 - var(--ls-dialogue,.32)) * 92% + 10%)}
+.ls-stage-say{max-height:calc(var(--ls-dialogue,.32) * 100% + 18%);overflow:auto}
+.ls-avatar-me{float:right;margin:0 0 4px 8px}
+.ls-cover img{aspect-ratio:1/1}
+@media (min-width:768px){.ls-cover img{aspect-ratio:16/9}}

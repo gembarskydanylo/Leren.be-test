@@ -15,3 +15,9 @@ Warm semi-realistic 2D illustrations; recognizable recurring characters; Belgian
 
 ## Initial story set
 First day in Belgium; supermarket; commune registration; building a fence; doctor visit.
+
+## Files in this folder (TEST-013 / TEST-014)
+- **`ART_REQUEST.md`** — the exact list of illustrations for the artist: style, sizes, the 7 approved characters (Anastasia, Annick, Jan, Peter, Sofie, Dr. Van den Berg, male protagonist), the 7 scenes of «Перший день у Бельгії», 40 first-queue files with exact paths.
+- **`visual-manifest.json`** — what the story player (`life/learn-life-story.html`) actually loads: covers, scene backgrounds (mobile/desktop), character layers (`full-*` / `portrait-*` × 4 emotions), alt texts, dialogue zone. `null` = not delivered yet; the player shows a placeholder.
+- **`manifest.json`** — the reference pack inventory (concept images only, `ready_for_direct_ui_use: false`).
+- **`reference/`** — concept images for the artist; the app never displays them.
