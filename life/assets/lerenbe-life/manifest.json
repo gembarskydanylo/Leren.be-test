@@ -1,0 +1,65 @@
+{
+  "pack": "LerenBe Visual Pack",
+  "version": "1.0-reference",
+  "status": "concept references only; not production-ready standalone scene assets",
+  "style": "warm semi-realistic 2D, Belgian settings, navy and yellow-orange UI",
+  "files": [
+    {
+      "path": "reference/dashboard-light-reference.png",
+      "purpose": "dashboard light reference",
+      "ready_for_direct_ui_use": false
+    },
+    {
+      "path": "reference/dashboard-dark-reference.png",
+      "purpose": "dashboard dark reference",
+      "ready_for_direct_ui_use": false
+    },
+    {
+      "path": "reference/ui-layout-reference-03.png",
+      "purpose": "ui layout reference 03",
+      "ready_for_direct_ui_use": false
+    },
+    {
+      "path": "reference/ui-layout-reference-04.png",
+      "purpose": "ui layout reference 04",
+      "ready_for_direct_ui_use": false
+    },
+    {
+      "path": "reference/story-world-reference.png",
+      "purpose": "story world reference",
+      "ready_for_direct_ui_use": false
+    },
+    {
+      "path": "reference/character-reference-01.png",
+      "purpose": "character reference 01",
+      "ready_for_direct_ui_use": false
+    },
+    {
+      "path": "reference/character-reference-02.png",
+      "purpose": "character reference 02",
+      "ready_for_direct_ui_use": false
+    }
+  ],
+  "story_assets": {
+    "first-day": {
+      "cover": null,
+      "scenes": []
+    },
+    "supermarket": {
+      "cover": null,
+      "scenes": []
+    },
+    "commune": {
+      "cover": null,
+      "scenes": []
+    },
+    "fence": {
+      "cover": null,
+      "scenes": []
+    },
+    "doctor": {
+      "cover": null,
+      "scenes": []
+    }
+  }
+}
