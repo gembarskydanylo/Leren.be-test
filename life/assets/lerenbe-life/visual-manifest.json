@@ -1,13 +1,33 @@
 {
- "version": 1,
- "note": "Порожнє значення (null) — графіку ще не надано; інтерфейс показує запасний вигляд. Шляхи — від кореня сайту, лише всередині assets/lerenbe-life/. Формати: webp, avif, png, jpg.",
+ "version": 2,
+ "note": "Порожнє значення (null) — графіку ще не надано; інтерфейс показує запасний вигляд. Шляхи — від кореня сайту, лише всередині assets/lerenbe-life/ (не reference/). Формати: webp (основний), avif, png, jpg. Кожна емоція — окремий файл. Завдання художнику: ART_REQUEST.md.",
  "base": "assets/lerenbe-life/",
  "breakpoint": 768,
  "characters": {
+  "anastasia": {
+   "name": "Anastasia",
+   "role": "головна героїня: приїхала до Бельгії, вчить нідерландську",
+   "appearance": "25–30 років, каштанове волосся, жовта куртка, наплічник; доброзичлива, допитлива, іноді невпевнена",
+   "alt": "Anastasia — молода жінка в жовтій куртці з наплічником",
+   "full": {
+    "neutral": null,
+    "happy": null,
+    "thinking": null,
+    "surprised": null
+   },
+   "portrait": {
+    "neutral": null,
+    "happy": null,
+    "thinking": null,
+    "surprised": null
+   },
+   "protagonist": true
+  },
   "annick": {
    "name": "Annick",
-   "role": "волонтерка, подруга й наставниця",
-   "alt": "Annick — усміхнена жінка, наставниця з перших днів у Бельгії",
+   "role": "бельгійська наставниця, зустрічає Анастасію на вокзалі",
+   "appearance": "близько 35 років, темно-русяве волосся, синя куртка; доброзичлива, терпляча",
+   "alt": "Annick — жінка в синій куртці, наставниця",
    "full": {
     "neutral": null,
     "happy": null,
@@ -23,8 +43,9 @@
   },
   "jan": {
    "name": "Jan",
-   "role": "сусід (у референсі художника — колега, майстер)",
-   "alt": "Jan — сусід",
+   "role": "сусід і майстер; знайомиться з Анастасією в історії «Перший день у Бельгії»",
+   "appearance": "35–40 років, коротке волосся, повсякденний або робочий одяг",
+   "alt": "Jan — сусід у робочому одязі",
    "full": {
     "neutral": null,
     "happy": null,
@@ -40,8 +61,9 @@
   },
   "peter": {
    "name": "Peter",
-   "role": "у референсі художника — сусід, господар",
-   "alt": "Peter — літній чоловік в окулярах",
+   "role": "старший сусід, власник будинку (ремонт, сад, паркан)",
+   "appearance": "55–60 років, сиве волосся, окуляри",
+   "alt": "Peter — літній чоловік в окулярах із сивим волоссям",
    "full": {
     "neutral": null,
     "happy": null,
@@ -54,6 +76,62 @@
     "thinking": null,
     "surprised": null
    }
+  },
+  "sofie": {
+   "name": "Sofie",
+   "role": "продавчиня (історії про покупки)",
+   "appearance": "близько 30 років, доброзичлива, зелений робочий фартух",
+   "alt": "Sofie — продавчиня в зеленому фартусі",
+   "full": {
+    "neutral": null,
+    "happy": null,
+    "thinking": null,
+    "surprised": null
+   },
+   "portrait": {
+    "neutral": null,
+    "happy": null,
+    "thinking": null,
+    "surprised": null
+   }
+  },
+  "van-den-berg": {
+   "name": "Dr. Van den Berg",
+   "role": "лікарка (лікар, здоров’я, аптека)",
+   "appearance": "35–40 років, білий медичний халат; спокійна, уважна",
+   "alt": "Лікарка Van den Berg у білому халаті",
+   "full": {
+    "neutral": null,
+    "happy": null,
+    "thinking": null,
+    "surprised": null
+   },
+   "portrait": {
+    "neutral": null,
+    "happy": null,
+    "thinking": null,
+    "surprised": null
+   }
+  },
+  "hero-male": {
+   "name": "Male protagonist",
+   "role": "альтернативний головний герой для майбутнього вибору героя (поки не використовується в сюжеті)",
+   "appearance": "чоловік із наплічником з третього референс-аркуша: зелена куртка, темні штани-карго, черевики",
+   "alt": "Головний герой — чоловік у зеленій куртці з наплічником",
+   "full": {
+    "neutral": null,
+    "happy": null,
+    "thinking": null,
+    "surprised": null
+   },
+   "portrait": {
+    "neutral": null,
+    "happy": null,
+    "thinking": null,
+    "surprised": null
+   },
+   "protagonist": true,
+   "future": true
   }
  },
  "stories": {
@@ -61,7 +139,7 @@
    "cover": {
     "mobile": null,
     "desktop": null,
-    "alt": "Перший день у Бельгії: зустріч на вокзалі Gent-Sint-Pieters"
+    "alt": "Перший день у Бельгії: Анастасія й Annick на вокзалі Gent-Sint-Pieters"
    },
    "scenes": {
     "station": {
@@ -72,13 +150,25 @@
      },
      "characters": [
       {
+       "id": "anastasia",
+       "pose": "full",
+       "emotion": "neutral",
+       "position": "left",
+       "role": "protagonist"
+      },
+      {
        "id": "annick",
        "pose": "full",
        "emotion": "happy",
        "position": "right"
       }
      ],
-     "alt": "Вокзал Gent-Sint-Pieters: Annick зустрічає тебе біля табло"
+     "alt": "Вокзал Gent-Sint-Pieters: Annick зустрічає Анастасію біля табло",
+     "dialogue": {
+      "position": "bottom",
+      "reserve": 0.32
+     },
+     "backgroundHasCharacters": false
     },
     "machine": {
      "type": "illustration-2d",
@@ -88,13 +178,25 @@
      },
      "characters": [
       {
+       "id": "anastasia",
+       "pose": "full",
+       "emotion": "neutral",
+       "position": "left",
+       "role": "protagonist"
+      },
+      {
        "id": "annick",
        "pose": "full",
        "emotion": "neutral",
        "position": "right"
       }
      ],
-     "alt": "Автомат для квитків De Lijn на трамвайній зупинці"
+     "alt": "Автомат для квитків De Lijn на трамвайній зупинці біля вокзалу",
+     "dialogue": {
+      "position": "bottom",
+      "reserve": 0.32
+     },
+     "backgroundHasCharacters": false
     },
     "meet": {
      "type": "illustration-2d",
@@ -104,13 +206,25 @@
      },
      "characters": [
       {
+       "id": "anastasia",
+       "pose": "full",
+       "emotion": "neutral",
+       "position": "left",
+       "role": "protagonist"
+      },
+      {
        "id": "annick",
        "pose": "full",
        "emotion": "happy",
        "position": "right"
       }
      ],
-     "alt": "Привокзальна площа: Annick і ти знайомитеся"
+     "alt": "Привокзальна площа в Генті: Анастасія й Annick знайомляться",
+     "dialogue": {
+      "position": "bottom",
+      "reserve": 0.32
+     },
+     "backgroundHasCharacters": false
     },
     "tram": {
      "type": "illustration-2d",
@@ -120,13 +234,25 @@
      },
      "characters": [
       {
+       "id": "anastasia",
+       "pose": "full",
+       "emotion": "neutral",
+       "position": "left",
+       "role": "protagonist"
+      },
+      {
        "id": "annick",
        "pose": "full",
        "emotion": "neutral",
        "position": "right"
       }
      ],
-     "alt": "Трамвай 1 у Генті, всередині вагона"
+     "alt": "Усередині трамвая 1 у Генті: Анастасія й Annick їдуть до Коренмаркту",
+     "dialogue": {
+      "position": "bottom",
+      "reserve": 0.32
+     },
+     "backgroundHasCharacters": false
     },
     "flat": {
      "type": "illustration-2d",
@@ -136,13 +262,25 @@
      },
      "characters": [
       {
+       "id": "anastasia",
+       "pose": "full",
+       "emotion": "neutral",
+       "position": "left",
+       "role": "protagonist"
+      },
+      {
        "id": "annick",
        "pose": "full",
        "emotion": "neutral",
        "position": "right"
       }
      ],
-     "alt": "Твоя нова квартира: кімната з ліжком, вікном, радіатором і ключами"
+     "alt": "Нова квартира Анастасії: кімната з ліжком, вікном, радіатором і ключами на столі",
+     "dialogue": {
+      "position": "bottom",
+      "reserve": 0.32
+     },
+     "backgroundHasCharacters": false
     },
     "neighbour": {
      "type": "illustration-2d",
@@ -152,13 +290,25 @@
      },
      "characters": [
       {
+       "id": "anastasia",
+       "pose": "full",
+       "emotion": "neutral",
+       "position": "left",
+       "role": "protagonist"
+      },
+      {
        "id": "jan",
        "pose": "full",
        "emotion": "happy",
        "position": "right"
       }
      ],
-     "alt": "Сходовий майданчик: сусід Jan стоїть у дверях"
+     "alt": "Сходовий майданчик: сусід Jan у дверях своєї квартири",
+     "dialogue": {
+      "position": "bottom",
+      "reserve": 0.32
+     },
+     "backgroundHasCharacters": false
     },
     "tomorrow": {
      "type": "illustration-2d",
@@ -168,13 +318,25 @@
      },
      "characters": [
       {
+       "id": "anastasia",
+       "pose": "full",
+       "emotion": "neutral",
+       "position": "left",
+       "role": "protagonist"
+      },
+      {
        "id": "annick",
        "pose": "full",
        "emotion": "happy",
        "position": "right"
       }
      ],
-     "alt": "Вечір у квартирі: Annick прощається до завтра"
+     "alt": "Вечір у квартирі: Annick прощається з Анастасією до завтра",
+     "dialogue": {
+      "position": "bottom",
+      "reserve": 0.32
+     },
+     "backgroundHasCharacters": false
     }
    }
   },
@@ -193,13 +355,25 @@
      },
      "characters": [
       {
+       "id": "anastasia",
+       "pose": "full",
+       "emotion": "neutral",
+       "position": "left",
+       "role": "protagonist"
+      },
+      {
        "id": "annick",
        "pose": "full",
        "emotion": "neutral",
        "position": "right"
       }
      ],
-     "alt": "Annick надсилає список покупок"
+     "alt": "Annick надсилає список покупок",
+     "dialogue": {
+      "position": "bottom",
+      "reserve": 0.32
+     },
+     "backgroundHasCharacters": false
     },
     "shelves": {
      "type": "illustration-2d",
@@ -207,8 +381,21 @@
       "mobile": null,
       "desktop": null
      },
-     "characters": [],
-     "alt": "Супермаркет: полиці з молоком, хлібом, яблуками, яйцями"
+     "characters": [
+      {
+       "id": "anastasia",
+       "pose": "full",
+       "emotion": "neutral",
+       "position": "left",
+       "role": "protagonist"
+      }
+     ],
+     "alt": "Супермаркет: полиці з молоком, хлібом, яблуками, яйцями",
+     "dialogue": {
+      "position": "bottom",
+      "reserve": 0.32
+     },
+     "backgroundHasCharacters": false
     },
     "help": {
      "type": "illustration-2d",
@@ -216,8 +403,21 @@
       "mobile": null,
       "desktop": null
      },
-     "characters": [],
-     "alt": "Працівник Tom біля полиць"
+     "characters": [
+      {
+       "id": "anastasia",
+       "pose": "full",
+       "emotion": "neutral",
+       "position": "left",
+       "role": "protagonist"
+      }
+     ],
+     "alt": "Працівник Tom біля полиць",
+     "dialogue": {
+      "position": "bottom",
+      "reserve": 0.32
+     },
+     "backgroundHasCharacters": false
     },
     "counter": {
      "type": "illustration-2d",
@@ -225,8 +425,21 @@
       "mobile": null,
       "desktop": null
      },
-     "characters": [],
-     "alt": "Прилавок із сиром"
+     "characters": [
+      {
+       "id": "anastasia",
+       "pose": "full",
+       "emotion": "neutral",
+       "position": "left",
+       "role": "protagonist"
+      }
+     ],
+     "alt": "Прилавок із сиром",
+     "dialogue": {
+      "position": "bottom",
+      "reserve": 0.32
+     },
+     "backgroundHasCharacters": false
     },
     "till": {
      "type": "illustration-2d",
@@ -234,8 +447,21 @@
       "mobile": null,
       "desktop": null
      },
-     "characters": [],
-     "alt": "Каса: касирка Lien"
+     "characters": [
+      {
+       "id": "anastasia",
+       "pose": "full",
+       "emotion": "neutral",
+       "position": "left",
+       "role": "protagonist"
+      }
+     ],
+     "alt": "Каса: касирка Lien",
+     "dialogue": {
+      "position": "bottom",
+      "reserve": 0.32
+     },
+     "backgroundHasCharacters": false
     },
     "home": {
      "type": "illustration-2d",
@@ -245,16 +471,29 @@
      },
      "characters": [
       {
+       "id": "anastasia",
+       "pose": "full",
+       "emotion": "neutral",
+       "position": "left",
+       "role": "protagonist"
+      },
+      {
        "id": "annick",
        "pose": "full",
        "emotion": "neutral",
        "position": "right"
       }
      ],
-     "alt": "Дорога додому з покупками"
+     "alt": "Дорога додому з покупками",
+     "dialogue": {
+      "position": "bottom",
+      "reserve": 0.32
+     },
+     "backgroundHasCharacters": false
     }
    },
-   "status": "draft story, not published yet"
+   "status": "draft story, not published yet",
+   "castConflicts": "Чернетка сценарію (production, не опублікована) використовує Annick, Tom (працівник) і Lien (касирка). Затверджена продавчиня — Sofie. Tom/Lien автоматично не замінено: потрібне рішення."
   },
   "commune": {
    "cover": {
@@ -288,5 +527,9 @@
   "logo": null,
   "xp-badge": null,
   "scene-complete": null
- }
+ },
+ "protagonist": "anastasia",
+ "protagonistAlternatives": [
+  "hero-male"
+ ]
 }

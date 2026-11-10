@@ -55,6 +55,7 @@ export function createStorySession(story, storage, {mode} = {}) {
  const key = 'leren_life_story_v1_' + story.id;
  const sceneById = new Map(story.scenes.map(s => [s.id, s])), names = Object.values(story.cast || {}).map(c => c.name);
  const saved = readJSON(storage, key);
+ const storyTexts = new Set(story.scenes.flatMap(sc => sc.steps.flatMap(st => [st.nl, ...(st.options || []).map(o => o.nl), ...(st.items || []).map(i => i.nl)]).filter(Boolean)));
  const best = {};
  if (saved.best && typeof saved.best === 'object') for (const [id, v] of Object.entries(saved.best))
   if (sceneById.has(id) && Number.isInteger(v) && v >= 0) best[id] = Math.min(v, gradedSteps(sceneById.get(id)).length);
@@ -63,7 +64,8 @@ export function createStorySession(story, storage, {mode} = {}) {
   best,
   flags: cleanFlags(saved.flags),
   skills: cleanSkills(saved.skills),
-  missed: Array.isArray(saved.missed) ? saved.missed.filter(x => typeof x === 'string').slice(0, 60) : []
+  // Only phrases that are still in the story (a renamed line, e.g. Olena → Anastasia, drops out of the review list).
+  missed: Array.isArray(saved.missed) ? saved.missed.filter(x => typeof x === 'string' && storyTexts.has(x)).slice(0, 60) : []
  };
  function cleanSkills(o) { const r = {}; for (const k of ['understand', 'grammar', 'speaking']) { const v = o?.[k]; r[k] = Array.isArray(v) && v.length === 2 && v.every(Number.isInteger) && v[0] >= 0 && v[0] <= v[1] ? v : [0, 0] } return r }
  function save() { writeJSON(storage, key, state) }

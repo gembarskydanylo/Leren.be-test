@@ -12,7 +12,8 @@
 | `ui/` | елементи інтерфейсу (значок XP, екран «Сцену завершено») | `scene-complete.webp` |
 | `reference/` | **лише для художника**: стиль, аркуші персонажів. Застосунок ці файли **не показує** | — |
 
-Історії: `first-day`, `supermarket`, `commune`, `fence`, `doctor`. Персонажі: `annick`, `jan`, `peter`.
+Історії: `first-day`, `supermarket`, `commune`, `fence`, `doctor`. Персонажі: `anastasia` (головна героїня), `annick`, `jan`, `peter`, `sofie`, `van-den-berg`, `hero-male` (майбутній вибір героя).
+**Повне завдання з точними назвами файлів — [ART_REQUEST.md](ART_REQUEST.md).**
 Сцени «Перший день у Бельгії»: `station`, `machine`, `meet`, `tram`, `flat`, `neighbour`, `tomorrow` (опис кожної — поле `alt` у маніфесті).
 
 ## Розміри й формат

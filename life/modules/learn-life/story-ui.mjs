@@ -6,7 +6,7 @@
 // Voices: recorded Azure clips (audio/nl = male, audio/nl-f = female, same hash as app.js), device voice as fallback.
 import {STORIES, ROADMAP, storyById} from './stories/index.mjs?v=3';
 import {createStorySession, recordXp, XP_PER_STEP} from './story-engine.mjs?v=2';
-import {loadVisuals, sceneVisual, storyCover, characterImage, characterAlt, empty} from './visuals.mjs?v=1';
+import {loadVisuals, sceneVisual, storyCover, characterImage, characterAlt, protagonistId, empty} from './visuals.mjs?v=2';
 
 const $ = id => document.getElementById(id);
 const el = (tag, cls, text) => { const n = document.createElement(tag); if (cls) n.className = cls; if (text != null) n.textContent = text; return n };
@@ -60,7 +60,7 @@ setModeButtons();
 
 // ---- visuals (assets/lerenbe-life/visual-manifest.json): drawn scenes and characters when the artist's files are in;
 // until then a calm placeholder with the scene icon. The stage shows the current line over the picture.
-let VIS = empty(), stage = null, spoken = null;
+let VIS = empty(), stage = null, spoken = null, heroEmotion = 'neutral';
 loadVisuals().then(m => { VIS = m; if (current) renderStage(); else home() });
 const DESKTOP = globalThis.matchMedia?.('(min-width: 768px)');
 function picture(pair, alt, cls) {
@@ -70,11 +70,12 @@ function picture(pair, alt, cls) {
 }
 function renderStage() {
  if (!stage || !current) return;
- const v = sceneVisual(VIS, story.id, current.scene.id, {who: spoken?.who, emotion: spoken?.emotion});
+ const v = sceneVisual(VIS, story.id, current.scene.id, {who: spoken?.who, emotion: spoken?.emotion, heroEmotion});
+ stage.dataset.heroEmotion = heroEmotion; stage.style.setProperty('--ls-dialogue', String(v.dialogue.reserve));
  stage.replaceChildren(); stage.classList.toggle('has-art', !!v.background);
  if (v.background) stage.append(picture(v.background, v.alt, 'ls-stage-bg'));
  else { const ph = el('div', 'ls-stage-ph'); ph.setAttribute('role', 'img'); ph.setAttribute('aria-label', v.alt || current.scene.title); ph.append(el('span', 'ls-stage-icon', current.scene.icon)); stage.append(ph) }
- for (const c of v.characters.slice(0, 2)) { const img = el('img', 'ls-stage-char is-' + c.position + (c.id === spoken?.who ? ' is-speaking' : '')); img.src = c.src; img.alt = c.alt; img.dataset.character = c.id; img.dataset.emotion = c.emotion; img.onerror = () => img.remove(); stage.append(img) }
+ for (const c of v.characters.slice(0, 3)) { const img = el('img', 'ls-stage-char is-' + c.position + (c.id === spoken?.who ? ' is-speaking' : '') + (c.protagonist ? ' is-hero' : '')); img.src = c.src; img.alt = c.alt; img.dataset.character = c.id; img.dataset.emotion = c.emotion; img.onerror = () => img.remove(); stage.append(img) }
  if (spoken) {
   const c = speaker(spoken.who), box = el('div', 'ls-stage-say'), t = el('p', 'ls-nl', spoken.nl); t.lang = 'nl-BE';
   if (real() && !spoken.revealed) t.classList.add('is-hidden');
@@ -86,6 +87,7 @@ function renderStage() {
   box.append(tools); stage.append(box);
  }
 }
+function setHero(e) { heroEmotion = e; renderStage() }
 function showSpoken(who, nl, uk, emotion) { if (!who || who === 'me') return; spoken = {who, nl, uk, emotion: emotion || null}; renderStage() }
 
 // ---- home of the story
@@ -137,7 +139,7 @@ function start(scene) {
  current = session.play(scene.id); app.replaceChildren(); app.dataset.scene = scene.id; window.scrollTo?.(0, 0);
  const head = el('div', 'ls-scene-head'); head.append(btn('←', home, 'ls-icon ls-back-scene'), el('h2', '', scene.icon + ' ' + scene.title), el('span', 'ls-step-n'));
  const bar = el('div', 'ls-progress'); bar.setAttribute('role', 'progressbar'); bar.setAttribute('aria-label', 'Прогрес сцени'); bar.append(el('span', 'ls-progress-fill'));
- stage = el('div', 'ls-stage'); spoken = null;
+ stage = el('div', 'ls-stage'); spoken = null; heroEmotion = 'neutral';
  log = el('div', 'ls-log'); panel = el('div', 'ls-panel'); shown = new Set();
  const side = el('div', 'ls-side'); side.append(panel, log);
  const bodyEl = el('div', 'ls-scene-body'); bodyEl.append(stage, side);
@@ -146,6 +148,7 @@ function start(scene) {
 function speaker(who) { return story.cast[who] || {name: 'Ти', icon: '🙂', voice: 'm'} }
 function bubble(who, nl, uk, {slow = false} = {}) {
  const c = speaker(who), mine = who === 'me', b = el('div', 'ls-bubble' + (mine ? ' is-me' : '') + (slow ? ' is-slow' : ''));
+ if (mine) { const face = characterImage(VIS, protagonistId(VIS), {pose: 'portrait', emotion: heroEmotion}); if (face) { const img = el('img', 'ls-avatar ls-avatar-me'); img.src = face; img.alt = ''; img.onerror = () => img.remove(); b.append(img) } }
  if (!mine) { const whoEl = el('span', 'ls-who'), face = characterImage(VIS, who, {pose: 'portrait'});
   if (face) { const img = el('img', 'ls-avatar'); img.src = face; img.alt = ''; img.onerror = () => img.replaceWith(c.icon + ' '); whoEl.append(img, c.name) } else whoEl.textContent = c.icon + ' ' + c.name;
   b.append(whoEl) }
@@ -176,12 +179,12 @@ function renderStep() {
   panel.append(el('p', 'ls-prompt', s.prompt));
   s.options.forEach((o, i) => { const b = btn('', () => {
     const r = current.answer(i);
-    if (r.repeat) { bubble('me', o.nl, o.uk); const prev = lastLine(); if (prev) { bubble(prev.who, prev.nl, prev.uk, {slow: true}); say(prev.nl, speaker(prev.who).voice, true) }
+    if (r.repeat) { setHero('thinking'); bubble('me', o.nl, o.uk); const prev = lastLine(); if (prev) { bubble(prev.who, prev.nl, prev.uk, {slow: true}); say(prev.nl, speaker(prev.who).voice, true) }
      renderStep(); feedback(true, 'Добре, що перепитав(ла)! ' + (r.explain || 'Тепер повільніше.')); return }
-    if (r.ok) { bubble('me', o.nl, o.uk); say(o.nl, 'm');
+    if (r.ok) { setHero('happy'); bubble('me', o.nl, o.uk); say(o.nl, 'm');
      if (r.react) { const re = r.react; setTimeout(() => { bubble(re.who, re.nl, re.uk); showSpoken(re.who, re.nl, re.uk, re.emotion || 'happy'); say(re.nl, speaker(re.who).voice) }, 700) }
      renderStep() }
-    else { b.disabled = true; b.classList.add('is-wrong'); feedback(false, r.why) }
+    else { setHero('thinking'); b.disabled = true; b.classList.add('is-wrong'); feedback(false, r.why) }
    }, 'ls-option'); b.dataset.option = i; const nl = el('span', 'ls-opt-nl', o.nl); nl.lang = 'nl-BE'; b.append(nl); if (learn()) b.append(el('span', 'ls-opt-uk', o.uk)); panel.append(b) });
  } else if (s.type === 'listen') {
   npc(s, 'l' + current.index);
