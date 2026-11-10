@@ -1,0 +1,39 @@
+<section class="lbe-diph" data-lbe-diph lang="uk" aria-labelledby="diph-title">
+  <div class="lbe-head">
+    <span class="lbe-pill" data-i18n="badge">Фонетика · A1</span>
+    <h2 id="diph-title" data-i18n="title">Дифтонги за 3 кроки</h2>
+    <p data-i18n="subtitle">Вивчи звук. Почуй різницю. Перевір себе.</p>
+  </div>
+  <div class="lbe-toolbar">
+    <span data-role="progress" aria-live="polite"></span>
+    <label><span class="lbe-sr" data-i18n="language">Мова</span><select data-role="language">
+      <option value="uk">🇺🇦 Українська</option><option value="en">🇬🇧 English</option><option value="fr">🇫🇷 Français</option><option value="ar">العربية</option>
+    </select></label>
+  </div>
+  <nav class="lbe-tabs" role="tablist" aria-label="Мініурок">
+    <button type="button" role="tab" id="diph-learn-tab" data-tab="learn" aria-controls="diph-learn" aria-selected="true"><span class="lbe-step-num">1</span><span data-i18n="learn">Вивчи</span></button>
+    <button type="button" role="tab" id="diph-listen-tab" data-tab="listen" aria-controls="diph-listen" aria-selected="false"><span class="lbe-step-num">2</span><span data-i18n="listenStep">Почуй</span></button>
+    <button type="button" role="tab" id="diph-quiz-tab" data-tab="quiz" aria-controls="diph-quiz" aria-selected="false"><span class="lbe-step-num">3</span><span data-i18n="check">Перевір</span></button>
+  </nav>
+  <div data-role="resume" class="lbe-resume" hidden></div>
+  <div id="diph-learn" role="tabpanel" aria-labelledby="diph-learn-tab" data-pane="learn">
+    <div class="lbe-chips" data-role="sound-tabs" role="group"></div>
+    <div class="lbe-sound-card">
+      <div class="lbe-sound-heading"><strong data-role="sound-title"></strong><span data-role="sound-count"></span></div>
+      <p data-role="sound-rule"></p>
+      <div class="lbe-track"><span data-role="artic-start"></span><span aria-hidden="true">→</span><span data-role="artic-end"></span></div>
+      <p class="lbe-tip" data-role="sound-tip"></p>
+      <p class="lbe-caption" data-i18n="examples">Послухай та повтори:</p>
+      <div class="lbe-examples" data-role="examples"></div>
+    </div>
+    <button type="button" class="lbe-primary" data-action="learn-next" data-role="learn-next"></button>
+    <details class="lbe-extra"><summary data-i18n="trapsTitle">Не плутай зі схожими буквами</summary><p data-i18n="traps"></p><div data-role="trap-examples" class="lbe-examples"></div><h3 data-i18n="extraTitle">Додатково: ooi та eeuw</h3><p data-i18n="extra"></p><div data-role="extra-examples" class="lbe-examples"></div></details>
+  </div>
+  <div id="diph-listen" role="tabpanel" aria-labelledby="diph-listen-tab" data-pane="listen" hidden>
+    <div class="lbe-listen-modes" role="group" data-role="listen-modes"></div>
+    <div data-role="listen-content"></div>
+  </div>
+  <div id="diph-quiz" role="tabpanel" aria-labelledby="diph-quiz-tab" data-pane="quiz" hidden><div data-role="quiz-content"></div></div>
+  <div class="lbe-lesson-done" data-role="lesson-done" hidden><strong data-i18n="mastered">Мініурок засвоєно! 🎉</strong><p data-i18n="masteredHint">Ти впізнаєш три основні дифтонги. Повернися пізніше та закріпи результат.</p></div>
+  <p class="lbe-status" data-role="status" role="status" aria-live="polite"></p>
+</section>

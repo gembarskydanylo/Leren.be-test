@@ -1,0 +1,188 @@
+# werk, beroepen, school, computer
+werk|het||n|1|робота|work, job||Ik zoek werk.|Я шукаю роботу.
+job|de|jobs|n|1|робота (BE)|job (BE)||
+baan|de|banen|n|2|робота, посада|job||
+beroep|het|beroepen|n|1|професія|profession||Wat is uw beroep?|Яка ваша професія?
+werken|||v|1|працювати|to work||
+werkgever|de|werkgevers|n|2|роботодавець|employer||
+werknemer|de|werknemers|n|2|працівник|employee||
+baas|de|bazen|n|1|начальник|boss||
+chef|de|chefs|n|2|начальник; шеф-кухар|boss; chef||
+directeur|de|directeurs|n|2|директор|director||
+bedrijf|het|bedrijven|n|1|підприємство, компанія|company||
+firma|de|firma's|n|2|фірма|firm||
+fabriek|de|fabrieken|n|2|фабрика, завод|factory||
+kantoor|het|kantoren|n|1|офіс|office||
+werkplaats|de|werkplaatsen|n|2|майстерня|workshop||
+magazijn|het|magazijnen|n|2|склад|warehouse||
+sollicitatie|de|sollicitaties|n|2|подання на вакансію; співбесіда|job application||
+solliciteren|||v|2|подаватися на вакансію|to apply (for a job)||Ik solliciteer voor een job als kok.|Я подаюся на посаду кухаря.
+sollicitatiegesprek|het|sollicitatiegesprekken|n|2|співбесіда|job interview||
+vacature|de|vacatures|n|2|вакансія|vacancy||
+cv|het|cv's|n|2|резюме|CV||
+ervaring|de|ervaringen|n|2|досвід|experience||
+diploma|het|diploma's|n|1|диплом|diploma||
+contract|het|contracten|n|2|контракт, договір|contract||
+loon|het|lonen|n|2|зарплата|wage||
+salaris|het|salarissen|n|2|зарплата|salary||
+uur|het|uren|n|1|година|hour||
+uurrooster|het|uurroosters|n|2|розклад (BE)|timetable (BE)||
+voltijds||-|adj|2|на повну ставку (BE)|full-time (BE)||
+deeltijds||-|adj|2|на неповну ставку (BE)|part-time (BE)||
+interim|de||n|2|тимчасова робота через агенцію (BE)|temp work (BE)||
+uitzendkantoor|het|uitzendkantoren|n|2|кадрова агенція|temp agency||
+VDAB|de||n|2|служба зайнятості Фландрії|Flemish employment service||
+werkloos||-|adj|2|безробітний|unemployed||
+pauze|de|pauzes|n|1|перерва|break||
+vergadering|de|vergaderingen|n|2|нарада, збори|meeting||
+taak|de|taken|n|2|завдання|task||
+opdracht|de|opdrachten|n|1|завдання|assignment, task||
+klaar||-|adj|1|готовий|ready, finished||
+bezig||-|adj|1|зайнятий (чимось)|busy||Ik ben bezig.|Я зайнятий.
+leraar|de|leraars|n|1|вчитель|teacher||
+lerares|de|leraressen|n|1|вчителька|teacher (f)||
+leerkracht|de|leerkrachten|n|1|вчитель (BE)|teacher (BE)||
+docent|de|docenten|n|2|викладач|lecturer, teacher||
+student|de|studenten|n|1|студент|student||
+cursist|de|cursisten|n|1|слухач курсу|course participant||
+leerling|de|leerlingen|n|1|учень|pupil||
+dokter|de|dokters|n|1|лікар|doctor||
+verpleger|de|verplegers|n|2|медбрат|nurse (m)||
+kok|de|koks|n|1|кухар|cook||
+bakker|de|bakkers|n|1|пекар|baker||
+kapper|de|kappers|n|1|перукар|hairdresser||
+kapster|de|kapsters|n|2|перукарка|hairdresser (f)||
+poetsvrouw|de|poetsvrouwen|n|2|прибиральниця (BE)|cleaning lady (BE)||
+schoonmaker|de|schoonmakers|n|2|прибиральник|cleaner||
+bouwvakker|de|bouwvakkers|n|2|будівельник|construction worker||
+elektricien|de|elektriciens|n|2|електрик|electrician||
+loodgieter|de|loodgieters|n|2|сантехнік|plumber||
+schilder|de|schilders|n|2|маляр; художник|painter||
+mecanicien|de|mecaniciens|n|2|механік|mechanic||
+chauffeur|de|chauffeurs|n|1|водій|driver||
+postbode|de|postbodes|n|2|листоноша|postman||
+politieagent|de|politieagenten|n|2|поліцейський|police officer||
+advocaat|de|advocaten|n|2|адвокат|lawyer||
+boekhouder|de|boekhouders|n|2|бухгалтер|accountant||
+ingenieur|de|ingenieurs|n|2|інженер|engineer||
+informaticus|de|informatici|n|2|айтішник|IT specialist||
+programmeur|de|programmeurs|n|2|програміст|programmer||
+secretaresse|de|secretaresses|n|2|секретарка|secretary||
+bediende|de|bedienden|n|2|службовець (BE)|clerk (BE)||
+arbeider|de|arbeiders|n|2|робітник|worker||
+boer|de|boeren|n|2|фермер|farmer||
+militair|de|militairen|n|2|військовий|soldier||
+soldaat|de|soldaten|n|2|солдат|soldier||
+journalist|de|journalisten|n|2|журналіст|journalist||
+kunstenaar|de|kunstenaars|n|2|митець|artist||
+muzikant|de|muzikanten|n|2|музикант|musician||
+zelfstandige|de|zelfstandigen|n|2|підприємець, ФОП|self-employed person||
+school|de|scholen|n|1|школа|school||
+basisschool|de|basisscholen|n|1|початкова школа|primary school||
+lagere school|de||phr|2|початкова школа (BE)|primary school (BE)||
+middelbare school|de||phr|2|середня школа|secondary school||
+kleuterschool|de|kleuterscholen|n|2|садочок (школа для малюків)|nursery school||
+hogeschool|de|hogescholen|n|2|вищий навчальний заклад|university college||
+universiteit|de|universiteiten|n|1|університет|university||
+cursus|de|cursussen|n|1|курс|course||
+les|de|lessen|n|1|урок|lesson||
+klas|de|klassen|n|1|клас|class||
+klaslokaal|het|klaslokalen|n|2|класна кімната|classroom||
+niveau|het|niveaus|n|2|рівень|level||
+examen|het|examens|n|1|іспит|exam||
+toets|de|toetsen|n|1|тест, контрольна|test||
+test|de|tests|n|1|тест|test||
+punt|het|punten|n|1|бал, оцінка; крапка|point, mark; full stop||
+rapport|het|rapporten|n|2|табель|school report||
+huiswerk|het||n|1|домашнє завдання|homework||
+oefening|de|oefeningen|n|1|вправа|exercise||
+vraag|de|vragen|n|1|питання|question||Mag ik een vraag stellen?|Можна поставити питання?
+antwoord|het|antwoorden|n|1|відповідь|answer||
+voorbeeld|het|voorbeelden|n|1|приклад|example||
+fout|de|fouten|n|1|помилка|mistake||
+woord|het|woorden|n|1|слово|word||
+zin|de|zinnen|n|1|речення; бажання|sentence; desire||
+tekst|de|teksten|n|1|текст|text||
+taal|de|talen|n|1|мова|language||
+moedertaal|de|moedertalen|n|2|рідна мова|mother tongue||
+Nederlands|het||n|1|нідерландська мова|Dutch||Ik leer Nederlands.|Я вчу нідерландську.
+Engels|het||n|1|англійська мова|English||
+Frans|het||n|1|французька мова|French||
+Oekraïens|het||n|1|українська мова|Ukrainian||
+woordenboek|het|woordenboeken|n|1|словник|dictionary||
+grammatica|de||n|2|граматика|grammar||
+uitspraak|de|uitspraken|n|2|вимова|pronunciation||
+betekenis|de|betekenissen|n|1|значення|meaning||Wat is de betekenis van dit woord?|Яке значення цього слова?
+boek|het|boeken|n|1|книга|book||
+schrift|het|schriften|n|1|зошит|notebook||
+cahier|het|cahiers|n|2|зошит (BE)|notebook (BE)||
+blad|het|bladen|n|1|аркуш (паперу)|sheet (of paper)||
+papier|het||n|1|папір|paper||
+pen|de|pennen|n|1|ручка|pen||
+balpen|de|balpennen|n|2|кулькова ручка|ballpoint||
+potlood|het|potloden|n|1|олівець|pencil||
+gom|de|gommen|n|2|гумка|eraser||
+schaar|de|scharen|n|2|ножиці|scissors||
+lat|de|latten|n|2|лінійка|ruler||
+map|de|mappen|n|2|папка|folder||
+boekentas|de|boekentassen|n|2|шкільний ранець (BE)|school bag (BE)||
+bord|het|borden|n|1|дошка (класна)|board||
+whiteboard|het|whiteboards|n|2|біла дошка|whiteboard||
+leren|||v|1|вчити, навчатися|to learn||
+studeren|||v|1|вчитися, студіювати|to study||
+lezen|||v|1|читати|to read||
+schrijven|||v|1|писати|to write||
+spreken|||v|1|говорити|to speak||Spreekt u Nederlands?|Ви розмовляєте нідерландською?
+praten|||v|1|розмовляти|to talk||
+zeggen|||v|1|казати|to say||Hoe zeg je dat in het Nederlands?|Як це сказати нідерландською?
+vertellen|||v|1|розповідати|to tell||
+vragen|||v|1|питати, просити|to ask||
+antwoorden|||v|1|відповідати|to answer||
+luisteren|||v|1|слухати|to listen||Luister goed!|Слухай уважно!
+herhalen|||v|1|повторювати|to repeat||Kunt u dat herhalen?|Можете повторити?
+begrijpen|||v|1|розуміти|to understand||Ik begrijp het niet.|Я не розумію.
+verstaan|||v|2|розуміти (на слух)|to understand (hear)||
+uitleggen|||v|1|пояснювати|to explain|sep=uit|
+vertalen|||v|1|перекладати|to translate||
+oefenen|||v|1|вправлятися|to practise||
+invullen|||v|1|заповнювати|to fill in|sep=in|Vul het formulier in.|Заповніть форму.
+aanduiden|||v|2|позначати|to mark, to indicate|sep=aan|
+onderstrepen|||v|2|підкреслювати|to underline||
+spellen|||v|2|називати по буквах|to spell||
+tellen|||v|1|рахувати|to count||
+rekenen|||v|2|рахувати, обчислювати|to calculate||
+weten|||v|1|знати (факт)|to know||Ik weet het niet.|Я не знаю.
+kennen|||v|1|знати (бути знайомим)|to know (be familiar)||
+denken|||v|1|думати|to think||
+onthouden|||v|2|запам'ятовувати|to remember||
+vergeten|||v|1|забувати|to forget|aux=hz|
+slagen|||v|2|скласти (іспит)|to pass|aux=z|
+zakken|||v|2|провалити (іспит)|to fail (an exam)|aux=z|
+computer|de|computers|n|1|комп'ютер|computer||
+laptop|de|laptops|n|1|ноутбук|laptop||
+gsm|de|gsm's|n|1|мобільний (BE)|mobile phone (BE)||
+smartphone|de|smartphones|n|1|смартфон|smartphone||
+telefoon|de|telefoons|n|1|телефон|phone||
+scherm|het|schermen|n|2|екран|screen||
+toetsenbord|het|toetsenborden|n|2|клавіатура|keyboard||
+muis|de|muizen|n|2|мишка (комп'ютерна)|mouse||
+printer|de|printers|n|2|принтер|printer||
+internet|het||n|1|інтернет|internet||
+wifi|de||n|1|вайфай|wifi||
+website|de|websites|n|1|вебсайт|website||
+app|de|apps|n|1|застосунок|app||
+e-mail|de|e-mails|n|1|електронний лист|email||
+mail|de|mails|n|1|лист, пошта|mail||
+wachtwoord|het|wachtwoorden|n|2|пароль|password||
+bestand|het|bestanden|n|2|файл|file||
+bericht|het|berichten|n|1|повідомлення|message||
+klikken|||v|2|клацати|to click||
+downloaden|||v|2|завантажувати|to download||
+printen|||v|2|друкувати|to print||
+afdrukken|||v|2|друкувати|to print|sep=af|
+opslaan|||v|2|зберігати|to save|sep=op|
+inloggen|||v|2|входити в систему|to log in|sep=in|
+sturen|||v|1|надсилати|to send||Ik stuur je een berichtje.|Я надішлю тобі повідомлення.
+versturen|||v|2|надсилати|to send||
+ontvangen|||v|2|отримувати|to receive||
+typen|||v|2|друкувати на клавіатурі|to type||

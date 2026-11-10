@@ -1,0 +1,169 @@
+# kleding, kleuren, weer, natuur, dieren
+kleren|de||n|1|одяг|clothes||
+kleding|de||n|1|одяг|clothing||
+kledingstuk|het|kledingstukken|n|2|предмет одягу|garment||
+broek|de|broeken|n|1|штани|trousers||
+jeans|de|jeansen|n|1|джинси|jeans||
+short|de|shorts|n|2|шорти|shorts||
+rok|de|rokken|n|1|спідниця|skirt||
+jurk|de|jurken|n|1|сукня|dress||
+kleed|het|kleden|n|2|сукня (BE); килимок|dress (BE)||
+hemd|het|hemden|n|1|сорочка (BE); майка|shirt (BE)||
+overhemd|het|overhemden|n|2|сорочка|shirt||
+T-shirt|het|T-shirts|n|1|футболка|T-shirt||
+trui|de|truien|n|1|светр|sweater||
+pull|de|pulls|n|2|светр (BE)|jumper (BE)||
+vest|het|vesten|n|2|жилет; кардиган|waistcoat; cardigan||
+jas|de|jassen|n|1|пальто, куртка|coat, jacket||
+mantel|de|mantels|n|2|пальто|coat||
+kostuum|het|kostuums|n|2|костюм|suit||
+ondergoed|het||n|2|білизна|underwear||
+onderbroek|de|onderbroeken|n|2|труси|underpants||
+beha|de|beha's|n|2|бюстгальтер|bra||
+pyjama|de|pyjama's|n|2|піжама|pyjamas||
+sok|de|sokken|n|1|шкарпетка|sock||
+kous|de|kousen|n|2|панчоха; шкарпетка (BE)|stocking; sock (BE)||
+schoen|de|schoenen|n|1|черевик, туфля|shoe||
+sportschoen|de|sportschoenen|n|2|кросівок|trainer||
+laars|de|laarzen|n|2|чобіт|boot||
+sandaal|de|sandalen|n|2|сандаля|sandal||
+pantoffel|de|pantoffels|n|2|капець|slipper||
+muts|de|mutsen|n|1|шапка|woolly hat||
+pet|de|petten|n|2|кепка|cap||
+hoed|de|hoeden|n|2|капелюх|hat||
+sjaal|de|sjaals|n|1|шарф|scarf||
+handschoen|de|handschoenen|n|1|рукавичка|glove||
+riem|de|riemen|n|2|пасок|belt||
+das|de|dassen|n|2|краватка|tie||
+handtas|de|handtassen|n|2|сумочка|handbag||
+rugzak|de|rugzakken|n|1|рюкзак|backpack||
+portefeuille|de|portefeuilles|n|2|гаманець|wallet||
+portemonnee|de|portemonnees|n|1|гаманець|purse||
+paraplu|de|paraplu's|n|1|парасолька|umbrella||
+horloge|het|horloges|n|1|наручний годинник|watch||
+juweel|het|juwelen|n|2|прикраса|jewel||
+ring|de|ringen|n|2|каблучка|ring||
+ketting|de|kettingen|n|2|ланцюжок, намисто|necklace||
+oorbel|de|oorbellen|n|2|сережка|earring||
+maat|de|maten|n|1|розмір|size||Welke maat hebt u?|Який у вас розмір?
+pashokje|het|pashokjes|n|2|примірочна|fitting room||
+passen|||v|1|приміряти; підходити|to try on; to fit||Mag ik deze broek passen?|Можна приміряти ці штани?
+dragen|||v|1|носити|to wear; to carry||
+aantrekken|||v|2|вдягати|to put on|sep=aan|
+uittrekken|||v|2|знімати (одяг)|to take off|sep=uit|
+staan|||v|1|стояти; пасувати|to stand; to suit||Die jas staat je goed.|Ця куртка тобі пасує.
+kleur|de|kleuren|n|1|колір|colour||Wat is je lievelingskleur?|Який твій улюблений колір?
+wit||-|adj|1|білий|white||
+zwart||-|adj|1|чорний|black||
+rood||-|adj|1|червоний|red||
+blauw||-|adj|1|синій, блакитний|blue||
+geel||-|adj|1|жовтий|yellow||
+groen||-|adj|1|зелений|green||
+oranje||-|adj|1|помаранчевий|orange||
+paars||-|adj|1|фіолетовий|purple||
+roze||-|adj|1|рожевий|pink||
+bruin||-|adj|1|коричневий|brown||
+grijs||-|adj|1|сірий|grey||
+beige||-|adj|2|бежевий|beige||
+lichtblauw||-|adj|2|світло-блакитний|light blue||
+donkerblauw||-|adj|2|темно-синій|dark blue||
+gestreept||-|adj|2|смугастий|striped||
+geruit||-|adj|2|у клітинку|checked||
+katoen|het||n|2|бавовна|cotton||
+wol|de||n|2|вовна|wool||
+leer|het||n|2|шкіра (матеріал)|leather||
+weer|het||n|1|погода|weather||Hoe is het weer vandaag?|Яка сьогодні погода?
+weerbericht|het|weerberichten|n|2|прогноз погоди|weather forecast||
+zon|de|zonnen|n|1|сонце|sun||
+zonnig||-|adj|1|сонячно|sunny||
+regen|de||n|1|дощ|rain||
+regenen|||v|1|йти (про дощ)|to rain||Het regent.|Іде дощ.
+sneeuw|de||n|1|сніг|snow||
+sneeuwen|||v|1|йти (про сніг)|to snow||
+wind|de|winden|n|1|вітер|wind||
+waaien|||v|2|віяти, дути|to blow||Het waait hard.|Сильний вітер.
+wolk|de|wolken|n|1|хмара|cloud||
+bewolkt||-|adj|1|хмарно|cloudy||
+mist|de||n|2|туман|fog||
+mistig||-|adj|2|туманно|foggy||
+onweer|het||n|2|гроза|thunderstorm||
+storm|de|stormen|n|2|шторм, буря|storm||
+bliksem|de||n|2|блискавка|lightning||
+donder|de||n|2|грім|thunder||
+hagel|de||n|2|град|hail||
+ijzel|de||n|2|ожеледь|black ice||
+vriezen|||v|2|морозити|to freeze||Het vriest.|Мороз.
+temperatuur|de|temperaturen|n|1|температура|temperature||
+graad|de|graden|n|1|градус|degree||Het is twintig graden.|Двадцять градусів.
+nat||-|adj|1|мокрий|wet||
+droog||-|adj|1|сухий|dry||
+fris||-|adj|2|свіжий, прохолодний|fresh, chilly||
+zacht||-|adj|2|м'який; теплий (погода)|soft; mild||
+natuur|de||n|1|природа|nature||
+lucht|de|luchten|n|1|повітря; небо|air; sky||
+hemel|de|hemels|n|2|небо|sky; heaven||
+ster|de|sterren|n|2|зірка|star||
+maan|de|manen|n|2|місяць (небесне тіло)|moon||
+aarde|de||n|2|земля|earth||
+wereld|de|werelden|n|1|світ|world||
+land|het|landen|n|1|країна; суша|country; land||
+zee|de|zeeën|n|1|море|sea||
+strand|het|stranden|n|1|пляж|beach||
+kust|de|kusten|n|2|узбережжя|coast||
+rivier|de|rivieren|n|1|річка|river||
+meer|het|meren|n|2|озеро|lake||
+berg|de|bergen|n|1|гора|mountain||
+heuvel|de|heuvels|n|2|пагорб|hill||
+bos|het|bossen|n|1|ліс|forest||
+park|het|parken|n|1|парк|park||
+veld|het|velden|n|2|поле|field||
+weide|de|weiden|n|2|луг|meadow||
+boom|de|bomen|n|1|дерево|tree||
+bloem|de|bloemen|n|1|квітка|flower||
+gras|het||n|2|трава|grass||
+blad|het|bladeren|n|2|листок; аркуш|leaf; sheet||
+steen|de|stenen|n|2|камінь|stone||
+zand|het||n|2|пісок|sand||
+eiland|het|eilanden|n|2|острів|island||
+platteland|het||n|2|сільська місцевість|countryside||
+dier|het|dieren|n|1|тварина|animal||
+huisdier|het|huisdieren|n|1|домашня тварина|pet||
+hond|de|honden|n|1|собака|dog||
+kat|de|katten|n|1|кіт|cat||
+poes|de|poezen|n|1|кішка|cat (pussycat)||
+konijn|het|konijnen|n|2|кролик|rabbit||
+vogel|de|vogels|n|1|птах|bird||
+paard|het|paarden|n|1|кінь|horse||
+koe|de|koeien|n|1|корова|cow||
+varken|het|varkens|n|1|свиня|pig||
+schaap|het|schapen|n|1|вівця|sheep||
+geit|de|geiten|n|2|коза|goat||
+eend|de|eenden|n|2|качка|duck||
+muis|de|muizen|n|2|миша|mouse||
+rat|de|ratten|n|2|щур|rat||
+vis|de|vissen|n|1|риба|fish||
+insect|het|insecten|n|2|комаха|insect||
+vlieg|de|vliegen|n|2|муха|fly||
+mug|de|muggen|n|2|комар|mosquito||
+bij|de|bijen|n|2|бджола|bee||
+spin|de|spinnen|n|2|павук|spider||
+vlinder|de|vlinders|n|2|метелик|butterfly||
+leeuw|de|leeuwen|n|2|лев|lion||
+olifant|de|olifanten|n|2|слон|elephant||
+beer|de|beren|n|2|ведмідь|bear||
+wolf|de|wolven|n|2|вовк|wolf||
+vos|de|vossen|n|2|лис|fox||
+slang|de|slangen|n|2|змія|snake||
+dierentuin|de|dierentuinen|n|2|зоопарк|zoo||
+seizoen|het|seizoenen|n|1|пора року|season||
+lente|de|lentes|n|1|весна|spring||
+voorjaar|het||n|2|весна|spring||
+zomer|de|zomers|n|1|літо|summer||
+herfst|de|herfsten|n|1|осінь|autumn||
+najaar|het||n|2|осінь|autumn||
+winter|de|winters|n|1|зима|winter||
+milieu|het||n|2|довкілля|environment||
+klimaat|het|klimaten|n|2|клімат|climate||
+energie|de||n|2|енергія|energy||
+recycleren|||v|2|переробляти (BE)|to recycle (BE)||
+sorteren|||v|2|сортувати|to sort||

@@ -1,0 +1,11 @@
+audio/nl/.done-*
+audio/nl/.azure-log
+LOCAL-FILES.md
+audio/nl-f/.done-*
+.claude/
+
+# macOS: metadata files on external (exFAT/FAT) drives and folder settings
+._*
+.DS_Store
+audio/en/.done-*
+audio/fr/.done-*

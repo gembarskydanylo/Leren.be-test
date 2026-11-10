@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; connect-src 'self'; img-src 'self' data:; style-src 'self'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,interactive-widget=resizes-content">
+<meta name="theme-color" content="#123c37">
+<meta name="description" content="Learn Life: вчимо нідерландську в реальних ситуаціях. Допоможи сусіду побудувати паркан і відпрацюй потрібні фрази.">
+<link rel="canonical" href="https://lerenbe.com/learn-life.html">
+<link rel="icon" href="./favicon-32.png" sizes="32x32" type="image/png">
+<link rel="stylesheet" href="./modules/learn-life/style.css?v=2">
+<title>Learn Life · Будуємо паркан — lerenbe.com</title>
+</head>
+<body>
+<header class="ll-top"><a href="./" class="ll-home">← lerenbe.com</a><span class="ll-mark">LEARN <span>LIFE</span></span><a href="#quick" class="ll-top-quick">Швидка фраза ↗</a></header>
+<main>
+ <section class="ll-hero" aria-labelledby="ll-title"><div class="ll-hero-copy"><p class="ll-kicker">Нідерландська для справжнього дня</p><h1 id="ll-title">Будуємо паркан <em>разом</em></h1><p>Виміряти, потримати, подати лопату, підняти хвіртку. Вчи те, що знадобиться сусіду вже сьогодні.</p><a href="#story" class="ll-start">Почати ситуацію <span aria-hidden="true">↓</span></a></div><div class="ll-hero-badge"><strong id="heroProgress">0 / 20</strong><small>дій у ситуації</small></div></section>
+ <a class="ll-story-link" href="./learn-life-story.html?s=first-day"><span class="ll-story-icon" aria-hidden="true">🏡</span><span><b>Нова історія: Перший день у Бельгії</b><small>A1 · вокзал, трамвай, квартира, сусід · режими «Навчання» і «Реальне життя»</small></span><span aria-hidden="true">→</span></a>
+ <nav id="stageNav" class="ll-stage-nav" aria-label="Кроки роботи"></nav>
+ <section id="story" class="ll-story" aria-labelledby="stageTitle"><div class="ll-story-head"><div><p class="ll-eyebrow" id="stageNumber">КРОК 01</p><h2 id="stageTitle">Розмітка</h2><p id="stageIntro"></p></div><span class="ll-stage-count" id="stageCount"></span></div>
+  <div class="ll-scene"><svg class="ll-yard" viewBox="0 0 960 410" role="img" aria-label="Ілюстрація двору, паркану й хвіртки">
+   <defs><linearGradient id="sky" x2="0" y2="1"><stop stop-color="#a6dfe0"/><stop offset="1" stop-color="#ecf8d8"/></linearGradient><linearGradient id="ground" x2="0" y2="1"><stop stop-color="#91bb6b"/><stop offset="1" stop-color="#618b53"/></linearGradient></defs>
+   <rect width="960" height="410" fill="url(#sky)"/><circle cx="790" cy="72" r="38" fill="#ffe8a0"/><path d="M0 248 Q160 200 310 244 T630 234 T960 244 V410 H0" fill="#b2ca81"/><path d="M0 277 Q240 255 470 280 T960 261 V410 H0" fill="url(#ground)"/>
+   <path d="M40 308 Q470 290 920 307" stroke="#d5a96d" stroke-width="12" stroke-linecap="round" stroke-dasharray="13 10" fill="none"/>
+   <g fill="#9c6338" stroke="#6b4129" stroke-width="5"><rect x="130" y="152" width="28" height="178" rx="5"/><rect x="305" y="142" width="28" height="188" rx="5"/><rect x="480" y="150" width="28" height="180" rx="5"/><rect x="690" y="145" width="28" height="185" rx="5"/><rect x="850" y="151" width="28" height="179" rx="5"/></g>
+   <g fill="#c98c50" stroke="#7b4c2b" stroke-width="4"><rect x="141" y="186" width="350" height="25" rx="5"/><rect x="141" y="257" width="350" height="25" rx="5"/><rect x="700" y="186" width="165" height="25" rx="5"/><rect x="700" y="257" width="165" height="25" rx="5"/></g>
+   <g transform="rotate(-5 600 240)"><rect x="520" y="160" width="163" height="172" rx="7" fill="#b47842" stroke="#6f462d" stroke-width="7"/><rect x="540" y="180" width="124" height="132" rx="4" fill="#d39860" stroke="#845330" stroke-width="4"/><path d="M552 185v122m38-122v122m38-122v122" stroke="#ad7546" stroke-width="8"/><circle cx="650" cy="251" r="8" fill="#f4d47c"/></g>
+   <path d="M53 352l48-55 20 7-31 57" fill="#dcab68" stroke="#684a30" stroke-width="5"/><path d="M25 355q30-45 55-17l-14 39" fill="#5a5c5b" stroke="#38423d" stroke-width="5"/>
+   <g transform="translate(370 293)"><path d="M-33 45q-9-47 35-54 45 7 37 54" fill="#f29b36"/><path d="M-25-3l-7-27 25 17M21-12l26-20-8 33" fill="#e8902f"/><circle cx="-12" cy="13" r="4" fill="#2a1d12"/><circle cx="17" cy="13" r="4" fill="#2a1d12"/><path d="M-1 22q5 5 9 0" stroke="#2a1d12" stroke-width="3" fill="none"/><path d="M-18 45l-8 25m50-25 8 25" stroke="#c66d24" stroke-width="10" stroke-linecap="round"/></g>
+  </svg><div id="hotspots" class="ll-hotspots" aria-label="Речі на будівництві"></div></div>
+  <div id="objectInfo" class="ll-object-info" aria-live="polite"></div>
+  <div id="challenge" class="ll-challenge"></div>
+ </section>
+ <div class="ll-lower">
+  <section id="quick" class="ll-quick" aria-labelledby="quickTitle"><p class="ll-eyebrow">НА РОБОТІ · ПРЯМО ЗАРАЗ</p><h2 id="quickTitle">Склади швидку фразу</h2><p>Обери дію й предмет — і скажи сусіду готове речення.</p><div id="quickActions" class="ll-quick-actions"></div><label for="quickObject">Що саме?</label><select id="quickObject"></select><div class="ll-quick-result"><strong id="quickNl" lang="nl-BE"></strong><span id="quickUk"></span><button id="quickHear" type="button" class="ll-sound">🔊 Послухати</button></div></section>
+  <section id="speak" class="ll-speak" aria-labelledby="speakTitle"><p class="ll-eyebrow">ПОВТОРЕННЯ</p><h2 id="speakTitle">Скажи це сам</h2><p>Першими повертаються фрази, у яких була помилка.</p><p id="speakGoal" class="ll-speak-goal"></p><input id="speakInput" type="text" autocomplete="off" placeholder="Напиши або продиктуй нідерландською" aria-label="Твоя фраза нідерландською"><div class="ll-speak-actions"><button id="microphone" type="button">🎤 Сказати</button><button id="reveal" type="button">Показати відповідь</button></div><div id="speakAnswer" class="ll-speak-answer" aria-live="polite"></div><div id="speakFeedback" class="ll-speak-feedback" role="status"></div><button id="speakDone" type="button" class="ll-primary">Повторив/ла · наступна →</button></section>
+ </div>
+ <section id="phraseBank" class="ll-bank" aria-labelledby="bankTitle"><div class="ll-bank-head"><div><p class="ll-eyebrow">ТВОЯ КИШЕНЬКОВА ШПАРГАЛКА</p><h2 id="bankTitle">Усі фрази цього дня</h2></div><button id="favouritesOnly" type="button">☆ Лише збережені</button></div><p>Знайди фразу на роботі, натисни, щоб почути її, або збережи зірочкою.</p><label class="ll-search-label" for="phraseSearch">Шукати українською чи нідерландською</label><input id="phraseSearch" type="search" autocomplete="off" placeholder="Наприклад: глибоко, потримай, waterpas"><div id="phraseList" class="ll-phrase-list"></div></section>
+</main>
+<footer><a href="./">← Повернутися до уроків</a><span>Learn Life · lerenbe.com</span></footer>
+<script type="module" src="./modules/learn-life/ui.mjs?v=2"></script>
+</body>
+</html>
