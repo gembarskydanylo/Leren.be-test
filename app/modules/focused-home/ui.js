@@ -18,7 +18,8 @@
   const t=tr(lang),legacy=LerenCompanion.tr(lang),box=node('section','fh-hero'),content=node('div','fh-hero-content'),art=node('div','fh-hero-art'),cat=LerenCompanion.cat('welcome',true,lang);
   const greeting=node('span','fh-cat-caption',({uk:'Вчимося разом',en:'Learning together',fr:'On apprend ensemble',ar:'نتعلّم معاً'})[lang]);
   cat.onclick=()=>{cat.dataset.pose=cat.dataset.pose==='welcome'?'happy':'welcome';greeting.textContent=legacy.wave};art.append(cat,greeting);
-  content.append(node('p','fh-eyebrow',t.next),node('h2','',allDone?t.doneAll:placing?({uk:'Знайдемо твій старт',en:'Find your starting point',fr:'Trouvons ton départ',ar:'لنحدّد بدايتك'})[lang]:chapter||t.first),node('p','fh-description',allDone?t.doneHint:placing?(started?t.resume:t.intro):(globalThis.LerenCurriculum?.topicInfo?.(chapterId,lang)?.description||(started?t.resume:t.intro))));
+  content.append(node('p','fh-eyebrow',t.next+(level&&level!=='A1.1'?' · '+level:'')), // A1.1: no level code for beginners (TEST-019)
+  node('h2','',allDone?t.doneAll:placing?({uk:'Знайдемо твій старт',en:'Find your starting point',fr:'Trouvons ton départ',ar:'لنحدّد بدايتك'})[lang]:chapter||t.first),node('p','fh-description',allDone?t.doneHint:placing?(started?t.resume:t.intro):(globalThis.LerenCurriculum?.topicInfo?.(chapterId,lang)?.description||(started?t.resume:t.intro))));
   if(goal&&!allDone)content.append(node('p','fh-goal',goal));
   if(plan){const say=node('p','fh-plan');if(planBy)say.appendChild(node('strong','',planBy+': '));say.append(plan);content.append(say)}
   if(lesson&&!placing){const detail=node('div','fh-lesson-detail');detail.append(node('strong','',lesson),node('span','',t.time+(totalParts>1?' · '+t.part+' '+part+'/'+totalParts:'')));content.append(detail)}
