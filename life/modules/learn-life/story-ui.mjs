@@ -4,9 +4,9 @@
 //  🟡 practice — Dutch text without translations (translation on request), say the phrase from its meaning
 //  🔴 real     — the character just talks at normal speed; text only on request, no translations, no sample
 // Voices: recorded Azure clips (audio/nl = male, audio/nl-f = female, same hash as app.js), device voice as fallback.
-import {STORIES, ROADMAP, storyById} from './stories/index.mjs?v=3';
-import {createStorySession, recordXp, XP_PER_STEP} from './story-engine.mjs?v=2';
-import {loadVisuals, sceneVisual, storyCover, characterImage, characterAlt, protagonistId, empty} from './visuals.mjs?v=2';
+import {STORIES, ROADMAP, storyById} from './stories/index.mjs?v=4';
+import {createStorySession, recordXp, XP_PER_STEP} from './story-engine.mjs?v=3';
+import {loadVisuals, sceneVisual, storyCover, characterImage, characterAlt, protagonistId, empty} from './visuals.mjs?v=3';
 
 const $ = id => document.getElementById(id);
 const el = (tag, cls, text) => { const n = document.createElement(tag); if (cls) n.className = cls; if (text != null) n.textContent = text; return n };
@@ -199,11 +199,11 @@ function bubble(who, nl, uk, {slow = false} = {}) {
   b.append(whoEl) }
  const t = el('p', 'ls-nl', nl); t.lang = 'nl-BE'; b.append(t);
  const tools = el('span', 'ls-tools');
- if (!mine) tools.append(btn('🔊', () => say(nl, c.voice), 'ls-icon'), btn('🐢', () => say(nl, c.voice, true), 'ls-icon'));
+ if (!mine) { const l = btn('🔊', () => say(nl, c.voice), 'ls-icon'), sl = btn('🐢', () => say(nl, c.voice, true), 'ls-icon'); l.setAttribute('aria-label', 'Послухати'); sl.setAttribute('aria-label', 'Повільніше'); tools.append(l, sl) }
  if (!mine && real() && !slow) { t.classList.add('is-hidden'); tools.append(btn('👁 Текст', e => { t.classList.remove('is-hidden'); e.target.remove() }, 'ls-icon ls-reveal')) }
  if (uk && (learn() || slow)) b.append(el('p', 'ls-uk', uk));
  else if (uk && mode() === 'practice' && !mine) tools.append(btn('Переклад', e => { b.insertBefore(el('p', 'ls-uk', uk), tools); e.target.remove() }, 'ls-icon ls-translate'));
- b.append(tools); log.append(b); b.scrollIntoView?.({block: 'nearest'}); return b;
+ b.append(tools); log.append(b); log.scrollTop = log.scrollHeight; return b; // the log scrolls itself; the page (and the stage) stays put
 }
 function npc(step, key) { if (shown.has(key)) return; shown.add(key); bubble(step.who, step.nl, step.uk); showSpoken(step.who, step.nl, step.uk, step.emotion); sayInTurn(step.nl, speaker(step.who).voice) }
 function feedback(ok, text) { const f = el('p', 'ls-feedback ' + (ok ? 'is-ok' : 'is-no'), (ok ? '✓ ' : '✗ ') + (text || (ok ? 'Правильно!' : 'Спробуй ще раз.'))); panel.prepend(f); return f }
