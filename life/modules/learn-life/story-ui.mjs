@@ -76,28 +76,48 @@ setModeButtons();
 let VIS = empty(), stage = null, spoken = null, heroEmotion = 'neutral';
 loadVisuals().then(m => { VIS = m; if (current) renderStage(); else home() });
 const DESKTOP = globalThis.matchMedia?.('(min-width: 768px)');
-function picture(pair, alt, cls) {
+function picture(pair, alt, cls, onFail) {
  const pic = el('picture', cls), src = el('source'); src.media = '(min-width: 768px)'; src.srcset = pair.desktop;
- const img = el('img'); img.src = pair.mobile; img.alt = alt; img.decoding = 'async'; img.loading = 'eager'; img.onerror = () => pic.remove();
+ const img = el('img'); img.src = pair.mobile; img.alt = alt; img.decoding = 'async'; img.loading = 'eager'; img.onerror = () => { pic.remove(); onFail?.() };
  pic.append(src, img); return pic;
+}
+// Files that failed to load in this visit (missing on the server, damaged): drawn as missing from then on.
+const BROKEN = new Set();
+const FACE = {neutral: '🙂', happy: '😊', thinking: '🤔', surprised: '😮'}, FEEL = {neutral: 'спокійно', happy: 'радіє', thinking: 'думає', surprised: 'здивовано'};
+const HERO_ICON = {anastasia: '🙋🏻‍♀️', 'hero-male': '🙋🏻‍♂️'};
+// A character whose picture is not delivered yet: a large stand-in on the same place of the stage with the
+// character's name and current emotion (never a random or another character's picture).
+function standIn(c) {
+ const f = el('div', 'ls-stage-char ls-stage-token is-' + c.position + (c.id === spoken?.who ? ' is-speaking' : '') + (c.protagonist ? ' is-hero' : ''));
+ f.dataset.character = c.id; f.dataset.emotion = c.emotion; f.dataset.fallback = 'true'; f.setAttribute('role', 'img');
+ f.setAttribute('aria-label', c.name + ' — ' + FEEL[c.emotion]);
+ const icon = story.cast[c.id]?.icon || HERO_ICON[c.id] || '🧑';
+ const head = el('span', 'ls-token-head'); head.append(el('span', 'ls-token-icon', icon), el('span', 'ls-token-emo', FACE[c.emotion]));
+ f.append(head, el('span', 'ls-token-name', c.protagonist ? c.name + ' (ти)' : c.name)); return f;
 }
 function renderStage() {
  if (!stage || !current) return;
- const v = sceneVisual(VIS, story.id, current.scene.id, {who: spoken?.who, emotion: spoken?.emotion, heroEmotion});
+ const v = sceneVisual(VIS, story.id, current.scene.id, {who: spoken?.who, emotion: spoken?.emotion, heroEmotion, placeholders: true, broken: BROKEN});
+ const bg = v.background && !BROKEN.has(v.background.mobile) && !BROKEN.has(v.background.desktop) ? v.background : null;
  stage.dataset.heroEmotion = heroEmotion; stage.style.setProperty('--ls-dialogue', String(v.dialogue.reserve));
- stage.replaceChildren(); stage.classList.toggle('has-art', !!v.background);
- if (v.background) stage.append(picture(v.background, v.alt, 'ls-stage-bg'));
+ stage.replaceChildren(); stage.classList.toggle('has-art', !!bg);
+ if (bg) stage.append(picture(bg, v.alt, 'ls-stage-bg', () => { BROKEN.add(bg.mobile); BROKEN.add(bg.desktop); renderStage() }));
  else { const ph = el('div', 'ls-stage-ph'); ph.setAttribute('role', 'img'); ph.setAttribute('aria-label', v.alt || current.scene.title); ph.append(el('span', 'ls-stage-icon', current.scene.icon)); stage.append(ph) }
- for (const c of v.characters.slice(0, 3)) { const img = el('img', 'ls-stage-char is-' + c.position + (c.id === spoken?.who ? ' is-speaking' : '') + (c.protagonist ? ' is-hero' : '')); img.src = c.src; img.alt = c.alt; img.dataset.character = c.id; img.dataset.emotion = c.emotion; img.onerror = () => img.remove(); stage.append(img) }
+ for (const c of v.characters.slice(0, 3)) {
+  if (!c.src) { stage.append(standIn(c)); continue }
+  const img = el('img', 'ls-stage-char is-' + c.position + (c.id === spoken?.who ? ' is-speaking' : '') + (c.protagonist ? ' is-hero' : '')); img.src = c.src; img.alt = c.alt; img.dataset.character = c.id; img.dataset.emotion = c.emotion;
+  img.onerror = () => { BROKEN.add(c.src); renderStage() }; stage.append(img) }
  if (spoken) {
   const c = speaker(spoken.who), box = el('div', 'ls-stage-say'), t = el('p', 'ls-nl', spoken.nl); t.lang = 'nl-BE';
   if (real() && !spoken.revealed) t.classList.add('is-hidden');
-  box.append(el('span', 'ls-who', c.icon + ' ' + c.name), t);
-  if (learn() && spoken.uk) box.append(el('p', 'ls-uk', spoken.uk));
   const tools = el('span', 'ls-tools');
   tools.append(btn('🔊', () => say(spoken.nl, c.voice), 'ls-icon ls-stage-listen'), btn('🔁 Повільніше', () => say(spoken.nl, c.voice, true), 'ls-icon ls-stage-repeat'));
   if (real() && !spoken.revealed) tools.append(btn('👁 Текст', () => { spoken.revealed = true; renderStage() }, 'ls-icon'));
-  box.append(tools); stage.append(box);
+  tools.querySelector('.ls-stage-listen').setAttribute('aria-label', 'Послухати ще раз');
+  const top = el('div', 'ls-say-top'); top.append(el('span', 'ls-who', c.icon + ' ' + c.name), tools);
+  box.append(top, t);
+  if (learn() && spoken.uk) box.append(el('p', 'ls-uk', spoken.uk));
+  stage.append(box);
  }
 }
 function setHero(e) { heroEmotion = e; renderStage() }
