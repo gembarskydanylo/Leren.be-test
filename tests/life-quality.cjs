@@ -235,7 +235,7 @@ const A = 'assets/lerenbe-life/';
    const {ctx, page, errors} = await open({w: 390, h: 844, zoom: 1.3});
    await page.click('.ls-hero .ls-primary'); await page.waitForSelector('.ls-stage-say'); await page.waitForTimeout(300);
    assert(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), 'large text: no horizontal scroll');
-   const clipped = await page.evaluate(() => [...document.querySelectorAll('.ls-stage-say .ls-nl, .ls-option, .ls-btn, .ls-token-name')].filter(e => e.scrollWidth > e.clientWidth + 2).length);
+   const clipped = await page.evaluate(() => [...document.querySelectorAll('.ls-stage-say .ls-nl, .ls-option, .ls-btn, .ls-token-name')].filter(e => e.scrollWidth > e.clientWidth + 2).length + [...document.querySelectorAll(".ls-mode button")].filter(e => e.scrollWidth > e.clientWidth + 1).length);
    assert.equal(clipped, 0, 'large text: nothing cut off sideways');
    if (process.env.SHOTS) await page.screenshot({path: path.join(process.env.SHOTS, 'life-quality-390-large-text.png')});
    await playScene(page, 'station'); assert.deepEqual(errors, []); await ctx.close(); report.push('large text 130%');

@@ -114,7 +114,7 @@ a.ls-btn{display:block;text-align:center;text-decoration:none;box-sizing:border-
 .ls-token-head{position:relative;display:grid;place-items:center;width:100%;flex:1;min-height:0}
 .ls-token-icon{font-size:min(30cqh,24cqw,150px);line-height:1}
 .ls-token-emo{position:absolute;right:6%;bottom:2%;font-size:min(11cqh,9cqw,52px);line-height:1;background:#fff;border-radius:50%;padding:.08em;box-shadow:0 2px 8px #0005}
-.ls-token-name{font-weight:800;font-size:clamp(13px,4.2cqh,20px);line-height:1.15;text-align:center;background:#0b2522cc;border-radius:14px;padding:3px 10px;max-width:100%;overflow-wrap:anywhere}
+.ls-token-name{font-weight:800;font-size:clamp(12px,min(4.2cqh,4.6cqw),20px);line-height:1.15;text-align:center;background:#0b2522cc;border-radius:14px;padding:3px 8px;max-width:100%;overflow-wrap:break-word}
 .ls-stage-ph .ls-stage-icon{transform:translateY(-34%);font-size:min(16cqh,72px);opacity:.55}
 @media (max-width:719px){
  .ls-main[data-scene] .ls-stage{margin-left:calc(-16px - env(safe-area-inset-left));margin-right:calc(-16px - env(safe-area-inset-right));border-radius:0;aspect-ratio:auto;max-height:none;min-height:0;height:clamp(330px,62dvh,760px)}
@@ -136,4 +136,4 @@ a.ls-btn{display:block;text-align:center;text-decoration:none;box-sizing:border-
 }
 @media (min-width:1360px){.ls-main{max-width:1360px}.ls-scene-body{grid-template-columns:minmax(0,1.6fr) minmax(360px,1fr)}}
 /* narrow screens and large text: the help-level switch wraps its labels instead of pushing the page sideways */
-@media (max-width:420px){.ls-mode{min-width:0}.ls-mode button{flex:1 1 0;min-width:0;white-space:normal;line-height:1.15;overflow-wrap:anywhere}}
+@media (max-width:420px){.ls-mode{min-width:0;gap:2px}.ls-mode button{flex:1 1 auto;min-width:0;white-space:normal;line-height:1.15;padding:4px 3px;letter-spacing:-.01em}}
