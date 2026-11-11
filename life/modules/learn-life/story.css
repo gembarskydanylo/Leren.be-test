@@ -135,3 +135,5 @@ a.ls-btn{display:block;text-align:center;text-decoration:none;box-sizing:border-
  .ls-main[data-scene] .ls-stage{aspect-ratio:auto;height:clamp(460px,calc(100dvh - 150px),900px);top:12px}
 }
 @media (min-width:1360px){.ls-main{max-width:1360px}.ls-scene-body{grid-template-columns:minmax(0,1.6fr) minmax(360px,1fr)}}
+/* narrow screens and large text: the help-level switch wraps its labels instead of pushing the page sideways */
+@media (max-width:420px){.ls-mode{min-width:0}.ls-mode button{flex:1 1 0;min-width:0;white-space:normal;line-height:1.15;overflow-wrap:anywhere}}

@@ -68,7 +68,7 @@ const mode = () => session.state.mode, learn = () => mode() === 'learn', real = 
 const MODE_LINE = {learn: '🟢 Початківець: переклад, підказки, повільне аудіо', practice: '🟡 Практика: переклад лише за кнопкою, фразу кажеш сам', real: '🔴 Реальне життя: природна швидкість, мінімум підказок'};
 
 function setModeButtons() { document.querySelectorAll('.ls-mode button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.mode === mode()))); document.body.dataset.mode = mode() }
-document.querySelectorAll('.ls-mode button').forEach(b => b.onclick = () => { session.setMode(b.dataset.mode); setModeButtons(); if (current) renderStep(); else home() });
+document.querySelectorAll('.ls-mode button').forEach(b => b.onclick = () => { session.setMode(b.dataset.mode); setModeButtons(); if (current) { renderStage(); renderStep() } else home() });
 setModeButtons();
 
 // ---- visuals (assets/lerenbe-life/visual-manifest.json): drawn scenes and characters when the artist's files are in;
