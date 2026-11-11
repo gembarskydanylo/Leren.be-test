@@ -1,0 +1,21 @@
+# Separate speech-to-text worker for the AI chat (TEST-017). Does not touch the shared "leren-ai" worker.
+# Deploy: npx wrangler deploy -c tools/wrangler-stt.toml
+# Optional secret (same salt as leren-ai is fine): npx wrangler secret put RATE_SALT -c tools/wrangler-stt.toml
+name = "leren-stt"
+main = "stt-worker.js"
+compatibility_date = "2026-11-01"
+workers_dev = true
+
+[ai]
+binding = "AI"
+
+# 6 voice messages per minute per network
+[[ratelimits]]
+name = "STT_LIMIT"
+namespace_id = "1101"
+  [ratelimits.simple]
+  limit = 6
+  period = 60
+
+[observability]
+enabled = true

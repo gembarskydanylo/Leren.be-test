@@ -100,3 +100,10 @@
 2. **Графіка Codex:** після схвалення фінальних `home-hero-desktop/mobile.webp` і `life-promo-*.webp` — додати файли, у маніфесті `approved` + справжні розміри; HERO не кешувати наперед усім (лише при показі).
 3. **LIFE:** TEST-013/014 (візуальна система, Anastasia з новими записами).
 4. Після кожного кроку — перевірка на lerenbe.com (версія в `sw.js`), фізичний телефон користувача, можливість відкоту (вимкнути модуль: без `LerenHomeV2` повертається старий банер).
+
+## TEST-017 · Голос у AI-чаті будь-якою мовою (очікує розгортання воркера й оцінки)
+1. **Воркер:** `npx wrangler deploy -c tools/wrangler-stt.toml` (новий `leren-stt`, Workers AI binding `AI`, ratelimit `STT_LIMIT` namespace 1101 — перевірити, що id не зайнятий); за бажанням `RATE_SALT` як у `leren-ai`. Спільний `leren-ai` не змінюється. Перевірка: `X-Leren-STT: 2026-11-11-whisper-auto-v1`, у логах лише `STT {bytes,lang,retried,chars}`.
+2. **Production `app.js`:** перенести `STT_ENDPOINT`, `recordVoice`, гілку `opts.edit` у `micBox`, умову `canRec`, тексти MU (`rec/wait/fail/slow`) і речення про голос у `consent` (uk/en/fr/ar). Підняти `RELEASE_VERSION`, кеш у `sw.js` і `app.js?v=` в `index.html`.
+3. **CSP / заголовки lerenbe.com:** додати `https://leren-stt.gembarsky-d.workers.dev` у `connect-src` (як уже є `leren-ai`); `Permissions-Policy` має дозволяти `microphone=(self)`.
+4. **privacy.html:** згадати, що голосові повідомлення чату передаються Cloudflare Workers AI лише для розпізнавання й не зберігаються.
+5. Після перенесення: живий тест українською й нідерландською на телефоні користувача (Chrome Android, Safari iOS), перевірити кирилицю в чаті й відповідь Пітера нідерландською; вартість Workers AI у Cloudflare → AI → Usage.
