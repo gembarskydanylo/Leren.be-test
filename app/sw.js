@@ -55,18 +55,21 @@ self.addEventListener("activate", event => {
 
 const MANIFEST_RE = /(\/img\/home\/home-visuals\.json|\/assets\/lerenbe-life\/visual-manifest\.json|\/audio\/[a-z-]+\/manifest\.json)$/;
 const MANIFEST_TIMEOUT = 3000;
-async function freshManifest(request) {
-  const cache = await caches.open(CACHE_NAME);
-  const key = request.url.split("?")[0]; // one entry per file, whatever query the page adds
-  const cached = () => cache.match(key, {ignoreSearch: true});
-  try {
-    const ctl = new AbortController(), timer = setTimeout(() => ctl.abort(), MANIFEST_TIMEOUT);
-    const response = await fetch(request.url, {cache: "no-cache", credentials: "same-origin", signal: ctl.signal}).finally(() => clearTimeout(timer));
-    if (response && response.status === 200) { cache.put(key, response.clone()).catch(() => {}); return response }
-    return (await cached()) || response; // 404 / 5xx: keep the last good copy if there is one
-  } catch (_) {
-    return (await cached()) || Response.error(); // offline or too slow
-  }
+async function freshManifest(request, event) {
+  // Stale-while-revalidate: a cached copy answers at once (no wait on a slow or silent server, offline as before)
+  // and a fresh copy is fetched in the background for the next load. Without a cached copy: the network, 3 s timeout.
+  const cache = await caches.open(CACHE_NAME), key = request.url.split("?")[0]; // one entry per file, whatever the query
+  const hit = await cache.match(key, {ignoreSearch: true});
+  const net = (async () => {
+    try {
+      const ctl = new AbortController(), timer = setTimeout(() => ctl.abort(), MANIFEST_TIMEOUT);
+      const response = await fetch(request.url, {cache: "no-cache", credentials: "same-origin", signal: ctl.signal}).finally(() => clearTimeout(timer));
+      if (response && response.status === 200) { await cache.put(key, response.clone()); return response }
+      return null; // 404 / 5xx: keep the last good copy
+    } catch (_) { return null } // offline or too slow
+  })();
+  if (hit) { event.waitUntil(net); return hit }
+  return (await net) || Response.error();
 }
 
 self.addEventListener("fetch", event => {
@@ -78,11 +81,11 @@ self.addEventListener("fetch", event => {
   if (url.pathname.endsWith("/sw.js") || request.cache === "no-store") return;
 
   // Small JSON manifests that say which art and recordings exist (home-visuals.json, LIFE visual-manifest.json,
-  // audio/*/manifest.json) change without a new release. Cache-first kept them stale until the next cache name, so
-  // new pictures and recordings did not appear. For these files only: network first with a short timeout, the cached
-  // copy when offline, on a server error or when the network is slow — offline behaviour stays as before.
+  // audio/*/manifest.json) change without a new release. Plain cache-first kept them stale until the next cache name,
+  // so new pictures and recordings never appeared. For these files only: stale-while-revalidate (see freshManifest) —
+  // as fast as before, offline as before, and a changed manifest is used from the next load on.
   if (MANIFEST_RE.test(url.pathname)) {
-    event.respondWith(freshManifest(request));
+    event.respondWith(freshManifest(request, event));
     return;
   }
 
