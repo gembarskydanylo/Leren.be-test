@@ -86,3 +86,54 @@ a.ls-btn{display:block;text-align:center;text-decoration:none;box-sizing:border-
 .ls-avatar-me{float:right;margin:0 0 4px 8px}
 .ls-cover img{aspect-ratio:1/1}
 @media (min-width:768px){.ls-cover img{aspect-ratio:16/9}}
+
+/* ---- TEST-018 · full-screen scene on phones and desktops ----
+   Phones (portrait): the stage runs edge to edge and takes most of the screen; answers below it.
+   Phones (landscape): stage left, answers right, both within the screen height.
+   Desktop: stage fills the window height next to the dialogue column.
+   Faces stay above the dialogue zone (--ls-dialogue from visual-manifest.json); every tap target ≥ 44 px;
+   safe areas (notch, home bar) respected. */
+.ls-top{padding:calc(8px + env(safe-area-inset-top)) calc(16px + env(safe-area-inset-right)) 8px calc(16px + env(safe-area-inset-left))}
+.ls-main{padding-left:calc(16px + env(safe-area-inset-left));padding-right:calc(16px + env(safe-area-inset-right));padding-bottom:calc(64px + env(safe-area-inset-bottom))}
+.ls-mode button{min-height:44px}
+.ls-icon{min-width:44px;min-height:44px}
+.ls-main[data-scene]{padding-top:10px}
+.ls-scene-head h2{font-size:clamp(17px,4.6vw,22px);overflow-wrap:anywhere}
+.ls-stage{container-type:size}
+/* dialogue box: who + tools on one row, text below; never taller than the dialogue zone plus a little */
+.ls-say-top{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.ls-say-top .ls-who{margin:0}.ls-say-top .ls-tools{margin:0}
+.ls-stage-say{max-height:calc(var(--ls-dialogue,.32) * 100% + 14%)}
+/* stand-in for a character without a picture: large, in the character's place, entirely above the dialogue zone */
+.ls-stage .ls-stage-token{display:flex;flex-direction:column;align-items:center;justify-content:space-between;top:4%;bottom:auto;
+ height:calc((1 - var(--ls-dialogue,.32)) * 100% - 8%);max-height:none;width:min(42%,300px);max-width:none;padding:4% 2% 3%;
+ border-radius:999px 999px 26px 26px;background:linear-gradient(180deg,#ffffff38,#ffffff10 70%);border:2px solid #ffffff4d;color:#fff;
+ filter:none;opacity:.82;transform:scale(.94);transform-origin:50% 0;transition:transform .2s,opacity .2s}
+.ls-stage .ls-stage-token.is-speaking{opacity:1;transform:none;border-color:var(--ls-orange);box-shadow:0 0 0 3px #ef7d1a55}
+.ls-stage .ls-stage-token.is-left{left:4%}.ls-stage .ls-stage-token.is-right{right:4%}
+.ls-token-head{position:relative;display:grid;place-items:center;width:100%;flex:1;min-height:0}
+.ls-token-icon{font-size:min(30cqh,24cqw,150px);line-height:1}
+.ls-token-emo{position:absolute;right:6%;bottom:2%;font-size:min(11cqh,9cqw,52px);line-height:1;background:#fff;border-radius:50%;padding:.08em;box-shadow:0 2px 8px #0005}
+.ls-token-name{font-weight:800;font-size:clamp(12px,min(4.2cqh,4.6cqw),20px);line-height:1.15;text-align:center;background:#0b2522cc;border-radius:14px;padding:3px 8px;max-width:100%;overflow-wrap:break-word}
+.ls-stage-ph .ls-stage-icon{transform:translateY(-34%);font-size:min(16cqh,72px);opacity:.55}
+@media (max-width:719px){
+ .ls-main[data-scene] .ls-stage{margin-left:calc(-16px - env(safe-area-inset-left));margin-right:calc(-16px - env(safe-area-inset-right));border-radius:0;aspect-ratio:auto;max-height:none;min-height:0;height:clamp(330px,62dvh,760px)}
+}
+@media (min-width:720px) and (max-width:899px){.ls-main[data-scene] .ls-stage{aspect-ratio:auto;max-height:none;height:clamp(380px,62dvh,820px)}}
+/* the transcript scrolls inside itself (newest line at the bottom) */
+.ls-log{max-height:min(48dvh,520px);overflow-y:auto;overscroll-behavior:contain;padding-right:2px}
+@media (orientation:landscape) and (max-height:540px){
+ .ls-top{position:static;padding-top:calc(4px + env(safe-area-inset-top));padding-bottom:4px}
+ .ls-main[data-scene]{max-width:none;display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);grid-template-rows:auto auto 1fr;column-gap:16px;align-items:start}
+ .ls-main[data-scene] .ls-scene-body{display:contents}
+ .ls-main[data-scene] .ls-stage{grid-column:1;grid-row:1 / span 3;margin:0;border-radius:16px;aspect-ratio:auto;max-height:none;min-height:220px;height:calc(100dvh - 80px);position:sticky;top:8px}
+ .ls-main[data-scene] .ls-scene-head,.ls-main[data-scene] .ls-progress,.ls-main[data-scene] .ls-side{grid-column:2}
+ .ls-main[data-scene] .ls-side{grid-row:3}
+}
+@media (min-width:900px){
+ .ls-main{max-width:1240px}
+ .ls-main[data-scene] .ls-stage{aspect-ratio:auto;height:clamp(460px,calc(100dvh - 150px),900px);top:12px}
+}
+@media (min-width:1360px){.ls-main{max-width:1360px}.ls-scene-body{grid-template-columns:minmax(0,1.6fr) minmax(360px,1fr)}}
+/* narrow screens and large text: the help-level switch wraps its labels instead of pushing the page sideways */
+@media (max-width:420px){.ls-mode{min-width:0;gap:2px}.ls-mode button{flex:1 1 auto;min-width:0;white-space:normal;line-height:1.15;padding:4px 3px;letter-spacing:-.01em}}

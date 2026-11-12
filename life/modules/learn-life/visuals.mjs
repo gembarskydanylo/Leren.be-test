@@ -34,7 +34,10 @@ export function protagonistId(m, hero = null) {
 // A scene: background (or null) + characters to place on the stage + alt text + the dialogue zone. `who`/`emotion`
 // (the line being shown) put the speaking character first and set its emotion; `heroEmotion` sets the learner's
 // character (happy after a right answer, thinking after a mistake); `hero` = chosen protagonist.
-export function sceneVisual(m, storyId, sceneId, {who = null, emotion = null, heroEmotion = null, hero = null} = {}) {
+// `placeholders: true` keeps characters whose picture is not delivered (src: null) so the UI can draw a stand-in
+// with the character's name and emotion — never another character's picture. `broken` = files that failed to load
+// (treated as missing: the neutral picture of the same pose, then the stand-in).
+export function sceneVisual(m, storyId, sceneId, {who = null, emotion = null, heroEmotion = null, hero = null, placeholders = false, broken = null} = {}) {
  const s = m?.stories?.[storyId]?.scenes?.[sceneId]; if (!s) return {background: null, characters: [], alt: '', dialogue: DIALOGUE};
  const me = protagonistId(m, hero);
  let chars = (Array.isArray(s.characters) ? s.characters : []).filter(c => c && typeof c.id === 'string')
@@ -42,8 +45,9 @@ export function sceneVisual(m, storyId, sceneId, {who = null, emotion = null, he
  if (who && chars.some(c => c.id === who)) chars = [...chars.filter(c => c.id === who), ...chars.filter(c => c.id !== who)];
  const characters = chars.map(c => {
   const e = c.id === who && EMOTIONS.includes(emotion) ? emotion : EMOTIONS.includes(c.emotion) ? c.emotion : 'neutral';
-  const pose = POSES.includes(c.pose) ? c.pose : 'full', src = characterImage(m, c.id, {pose, emotion: e});
-  return src ? {id: c.id, pose, emotion: e, position: c.position === 'left' ? 'left' : 'right', src, alt: characterAlt(m, c.id), protagonist: !!c.protagonist} : null;
+  const pose = POSES.includes(c.pose) ? c.pose : 'full', ok = p => p && !broken?.has?.(p) ? p : null;
+  const src = ok(characterImage(m, c.id, {pose, emotion: e})) || ok(characterImage(m, c.id, {pose, emotion: 'neutral'}));
+  return src || (placeholders && m?.characters?.[c.id]) ? {id: c.id, pose, emotion: e, position: c.position === 'left' ? 'left' : 'right', src: src || null, alt: characterAlt(m, c.id), name: String(m.characters[c.id]?.name || c.id), protagonist: !!c.protagonist} : null;
  }).filter(Boolean);
  return {background: pair(s.background), characters, alt: String(s.alt || ''), dialogue: dialogueZone(s.dialogue)};
 }

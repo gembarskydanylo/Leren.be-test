@@ -1,6 +1,6 @@
 // LerenBe LIFE stories: interactive situations from real life in Belgium. Ready stories open in learn-life-story.html;
 // the rest is the roadmap shown as «скоро» (stage 1, 2, 3 of the plan). The fence scenario keeps its own page.
-import {firstDay} from './first-day.mjs?v=2';
+import {firstDay} from './first-day.mjs?v=3';
 
 export const STORIES = [firstDay];
 export const storyById = id => STORIES.find(s => s.id === id) || null;

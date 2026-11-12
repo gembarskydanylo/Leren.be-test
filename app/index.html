@@ -442,6 +442,13 @@ footer a{color:inherit}
 .goal-opt{flex-direction:column;gap:2px;min-height:64px}
 .goal-opt strong{font-family:var(--font-display);font-size:17px;font-weight:700}
 .goal-opt span{font-size:13px;color:var(--ink-2)}
+/* TEST-019 first run: steps, explanation language, knowledge choices */
+.onb-steps{margin:0 0 6px;text-align:center;letter-spacing:.3em;color:var(--oranje,#eb6a00);font-size:12px}
+.onb-lang{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:10px 0 0;flex-wrap:wrap}.onb-lang .goal-hint{margin:0}
+.onb-lang-select{min-height:44px;font:inherit;font-weight:700;border-radius:12px;padding:6px 10px}
+.onb-list{display:grid;gap:10px;margin:12px 0}.onb-opt{min-height:72px;text-align:start;align-items:flex-start;width:100%}
+.onb-next{width:100%;min-height:52px;margin-top:6px}.onb-back{margin-right:auto}
+.onb-panel{max-height:calc(100dvh - 80px);overflow-y:auto;overscroll-behavior:contain}@media (max-height:820px){.onb-panel .welcome-list{margin-block:8px}.onb-panel .welcome-list li{padding-block:6px;font-size:14px}.onb-panel .goal-title{font-size:21px;margin-bottom:4px}.onb-panel .welcome-meta{display:none}}
 .toast{position:fixed;z-index:200;left:50%;top:calc(14px + env(safe-area-inset-top));transform:translate(-50%,-140%);max-width:min(92vw,460px);padding:12px 18px;border-radius:var(--r-md);background:var(--be-black);color:#fff;font-weight:900;font-size:15px;text-align:center;box-shadow:0 5px 0 #000,0 18px 40px -12px rgba(0,0,0,.5);transition:transform .35s var(--ease);pointer-events:none}
 .toast.show{transform:translate(-50%,0)}
 .upd-bar{position:fixed;z-index:210;left:50%;top:calc(12px + env(safe-area-inset-top));transform:translateX(-50%);width:min(94vw,480px);display:flex;align-items:center;gap:10px;padding:10px 10px 10px 16px;border-radius:var(--r-md);background:var(--be-black);color:#fff;font-weight:800;font-size:15px;box-shadow:0 5px 0 #000,0 18px 40px -12px rgba(0,0,0,.5)}
@@ -1050,8 +1057,8 @@ button.om-chip{cursor:pointer}button.om-chip:hover{border-color:var(--role-v)}
 <link rel="stylesheet" href="./modules/learning-path/invitation.css?v=1">
 <link rel="stylesheet" href="./modules/rewards/style.css?v=102">
 <link rel="stylesheet" href="./modules/companion/style.css?v=102">
-<link rel="stylesheet" href="./modules/focused-home/style.css?v=206">
-<link rel="stylesheet" href="./modules/home-v2/style.css?v=1">
+<link rel="stylesheet" href="./modules/focused-home/style.css?v=207">
+<link rel="stylesheet" href="./modules/home-v2/style.css?v=2">
 <link rel="stylesheet" href="./modules/desktop-home/style.css?v=151">
 <link rel="stylesheet" href="./modules/home-showcase/style.css?v=219">
 <link rel="stylesheet" href="./modules/word-builder/style.css?v=172">
@@ -1311,8 +1318,8 @@ button.om-chip{cursor:pointer}button.om-chip:hover{border-color:var(--role-v)}
 <script src="./modules/card-art/more-things.js?v=135"></script>
 <script src="./modules/rewards/gifts.js?v=174"></script>
 <script src="./modules/rewards/ui.js?v=179"></script>
-<script src="./modules/focused-home/ui.js?v=208"></script>
-<script src="./modules/home-v2/ui.js?v=1"></script>
+<script src="./modules/focused-home/ui.js?v=209"></script>
+<script src="./modules/home-v2/ui.js?v=2"></script>
 <script src="./modules/desktop-home/ui.js?v=150"></script>
 <script src="./modules/test-library/ui.js?v=180"></script>
 <script src="./modules/lesson-conversation/content.js?v=174"></script>
@@ -1328,10 +1335,10 @@ button.om-chip{cursor:pointer}button.om-chip:hover{border-color:var(--role-v)}
 <script src="./modules/kamer/game.js?v=198"></script>
 <script src="./modules/learning-path/invitation.js?v=2"></script>
 <script src="./modules/home-showcase/ui.js?v=223"></script>
-<script src="./modules/learning-path/ui.js?v=212"></script>
+<script src="./modules/learning-path/ui.js?v=213"></script>
 <script src="./modules/dialogues/translations.js?v=177"></script>
 <script src="./course-curriculum.js?v=178"></script>
-<script src="./app.js?v=225"></script>
+<script src="./app.js?v=226"></script>
   <div class="modes-wrapper" id="modeButtons"></div>
    <!-- LEREN.BE — МОДУЛЬ ДИФТОНГІВ -->
 <script src="./modules/exam/exam-core.js?v=176" defer></script>
