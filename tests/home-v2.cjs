@@ -41,8 +41,8 @@ function size(file){const b=fs.readFileSync(file);
  // ---- browser
  let chromium;try{({chromium}=require('playwright'))}catch{console.log('SKIP: browser part (Playwright is not installed)');return}
  const types={'.html':'text/html','.js':'text/javascript','.mjs':'text/javascript','.css':'text/css','.json':'application/json','.png':'image/png','.webp':'image/webp','.svg':'image/svg+xml','.woff':'font/woff','.m4a':'audio/mp4','.webmanifest':'application/json','.jpg':'image/jpeg','.txt':'text/plain'};
- const server=http.createServer((q,r)=>{let f=path.join(root,decodeURIComponent(new URL(q.url,'http://x').pathname));if(!f.startsWith(root)||!fs.existsSync(f)){r.statusCode=404;return r.end()}if(fs.statSync(f).isDirectory())f=path.join(f,'index.html');r.setHeader('content-type',types[path.extname(f)]||'application/octet-stream');fs.createReadStream(f).pipe(r)});
- await new Promise(r=>server.listen(0,'127.0.0.1',r));const base='http://127.0.0.1:'+server.address().port+'/';
+ const server=http.createServer((q,r)=>{let f=path.join(repo,decodeURIComponent(new URL(q.url,'http://x').pathname));if(!f.startsWith(repo)||!fs.existsSync(f)){r.statusCode=404;return r.end()}if(fs.statSync(f).isDirectory())f=path.join(f,'index.html');r.setHeader('content-type',types[path.extname(f)]||'application/octet-stream');fs.createReadStream(f).pipe(r)});
+ await new Promise(r=>server.listen(0,'127.0.0.1',r));const base='http://127.0.0.1:'+server.address().port+'/app/';
  let browser;try{browser=await chromium.launch()}catch{console.log('SKIP: no Chromium');server.close();return}
  const release=read('app.js').match(/RELEASE_VERSION="(\d+)"/)[1],standIn=fs.readFileSync(path.join(repo,'life/assets/lerenbe-life/reference/visual-style-and-cast.webp'));
  const open=async(w,h,{art=false,seed={}}={})=>{const ctx=await browser.newContext({viewport:{width:w,height:h},serviceWorkers:'block'}),page=await ctx.newPage(),errors=[],outside=[],missing=[];

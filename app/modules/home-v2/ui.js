@@ -26,7 +26,12 @@
   if (ok(d) && ok(m)) { const s = el('source'); s.media = '(min-width: 768px)'; s.srcset = d.src; s.width = d.width; s.height = d.height; pic.append(s) }
   const img = el('img'); img.src = main.src; img.alt = entry.alt || ''; img.width = main.width; img.height = main.height; img.decoding = 'async';
   img.loading = eager ? 'eager' : 'lazy'; if (eager) img.fetchPriority = 'high';
-  img.onerror = () => pic.remove(); pic.append(img); return pic;
+  // Keep the reserved picture box on network/decode failure: removing it shifts the mobile HERO.
+  img.onerror = () => {
+   pic.dataset.state = 'failed'; img.style.visibility = 'hidden'; img.alt = '';
+   pic.setAttribute('role', 'img'); pic.setAttribute('aria-label', entry.alt || '');
+   if (!eager) pic.append(el('span', 'hv-life-icon', '🚉'));
+  }; pic.append(img); return pic;
  }
  function single(entry, cls, alt) {
   if (!ok(entry)) return null; const img = el('img', cls); img.src = entry.src; img.alt = alt ?? entry.alt ?? ''; img.width = entry.width; img.height = entry.height; img.loading = 'lazy'; img.decoding = 'async'; img.onerror = () => img.remove(); return img;

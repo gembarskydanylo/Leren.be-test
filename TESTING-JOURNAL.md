@@ -8,6 +8,15 @@ Total output lines: 142
 
 Часовий пояс усіх записів: Europe/Brussels. Журнал ведемо в GitHub разом із кодом. Основний проєкт: Leren.be / lerenbe.com. Публікація тесту не означає дозвіл переносити його в основний проєкт.
 
+## TEST-020 · Home/LIFE integration audit · 2026-11-12 18:30 CET (Europe/Brussels)
+- Branch `codex/home-visual-integration` from main `9fdf271`. PR #3 is 6 behind/1 ahead, not 3 behind; PR #4 already merged; PR #5 remains unmerged. TEST-018/019 belong to other active work. No artwork generated/edited and no production changes or merges.
+- Fixed approved-image failure: HERO preserves its picture geometry and accessible description, LIFE shows its fallback icon. Added `tests/home-art-failure.cjs`: delayed 404, before/after geometry and alt at 360/390/430/1280/1440.
+- `app/learn-life-story.html` now uses the existing `life/` visual renderer/CSS/manifest/audio via a same-origin base; returns to `app/`. No new engine, story edits or storage migrations. The local home test server now exposes both app/ and life/. Worker byte change refreshes precached files on update; offline LIFE across these directories still needs a separate cache test before production transfer.
+- Validation: all 16 local suites passed with Playwright Chromium installed; home-v2 passed again after LIFE routing changed; failure regression repeated successfully. Main homepage tested with no art and C injected in the browser at 360/390/430/1280/1440, no horizontal overflow, CLS < 0.1. Language, courses, XP/progress, lesson launch, rewards and recorded EN/LIFE audio passed. Screenshots visually reviewed at 1440 and 390. Test-seeded XP is not account data.
+- Limits: emulation, not physical Samsung; no live AI/microphone or production speed test. Default old home test uses a reference fixture; actual-C review used a temporary fixture override only. PR #5 mobile derives from A and needs approval against selected C. `docs/reviews/HOME-VISUAL-SYNC.md` records ownership, character conflicts and transfer order; backlog updated without changing ART_REQUEST cast.
+- Delivery: separate review PR, no merge/deployment authorization inferred. Commit references are available in this entry's Git history.
+
+
 ## TEST-001 · Стабільність тестового додатка
 - Дата змін за Git: 2026-10-24 17:05–17:08 CEST. Запис відновлено 2026-10-25 01:14 CEST з історії Git і BETA-AUDIT-2026-10-24.md.
 - Коміти: c344a26, fff7b1b.

@@ -363,3 +363,5 @@ APP_FILES.push("./img/scenes/num_17.webp");
 APP_FILES.push("./img/scenes/num_18.webp");
 APP_FILES.push("./modules/scenes/map.js?v=165");
 // scenes-end
+
+// TEST-020: refresh cached home fallback code and the shared LIFE entry on worker update.

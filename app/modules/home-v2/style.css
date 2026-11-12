@@ -79,3 +79,7 @@
  .hv-hero[data-art=fallback] .hv-cat{left:50%;right:auto;transform:translateX(-50%);top:10px;width:104px}
 }
 :root[data-theme=dark] .hv-hero[data-art=image] .hv-hero-copy{background:var(--bg)}
+
+/* A failed approved resource keeps its reserved geometry and accessible description. */
+.hv-life-pic[data-state=failed]{position:relative}
+.hv-life-pic[data-state=failed] .hv-life-icon{position:absolute;inset:0;display:grid;place-items:center}
