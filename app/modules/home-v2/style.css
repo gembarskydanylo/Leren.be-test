@@ -87,3 +87,6 @@
 /* A failed approved resource keeps its reserved geometry and accessible description. */
 .hv-life-pic[data-state=failed]{position:relative}
 .hv-life-pic[data-state=failed] .hv-life-icon{position:absolute;inset:0;display:grid;place-items:center}
+/* TEST-022: 44 px tap height for the small buttons */
+.hv-small{min-height:44px}
+@media (max-width:599px){.hv-course:not(.is-live){grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:2px 10px}.hv-course:not(.is-live) .hv-course-head,.hv-course:not(.is-live) .hv-course-meta{grid-column:1}.hv-course:not(.is-live) .hv-btn{grid-column:2;grid-row:1 / span 2}}

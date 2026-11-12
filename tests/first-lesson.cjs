@@ -21,7 +21,7 @@ const root = path.join(__dirname, '..', 'app'), read = f => fs.readFileSync(path
  assert(!/інтеграці|integration exam|inburgering/i.test(hv + fh + lp), 'no level is tied to an integration exam');
  assert(/START_KEY="leren_start_known_v1"/.test(app) && !/localStorage\.clear|removeItem\("poly_score"|removeItem\("leren_path_v1"/.test(app.slice(app.indexOf('const ONB_UI'), app.indexOf('function firstRun'))), 'first run only adds its own key, removes nothing');
  const sw = read('sw.js'), html = read('index.html');
- for (const f of ['./modules/learning-path/ui.js?v=213', './modules/focused-home/ui.js?v=209', './modules/focused-home/style.css?v=207', './modules/home-v2/ui.js?v=3', './modules/home-v2/style.css?v=3', './app.js?v=228']) { assert(sw.includes('"' + f + '"'), 'offline: ' + f); assert(html.includes(f), 'index: ' + f) }
+ for (const f of ['./modules/learning-path/ui.js?v=214', './modules/focused-home/ui.js?v=209', './modules/focused-home/style.css?v=208', './modules/home-v2/ui.js?v=4', './modules/home-v2/style.css?v=4', './app.js?v=229']) { assert(sw.includes('"' + f + '"'), 'offline: ' + f); assert(html.includes(f), 'index: ' + f) }
  assert.equal(sw.match(/leren-be-v(\d+)/)[1], app.match(/RELEASE_VERSION="(\d+)"/)[1]);
  console.log('PASS: TEST-019 static — 3-step first run in 4 languages, start API, plain-words levels + CEFR, no exam link, versions');
 
@@ -117,7 +117,7 @@ const root = path.join(__dirname, '..', 'app'), read = f => fs.readFileSync(path
    assert.equal(await page.locator('.hv-hero .hv-primary').count(), 0, 'HERO button is secondary (one main button)');
    for (const name of ['Починаю з нуля', 'Вивчаю основи', 'Спілкуюся в повсякденних ситуаціях']) assert.equal(await page.locator('.hv-level-name', {hasText: name}).count(), 1, name);
    assert.match(await page.locator('.hv-cefr').textContent(), /CEFR/); assert(!/інтеграці/i.test(await page.locator('#learningPath').textContent()), 'no exam link');
-   for (const sel of ['.hv-courses', '.hs-intro']) assert.equal(await page.locator(sel).count(), 1, sel + ': still on the home, below');
+   for (const sel of ['.hv-courses', '.fh-more']) assert.equal(await page.locator(sel).count(), 1, sel + ': still on the home, below'); // TEST-022: games / AI / clock / topics in the short «More» block
    assert(await noHScroll(page), w + ': no horizontal scroll');
    await shot(page, tag + '-' + w + '-6-home-new');
    await page.click('.fh-hero .fh-primary'); await firstLessonOpen(page, 'home start ' + w);

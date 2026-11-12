@@ -68,7 +68,7 @@
   const acts = el('div', 'hv-actions');
   acts.append(button((ctx.started ? t.cont : t.start) + ' →', () => ctx.onContinue?.(), ctx.secondary ? 'hv-btn hv-ghost' : 'hv-btn hv-primary')); // secondary: the next-lesson card above carries the main button
   const life = el('a', 'hv-btn hv-ghost', '🎬 ' + t.life); life.href = './learn-life-story.html?s=first-day'; acts.append(life);
-  copy.append(acts);
+  if (!ctx.secondary) copy.append(acts); // TEST-022: under the next-lesson card the HERO has no buttons (no second «Start», LIFE has its own card below)
   const stats = ctx.stats || {}, strip = el('div', 'hv-stats');
   strip.append(el('span', 'hv-chip', '🔥 ' + (stats.streak || 0) + ' ' + t.streak), el('span', 'hv-chip', '⭐ ' + Number(stats.points || 0).toLocaleString(lang === 'ar' ? 'ar' : 'uk-UA') + ' ' + t.xp));
   copy.append(strip);
