@@ -8,8 +8,12 @@ try {({chromium} = require('playwright'))} catch {console.log('SKIP: home art fa
 const root = path.join(__dirname, '../app');
 const storyPage = fs.readFileSync(path.join(root, 'learn-life-story.html'), 'utf8');
 assert(storyPage.includes('<base href="../life/">'), 'home story uses the existing LIFE asset root');
-assert(storyPage.includes('story-ui.mjs?v=4-visual'), 'home story uses the visual renderer');
+assert(storyPage.includes('story-ui.mjs?v=5-quality'), 'home story uses the visual renderer');
 assert(storyPage.includes('href="../app/"'), 'return to current homepage');
+// The home entrance must load the same LIFE versions as life/learn-life-story.html (otherwise a service worker keeps an old copy).
+const lifePage = fs.readFileSync(path.join(__dirname, '../life/learn-life-story.html'), 'utf8'), vers = h => (h.match(/story(?:-ui\.mjs|\.css)\?v=[^"]+/g) || []).sort();
+assert.deepEqual(vers(storyPage), vers(lifePage), 'LIFE versions match life/learn-life-story.html');
+assert.equal(vers(storyPage).length, 2);
 (async () => {
  const browser = await chromium.launch();
  try {
