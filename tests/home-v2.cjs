@@ -20,9 +20,9 @@ function size(file){const b=fs.readFileSync(file);
  const html=read('index.html'),csp=html.match(/http-equiv="Content-Security-Policy" content="([^"]+)"/)[1];
  assert.match(csp,/connect-src 'self';/);assert(!/googleapis|gstatic|apis\.google|workers\.dev|cloudflareinsights|www\.google\.com/.test(csp),'test snapshot CSP is closed to external services');
  assert(!/static\.cloudflareinsights\.com\/beacon/.test(html),'no analytics in the test snapshot');assert(/noindex,nofollow/.test(html));
- assert(html.includes('./modules/home-v2/ui.js?v=2')&&html.includes('./modules/home-v2/style.css?v=2'));
+ assert(html.includes('./modules/home-v2/ui.js?v=3')&&html.includes('./modules/home-v2/style.css?v=3'));
  const lp=read('modules/learning-path/ui.js');assert(lp.includes('globalThis.LerenHomeV2?.top?.(')&&lp.includes('if(!homeTop)courseSwitch')&&lp.includes('!placing&&!homeTop'),'hooked into the existing home, old duplicates hidden');
- const sw=read('sw.js');for(const f of ['./modules/home-v2/ui.js?v=2','./modules/home-v2/style.css?v=2','./img/home/hero-cat-v196-320.webp','./img/home/home-visuals.json','./modules/learning-path/ui.js?v=213'])assert(sw.includes('"'+f+'"'),'offline: '+f);
+ const sw=read('sw.js');for(const f of ['./modules/home-v2/ui.js?v=3','./modules/home-v2/style.css?v=3','./img/home/hero-cat-v196-320.webp','./img/home/home-visuals.json','./modules/learning-path/ui.js?v=213'])assert(sw.includes('"'+f+'"'),'offline: '+f);
  assert.equal(sw.match(/leren-be-v(\d+)/)[1],read('app.js').match(/RELEASE_VERSION="(\d+)"/)[1],'cache name matches the release (update check)');
  const ui=read('modules/home-v2/ui.js');assert(!/localStorage\.setItem|leren_path_v1|poly_score\s*=/.test(ui),'home v2 writes no progress');assert(!/fetch\((?!'img\/home\/home-visuals\.json')/.test(ui),'only fetches its own manifest');
  const V=JSON.parse(read('img/home/home-visuals.json')),entries=[];
@@ -45,8 +45,8 @@ function size(file){const b=fs.readFileSync(file);
  // ---- browser
  let chromium;try{({chromium}=require('playwright'))}catch{console.log('SKIP: browser part (Playwright is not installed)');return}
  const types={'.html':'text/html','.js':'text/javascript','.mjs':'text/javascript','.css':'text/css','.json':'application/json','.png':'image/png','.webp':'image/webp','.svg':'image/svg+xml','.woff':'font/woff','.m4a':'audio/mp4','.webmanifest':'application/json','.jpg':'image/jpeg','.txt':'text/plain'};
- const server=http.createServer((q,r)=>{let f=path.join(root,decodeURIComponent(new URL(q.url,'http://x').pathname));if(!f.startsWith(root)||!fs.existsSync(f)){r.statusCode=404;return r.end()}if(fs.statSync(f).isDirectory())f=path.join(f,'index.html');r.setHeader('content-type',types[path.extname(f)]||'application/octet-stream');fs.createReadStream(f).pipe(r)});
- await new Promise(r=>server.listen(0,'127.0.0.1',r));const base='http://127.0.0.1:'+server.address().port+'/';
+ const server=http.createServer((q,r)=>{let f=path.join(repo,decodeURIComponent(new URL(q.url,'http://x').pathname));if(!f.startsWith(repo)||!fs.existsSync(f)){r.statusCode=404;return r.end()}if(fs.statSync(f).isDirectory())f=path.join(f,'index.html');r.setHeader('content-type',types[path.extname(f)]||'application/octet-stream');fs.createReadStream(f).pipe(r)});
+ await new Promise(r=>server.listen(0,'127.0.0.1',r));const base='http://127.0.0.1:'+server.address().port+'/app/';
  let browser;try{browser=await chromium.launch()}catch{console.log('SKIP: no Chromium');server.close();return}
  const release=read('app.js').match(/RELEASE_VERSION="(\d+)"/)[1];
  const open=async(w,h,{art=false,seed={}}={})=>{const ctx=await browser.newContext({viewport:{width:w,height:h},serviceWorkers:'block'}),page=await ctx.newPage(),errors=[],outside=[],missing=[];
