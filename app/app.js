@@ -4052,13 +4052,57 @@ function welcomeScreen(then,onTour){
   // Daily goal (5/10/20 min): saved as the same setting the progress screen uses.
   let goal=10;const gl=LerenInsights.ui(uiLang).min,row=el("div","welcome-goals");row.setAttribute("role","group");row.setAttribute("aria-label",w.goal);
   [5,10,20].forEach(v=>{const b=el("button","welcome-goal"+(v===goal?" on":""),v+" "+gl);b.type="button";b.dataset.goal=v;b.setAttribute("aria-pressed",v===goal?"true":"false");
-   b.onclick=()=>{goal=v;row.children.forEach(x=>{const on=Number(x.dataset.goal)===v;x.classList?.toggle("on",on);x.setAttribute("aria-pressed",String(on))})};row.appendChild(b)});
+   b.onclick=()=>{goal=v;[...row.children].forEach(x=>{const on=Number(x.dataset.goal)===v;x.classList?.toggle("on",on);x.setAttribute("aria-pressed",String(on))})};row.appendChild(b)});
   const save=()=>{lsSet("leren_welcome_seen",true);lsSet("leren_goal_min",goal)};
   const go=el("button","btn primary",w.start);go.type="button";go.onclick=()=>{save();close();setTimeout(then,200)};
   const tour=onTour?el("button","tour-skip",w.tour):null;if(tour){tour.type="button";tour.onclick=()=>{save();lsSet("leren_level_asked",true);close();setTimeout(onTour,200)}}
   const skip=el("button","tour-skip",ONBOARD_SKIP[uiLang]||ONBOARD_SKIP.uk);skip.type="button";skip.onclick=()=>{skipOnboarding();close()};
   panel.append(el("h2","goal-title",w.title),el("p","goal-hint",w.sub),list,el("p","goal-hint welcome-goal-q",w.goal),row,el("p","goal-hint welcome-meta",w.meta),go);if(tour)panel.appendChild(tour);panel.appendChild(skip);
   setTimeout(()=>{try{go.focus({preventScroll:true})}catch(e){}},30);
+ });
+}
+// TEST-019 · First run for the Dutch route: (1) explanation language + daily goal, (2) «How much Dutch do you know?»,
+// (3) only for «a few words» / «can speak a little»: a short starting check OR the basics — never a forced test.
+// «Starting from zero» and «the basics» open the real first A1.1 lesson, not the home screen.
+const ONB_UI={
+ uk:{lang:"Мова пояснень",next:"Далі",back:"‹ Назад",q:"Скільки нідерландської ти вже знаєш?",qHint:"Ніякого іспиту. Відповідь лише допоможе вибрати, з чого почати.",zero:"Починаю з нуля",zeroS:"Одразу відкриємо перший урок: привітання й знайомство",words:"Знаю кілька слів",wordsS:"Наприклад: hallo, dank je, ja, nee",speak:"Можу трохи говорити",speakS:"Можу сказати кілька простих речень",how:"Як почнемо?",howHint:"Обидва шляхи ведуть до уроків. Перевірку можна пройти й пізніше або не проходити зовсім.",check:"Пройти коротку перевірку",checkS:"12 коротких питань · приблизно 3 хв · це не іспит",basics:"Почати з основ",basicsS:"Перший урок: привітання й знайомство"},
+ en:{lang:"Explanation language",next:"Next",back:"‹ Back",q:"How much Dutch do you already know?",qHint:"No exam. Your answer only helps us choose where to start.",zero:"Starting from zero",zeroS:"We open the first lesson right away: greetings and introductions",words:"I know a few words",wordsS:"For example: hallo, dank je, ja, nee",speak:"I can speak a little",speakS:"I can say a few simple sentences",how:"How shall we start?",howHint:"Both ways lead to the lessons. You can take the check later, or not at all.",check:"Take a short check",checkS:"12 short questions · about 3 min · not an exam",basics:"Start with the basics",basicsS:"First lesson: greetings and introductions"},
+ fr:{lang:"Langue des explications",next:"Suivant",back:"‹ Retour",q:"Quel est ton niveau de néerlandais ?",qHint:"Pas d’examen. Ta réponse nous aide seulement à choisir par où commencer.",zero:"Je pars de zéro",zeroS:"On ouvre tout de suite la première leçon : saluer et se présenter",words:"Je connais quelques mots",wordsS:"Par exemple : hallo, dank je, ja, nee",speak:"Je parle un peu",speakS:"Je peux dire quelques phrases simples",how:"Comment commencer ?",howHint:"Les deux chemins mènent aux leçons. Tu peux faire le bilan plus tard, ou pas du tout.",check:"Faire un court bilan",checkS:"12 questions courtes · environ 3 min · pas un examen",basics:"Commencer par les bases",basicsS:"Première leçon : saluer et se présenter"},
+ ar:{lang:"لغة الشرح",next:"التالي",back:"عودة ›",q:"كم تعرف من الهولندية؟",qHint:"لا يوجد امتحان. إجابتك تساعدنا فقط في اختيار نقطة البداية.",zero:"أبدأ من الصفر",zeroS:"نفتح الدرس الأول فوراً: التحية والتعارف",words:"أعرف بعض الكلمات",wordsS:"مثلاً: hallo، dank je، ja، nee",speak:"أستطيع التحدث قليلاً",speakS:"أستطيع قول بعض الجمل البسيطة",how:"كيف نبدأ؟",howHint:"كلا الطريقين يقود إلى الدروس. يمكنك إجراء الاختبار لاحقاً أو عدم إجرائه.",check:"إجراء اختبار قصير",checkS:"١٢ سؤالاً قصيراً · نحو ٣ دقائق · ليس امتحاناً",basics:"البدء بالأساسيات",basicsS:"الدرس الأول: التحية والتعارف"}
+};
+const LANG_NAMES={uk:"Українська",en:"English",fr:"Français",ar:"العربية"};
+const START_KEY="leren_start_known_v1"; // zero | words | speak — the answer to the first-run question (no progress is changed)
+function openFirstLesson(){setView("path");setTimeout(()=>{if(!learningPath)initLearningPath();if(!learningPath||!learningPath.startFirst())setView("path")},60)}
+function openStartCheck(){setView("path");setTimeout(()=>{if(!learningPath)initLearningPath();if(!learningPath||!learningPath.startPlacement())setView("path")},60)}
+function welcomeNl(step=1,st={goal:10}){
+ const w=WELCOME_UI[uiLang]||WELCOME_UI.uk,o=ONB_UI[uiLang]||ONB_UI.uk;
+ const finish=(known,go)=>{lsSet("leren_welcome_seen",true);lsSet("leren_level_asked",true);lsSet("leren_goal_min",st.goal);if(known)lsSet(START_KEY,known);$("growModal").hidden=true;setTimeout(go,150)};
+ const choice=(title,sub,fn,id)=>{const b=el("button","opt goal-opt onb-opt");b.type="button";b.dataset.choice=id;b.append(el("strong","",title),el("span","",sub));b.onclick=fn;return b};
+ popup((panel,close,m)=>{
+  m.dataset.lock="1";panel.classList.add("welcome-panel","onb-panel");panel.dataset.step=String(step);panel.dir=uiLang==="ar"?"rtl":"ltr";
+  const dots=el("p","onb-steps");dots.setAttribute("aria-hidden","true");dots.textContent=[1,2,3].map(i=>i===step?"●":"○").join(" ");
+  const skip=el("button","tour-skip",ONBOARD_SKIP[uiLang]||ONBOARD_SKIP.uk);skip.type="button";skip.onclick=()=>{lsSet("leren_goal_min",st.goal);skipOnboarding();close();if(learningPath)learningPath.refresh()};
+  const back=s=>{const b=el("button","tour-skip onb-back",o.back);b.type="button";b.onclick=()=>welcomeNl(s,st);return b};
+  if(step===1){
+   const list=el("ul","welcome-list");w.items.forEach(t=>list.appendChild(el("li","",t)));
+   const langRow=el("label","onb-lang"),sel=el("select","lang-select onb-lang-select");langRow.append(el("span","goal-hint",o.lang),sel);
+   UI_LANGS.forEach(l=>{const op=el("option","",LANG_NAMES[l]||l);op.value=l;sel.appendChild(op)});sel.value=uiLang;
+   sel.onchange=()=>{changeUiLang(sel.value);const p=$("uiLangPicker");if(p)p.value=uiLang;welcomeNl(1,st)};
+   const gl=LerenInsights.ui(uiLang).min,row=el("div","welcome-goals");row.setAttribute("role","group");row.setAttribute("aria-label",w.goal);
+   [5,10,20].forEach(v=>{const b=el("button","welcome-goal"+(v===st.goal?" on":""),v+" "+gl);b.type="button";b.dataset.goal=v;b.setAttribute("aria-pressed",v===st.goal?"true":"false");
+    b.onclick=()=>{st.goal=v;[...row.children].forEach(x=>{const on=Number(x.dataset.goal)===v;x.classList.toggle("on",on);x.setAttribute("aria-pressed",String(on))})};row.appendChild(b)});
+   const go=el("button","btn primary onb-next",o.next+" →");go.type="button";go.onclick=()=>welcomeNl(2,st);
+   panel.append(dots,el("h2","goal-title",w.title),el("p","goal-hint",w.sub),list,langRow,el("p","goal-hint welcome-goal-q",w.goal),row,el("p","goal-hint welcome-meta",w.meta),go,skip);
+   setTimeout(()=>{try{go.focus({preventScroll:true})}catch(e){}},60); // not on «5 min»: a focus ring there looks like a choice
+  }else if(step===2){
+   const list=el("div","goal-list onb-list");
+   list.append(choice(o.zero,o.zeroS,()=>finish("zero",openFirstLesson),"zero"),choice(o.words,o.wordsS,()=>{st.known="words";welcomeNl(3,st)},"words"),choice(o.speak,o.speakS,()=>{st.known="speak";welcomeNl(3,st)},"speak"));
+   panel.append(dots,el("h2","goal-title",o.q),el("p","goal-hint",o.qHint),list,back(1),skip);
+  }else{
+   const list=el("div","goal-list onb-list");
+   list.append(choice(o.check,o.checkS,()=>finish(st.known,openStartCheck),"check"),choice(o.basics,o.basicsS,()=>finish(st.known,openFirstLesson),"basics"));
+   panel.append(dots,el("h2","goal-title",o.how),el("p","goal-hint",o.howHint),list,back(2),skip);
+  }
  });
 }
 function firstRun(){
@@ -6046,7 +6090,7 @@ const UPD_UI={uk:{t:"Вийшла нова версія застосунку",ve
  ar:{t:"يتوفر إصدار جديد من التطبيق",ver:"الإصدار",go:"تحديث",done:"✓ تم تحديث التطبيق إلى الإصدار "}};
 const updU=()=>UPD_UI[uiLang]||UPD_UI.uk;
 // Keep the announcement available after updating, including users who already installed v87.
-const RELEASE_VERSION="225";
+const RELEASE_VERSION="226";
 // The release whose notes RELEASE_UI describes. A small update keeps the notes of the last bigger one: whoever already
 // saw those notes is not shown them again.
 const RELEASE_NOTES_VERSION="176";
@@ -6251,4 +6295,4 @@ $("helpBtn").addEventListener("click",()=>{closeSheet("settingsSheet");setTimeou
 function updateHelpBtn(){}
 if(targetLang!=="nl")setTimeout(firstRun,600);
 // The Dutch route has its own home (next lesson, "I already know some Dutch"), so brand-new learners only get the welcome screen: no level question, no legacy tour.
-else setTimeout(()=>{if(lsGet("leren_welcome_seen",false)||lsGet("leren_tour_done",false)||hasLearningHistory())return;welcomeScreen(()=>{},null)},600);
+else setTimeout(()=>{if(lsGet("leren_welcome_seen",false)||lsGet("leren_tour_done",false)||hasLearningHistory())return;welcomeNl(1)},600);
