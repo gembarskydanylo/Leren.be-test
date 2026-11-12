@@ -14,18 +14,20 @@
  }
  // Long topic names must never break inside a word (e.g. "Знайомств-о" with large phone text): shrink the title until it fits.
  function fitTitle(box){const run=()=>{const h=box.querySelector('h2');if(!h||!h.isConnected)return;h.style.fontSize='';let fs=parseFloat(getComputedStyle(h).fontSize)||27;let guard=0;while(guard++<20&&fs>16&&h.scrollWidth>h.clientWidth+1){fs-=1;h.style.fontSize=fs+'px'}};if(typeof requestAnimationFrame==='function')requestAnimationFrame(run);if(!fitTitle.bound&&typeof addEventListener==='function'){fitTitle.bound=true;addEventListener('resize',()=>document.querySelectorAll('.fh-hero').forEach(b=>fitTitle(b)))}}
- function hero({lang,plan,planBy,started,lesson,chapter,chapterId,level,part,totalParts,placing,allDone,onBegin,onPlacement,onMap,onFree,freeLabel,done,total}){
+ function hero({lang,plan,planBy,goal,startLabel,resumeLabel,started,lesson,chapter,chapterId,level,part,totalParts,placing,allDone,onBegin,onPlacement,onMap,onFree,freeLabel,done,total}){
   const t=tr(lang),legacy=LerenCompanion.tr(lang),box=node('section','fh-hero'),content=node('div','fh-hero-content'),art=node('div','fh-hero-art'),cat=LerenCompanion.cat('welcome',true,lang);
   const greeting=node('span','fh-cat-caption',({uk:'Вчимося разом',en:'Learning together',fr:'On apprend ensemble',ar:'نتعلّم معاً'})[lang]);
   cat.onclick=()=>{cat.dataset.pose=cat.dataset.pose==='welcome'?'happy':'welcome';greeting.textContent=legacy.wave};art.append(cat,greeting);
-  content.append(node('p','fh-eyebrow',(level||'A1.1')+' · '+t.next),node('h2','',allDone?t.doneAll:placing?({uk:'Знайдемо твій старт',en:'Find your starting point',fr:'Trouvons ton départ',ar:'لنحدّد بدايتك'})[lang]:chapter||t.first),node('p','fh-description',allDone?t.doneHint:placing?(started?t.resume:t.intro):(globalThis.LerenCurriculum?.topicInfo?.(chapterId,lang)?.description||(started?t.resume:t.intro))));
+  content.append(node('p','fh-eyebrow',t.next+(level&&level!=='A1.1'?' · '+level:'')), // A1.1: no level code for beginners (TEST-019)
+  node('h2','',allDone?t.doneAll:placing?({uk:'Знайдемо твій старт',en:'Find your starting point',fr:'Trouvons ton départ',ar:'لنحدّد بدايتك'})[lang]:chapter||t.first),node('p','fh-description',allDone?t.doneHint:placing?(started?t.resume:t.intro):(globalThis.LerenCurriculum?.topicInfo?.(chapterId,lang)?.description||(started?t.resume:t.intro))));
+  if(goal&&!allDone)content.append(node('p','fh-goal',goal));
   if(plan){const say=node('p','fh-plan');if(planBy)say.appendChild(node('strong','',planBy+': '));say.append(plan);content.append(say)}
   if(lesson&&!placing){const detail=node('div','fh-lesson-detail');detail.append(node('strong','',lesson),node('span','',t.time+(totalParts>1?' · '+t.part+' '+part+'/'+totalParts:'')));content.append(detail)}
-  const actions=node('div','fh-main-action');actions.append(button(allDone?t.all:placing?({uk:'Продовжити перевірку старту',en:'Continue my starting check',fr:'Continuer le bilan de départ',ar:'تابع تحديد البداية'})[lang]:started?legacy.resume:legacy.start,allDone?onMap:onBegin,'fh-primary'));
+  const actions=node('div','fh-main-action');actions.append(button(allDone?t.all:placing?({uk:'Продовжити перевірку старту',en:'Continue my starting check',fr:'Continuer le bilan de départ',ar:'تابع تحديد البداية'})[lang]:started?(resumeLabel||legacy.resume):(startLabel||legacy.start),allDone?onMap:onBegin,'fh-primary'));
   if(!started&&!placing&&onPlacement){const start=button(t.known+' →',onPlacement,'fh-alternative');start.title=t.newPlace;actions.appendChild(start)}
   if(onFree&&!placing)actions.appendChild(button(freeLabel||'Самостійно вивчати',onFree,'fh-alternative fh-free'));
   content.append(actions);box.append(content,art);fitTitle(box);
-  const footer=node('div','fh-hero-footer');if(started&&total&&!placing){footer.classList.add('fh-has-progress');footer.append(node('span','fh-progress-label',({uk:done+' з '+total+' уроків пройдено',en:done+' of '+total+' lessons done',fr:done+' leçons sur '+total+' terminées',ar:done+' من '+total+' دروس مكتملة'})[lang]||done+' / '+total),meter(done,total,t.completed))}else{footer.append(node('span','',t.steps));if(total&&done)footer.append(meter(done,total,t.completed))}box.append(footer);return box;
+  const footer=node('div','fh-hero-footer');if(started&&total&&!placing){footer.classList.add('fh-has-progress');footer.append(node('span','fh-progress-label',(level?level+' · ':'')+({uk:done+' з '+total+' уроків пройдено',en:done+' of '+total+' lessons done',fr:done+' leçons sur '+total+' terminées',ar:done+' من '+total+' دروس مكتملة'})[lang]||done+' / '+total),meter(done,total,t.completed))}else{footer.append(node('span','',t.steps));if(total&&done)footer.append(meter(done,total,t.completed))}box.append(footer);return box;
  }
  // TEST-009: desktop topic cards show the topic description, % done and a clear action.
  const DONE_WORD={uk:'завершено',en:'done',fr:'terminé',ar:'مكتمل'},CTA={uk:{go:'Продовжити →',start:'Почати →',repeat:'Повторити →'},en:{go:'Continue →',start:'Start →',repeat:'Review →'},fr:{go:'Continuer →',start:'Commencer →',repeat:'Réviser →'},ar:{go:'← تابع',start:'← ابدأ',repeat:'← راجع'}};
@@ -35,10 +37,10 @@
   body.append(node('span','fh-state',(state==='done'?'✓ ':state==='current'?'→ ':'')+t[state]),node('strong','fh-topic-title',title));if(info?.description)body.appendChild(node('span','fh-topic-desc',info.description));body.append(node('small','',chapter.level+' · '+done+' / '+total+' '+t.lessons),meter(done,total,title),foot);tile.append(picture,body);tile.setAttribute('aria-label',title+' · '+t[state]+' · '+done+' / '+total);if(current)tile.setAttribute('aria-current','step');return tile;
  }
  // Course switcher under the header: one card per course; the active one is highlighted, a course that is not ready cannot be opened.
- const COURSE_COPY={uk:{label:'Курс',soon:'Незабаром',done:(d,t)=>d+' з '+t+' уроків',a11:'Основи',a12:'Продовження',a21:'Наступний рівень',active:'Зараз вивчаєш'},
-  en:{label:'Course',soon:'Coming soon',done:(d,t)=>d+' of '+t+' lessons',a11:'Basics',a12:'Next steps',a21:'Next level',active:'Studying now'},
-  fr:{label:'Cours',soon:'Bientôt',done:(d,t)=>d+' leçons sur '+t,a11:'Les bases',a12:'La suite',a21:'Niveau suivant',active:'En cours'},
-  ar:{label:'الدورة',soon:'قريباً',done:(d,t)=>d+' من '+t+' دروس',a11:'الأساسيات',a12:'المتابعة',a21:'المستوى التالي',active:'تدرسها الآن'}};
+ const COURSE_COPY={uk:{label:'Курс',soon:'Незабаром',done:(d,t)=>d+' з '+t+' уроків',a11:'Починаю з нуля',a12:'Вивчаю основи',a21:'Спілкуюся в повсякденних ситуаціях',active:'Зараз вивчаєш'},
+  en:{label:'Course',soon:'Coming soon',done:(d,t)=>d+' of '+t+' lessons',a11:'Starting from zero',a12:'Learning the basics',a21:'Everyday conversations',active:'Studying now'},
+  fr:{label:'Cours',soon:'Bientôt',done:(d,t)=>d+' leçons sur '+t,a11:'Je pars de zéro',a12:'J’apprends les bases',a21:'Je communique au quotidien',active:'En cours'},
+  ar:{label:'الدورة',soon:'قريباً',done:(d,t)=>d+' من '+t+' دروس',a11:'أبدأ من الصفر',a12:'أتعلّم الأساسيات',a21:'أتواصل في المواقف اليومية',active:'تدرسها الآن'}};
 
  const PANEL_COPY={uk:{now:'Зараз ти вивчаєш',part:(a,b)=>'Частина '+a+' з '+b,can:'Вже вмієш:',none:'Після першого уроку тут з’являться твої навички.',done:'Усі уроки цього рівня пройдено',open:'Показати прогрес',close:'Сховати прогрес'},
   en:{now:'You are studying now',part:(a,b)=>'Part '+a+' of '+b,can:'You can already:',none:'Your first skills will appear here after your first lesson.',done:'All lessons of this level are done',open:'Show progress',close:'Hide progress'},
