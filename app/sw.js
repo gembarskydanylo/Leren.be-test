@@ -53,6 +53,22 @@ self.addEventListener("activate", event => {
   })());
 });
 
+const MANIFEST_RE = /(\/img\/home\/home-visuals\.json|\/assets\/lerenbe-life\/visual-manifest\.json|\/audio\/[a-z-]+\/manifest\.json)$/;
+const MANIFEST_TIMEOUT = 3000;
+async function freshManifest(request) {
+  const cache = await caches.open(CACHE_NAME);
+  const key = request.url.split("?")[0]; // one entry per file, whatever query the page adds
+  const cached = () => cache.match(key, {ignoreSearch: true});
+  try {
+    const ctl = new AbortController(), timer = setTimeout(() => ctl.abort(), MANIFEST_TIMEOUT);
+    const response = await fetch(request.url, {cache: "no-cache", credentials: "same-origin", signal: ctl.signal}).finally(() => clearTimeout(timer));
+    if (response && response.status === 200) { cache.put(key, response.clone()).catch(() => {}); return response }
+    return (await cached()) || response; // 404 / 5xx: keep the last good copy if there is one
+  } catch (_) {
+    return (await cached()) || Response.error(); // offline or too slow
+  }
+}
+
 self.addEventListener("fetch", event => {
   const request = event.request;
   if (request.method !== "GET") return;
@@ -60,6 +76,15 @@ self.addEventListener("fetch", event => {
   if (url.origin !== self.location.origin) return;
   // Version checks must reach the server, including after an older worker cached sw.js.
   if (url.pathname.endsWith("/sw.js") || request.cache === "no-store") return;
+
+  // Small JSON manifests that say which art and recordings exist (home-visuals.json, LIFE visual-manifest.json,
+  // audio/*/manifest.json) change without a new release. Cache-first kept them stale until the next cache name, so
+  // new pictures and recordings did not appear. For these files only: network first with a short timeout, the cached
+  // copy when offline, on a server error or when the network is slow — offline behaviour stays as before.
+  if (MANIFEST_RE.test(url.pathname)) {
+    event.respondWith(freshManifest(request));
+    return;
+  }
 
   if (request.mode === "navigate") {
     event.respondWith((async () => {
