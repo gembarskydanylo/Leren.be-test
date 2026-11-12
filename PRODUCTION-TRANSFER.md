@@ -4,6 +4,13 @@
 
 Статус: користувач просить спочатку оцінити тест. Жоден експеримент цього журналу автоматично не переносити на lerenbe.com.
 
+## TEST-020 · Shared LIFE entry and resilient home images (awaiting review)
+- Depends on TEST-016 Home V2 and TEST-014 LIFE visual renderer. No storage migration or story/scene ID changes.
+- Files: home-v2 UI/CSS, app/learn-life-story.html, worker update marker, browser regression tests. Approved-image failures retain layout and alt; the app entry reuses `life/` rather than the stale snapshot renderer.
+- Test-only `base href="../life/"` must be adapted when porting to production paths. Review offline caching of shared LIFE files; bump production release/cache consistently instead of copying the isolated app snapshot. No deployment in this task.
+- Before transfer: approve art (PR #5 uses A-derived mobile), combine reviewed patches, run installed-worker and slow-network checks, then a physical Android check; preserve existing user progress and a rollback release. See `docs/reviews/HOME-VISUAL-SYNC.md`.
+
+
 ## Порядок майбутнього перенесення
 1. Звірити поточні main обох репозиторіїв і підтвердити, які TEST-ID користувач схвалив.
 2. Переносити окремі модулі та інтеграційні зміни; не замінювати основний index.html тестовим цілком. В основному вже інші дифтонги, вибір тем і опис оновлень.
