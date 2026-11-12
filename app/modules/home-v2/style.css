@@ -83,3 +83,7 @@
 .hv-level-name{font-size:15px;line-height:1.25}
 .hv-cefr{margin:4px 0 0;font-size:13px;line-height:1.4;color:var(--ink-2,#6f5a47)}
 .hv-level{grid-template-columns:minmax(0,1fr)}.hv-level b{grid-row:auto}.hv-level .hv-bar{grid-column:1}.hv-level-name{overflow-wrap:break-word}
+
+/* A failed approved resource keeps its reserved geometry and accessible description. */
+.hv-life-pic[data-state=failed]{position:relative}
+.hv-life-pic[data-state=failed] .hv-life-icon{position:absolute;inset:0;display:grid;place-items:center}
