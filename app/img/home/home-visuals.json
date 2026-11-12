@@ -1,22 +1,22 @@
 {
- "version": 1,
+ "version": 2,
  "note": "Зображення нової головної (TEST-016). Шляхи — від кореня застосунку (у тесті: Leren.be-test/app/, у production: корінь сайту). Показуються лише записи зі status \"approved\" (файл існує); missing — HERO лишається з CSS-заповнювачем. width/height — справжні розміри файлу (без зсуву макета).",
  "hero": {
-  "alt": "Anastasia й Annick ідуть набережною Гента: міст, трамвай, гільдійські будинки, тепле ранкове світло",
-  "status": "missing",
+  "alt": "Anastasia й Annick у Генті: набережна з мостом, трамвай, гільдійські будинки, тепле ранкове світло",
+  "status": "approved",
   "desktop": {
    "src": "img/home/home-hero-desktop.webp",
    "width": 1920,
    "height": 1080,
-   "status": "missing"
+   "status": "approved"
   },
   "mobile": {
    "src": "img/home/home-hero-mobile.webp",
    "width": 1280,
    "height": 800,
-   "status": "missing"
+   "status": "approved"
   },
-  "candidate": "PR #3 (Codex): img/home/home-hero-option-c.webp, 1600×900 — обраний напрямок; фінальні desktop/mobile ще не надані"
+  "from": "TEST-017: desktop — кандидат C (PR #3, 1600×900) → 1920×1080, сцена зсунута праворуч, ліворуч серпанок під текст; mobile — кандидат A (крупний план), кадр 1280×800. В обох волосся Annick виправлено на темно-русяве."
  },
  "lifePromo": {
   "alt": "Anastasia й Annick на вокзалі Gent-Sint-Pieters",
@@ -41,5 +41,21 @@
   "status": "approved",
   "alt": "Котик LerenBe з книжкою",
   "from": "img/home/hero-cat-v196.png (production, 512×512 PNG 213 КБ → 320×320 WebP)"
+ },
+ "catWelcome": {
+  "src": "img/home/cat-welcome.webp",
+  "width": 512,
+  "height": 512,
+  "status": "approved",
+  "alt": "Котик LerenBe вітає",
+  "from": "img/home/hero-cat-v196.png без змін зовнішності: нахил і блискітки (лапкою не махає)"
+ },
+ "catCelebrate": {
+  "src": "img/home/cat-celebrate.webp",
+  "width": 512,
+  "height": 512,
+  "status": "approved",
+  "alt": "Котик LerenBe святкує з конфеті",
+  "from": "img/home/hero-cat-v196.png без змін зовнішності: конфеті навколо"
  }
 }
