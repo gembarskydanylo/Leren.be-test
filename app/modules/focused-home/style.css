@@ -192,3 +192,6 @@
 .fh-banner-line{margin:0;padding-inline-start:10px;font:900 22px/1.25 var(--font-display,inherit);overflow-wrap:normal;word-break:normal;hyphens:manual}
 .fh-banner-line.is-small{font:800 15px/1.35 var(--font-body,inherit);opacity:.95}
 @media(max-width:380px){.fh-banner-line{font-size:19px}.fh-banner-line.is-small{font-size:14px}}
+/* TEST-019: today's plan from the daily goal, under the next-lesson title */
+.fh-goal{font-size:14px;line-height:1.5;margin:0 0 14px;padding:8px 12px;border-radius:12px;background:var(--oranje-soft,#ffe7cf);color:var(--ink);max-width:460px}
+@media (max-width:560px){.fh-goal{grid-column:1/-1;max-width:none}}

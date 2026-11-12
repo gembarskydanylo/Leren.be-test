@@ -35,7 +35,7 @@
   // The selected course is shared with the rest of the app (free practice, games, tests, AI tutor).
   function syncCourse(){const host=bridge.level?.();if(host&&host!==model.course&&model.levels.includes(host))model.setCourse(host)}
   function pickCourse(level){if(level===model.course)return true;if(bridge.setLevel&&bridge.setLevel(level)===false)return false;model.setCourse(level);mapLevel=level;return true}
-  function begin(l){if(chapter(l).level!==model.course&&!pickCourse(chapter(l).level))return;const s=model.state.session;if(s?.kind==='lesson'&&s.lesson===l.id&&(s.phase<2||s.index<s.ids.length)){go('lesson');return}model.begin(l.id);go('intro')}
+  function begin(l,direct=false){if(chapter(l).level!==model.course&&!pickCourse(chapter(l).level))return;const s=model.state.session;if(s?.kind==='lesson'&&s.lesson===l.id&&(s.phase<2||s.index<s.ids.length)){go('lesson');return}model.begin(l.id);go(direct?'lesson':'intro')} // direct: the home's main button opens the lesson itself (TEST-019)
   function shell(){
    root.replaceChildren();root.lang=lang;root.dir=lang==='ar'?'rtl':'ltr';root.dataset.screen=screen;
    root.appendChild(LerenFocus.tools({lang,backLabel:screen==='map'&&mapChapter?LerenFocus.tr(lang).all:null,back:screen==='home'?null:()=>{if(screen==='map'&&mapChapter){mapChapter=null;render()}else go('home')}}));
@@ -49,7 +49,7 @@
   }
   function hero(){
    const session=model.state.session,paused=session?.kind==='lesson'&&(session.phase<2||session.index<session.ids.length)&&chapter(model.lesson(session.lesson)).level===model.course?model.lesson(session.lesson):null,next=paused||model.recommended(),placing=!!model.state.placement,stats=model.stats(),started=placing||!!paused||stats.done>0||model.state.started&&model.course===model.levels[0],f=LerenFocus.tr(lang),ch=next&&chapter(next);
-   const beginNext=()=>{if(placing){go('placement');return}if(warm&&model.beginWarmup(due)){go('lesson');return}if(next){if(!model.state.started)model.start();begin(next)}};
+   const beginNext=()=>{if(placing){go('placement');return}if(warm&&model.beginWarmup(due)){go('lesson');return}if(next){if(!model.state.started)model.start();begin(next,true)}};
    function panelContent(){
     const key={'A1.1':'a11','A1.2':'a12',A2:'a21'}[model.course]||'a11',cs=model.courseStats(model.course),st2=ch?model.stats(ch.id):{done:0,total:0},legacy2=LerenCompanion.tr(lang);
     const seen=new Set(),canDo=[];for(const id of Object.keys(model.state.completed).reverse()){const l=model.lesson(id);if(!l||chapter(l).level!==model.course)continue;const label=bridge.lessonLabel(l.tab,lang)||'';if(!label||seen.has(label))continue;seen.add(label);canDo.push(label);if(canDo.length>=3)break}
@@ -60,20 +60,21 @@
    const showcase=globalThis.LerenShowcase?.create({lang,level:model.course,gameCards:()=>bridge.gameCards?.()||[],onGames:()=>bridge.games?.(),onGame:id=>bridge.game?.(id),onClock:()=>bridge.clock?.(),onChat:id=>bridge.chat?.(id),onRoute:()=>root.querySelector('.fh-hero')?.scrollIntoView({behavior:'smooth',block:'start'})});
    // TEST-016 home v2 (modules/home-v2): HERO, interface language, course cards, LIFE, progress — built from this route's
    // own levels and actions. Without the module the original banner and preview card stay.
-   const homeTop=globalThis.LerenHomeV2?.top?.({lang,started,onContinue:beginNext,stats:bridge.stats?.(),rewards:()=>bridge.rewards(),
+   // TEST-019: «Your next lesson» is the first and most visible block for everyone (new: «Start learning», with
+   // progress: «Continue learning»); the HERO, courses and levels, games and AI follow below — nothing is hidden.
+   const labels=START[lang]||START.uk;
+   root.appendChild(LerenFocus.hero({lang,started,lesson:next?(bridge.lessonLabel(next.tab,lang)||next.tab):'',chapter:ch?title(ch):'',chapterId:ch?.id,part:next?.part,totalParts:next?.parts,placing,allDone:!next&&!placing,level:ch?.level||model.course,done:stats.done,total:stats.total,plan:warm?warmPlan(warm):'',planBy:bridge.person?.().name,goal:goalLine(),startLabel:labels[0],resumeLabel:labels[1],onBegin:beginNext,onPlacement:model.course===model.levels[0]?()=>{model.place();go('placement')}:null,onMap:()=>openMap(),onFree(){bridge.stop();bridge.free()},freeLabel:t('free')}));
+   const homeTop=globalThis.LerenHomeV2?.top?.({lang,started,secondary:true,onContinue:beginNext,stats:bridge.stats?.(),rewards:()=>bridge.rewards(),
     levels:[['A1.1','a11'],['A1.2','a12'],['A2','a21']].map(([level])=>({level,active:level===model.course,soon:!model.levels.includes(level),...(model.levels.includes(level)?model.courseStats(level):{done:0,total:0}),pick:()=>{if(pickCourse(level))render()}}))});
    if(homeTop)root.appendChild(homeTop);
    else{if(LerenFocus.banner)root.appendChild(LerenFocus.banner());
    // New languages, preview only (lerenbe.com/?multilang=1): English, French, German open in their own player.
    {const pc=globalThis.LerenCoursePlayer?.previewCard?.(lang);if(pc)root.appendChild(pc)}}
-   // A learner who has started sees the next lesson first (one tap to continue); the course switch and the showcase follow.
-   // A new visitor first meets the course switch and the showcase, then the start.
-   const intro=()=>{if(!homeTop)courseSwitch(()=>panelContent());if(showcase)root.appendChild(showcase.intro)}; // home v2 has its own course cards
-   if(!started)intro();
+   // Below the next lesson: course and level choice, then the showcase (games, AI) — for new and returning learners alike.
    const put=el=>root.appendChild(el);
-   put(LerenFocus.hero({lang,started,lesson:next?(bridge.lessonLabel(next.tab,lang)||next.tab):'',chapter:ch?title(ch):'',chapterId:ch?.id,part:next?.part,totalParts:next?.parts,placing,allDone:!next&&!placing,level:ch?.level||model.course,done:stats.done,total:stats.total,plan:warm?warmPlan(warm):'',planBy:bridge.person?.().name,onBegin:beginNext,onPlacement:model.course===model.levels[0]?()=>{model.place();go('placement')}:null,onMap:()=>openMap(),onFree(){bridge.stop();bridge.free()},freeLabel:t('free')}));
+   if(!homeTop)courseSwitch(()=>panelContent()); // home v2 has its own course cards
    if(bridge.stats&&LerenFocus.progressCard&&!placing&&!homeTop){const ps=bridge.stats();put(LerenFocus.progressCard({lang,streak:ps.streak,min:ps.min,goal:ps.goal,points:ps.points,done:stats.done,total:stats.total,started,onMore:()=>bridge.rewards(),onBegin:beginNext}))}
-   if(started)intro();
+   if(showcase)root.appendChild(showcase.intro);
    if(talkOpen()&&!paused){const card=node('div','fh-talk-resume');card.append(node('span','',talkText('resume')+' · '+(bridge.lessonLabel(model.lesson(conversation.state.lesson).tab,lang)||'')),LerenFocus.button('💬 '+talkText('resume')+' →',()=>beginTalk(conversation.state.lesson),'fh-talk-btn'));root.appendChild(card)}
    // Peter's advice (from the learner's own results) right under the next step; it opens the exercise itself.
    const advice=!warm&&!placing&&bridge.advice?bridge.advice():null;
@@ -83,6 +84,13 @@
    const tiles=node('div','fh-topic-grid fh-preview-grid'),own=course.chapters.filter(c=>c.level===model.course),start=Math.max(0,own.findIndex(c=>c.id===ch?.id)),others=own.filter(c=>c.id!==ch?.id),preview=[...own.slice(start+1),...own.slice(0,start)].filter(c=>c.id!==ch?.id).slice(0,2);for(const c of preview.length?preview:others.slice(0,2))tiles.appendChild(topicTile(c));overview.appendChild(tiles);root.appendChild(overview);
    const extras=node('div','fh-extras');extras.append(LerenFocus.button('✦ '+f.gifts,()=>bridge.rewards(),'fh-extra-link'),LerenFocus.button(f.about,()=>LerenFocus.about(lang),'fh-extra-link'));root.appendChild(extras);note();
   }
+  // Daily goal (5/10/20 min from the first run or settings): suggests how much to do today; lessons keep their length.
+  const GOAL={uk:{plan:g=>g<=5?'Ціль на сьогодні — '+g+' хв: одна частина уроку.':g<=15?'Ціль на сьогодні — '+g+' хв: урок і коротке повторення слів.':'Ціль на сьогодні — '+g+' хв: урок, повторення й гра або розмова.',now:(m,g)=>'Сьогодні: '+m+' з '+g+' хв.',met:(m,g)=>'Ціль на сьогодні виконано ✓ ('+m+' з '+g+' хв). Можна продовжити.'},
+   en:{plan:g=>g<=5?'Today’s goal — '+g+' min: one part of a lesson.':g<=15?'Today’s goal — '+g+' min: a lesson and a short word review.':'Today’s goal — '+g+' min: a lesson, a review and a game or a chat.',now:(m,g)=>'Today: '+m+' of '+g+' min.',met:(m,g)=>'Today’s goal reached ✓ ('+m+' of '+g+' min). You can keep going.'},
+   fr:{plan:g=>g<=5?'Objectif du jour — '+g+' min : une partie de leçon.':g<=15?'Objectif du jour — '+g+' min : une leçon et une courte révision.':'Objectif du jour — '+g+' min : une leçon, une révision et un jeu ou une discussion.',now:(m,g)=>'Aujourd’hui : '+m+' sur '+g+' min.',met:(m,g)=>'Objectif du jour atteint ✓ ('+m+' sur '+g+' min). Tu peux continuer.'},
+   ar:{plan:g=>g<=5?'هدف اليوم — '+g+' دقائق: جزء من درس.':g<=15?'هدف اليوم — '+g+' دقيقة: درس ومراجعة قصيرة للكلمات.':'هدف اليوم — '+g+' دقيقة: درس ومراجعة ولعبة أو محادثة.',now:(m,g)=>'اليوم: '+m+' من '+g+' دقيقة.',met:(m,g)=>'تحقق هدف اليوم ✓ ('+m+' من '+g+' دقيقة). يمكنك المتابعة.'}};
+  function goalLine(){const st=bridge.stats?.();if(!st||!st.goal)return '';const G=GOAL[lang]||GOAL.uk;return st.min>=st.goal?G.met(st.min,st.goal):G.plan(st.goal)+(st.min>0?' '+G.now(st.min,st.goal):'')}
+  const START={uk:['Почати навчання','Продовжити навчання'],en:['Start learning','Continue learning'],fr:['Commencer à apprendre','Continuer à apprendre'],ar:['ابدأ التعلّم','تابع التعلّم']};
   const WARM={uk:n=>'Спершу повторимо '+n+' '+(n<5?'слова':'слів')+', які ти починаєш забувати, потім — новий урок.',en:n=>'First we review '+n+' words you are starting to forget, then a new lesson.',fr:n=>'D’abord on révise '+n+' mots que tu commences à oublier, puis une nouvelle leçon.',ar:n=>'أولاً نراجع '+n+' كلمات بدأت تنساها، ثم درس جديد.'};
   const warmPlan=n=>(WARM[lang]||WARM.uk)(n);
   function courseMap(){
@@ -197,7 +205,10 @@
    const skip=button(t('skip'),()=>{model.start();begin(course.lessons[0])});skip.classList.add('lp-skip');box.appendChild(skip);root.appendChild(box);
   }
   function render(){talkView.cancel();bridge.stop();lang=languages.includes(lang)?lang:'uk';syncCourse();if(screen!=='map'||!mapChapter)mapLevel=model.course;shell();if(screen==='home')hero();else if(screen==='intro')intro();else if(screen==='placement')placement();else if(screen==='map')courseMap();else if(screen==='talk'&&talkOk)talkView.render(root,lang);else exercises();globalThis.LerenEmoji?.enhance(root)}
-  render();return {refresh(){lang=bridge.language();render()},home(){go('home')},chapter(id){if(course.chapters.some(c=>c.id===id))openMap(id)},open(){go(talkOpen()&&screen==='talk'?'talk':'home')},review(ids){if(!model.reviewWords(ids))return false;go('lesson');return true},pauseSpeech(){talkView.cancel();bridge.stop()},model,conversation};
+  // TEST-019: first run → the real first lesson (no detour through the home screen), or the optional starting check.
+  function startFirst(){if(!pickCourse('A1.1'))return false;if(!model.state.started)model.start();const l=model.recommended();if(!l)return false;model.begin(l.id);go('lesson');return true}
+  function startPlacement(){if(!pickCourse('A1.1'))return false;model.place();go('placement');return true}
+  render();return {startFirst,startPlacement,refresh(){lang=bridge.language();render()},home(){go('home')},chapter(id){if(course.chapters.some(c=>c.id===id))openMap(id)},open(){go(talkOpen()&&screen==='talk'?'talk':'home')},review(ids){if(!model.reviewWords(ids))return false;go('lesson');return true},pauseSpeech(){talkView.cancel();bridge.stop()},model,conversation};
  }
  globalThis.LerenLearningPath.mount=mount;
 })();

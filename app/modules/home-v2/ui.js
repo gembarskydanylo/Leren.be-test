@@ -12,6 +12,14 @@
   fr: {kicker: 'Learn languages. Live in Belgium.', h1a: 'Apprends les langues pour ', h1b: 'la vraie vie', h1c: ' en Belgique', sub: 'Des leçons, des phrases enregistrées et des histoires du quotidien : la gare, le magasin, la commune, les voisins.', start: 'Commencer', cont: 'Reprendre la leçon', life: 'LerenBe LIFE', lifeTitle: 'Premier jour en Belgique', lifeText: 'Une histoire interactive : la gare, le tram, l’appartement, le voisin. Les personnages parlent, tu réponds.', lifeGo: 'Ouvrir l’histoire', courses: 'Cours', nl: 'Néerlandais', en: 'Anglais', fr: 'Français', de: 'Allemand', preview: 'aperçu', soon: 'bientôt', open: 'Ouvrir', active: 'en cours', lessons: 'leçons', lang: 'Langue de l’interface', streak: 'jours d’affilée', xp: 'XP', today: 'min aujourd’hui', rewards: 'Récompenses et succès', progress: 'Ta progression', cat: 'Le chat LerenBe'},
   ar: {kicker: 'Learn languages. Live in Belgium.', h1a: 'تعلّم اللغات من أجل ', h1b: 'الحياة الحقيقية', h1c: ' في بلجيكا', sub: 'دروس وعبارات مسجّلة وقصص من الحياة اليومية: المحطة، المتجر، البلدية، الجيران.', start: 'ابدأ التعلّم', cont: 'تابع الدرس', life: 'LerenBe LIFE', lifeTitle: 'اليوم الأول في بلجيكا', lifeText: 'قصة تفاعلية: المحطة، الترام، الشقة، الجار. الشخصيات تتكلم وأنت تجيب.', lifeGo: 'افتح القصة', courses: 'الدورات', nl: 'الهولندية', en: 'الإنجليزية', fr: 'الفرنسية', de: 'الألمانية', preview: 'معاينة', soon: 'قريبًا', open: 'افتح', active: 'الآن', lessons: 'دروس', lang: 'لغة الواجهة', streak: 'أيام متتالية', xp: 'XP', today: 'دقيقة اليوم', rewards: 'المكافآت والإنجازات', progress: 'تقدّمك', cat: 'قطة LerenBe'}
  };
+ // TEST-019: levels in plain words first, the CEFR code small next to them, and one sentence about the scale
+ // (no link between a level and any particular exam).
+ const LEVEL_NAME = {
+  uk: {'A1.1': 'Починаю з нуля', 'A1.2': 'Вивчаю основи', A2: 'Спілкуюся в повсякденних ситуаціях', cefr: 'A1, A2 — рівні європейської шкали CEFR: від A1 (перші слова й прості фрази) до C2 (вільне володіння). A1.1 і A1.2 — дві половини рівня A1.'},
+  en: {'A1.1': 'Starting from zero', 'A1.2': 'Learning the basics', A2: 'Everyday conversations', cefr: 'A1, A2 are levels of the European CEFR scale: from A1 (first words and simple phrases) to C2 (fluent). A1.1 and A1.2 are the two halves of A1.'},
+  fr: {'A1.1': 'Je pars de zéro', 'A1.2': 'J’apprends les bases', A2: 'Je communique au quotidien', cefr: 'A1, A2 sont des niveaux de l’échelle européenne CECR : de A1 (premiers mots et phrases simples) à C2 (maîtrise). A1.1 et A1.2 sont les deux moitiés de A1.'},
+  ar: {'A1.1': 'أبدأ من الصفر', 'A1.2': 'أتعلّم الأساسيات', A2: 'أتواصل في المواقف اليومية', cefr: 'A1 وA2 مستويان في الإطار الأوروبي المرجعي CEFR: من A1 (الكلمات الأولى والعبارات البسيطة) إلى C2 (الإتقان). A1.1 وA1.2 نصفا المستوى A1.'}
+ };
  const badge = id => { const b = el('span', 'hv-flag hv-flag-' + id, id.toUpperCase()); b.setAttribute('aria-hidden', 'true'); return b };
  const el = (tag, cls, text) => { const n = document.createElement(tag); if (cls) n.className = cls; if (text != null) n.textContent = text; return n };
  const button = (label, fn, cls = 'hv-btn') => { const b = el('button', cls, label); b.type = 'button'; b.onclick = fn; return b };
@@ -53,7 +61,7 @@
   h1.append(t.h1a, el('em', '', t.h1b), t.h1c);
   copy.append(el('p', 'hv-kicker', t.kicker), h1, el('p', 'hv-sub', t.sub));
   const acts = el('div', 'hv-actions');
-  acts.append(button((ctx.started ? t.cont : t.start) + ' →', () => ctx.onContinue?.(), 'hv-btn hv-primary'));
+  acts.append(button((ctx.started ? t.cont : t.start) + ' →', () => ctx.onContinue?.(), ctx.secondary ? 'hv-btn hv-ghost' : 'hv-btn hv-primary')); // secondary: the next-lesson card above carries the main button
   const life = el('a', 'hv-btn hv-ghost', '🎬 ' + t.life); life.href = './learn-life-story.html?s=first-day'; acts.append(life);
   copy.append(acts);
   const stats = ctx.stats || {}, strip = el('div', 'hv-stats');
@@ -70,8 +78,10 @@
   for (const lv of ctx.levels || []) {
    const row = button('', () => lv.pick?.(), 'hv-level' + (lv.active ? ' is-active' : '')); row.disabled = !!lv.soon; row.dataset.level = lv.level;
    const pct = lv.total ? Math.round(100 * lv.done / lv.total) : 0, bar = el('span', 'hv-bar'), f = el('span'); f.style.width = pct + '%'; bar.append(f);
-   row.append(el('b', '', lv.level), el('small', '', lv.soon ? t.soon : lv.done + ' / ' + lv.total + ' ' + t.lessons + (lv.active ? ' · ' + t.active : '')), bar);
-   row.setAttribute('aria-label', t.nl + ' ' + lv.level + (lv.soon ? ' — ' + t.soon : ' — ' + pct + '%')); nl.append(row) }
+   const ln = (LEVEL_NAME[lang] || LEVEL_NAME.uk)[lv.level] || lv.level;
+   row.append(el('b', 'hv-level-name', ln), el('small', '', lv.level + ' · ' + (lv.soon ? t.soon : lv.done + ' / ' + lv.total + ' ' + t.lessons + (lv.active ? ' · ' + t.active : ''))), bar);
+   row.setAttribute('aria-label', t.nl + ' · ' + ln + ' (' + lv.level + ')' + (lv.soon ? ' — ' + t.soon : ' — ' + pct + '%')); nl.append(row) }
+  if ((ctx.levels || []).length) nl.append(el('p', 'hv-cefr', (LEVEL_NAME[lang] || LEVEL_NAME.uk).cefr));
   grid.append(nl);
   const R = globalThis.LerenCourses, P = globalThis.LerenCoursePlayer;
   for (const id of ['en', 'fr', 'de']) {
