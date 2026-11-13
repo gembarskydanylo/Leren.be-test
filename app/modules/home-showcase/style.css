@@ -43,3 +43,5 @@
 @media(max-width:360px){.hs-intro{display:block}.hs-intro-art{display:none}.learning-path .hs-display{max-width:none;font-size:25px}.hs-button{font-size:12px;padding-inline:9px}.hs-person img{width:48px;height:48px}}
 @media(prefers-reduced-motion:reduce){.hs-intro-cat{animation:none}.hs-button,.hs-text-link,.hs-game-card{transition:none}}
 @media(max-width:650px){.hs-life{margin:17px 0 24px;padding:19px 17px;border-radius:19px;box-shadow:0 4px 0 #d5b58e}.learning-path .hs-life h2{font-size:24px}.hs-life .hs-section-intro{font-size:13px;margin-bottom:14px}.hs-life-steps{gap:6px;margin-bottom:17px}.hs-life-step{padding:6px 8px;font-size:11px}.hs-life-link{width:100%;min-height:46px}}
+/* TEST-022: 44 px tap height */
+.hs-text-link,.hs-inline-link{min-height:44px}

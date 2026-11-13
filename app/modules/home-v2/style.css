@@ -87,3 +87,13 @@
 /* A failed approved resource keeps its reserved geometry and accessible description. */
 .hv-life-pic[data-state=failed]{position:relative}
 .hv-life-pic[data-state=failed] .hv-life-icon{position:absolute;inset:0;display:grid;place-items:center}
+/* TEST-022: 44 px tap height for the small buttons */
+.hv-small{min-height:44px}
+@media (max-width:599px){.hv-course:not(.is-live){grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:2px 10px}.hv-course:not(.is-live) .hv-course-head,.hv-course:not(.is-live) .hv-course-meta{grid-column:1}.hv-course:not(.is-live) .hv-btn{grid-column:2;grid-row:1 / span 2}}
+/* TEST-022: language and level choice — one button at the top of the home */
+.hv-pick{margin:0 0 12px;min-width:0}.hv-pick *{box-sizing:border-box}
+.hv-pick-btn{display:flex;align-items:center;gap:12px;width:100%;min-height:60px;padding:10px 16px;border-radius:var(--r-md,16px);border:1px solid var(--edge,#e2c7ac);background:var(--surface,#fff);color:var(--ink,#2a1d12);font:inherit;text-align:start;cursor:pointer;box-shadow:var(--lift)}
+.hv-pick-text{display:grid;min-width:0;flex:1}.hv-pick-text small{color:var(--ink-2,#6f5a47);font-size:12px;font-weight:700}.hv-pick-text b{font:900 16px/1.25 var(--font-display,inherit);overflow-wrap:break-word}
+.hv-pick-arrow{font-size:18px;color:var(--oranje-deep,#b04a00);transition:transform .15s}.hv-pick-btn[aria-expanded=true] .hv-pick-arrow{transform:rotate(180deg)}
+.hv-pick-btn:focus-visible{outline:3px solid #1f5fd6;outline-offset:2px}
+.hv-pick-panel{margin-top:10px}

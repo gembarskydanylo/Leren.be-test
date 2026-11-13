@@ -20,9 +20,9 @@ function size(file){const b=fs.readFileSync(file);
  const html=read('index.html'),csp=html.match(/http-equiv="Content-Security-Policy" content="([^"]+)"/)[1];
  assert.match(csp,/connect-src 'self';/);assert(!/googleapis|gstatic|apis\.google|workers\.dev|cloudflareinsights|www\.google\.com/.test(csp),'test snapshot CSP is closed to external services');
  assert(!/static\.cloudflareinsights\.com\/beacon/.test(html),'no analytics in the test snapshot');assert(/noindex,nofollow/.test(html));
- assert(html.includes('./modules/home-v2/ui.js?v=3')&&html.includes('./modules/home-v2/style.css?v=3'));
+ assert(html.includes('./modules/home-v2/ui.js?v=4')&&html.includes('./modules/home-v2/style.css?v=4'));
  const lp=read('modules/learning-path/ui.js');assert(lp.includes('globalThis.LerenHomeV2?.top?.(')&&lp.includes('if(!homeTop)courseSwitch')&&lp.includes('!placing&&!homeTop'),'hooked into the existing home, old duplicates hidden');
- const sw=read('sw.js');for(const f of ['./modules/home-v2/ui.js?v=3','./modules/home-v2/style.css?v=3','./img/home/hero-cat-v196-320.webp','./img/home/home-visuals.json','./modules/learning-path/ui.js?v=213'])assert(sw.includes('"'+f+'"'),'offline: '+f);
+ const sw=read('sw.js');for(const f of ['./modules/home-v2/ui.js?v=4','./modules/home-v2/style.css?v=4','./img/home/hero-cat-v196-320.webp','./img/home/home-visuals.json','./modules/learning-path/ui.js?v=214'])assert(sw.includes('"'+f+'"'),'offline: '+f);
  assert.equal(sw.match(/leren-be-v(\d+)/)[1],read('app.js').match(/RELEASE_VERSION="(\d+)"/)[1],'cache name matches the release (update check)');
  const ui=read('modules/home-v2/ui.js');assert(!/localStorage\.setItem|leren_path_v1|poly_score\s*=/.test(ui),'home v2 writes no progress');assert(!/fetch\((?!'img\/home\/home-visuals\.json')/.test(ui),'only fetches its own manifest');
  const V=JSON.parse(read('img/home/home-visuals.json')),entries=[];
@@ -87,17 +87,17 @@ function size(file){const b=fs.readFileSync(file);
    await page.locator('#uiLangPicker').selectOption('en',{force:true});await page.waitForFunction(()=>/Learn languages/.test(document.querySelector('.hv-title')?.textContent||''));
    await page.locator('#uiLangPicker').selectOption('uk',{force:true});await page.waitForFunction(()=>/Вивчай/.test(document.querySelector('.hv-title')?.textContent||''));
    // Dutch level
-   await page.click('.hv-level[data-level="A1.2"]');await page.waitForSelector('.hv-level.is-active[data-level="A1.2"]');
-   await page.click('.hv-level[data-level="A1.1"]');await page.waitForSelector('.hv-level.is-active[data-level="A1.1"]');
+   await page.click('.hv-pick-btn');await page.click('.hv-level[data-level="A1.2"]');await page.waitForSelector('.hv-level.is-active[data-level="A1.2"]',{state:'attached'});
+   await page.click('.hv-pick-btn');await page.click('.hv-level[data-level="A1.1"]');await page.waitForSelector('.hv-level.is-active[data-level="A1.1"]',{state:'attached'});
    // English course player with recorded audio
-   await page.click('.hv-course[data-course="en"] button');await page.waitForSelector('.cp-stage');await page.waitForTimeout(500);
+   await page.click('.hv-pick-btn');await page.click('.hv-course[data-course="en"] button');await page.waitForSelector('.cp-stage');await page.waitForTimeout(500);
    await page.click('.cp-stage .cp-primary');await page.waitForSelector('.cp-word');await page.locator('.cp-sound').first().click();await page.waitForTimeout(300);
    assert((await page.evaluate(()=>globalThis.__cpRecorded||[])).length>0,'English card plays the recorded voice');await page.click('.cp-close');
    // rewards → progress view
    await page.click('.hv-progress .hv-btn');await page.waitForFunction(()=>view==='progress');
    await page.evaluate(()=>setView('path'));await page.waitForSelector('.hv');
    // continue → a lesson starts
-   await page.click('.hv-primary');await page.waitForFunction(()=>document.querySelector('[data-screen]')?.dataset.screen!=='home',null,{timeout:10000});
+   assert.equal(await page.locator('.hv-hero .hv-btn').count(),0,'TEST-022: no duplicate buttons in the HERO under the next-lesson card');await page.click('.fh-hero .fh-primary');await page.waitForFunction(()=>document.querySelector('#learningPath')?.dataset.screen==='lesson',null,{timeout:10000});
    assert.deepEqual(errors,[]);assert.deepEqual(outside,[]);await ctx.close();report.push('language uk⇄en, levels, EN player + audio, rewards, continue')}
   // LIFE story from the home page, recorded voices
   {const {ctx,page,errors}=await open(390,844);const audio=[];page.on('response',r=>{if(/\/audio\/nl(-f)?\/[0-9a-f]{8}\.m4a$/.test(r.url()))audio.push(r.status())});

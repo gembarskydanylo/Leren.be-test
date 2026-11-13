@@ -128,3 +128,6 @@
 
 ## TEST-021 · Свіжі JSON-маніфести в Service Worker (пропозиція, очікує рішення)
 - У production та сама стратегія cache-first для маніфестів аудіо (`audio/*/manifest.json`) і LIFE. Переносити разом із наступним випуском: `freshManifest()` у `sw.js`, адаптувавши `MANIFEST_RE` до шляхів production; тест `tests/sw-manifests.cjs`. Міграція сховища не потрібна.
+
+## TEST-022 · Спокійна головна для новачка (очікує оцінки користувача)
+- Залежить від home v2 (TEST-016/017/020), якої в production ще немає: правило спрощення діє лише з `LerenHomeV2`. Окремо в production можна перенести лише кнопки ≥ 44 px (`focused-home/style.css`, `home-showcase/style.css`). Новий ключ `leren_home_all_v1` (лише вигляд головної); прогрес і XP не змінюються.
