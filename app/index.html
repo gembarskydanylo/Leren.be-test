@@ -1057,7 +1057,7 @@ button.om-chip{cursor:pointer}button.om-chip:hover{border-color:var(--role-v)}
 <link rel="stylesheet" href="./modules/learning-path/invitation.css?v=1">
 <link rel="stylesheet" href="./modules/rewards/style.css?v=102">
 <link rel="stylesheet" href="./modules/companion/style.css?v=102">
-<link rel="stylesheet" href="./modules/focused-home/style.css?v=208">
+<link rel="stylesheet" href="./modules/focused-home/style.css?v=209">
 <link rel="stylesheet" href="./modules/home-v2/style.css?v=5">
 <link rel="stylesheet" href="./modules/desktop-home/style.css?v=151">
 <link rel="stylesheet" href="./modules/home-showcase/style.css?v=220">
@@ -1097,6 +1097,9 @@ button.om-chip{cursor:pointer}button.om-chip:hover{border-color:var(--role-v)}
 .onboard-banner img{display:block;width:min(80vw,310px);height:min(45vh,310px);object-fit:contain;margin:0 auto}
 .onboard-banner strong{font:900 20px "Nunito",system-ui,sans-serif}
 @media(prefers-reduced-motion:reduce){#splash{transition:none}}
+/* TEST-023: preserve touch targets even on the smallest header layout. */
+header .hdr-btn{min-width:44px;min-height:44px}main>header .hdr-stats .streak-pill{min-width:44px;min-height:44px}
+@media(max-width:360px){main>header{flex-wrap:wrap}main>header .brand{flex:0 0 32px;min-width:32px}}
 </style>
 <div id="splash" hidden></div>
 <script src="./splash.js?v=205"></script>
@@ -1338,7 +1341,7 @@ button.om-chip{cursor:pointer}button.om-chip:hover{border-color:var(--role-v)}
 <script src="./modules/learning-path/ui.js?v=215"></script>
 <script src="./modules/dialogues/translations.js?v=177"></script>
 <script src="./course-curriculum.js?v=178"></script>
-<script src="./app.js?v=230"></script>
+<script src="./app.js?v=231"></script>
   <div class="modes-wrapper" id="modeButtons"></div>
    <!-- LEREN.BE — МОДУЛЬ ДИФТОНГІВ -->
 <script src="./modules/exam/exam-core.js?v=176" defer></script>

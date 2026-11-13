@@ -206,3 +206,5 @@
 @media (min-width:768px){.fh-more-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
 .fh-alternative{min-height:44px;display:inline-flex;align-items:center;justify-content:center}
 .fh-extra-link{min-height:44px}
+/* TEST-023: narrow phones need a full row for the icon and an unbroken action label. */
+@media(max-width:360px){.fh-more-grid{grid-template-columns:minmax(0,1fr)}}
