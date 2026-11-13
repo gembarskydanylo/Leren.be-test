@@ -62,8 +62,9 @@
    const row = button('', () => { lv.pick?.(); after?.() }, 'hv-level' + (lv.active ? ' is-active' : '')); row.disabled = !!lv.soon; row.dataset.level = lv.level;
    const pct = lv.total ? Math.round(100 * lv.done / lv.total) : 0, bar = el('span', 'hv-bar'), f = el('span'); f.style.width = pct + '%'; bar.append(f);
    const ln = (LEVEL_NAME[lang] || LEVEL_NAME.uk)[lv.level] || lv.level;
-   row.append(el('b', 'hv-level-name', ln), el('small', '', lv.level + ' · ' + (lv.soon ? t.soon : lv.done + ' / ' + lv.total + ' ' + t.lessons + (lv.active ? ' · ' + t.active : ''))), bar);
-   row.setAttribute('aria-label', t.nl + ' · ' + ln + ' (' + lv.level + ')' + (lv.soon ? ' — ' + t.soon : ' — ' + pct + '%')); nl.append(row) }
+   const code = lv.level === 'A2' ? 'A2.1' : lv.level; // the A2 course covers A2.1 (COURSE-CURRICULUM.md); the stored ID stays A2
+   row.append(el('b', 'hv-level-name', ln), el('small', '', code + ' · ' + (lv.soon ? t.soon : lv.done + ' / ' + lv.total + ' ' + t.lessons + (lv.active ? ' · ' + t.active : ''))), bar);
+   row.setAttribute('aria-label', t.nl + ' · ' + ln + ' (' + code + ')' + (lv.soon ? ' — ' + t.soon : ' — ' + pct + '%')); nl.append(row) }
   if ((ctx.levels || []).length) nl.append(el('p', 'hv-cefr', (LEVEL_NAME[lang] || LEVEL_NAME.uk).cefr));
   return nl;
  }
@@ -113,6 +114,32 @@
   const cat = single(VIS?.mascot, 'hv-cat', t.cat) || (() => { const img = el('img', 'hv-cat'); img.src = 'img/home/hero-cat-v196-320.webp'; img.alt = t.cat; img.width = 320; img.height = 320; img.loading = 'lazy'; img.decoding = 'async'; img.onerror = () => img.remove(); return img })();
   hero.append(copy, cat); box.append(hero);
 
+  // Read-only view of the existing course model; callbacks open its existing chapter map.
+  const routeText = {
+   uk:['Твій шлях у нідерландській','Кожна зупинка — тема з твого курсу. Пройдені уроки вже враховано.','Ти тут','Попереду','Завершено','Почни з першої теми — прогрес з’явиться після завершення уроку.','Усі теми маршруту'],
+   en:['Your Dutch learning path','Each stop is a course topic. Completed lessons count towards your progress.','You are here','Ahead','Completed','Start with the first topic. Progress appears after completing a lesson.','All route topics'],
+   fr:['Ton parcours de néerlandais','Chaque étape est un thème du cours. Les leçons terminées comptent dans ta progression.','Tu es ici','À venir','Terminé','Commence par le premier thème. Termine une leçon pour voir ta progression.','Tous les thèmes'],
+   ar:['مسارك في تعلّم الهولندية','كل محطة موضوع في دورتك. الدروس المكتملة محسوبة في تقدّمك.','أنت هنا','قادم','مكتمل','ابدأ بالموضوع الأول. يظهر التقدّم بعد إكمال الدرس.','جميع المواضيع']
+  }[lang];
+  // Ukrainian agrees with the number: 1 урок, 2–4 уроки, 5+ уроків (11–14 → уроків).
+  const lessonsWord=n=>lang!=='uk'?t.lessons:n%10===1&&n%100!==11?'урок':n%10>=2&&n%10<=4&&(n%100<12||n%100>14)?'уроки':'уроків';
+  if(ctx.route?.length){
+   const route=el('section','hv-route'), heading=el('h2','hv-h2',routeText[0]);
+   route.append(heading,el('p','hv-route-intro',routeText[1]));
+   if(!ctx.route.some(c=>c.done))route.append(el('p','hv-route-empty',routeText[5]));
+   const list=el('ol','hv-route-list');
+   ctx.route.forEach((c,i)=>{
+    const li=el('li','hv-stop'), complete=c.total>0&&c.done===c.total;
+    li.dataset.chapter=c.id; li.dataset.state=complete?'complete':c.current?'current':'ahead';
+    const b=button('',c.open,'hv-stop-button');if(c.current)b.setAttribute('aria-current','step');
+    const number=el('span','hv-stop-number',complete?'✓':String(i+1));number.setAttribute('aria-hidden','true');
+    const info=el('span','hv-stop-info');info.append(el('small','',complete?routeText[4]:c.current?routeText[2]:routeText[3]),el('b','',c.title),el('span','',c.done+' / '+c.total+' '+lessonsWord(c.total)));
+    const meter=el('progress');meter.max=c.total||1;meter.value=c.done;meter.setAttribute('aria-label',c.title+' — '+c.done+' / '+c.total);
+    info.append(meter);b.append(number,info);li.append(b);list.append(li);
+   });
+   const details=el('details','hv-route-details');details.append(el('summary','',routeText[6]+' · '+ctx.route.length),list);details.open=ctx.routeOpen!==false;route.append(details);box.append(route);
+  }
+
   // Courses: on the app's home the choice lives in the «Я вчу» button at the top (picker(), TEST-022); this block
   // stays only for layouts without that button.
   if (!ctx.picker) {
@@ -137,6 +164,9 @@
   const chips = el('div', 'hv-stats'); chips.append(el('span', 'hv-chip', '⭐ ' + Number(stats.points || 0) + ' ' + t.xp), el('span', 'hv-chip', '⏱️ ' + (stats.min || 0) + ' / ' + (stats.goal || 0) + ' ' + t.today));
   prog.append(chips, button('🏆 ' + t.rewards + ' →', () => ctx.rewards?.(), 'hv-btn hv-small'));
   duo.append(lifeCard, prog); box.append(duo);
+  const benefitsText={uk:['Практика для життя в Бельгії','Зрозумій прохання сусіда, постав запитання в магазині, потренуй відповідь у LIFE. Уроки, озвучування й ігри допомагають повторювати слова різними способами.','Практичні посібники українською →'],en:['Practice for life in Belgium','Understand a neighbour, ask a question in a shop and practise a reply in LIFE. Lessons, audio and games offer different ways to revisit words.','Practical guides in Ukrainian →'],fr:['Pratiquer pour vivre en Belgique','Comprends un voisin, pose une question dans un magasin et entraîne-toi à répondre dans LIFE. Leçons, audio et jeux permettent de revoir les mots.','Guides pratiques en ukrainien →'],ar:['تدرّب للحياة في بلجيكا','افهم جارك واطرح سؤالاً في المتجر وتدرّب على الإجابة في LIFE. الدروس والصوت والألعاب تساعدك على مراجعة الكلمات.','أدلة عملية باللغة الأوكرانية ←']}[lang];
+  const benefits=el('section','hv-benefits');benefits.append(el('h2','hv-h2',benefitsText[0]),el('p','',benefitsText[1]));
+  const guides=el('a','hv-btn hv-small',benefitsText[2]);guides.href='./guides/';benefits.append(guides);box.append(benefits);
   return box;
  }
  globalThis.LerenHomeV2 = {top, picker, ready: () => ready, T, langSelect};

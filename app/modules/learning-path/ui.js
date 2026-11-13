@@ -68,7 +68,11 @@
    const hasPicker=!!globalThis.LerenHomeV2?.picker;
    if(hasPicker)root.appendChild(LerenHomeV2.picker({lang,levels:levelList}));
    root.appendChild(LerenFocus.hero({lang,started,lesson:next?(bridge.lessonLabel(next.tab,lang)||next.tab):'',chapter:ch?title(ch):'',chapterId:ch?.id,part:next?.part,totalParts:next?.parts,placing,allDone:!next&&!placing,level:ch?.level||model.course,done:stats.done,total:stats.total,plan:warm?warmPlan(warm):'',planBy:bridge.person?.().name,goal:goalLine(),startLabel:labels[0],resumeLabel:labels[1],onBegin:beginNext,onPlacement:model.course===model.levels[0]?()=>{model.place();go('placement')}:null,onMap:()=>openMap(),onFree(){bridge.stop();bridge.free()},freeLabel:t('free')}));
-   const homeTop=globalThis.LerenHomeV2?.top?.({lang,started,secondary:true,picker:hasPicker,onContinue:beginNext,stats:bridge.stats?.(),rewards:()=>bridge.rewards(),levels:levelList});
+   // TEST-022 calm home: until three lessons are done (or the learner asks for everything) the long blocks stay folded.
+   const doneLessons=Object.keys(model.state.completed).length,wantAll=(()=>{try{return localStorage.getItem('leren_home_all_v1')==='1'}catch{return false}})();
+   // TEST-020 Learning: the topics of the active course with the engine's own counts (read-only); a stop opens its chapter map.
+   const route=course.chapters.filter(c=>c.level===model.course).map(c=>({id:c.id,title:title(c),...model.stats(c.id),current:next?.chapter===c.id,open:()=>openMap(c.id)}));
+   const homeTop=globalThis.LerenHomeV2?.top?.({lang,started,secondary:true,picker:hasPicker,onContinue:beginNext,route,routeOpen:placing||doneLessons>=3||wantAll,stats:bridge.stats?.(),rewards:()=>bridge.rewards(),levels:levelList});
    if(homeTop)root.appendChild(homeTop);
    else{if(LerenFocus.banner)root.appendChild(LerenFocus.banner());
    // New languages, preview only (lerenbe.com/?multilang=1): English, French, German open in their own player.
@@ -80,7 +84,6 @@
    // TEST-022: a calm home for beginners. Until three lessons are done (or the learner asks for everything), the long
    // showcase (games gallery, clock, characters, reviews, FAQ, topic preview) is folded into one short «More» block;
    // every part stays one tap away. Duplicates of the next-lesson button and of the LIFE entrance are dropped.
-   const doneLessons=Object.keys(model.state.completed).length,wantAll=(()=>{try{return localStorage.getItem('leren_home_all_v1')==='1'}catch{return false}})();
    const simple=!!homeTop&&!placing&&doneLessons<3&&!wantAll;
    const setAll=on=>{try{if(on)localStorage.setItem('leren_home_all_v1','1');else localStorage.removeItem('leren_home_all_v1')}catch{}render()};
    if(homeTop&&showcase){showcase.intro.querySelector('.hs-text-link')?.remove();showcase.features.querySelector('.hs-life')?.remove()}
@@ -113,7 +116,7 @@
   const WARM={uk:n=>'Спершу повторимо '+n+' '+(n<5?'слова':'слів')+', які ти починаєш забувати, потім — новий урок.',en:n=>'First we review '+n+' words you are starting to forget, then a new lesson.',fr:n=>'D’abord on révise '+n+' mots que tu commences à oublier, puis une nouvelle leçon.',ar:n=>'أولاً نراجع '+n+' كلمات بدأت تنساها، ثم درس جديد.'};
   const warmPlan=n=>(WARM[lang]||WARM.uk)(n);
   function courseMap(){
-   const f=LerenFocus.tr(lang),head=node('div','fh-map-heading');head.append(node('p','fh-eyebrow',f.course+' A1'),node('h2','',mapChapter?title(course.chapters.find(c=>c.id===mapChapter)):f.map),node('p','lp-caption',f.mapHint));root.appendChild(head);
+   const f=LerenFocus.tr(lang),head=node('div','fh-map-heading');head.append(node('p','fh-eyebrow',f.course+' '+((mapChapter?course.chapters.find(c=>c.id===mapChapter)?.level:mapLevel)==='A2'?'A2.1':'A1')),node('h2','',mapChapter?title(course.chapters.find(c=>c.id===mapChapter)):f.map),node('p','lp-caption',f.mapHint));root.appendChild(head);
    if(!mapChapter){const levels=node('div','fh-levels');levels.setAttribute('aria-label',f.levelHint);for(const level of model.levels){const b=LerenFocus.button(level,()=>{if(pickCourse(level))render()},'fh-level');b.setAttribute('aria-pressed',String(mapLevel===level));levels.appendChild(b)}root.appendChild(levels);const grid=node('div','fh-topic-grid');for(const ch of course.chapters.filter(c=>c.level===mapLevel))grid.appendChild(topicTile(ch));root.appendChild(grid);root.appendChild(LerenFocus.button(f.newPlace,()=>{model.place();go('placement')}));return}
    const ch=course.chapters.find(c=>c.id===mapChapter),st=model.stats(ch.id),summary=node('div','fh-chapter-summary');summary.append(LerenFocus.meter(st.done,st.total,title(ch)),node('span','lp-caption',st.done+' / '+st.total+' '+f.lessons));root.appendChild(summary);
    const list=node('ol','fh-lesson-list');for(const l of ch.lessons){const done=Object.hasOwn(model.state.completed,l.id),active=model.recommended()?.id===l.id,state=done?'done':active?'current':'ahead',li=node('li','is-'+state),b=button('',()=>begin(l));b.className='fh-lesson-row';const label=node('span','fh-lesson-copy');label.append(node('strong','',lessonTitle(l)),node('small','',done&&!model.mastered(l.id)?t('review'):f[state]));b.append(node('span','fh-lesson-marker',done?'✓':String(ch.lessons.indexOf(l)+1)),label,node('span','fh-lesson-end',done?'✓':active?'→':f.time));if(active)b.setAttribute('aria-current','step');li.appendChild(b);list.appendChild(li)}root.appendChild(list);

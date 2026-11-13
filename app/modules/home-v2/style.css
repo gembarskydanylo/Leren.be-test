@@ -97,3 +97,19 @@
 .hv-pick-arrow{font-size:18px;color:var(--oranje-deep,#b04a00);transition:transform .15s}.hv-pick-btn[aria-expanded=true] .hv-pick-arrow{transform:rotate(180deg)}
 .hv-pick-btn:focus-visible{outline:3px solid #1f5fd6;outline-offset:2px}
 .hv-pick-panel{margin-top:10px}
+
+/* TEST-020 Learning: semantic route, genuine course counts, no new progress state. */
+.hv-route{padding:clamp(16px,3vw,28px);border:1px solid var(--line,#ead8c5);border-radius:22px;background:var(--surface,#fff)}
+.hv-route-intro{color:var(--ink-2,#6f5a47);margin:0 0 12px;line-height:1.5}
+.hv-route-empty{padding:12px;border-radius:12px;background:var(--surface-2,#fff0e0)}
+.hv-route-details summary{cursor:pointer;padding:12px 0;font-weight:800;min-height:44px}
+.hv-route-list{list-style:none;padding:0;margin:10px 0 0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.hv-stop{min-width:0}.hv-stop-button{display:flex;align-items:flex-start;gap:12px;width:100%;height:100%;padding:16px;text-align:start;font:inherit;color:var(--ink,#2a1d12);background:var(--surface,#fff);border:1px solid var(--line,#ead8c5);border-radius:16px;cursor:pointer}
+.hv-stop-button:focus-visible{outline:3px solid #1f5fd6;outline-offset:3px}
+.hv-stop-number{display:grid;place-items:center;flex:none;width:34px;height:34px;border-radius:50%;background:var(--surface-2,#fff0e0);font-weight:900}
+.hv-stop-info{display:grid;gap:7px;min-width:0;flex:1}.hv-stop-info small{color:var(--ink-2,#6f5a47)}.hv-stop-info b{overflow-wrap:anywhere}.hv-stop-info progress{width:100%;height:9px;accent-color:#13826c}
+.hv-stop[data-state=current] .hv-stop-button{border:2px solid var(--oranje,#eb6a00)}
+.hv-stop[data-state=complete] .hv-stop-number{background:#146b53;color:white}
+@media(max-width:767px){.hv-route-list{grid-template-columns:1fr}.hv-stop-button{padding:14px}}
+
+.hv-benefits{padding:24px;background:var(--surface,#fff);border:1px solid var(--line,#ead8c5);border-radius:22px}.hv-benefits p{line-height:1.6;max-width:65ch}
