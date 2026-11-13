@@ -4198,7 +4198,7 @@ async function pushWrite(sub,st){
  if(st.sig===sig&&st.id===id)return true;
  const {uid,t}=await pushToken();fields.uid={stringValue:uid};
  // updateMask: change only the app's own fields; lastSent belongs to the reminder server
- const r=await fetch(docUrl(id)+PUSH_FIELDS.map(f=>"&updateMask.fieldPaths="+f).join(""),{method:"PATCH",headers:await appCheckHeaders({"Content-Type":"application/json",Authorization:"Bearer "+t}),body:JSON.stringify({fields})});
+ const r=await fetchT(docUrl(id)+PUSH_FIELDS.map(f=>"&updateMask.fieldPaths="+f).join(""),{method:"PATCH",headers:await appCheckHeaders({"Content-Type":"application/json",Authorization:"Bearer "+t}),body:JSON.stringify({fields})});
  if(!r.ok){let m="";try{m=(await r.json()).error.message}catch(e){}throw new Error("Firestore "+r.status+(m?": "+m:""))}
  st.id=id;st.sig=sig;lsSet("leren_push",st);return true;
 }
@@ -4225,7 +4225,7 @@ async function pushEnable(){
 // Turning reminders off: stop the browser subscription and delete the server copy. If the server can't be reached,
 // the ID is kept in "pendingDel" and deleting is retried at the next start, so a copy is never left behind silently.
 async function pushDeleteDoc(id){
- try{const {t}=await pushToken();const r=await fetch(docUrl(id),{method:"DELETE",headers:await appCheckHeaders({Authorization:"Bearer "+t})});return r.ok||r.status===404}catch(e){return false}
+ try{const {t}=await pushToken();const r=await fetchT(docUrl(id),{method:"DELETE",headers:await appCheckHeaders({Authorization:"Bearer "+t})});return r.ok||r.status===404}catch(e){return false}
 }
 async function pushDisable(){
  const st=pushState();st.on=false;
@@ -5692,7 +5692,7 @@ async function askSend(text,alts){
  const s=gState;if(s.busy||!s.ask)return;s.msgs.push({role:"user",content:String(text).trim().slice(0,s.focus==="exam11"?1600:600),alts:alts||null});
  s.busy=true;s.err="";askRender();
  try{
-  const r=await fetch(AI_ENDPOINT,{method:"POST",headers:LerenAICoach.headers(),body:JSON.stringify({mode:"ask",focus:s.focus||undefined,target:targetLang,lang:uiLang,level:curLevel,char:charId(),profile:aiProfile(),memory:aiMemory(),messages:aiMsgs(s.msgs)})});
+  const r=await fetchT(AI_ENDPOINT,{method:"POST",headers:LerenAICoach.headers(),body:JSON.stringify({mode:"ask",focus:s.focus||undefined,target:targetLang,lang:uiLang,level:curLevel,char:charId(),profile:aiProfile(),memory:aiMemory(),messages:aiMsgs(s.msgs)})},45000);
   const j=await r.json().catch(()=>({}));
   if(gState!==s)return;
   if(r.status===429){const lost=s.msgs.pop();s.busy=false;s.askDraft=lost&&lost.role==="user"?lost.content:"";s.err=aiLimitText({data:j});askRender();return}
@@ -5710,6 +5710,10 @@ function renderMistakes(box){
 // ========== ACCOUNT (optional): Google or e-mail sign-in; progress and settings synced to Firestore users/{uid} ==========
 // Without signing in nothing changes. Firebase is loaded only when the user signs in (or signed in before on this device).
 const FB_SDK="https://www.gstatic.com/firebasejs/10.12.2/";
+// TEST-024: requests the UI or the one-at-a-time sync queue waits on get a deadline. On a stalled mobile connection a
+// fetch can hang for minutes: the AI chat kept «• • •» and refused new questions, and every later sync queued behind the
+// hung one. The abort (also of a stalled body) ends in each caller's existing error path (retry, «check the connection»).
+function fetchT(url,opts={},ms=20000){const c=new AbortController();setTimeout(()=>c.abort(),ms);return fetch(url,{...opts,signal:c.signal})}
 // App Check (Firebase, reCAPTCHA Enterprise): proves to Firestore that a request comes from lerenbe.com, so bots cannot
 // write through the REST API. Loaded only on lerenbe.com and only when a Firestore request is about to be sent. Best effort:
 // if no token comes within 5 s (offline, blocked), the request goes without it, which is fine until Enforce is switched on.
@@ -5797,16 +5801,20 @@ function syncMerge(base,local,cloud){
 }
 function syncApply(o){if(!o||typeof o!=="object"||Array.isArray(o))throw new Error("Invalid cloud progress");Object.keys(syncSnapshot()).forEach(k=>{if(!(k in o))localStorage.removeItem(k)});Object.entries(o).forEach(([k,v])=>{if(syncable(k)&&typeof v==="string")localStorage.setItem(k,v)})}
 const acct={mod:null,auth:null,user:null,lastSnap:"",busy:false,rev:"",syncing:null};
-async function acctLoad(){
- if(acct.mod)return acct.mod;
- const [a,b]=await Promise.all([import(FB_SDK+"firebase-app.js"),import(FB_SDK+"firebase-auth.js")]);
- acct.auth=b.getAuth(await fbApp(a,"acct"));
- b.onAuthStateChanged(acct.auth,u=>{acct.user=u;acctRender();if(u)syncPull().catch(()=>{})});
- acct.mod=b;return b;
+// One load at a time: on start-up the returning-user path and the e-mail sign-in link can both ask for the SDK; two loads
+// registered two auth listeners (double pull and render on every sign-in change). A failed load can be retried.
+function acctLoad(){
+ if(acct.mod)return Promise.resolve(acct.mod);
+ return acct.loading||(acct.loading=(async()=>{
+  const [a,b]=await Promise.all([import(FB_SDK+"firebase-app.js"),import(FB_SDK+"firebase-auth.js")]);
+  acct.auth=b.getAuth(await fbApp(a,"acct"));
+  b.onAuthStateChanged(acct.auth,u=>{acct.user=u;acctRender();if(u)syncPull().catch(()=>{})});
+  acct.mod=b;return b;
+ })().finally(()=>{acct.loading=null}));
 }
 async function fsUserDoc(method,body){
  const t=await acct.user.getIdToken();
- return fetch("https://firestore.googleapis.com/v1/projects/"+PUSH_CONFIG.projectId+"/databases/(default)/documents/users/"+acct.user.uid,{method,headers:await appCheckHeaders({Authorization:"Bearer "+t,"Content-Type":"application/json"}),body:body?JSON.stringify(body):undefined});
+ return fetchT("https://firestore.googleapis.com/v1/projects/"+PUSH_CONFIG.projectId+"/databases/(default)/documents/users/"+acct.user.uid,{method,headers:await appCheckHeaders({Authorization:"Bearer "+t,"Content-Type":"application/json"}),body:body?JSON.stringify(body):undefined});
 }
 const syncPaused=()=>!acct.user||acct.deleting||lsGet("leren_del_pending",false);
 // Writes only if the cloud copy is still the one we last saw (Firestore precondition), so two devices can't
@@ -5817,7 +5825,7 @@ async function syncWrite(snap){
  const ts=Date.now(),q=acct.rev?"?currentDocument.updateTime="+encodeURIComponent(acct.rev):"?currentDocument.exists=false",blob=JSON.stringify(snap);
  if(blob.length>=SYNC_MAX)return syncFail("size");
  let t,r;try{t=await acct.user.getIdToken();
- r=await fetch("https://firestore.googleapis.com/v1/projects/"+PUSH_CONFIG.projectId+"/databases/(default)/documents/users/"+acct.user.uid+q,
+ r=await fetchT("https://firestore.googleapis.com/v1/projects/"+PUSH_CONFIG.projectId+"/databases/(default)/documents/users/"+acct.user.uid+q,
   {method:"PATCH",headers:await appCheckHeaders({Authorization:"Bearer "+t,"Content-Type":"application/json"}),body:JSON.stringify({fields:{blob:{stringValue:blob},updated:{integerValue:String(ts)},v:{integerValue:"2"}}})});
  }catch(e){return syncFail(navigator.onLine===false?"offline":"network")}
  // 409/412 (and 400 for a failed precondition): someone else wrote first → read, merge, write again.
@@ -6090,7 +6098,7 @@ const UPD_UI={uk:{t:"Вийшла нова версія застосунку",ve
  ar:{t:"يتوفر إصدار جديد من التطبيق",ver:"الإصدار",go:"تحديث",done:"✓ تم تحديث التطبيق إلى الإصدار "}};
 const updU=()=>UPD_UI[uiLang]||UPD_UI.uk;
 // Keep the announcement available after updating, including users who already installed v87.
-const RELEASE_VERSION="230";
+const RELEASE_VERSION="231";
 // The release whose notes RELEASE_UI describes. A small update keeps the notes of the last bigger one: whoever already
 // saw those notes is not shown them again.
 const RELEASE_NOTES_VERSION="176";
