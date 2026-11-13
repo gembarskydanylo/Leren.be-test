@@ -106,3 +106,8 @@
 - Окремо варто перенести й без решти змін (це помилки production): порожня дія кнопки «Почати» у вітальному вікні нідерландського маршруту; `row.children.forEach` у кнопках 5/20 хв; вікно без прокрутки на низьких екранах.
 - Сховище: новий ключ `leren_start_known_v1` (лише відповідь на питання); `leren_goal_min`, `poly_ui`, `leren_path_v1`, XP не змінюються, міграція не потрібна. Додати ключ до синхронізації (`modules/sync/merge.js`) — за бажанням.
 - Перевірити на lerenbe.com: новий користувач (інкогніто) на телефоні й ПК, користувач із прогресом, тест `tests/first-lesson.cjs` (шлях `app/` → корінь), фізичний телефон.
+
+## TEST-020 Learning (beta only; not approved for production)
+- Home V2 learning route reads existing model statistics only; no new storage keys or migration. Chapter actions reuse existing navigation.
+- Four substantial Ukrainian static guides + index under `app/guides/`, linked from home. `noindex,nofollow` remains until editorial/legal/SEO review. Verify official links and Ukrainian/Dutch copy before indexing.
+- No certification, user-count or review claims. No extra JS/image dependencies. Tests: `tests/learning-map-seo.cjs` and full local suite; details in TESTING-JOURNAL.md.

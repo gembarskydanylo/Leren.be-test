@@ -64,7 +64,8 @@
    // progress: «Continue learning»); the HERO, courses and levels, games and AI follow below — nothing is hidden.
    const labels=START[lang]||START.uk;
    root.appendChild(LerenFocus.hero({lang,started,lesson:next?(bridge.lessonLabel(next.tab,lang)||next.tab):'',chapter:ch?title(ch):'',chapterId:ch?.id,part:next?.part,totalParts:next?.parts,placing,allDone:!next&&!placing,level:ch?.level||model.course,done:stats.done,total:stats.total,plan:warm?warmPlan(warm):'',planBy:bridge.person?.().name,goal:goalLine(),startLabel:labels[0],resumeLabel:labels[1],onBegin:beginNext,onPlacement:model.course===model.levels[0]?()=>{model.place();go('placement')}:null,onMap:()=>openMap(),onFree(){bridge.stop();bridge.free()},freeLabel:t('free')}));
-   const homeTop=globalThis.LerenHomeV2?.top?.({lang,started,secondary:true,onContinue:beginNext,stats:bridge.stats?.(),rewards:()=>bridge.rewards(),
+   const homeTop=globalThis.LerenHomeV2?.top?.({lang,started,secondary:true,onContinue:beginNext,
+    route:course.chapters.filter(c=>c.level===model.course).map(c=>({id:c.id,title:title(c),...model.stats(c.id),current:next?.chapter===c.id,open:()=>openMap(c.id)})),stats:bridge.stats?.(),rewards:()=>bridge.rewards(),
     levels:[['A1.1','a11'],['A1.2','a12'],['A2','a21']].map(([level])=>({level,active:level===model.course,soon:!model.levels.includes(level),...(model.levels.includes(level)?model.courseStats(level):{done:0,total:0}),pick:()=>{if(pickCourse(level))render()}}))});
    if(homeTop)root.appendChild(homeTop);
    else{if(LerenFocus.banner)root.appendChild(LerenFocus.banner());
