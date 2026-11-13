@@ -136,3 +136,7 @@
 - Four substantial Ukrainian static guides + index under `app/guides/`, linked from home. `noindex,nofollow` remains until editorial/legal/SEO review. Verify official links and Ukrainian/Dutch copy before indexing.
 - No certification, user-count or review claims. No extra JS/image dependencies. Tests: `tests/learning-map-seo.cjs` and full local suite; details in TESTING-JOURNAL.md.
 - Audit 2026-11-13: release 230 (cache name + `?v=` for home-v2 ui/style and learning-path/ui). The route list follows TEST-022's calm rule (folded until 3 lessons). Guides: linguistic fixes, `lang="nl"` on inline Dutch. Before indexing, add canonical and OG for the production URL, remove the test footer, and get a native Flemish review.
+
+## TEST-026 (лише документація й тести; переносити в production нічого)
+- Перед перенесенням редизайну 3.0: прогнати `ui-contracts.cjs`, `sync-merge-app.cjs` і `perf-budget.cjs` на кандидаті. Ключі `leren_path_v1` і `leren_path_rewards_v1` переносити й скидати лише разом.
+- Відкрите питання для окремого релізу: A2 у `merge.js` LEVELS. Це зміна формату синхронізації, потрібен тест сумісності зі старими версіями.
