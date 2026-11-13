@@ -399,3 +399,5 @@ APP_FILES.push("./modules/scenes/map.js?v=165");
 
 // TEST-025: common design foundation, cached with the shell.
 APP_FILES.push("./modules/design-system/tokens.css?v=1", "./modules/design-system/foundation.css?v=1", "./modules/design-system/home.css?v=1");
+
+APP_FILES.push("./modules/design-system/learning.css?v=1");

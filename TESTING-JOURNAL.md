@@ -285,3 +285,7 @@ Total output lines: 142
 - Реальні екрани й правила: `docs/design/LERENBE-3.md`. Спільні токени, адаптери оболонки/навігації й головної: `app/modules/design-system/{tokens,foundation,home}.css`, підключені в app/index.html та SW. Котик/HERO A/C збережено.
 - Перевірки: `home-v2.cjs` PASS (браузер і static); браузерна матриця 320/360/390/430/768/1024/1280/1440, живі onboarding/home/course picker/study/audio/check/map/progress/settings/guides/LIFE, pageerror=[], без горизонтальної прокрутки. У 390/1440 XP зберігаються при reload. Локальні докази `/private/tmp/test025-evidence/stage-a-final/`.
 - Візуальна перевірка виявила старий translateX у dock та білий лічильник на світлому тлі; виправлено перед комітом. Samsung не перевірявся; це емуляція Chromium. Окремого Profile в коді немає, показано реальні progress/settings.
+
+## TEST-025 B · Learning Experience · 2026-11-13 21:26 CET
+- Додано `design-system/learning.css`: спільний вигляд guided Study/Listen/Check/Review, free Study/Quiz/Audio/Review, preview-player, карти тем і списку уроків. Великі варіанти, фокус, семантичні кольори feedback, чітка кнопка звуку. Жодних змін алгоритмів чи ID.
+- PASS `first-lesson.cjs` (новачки, reload, XP, мова en) і `learning-map-edges.cjs` (незалежні A1.1/A1.2/A2). Browser matrix 8 ширин із console/error/navigation/reload та screenshots `/private/tmp/test025-evidence/stage-b/` PASS. Аудіо в цих знімках — стан інтерфейсу, не оцінка якості голосу.
