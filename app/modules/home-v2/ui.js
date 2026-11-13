@@ -54,8 +54,56 @@
   return wrap;
  }
 
+ // Dutch course card: the three levels in plain words with progress, and the CEFR sentence.
+ function dutchCard(ctx, t, lang, after) {
+  const nl = el('article', 'hv-course is-live'); nl.dataset.course = 'nl';
+  { const hd = el('div', 'hv-course-head'); hd.append(badge('nl'), t.nl); nl.append(hd) }
+  for (const lv of ctx.levels || []) {
+   const row = button('', () => { lv.pick?.(); after?.() }, 'hv-level' + (lv.active ? ' is-active' : '')); row.disabled = !!lv.soon; row.dataset.level = lv.level;
+   const pct = lv.total ? Math.round(100 * lv.done / lv.total) : 0, bar = el('span', 'hv-bar'), f = el('span'); f.style.width = pct + '%'; bar.append(f);
+   const ln = (LEVEL_NAME[lang] || LEVEL_NAME.uk)[lv.level] || lv.level;
+   row.append(el('b', 'hv-level-name', ln), el('small', '', lv.level + ' · ' + (lv.soon ? t.soon : lv.done + ' / ' + lv.total + ' ' + t.lessons + (lv.active ? ' · ' + t.active : ''))), bar);
+   row.setAttribute('aria-label', t.nl + ' · ' + ln + ' (' + lv.level + ')' + (lv.soon ? ' — ' + t.soon : ' — ' + pct + '%')); nl.append(row) }
+  if ((ctx.levels || []).length) nl.append(el('p', 'hv-cefr', (LEVEL_NAME[lang] || LEVEL_NAME.uk).cefr));
+  return nl;
+ }
+ function otherCard(id, t, lang) {
+  const R = globalThis.LerenCourses, P = globalThis.LerenCoursePlayer;
+  const info = R?.COURSES?.[id], hasPack = !!globalThis.LerenCourseData?.[id], c = el('article', 'hv-course'); c.dataset.course = id;
+  { const hd = el('div', 'hv-course-head'); hd.append(badge(id), t[id]); c.append(hd) } c.append(el('small', 'hv-course-meta', (info?.levels || []).join(' · ') + ' · ' + (hasPack ? t.preview : t.soon)));
+  const b = button(hasPack ? t.open + ' →' : t.soon, () => P?.open?.(id, lang), 'hv-btn hv-small'); b.disabled = !hasPack || !P; c.append(b); return c;
+ }
+ // TEST-022 trial — the language choice at the very top of the home, two variants to compare:
+ //  "a": one button «Я вчу: Нідерландська · …  ▾» that opens every language and the Dutch levels;
+ //  "b": a row of language chips (Dutch is on; English / French open their course; German: soon).
+ const PICK = {uk: {learn: 'Я вчу', choose: 'Обрати мову й рівень', levelsT: 'Рівні нідерландської', langs: 'Мова, яку вчу'},
+  en: {learn: 'I’m learning', choose: 'Choose a language and level', levelsT: 'Dutch levels', langs: 'Language I’m learning'},
+  fr: {learn: 'J’apprends', choose: 'Choisir une langue et un niveau', levelsT: 'Niveaux de néerlandais', langs: 'Langue que j’apprends'},
+  ar: {learn: 'أتعلّم', choose: 'اختر لغة ومستوى', levelsT: 'مستويات الهولندية', langs: 'اللغة التي أتعلّمها'}};
+ function picker(ctx) {
+  const lang = T[ctx.lang] ? ctx.lang : 'uk', t = {...T[lang], ...PICK[lang]}, v = ctx.variant === 'b' ? 'b' : 'a';
+  const box = el('section', 'hv-pick hv-pick-' + v); box.dir = lang === 'ar' ? 'rtl' : 'ltr'; box.lang = lang; box.setAttribute('aria-label', t.langs);
+  const cur = (ctx.levels || []).find(l => l.active) || (ctx.levels || [])[0], ln = cur ? ((LEVEL_NAME[lang] || LEVEL_NAME.uk)[cur.level] || cur.level) : '';
+  const P = globalThis.LerenCoursePlayer;
+  if (v === 'a') {
+   const panel = el('div', 'hv-pick-panel'); panel.hidden = true; panel.id = 'hvPickPanel';
+   const btn = button('', () => { const open = panel.hidden; panel.hidden = !open; btn.setAttribute('aria-expanded', String(open)) }, 'hv-pick-btn');
+   btn.setAttribute('aria-expanded', 'false'); btn.setAttribute('aria-controls', 'hvPickPanel'); btn.setAttribute('aria-label', t.choose + ': ' + t.nl + (ln ? ' · ' + ln : ''));
+   const tx = el('span', 'hv-pick-text'); tx.append(el('small', '', t.learn), el('b', '', t.nl + (ln ? ' · ' + ln : '')));
+   const ar = el('span', 'hv-pick-arrow', '▾'); ar.setAttribute('aria-hidden', 'true'); btn.append(badge('nl'), tx, ar);
+   const grid = el('div', 'hv-course-grid'); grid.append(dutchCard(ctx, t, lang)); for (const id of ['en', 'fr', 'de']) grid.append(otherCard(id, t, lang));
+   panel.append(grid); box.append(btn, panel);
+  } else {
+   const row = el('div', 'hv-pick-chips'); row.setAttribute('role', 'group'); row.setAttribute('aria-label', t.langs);
+   const chip = (id, on, fn, off) => { const b = button('', fn, 'hv-chip-lang' + (on ? ' is-on' : '')); b.dataset.course = id; b.setAttribute('aria-pressed', String(!!on)); b.disabled = !!off; b.append(badge(id), el('span', '', t[id] + (off ? ' · ' + t.soon : ''))); return b };
+   row.append(chip('nl', true, () => document.querySelector('.hv-courses')?.scrollIntoView({behavior: 'smooth', block: 'start'})));
+   for (const id of ['en', 'fr', 'de']) { const has = !!globalThis.LerenCourseData?.[id] && !!P; row.append(chip(id, false, () => P?.open?.(id, lang), !has)) }
+   box.append(row);
+  }
+  return box;
+ }
  function top(ctx) {
-  const lang = T[ctx.lang] ? ctx.lang : 'uk', t = T[lang], box = el('section', 'hv'); box.dir = lang === 'ar' ? 'rtl' : 'ltr'; box.lang = lang;
+  const lang = T[ctx.lang] ? ctx.lang : 'uk', t = {...T[lang], ...PICK[lang]}, box = el('section', 'hv'); box.dir = lang === 'ar' ? 'rtl' : 'ltr'; box.lang = lang;
   box.setAttribute('aria-label', t.kicker);
   // HERO
   const hero = el('div', 'hv-hero'); hero.dataset.art = 'fallback';
@@ -75,25 +123,15 @@
   const cat = single(VIS?.mascot, 'hv-cat', t.cat) || (() => { const img = el('img', 'hv-cat'); img.src = 'img/home/hero-cat-v196-320.webp'; img.alt = t.cat; img.width = 320; img.height = 320; img.loading = 'lazy'; img.decoding = 'async'; img.onerror = () => img.remove(); return img })();
   hero.append(copy, cat); box.append(hero);
 
-  // Courses
-  const courses = el('section', 'hv-courses'); courses.append(el('h2', 'hv-h2', t.courses));
-  const grid = el('div', 'hv-course-grid');
-  const nl = el('article', 'hv-course is-live'); nl.dataset.course = 'nl';
-  { const hd = el('div', 'hv-course-head'); hd.append(badge('nl'), t.nl); nl.append(hd) }
-  for (const lv of ctx.levels || []) {
-   const row = button('', () => lv.pick?.(), 'hv-level' + (lv.active ? ' is-active' : '')); row.disabled = !!lv.soon; row.dataset.level = lv.level;
-   const pct = lv.total ? Math.round(100 * lv.done / lv.total) : 0, bar = el('span', 'hv-bar'), f = el('span'); f.style.width = pct + '%'; bar.append(f);
-   const ln = (LEVEL_NAME[lang] || LEVEL_NAME.uk)[lv.level] || lv.level;
-   row.append(el('b', 'hv-level-name', ln), el('small', '', lv.level + ' · ' + (lv.soon ? t.soon : lv.done + ' / ' + lv.total + ' ' + t.lessons + (lv.active ? ' · ' + t.active : ''))), bar);
-   row.setAttribute('aria-label', t.nl + ' · ' + ln + ' (' + lv.level + ')' + (lv.soon ? ' — ' + t.soon : ' — ' + pct + '%')); nl.append(row) }
-  if ((ctx.levels || []).length) nl.append(el('p', 'hv-cefr', (LEVEL_NAME[lang] || LEVEL_NAME.uk).cefr));
-  grid.append(nl);
-  const R = globalThis.LerenCourses, P = globalThis.LerenCoursePlayer;
-  for (const id of ['en', 'fr', 'de']) {
-   const info = R?.COURSES?.[id], hasPack = !!globalThis.LerenCourseData?.[id], c = el('article', 'hv-course'); c.dataset.course = id;
-   { const hd = el('div', 'hv-course-head'); hd.append(badge(id), t[id]); c.append(hd) } c.append(el('small', 'hv-course-meta', (info?.levels || []).join(' · ') + ' · ' + (hasPack ? t.preview : t.soon)));
-   const b = button(hasPack ? t.open + ' →' : t.soon, () => P?.open?.(id, lang), 'hv-btn hv-small'); b.disabled = !hasPack || !P; c.append(b); grid.append(c) }
-  courses.append(grid); box.append(courses);
+  // Courses (TEST-022 trial: with ctx.picker "a" the whole choice lives in the top button, with "b" only the Dutch
+  // levels stay here and the languages are the chips at the top)
+  if (ctx.picker !== 'a') {
+   const courses = el('section', 'hv-courses'); courses.append(el('h2', 'hv-h2', ctx.picker === 'b' ? t.levelsT : t.courses));
+   const grid = el('div', 'hv-course-grid' + (ctx.picker === 'b' ? ' is-single' : ''));
+   grid.append(dutchCard(ctx, t, lang));
+   if (ctx.picker !== 'b') for (const id of ['en', 'fr', 'de']) grid.append(otherCard(id, t, lang));
+   courses.append(grid); box.append(courses);
+  }
 
   // LIFE entrance + progress side by side on wide screens
   const duo = el('div', 'hv-duo');
@@ -112,5 +150,5 @@
   duo.append(lifeCard, prog); box.append(duo);
   return box;
  }
- globalThis.LerenHomeV2 = {top, ready: () => ready, T, langSelect};
+ globalThis.LerenHomeV2 = {top, picker, ready: () => ready, T, langSelect};
 })();
