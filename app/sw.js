@@ -396,3 +396,6 @@ APP_FILES.push("./modules/scenes/map.js?v=165");
 
 // TEST-020: refresh cached home fallback code and the shared LIFE entry on worker update.
 // TEST-020 Learning: release 230 refreshes home-v2 (route, benefits) and learning-path/ui.js; static guides load on demand (not precached).
+
+// TEST-025: common design foundation, cached with the shell.
+APP_FILES.push("./modules/design-system/tokens.css?v=1", "./modules/design-system/foundation.css?v=1", "./modules/design-system/home.css?v=1");
