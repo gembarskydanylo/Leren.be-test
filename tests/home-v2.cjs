@@ -87,10 +87,10 @@ function size(file){const b=fs.readFileSync(file);
    await page.locator('#uiLangPicker').selectOption('en',{force:true});await page.waitForFunction(()=>/Learn languages/.test(document.querySelector('.hv-title')?.textContent||''));
    await page.locator('#uiLangPicker').selectOption('uk',{force:true});await page.waitForFunction(()=>/Вивчай/.test(document.querySelector('.hv-title')?.textContent||''));
    // Dutch level
-   await page.click('.hv-level[data-level="A1.2"]');await page.waitForSelector('.hv-level.is-active[data-level="A1.2"]');
-   await page.click('.hv-level[data-level="A1.1"]');await page.waitForSelector('.hv-level.is-active[data-level="A1.1"]');
+   await page.click('.hv-pick-btn');await page.click('.hv-level[data-level="A1.2"]');await page.waitForSelector('.hv-level.is-active[data-level="A1.2"]',{state:'attached'});
+   await page.click('.hv-pick-btn');await page.click('.hv-level[data-level="A1.1"]');await page.waitForSelector('.hv-level.is-active[data-level="A1.1"]',{state:'attached'});
    // English course player with recorded audio
-   await page.click('.hv-course[data-course="en"] button');await page.waitForSelector('.cp-stage');await page.waitForTimeout(500);
+   await page.click('.hv-pick-btn');await page.click('.hv-course[data-course="en"] button');await page.waitForSelector('.cp-stage');await page.waitForTimeout(500);
    await page.click('.cp-stage .cp-primary');await page.waitForSelector('.cp-word');await page.locator('.cp-sound').first().click();await page.waitForTimeout(300);
    assert((await page.evaluate(()=>globalThis.__cpRecorded||[])).length>0,'English card plays the recorded voice');await page.click('.cp-close');
    // rewards → progress view

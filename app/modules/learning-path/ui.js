@@ -63,12 +63,12 @@
    // TEST-019: «Your next lesson» is the first and most visible block for everyone (new: «Start learning», with
    // progress: «Continue learning»); the HERO, courses and levels, games and AI follow below — nothing is hidden.
    const labels=START[lang]||START.uk;
-   // TEST-022 trial: language choice at the very top, two variants to compare (?picker=a or ?picker=b; off without it).
-   const pickVariant=(()=>{try{const q=new URLSearchParams(location.search).get('picker');if(q==='a'||q==='b'){sessionStorage.setItem('leren_picker_trial',q);return q}const v=sessionStorage.getItem('leren_picker_trial');return v==='a'||v==='b'?v:''}catch{return ''}})();
+   // TEST-022: the language and level choice is one button at the very top of the home («Я вчу …»).
    const levelList=[['A1.1','a11'],['A1.2','a12'],['A2','a21']].map(([level])=>({level,active:level===model.course,soon:!model.levels.includes(level),...(model.levels.includes(level)?model.courseStats(level):{done:0,total:0}),pick:()=>{if(pickCourse(level))render()}}));
-   if(pickVariant&&globalThis.LerenHomeV2?.picker)root.appendChild(LerenHomeV2.picker({lang,variant:pickVariant,levels:levelList}));
+   const hasPicker=!!globalThis.LerenHomeV2?.picker;
+   if(hasPicker)root.appendChild(LerenHomeV2.picker({lang,levels:levelList}));
    root.appendChild(LerenFocus.hero({lang,started,lesson:next?(bridge.lessonLabel(next.tab,lang)||next.tab):'',chapter:ch?title(ch):'',chapterId:ch?.id,part:next?.part,totalParts:next?.parts,placing,allDone:!next&&!placing,level:ch?.level||model.course,done:stats.done,total:stats.total,plan:warm?warmPlan(warm):'',planBy:bridge.person?.().name,goal:goalLine(),startLabel:labels[0],resumeLabel:labels[1],onBegin:beginNext,onPlacement:model.course===model.levels[0]?()=>{model.place();go('placement')}:null,onMap:()=>openMap(),onFree(){bridge.stop();bridge.free()},freeLabel:t('free')}));
-   const homeTop=globalThis.LerenHomeV2?.top?.({lang,started,secondary:true,picker:pickVariant,onContinue:beginNext,stats:bridge.stats?.(),rewards:()=>bridge.rewards(),levels:levelList});
+   const homeTop=globalThis.LerenHomeV2?.top?.({lang,started,secondary:true,picker:hasPicker,onContinue:beginNext,stats:bridge.stats?.(),rewards:()=>bridge.rewards(),levels:levelList});
    if(homeTop)root.appendChild(homeTop);
    else{if(LerenFocus.banner)root.appendChild(LerenFocus.banner());
    // New languages, preview only (lerenbe.com/?multilang=1): English, French, German open in their own player.

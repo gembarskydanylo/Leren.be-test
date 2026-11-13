@@ -115,9 +115,9 @@ const root = path.join(__dirname, '..', 'app'), read = f => fs.readFileSync(path
    assert.match(await page.locator('.fh-hero .fh-primary').textContent(), /Почати навчання/, 'new → «Почати навчання»');
    assert.match(await page.locator('.fh-goal').textContent(), /20 хв: урок, повторення й гра або розмова/, 'plan for 20 min (lesson length unchanged)');
    assert.equal(await page.locator('.hv-hero .hv-primary').count(), 0, 'HERO button is secondary (one main button)');
-   for (const name of ['Починаю з нуля', 'Вивчаю основи', 'Спілкуюся в повсякденних ситуаціях']) assert.equal(await page.locator('.hv-level-name', {hasText: name}).count(), 1, name);
+   await page.click('.hv-pick-btn'); for (const name of ['Починаю з нуля', 'Вивчаю основи', 'Спілкуюся в повсякденних ситуаціях']) assert.equal(await page.locator('.hv-level-name', {hasText: name}).count(), 1, name);
    assert.match(await page.locator('.hv-cefr').textContent(), /CEFR/); assert(!/інтеграці/i.test(await page.locator('#learningPath').textContent()), 'no exam link');
-   for (const sel of ['.hv-courses', '.fh-more']) assert.equal(await page.locator(sel).count(), 1, sel + ': still on the home, below'); // TEST-022: games / AI / clock / topics in the short «More» block
+   for (const sel of ['.hv-pick', '.fh-more']) assert.equal(await page.locator(sel).count(), 1, sel + ': still on the home, below'); // TEST-022: games / AI / clock / topics in the short «More» block
    assert(await noHScroll(page), w + ': no horizontal scroll');
    await shot(page, tag + '-' + w + '-6-home-new');
    await page.click('.fh-hero .fh-primary'); await firstLessonOpen(page, 'home start ' + w);

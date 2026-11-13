@@ -26,7 +26,7 @@ const repo = path.join(__dirname, '..'), root = path.join(repo, 'app');
  const home = page => page.evaluate(() => { const lp = document.querySelector('#learningPath'), has = s => !!lp.querySelector(s);
   const small = [...lp.querySelectorAll('button, a.hv-btn, a.hv-life, a.hs-life-link, a.hs-feedback-link')].filter(e => { const r = e.getBoundingClientRect(); return r.width && r.height && (r.height < 44 || r.width < 44) }).map(e => e.textContent.trim().slice(0, 22) + ' ' + Math.round(r(e).width) + '×' + Math.round(r(e).height)); function r(e) { return e.getBoundingClientRect() }
   return {mode: lp.dataset.home, more: has('.fh-more'), intro: has('.hs-intro'), features: has('.hs-features'), overview: has('.fh-overview'), oldLife: has('.hs-life'), routeDup: has('.hs-intro .hs-text-link'), heroBtns: lp.querySelectorAll('.hv-hero .hv-btn').length,
-   primary: lp.querySelectorAll('.fh-primary').length, lifeLinks: [...lp.querySelectorAll('a[href*="learn-life"]')].length, courses: has('.hv-courses'), lifeCard: has('.hv-life'), progress: has('.hv-progress'),
+   primary: lp.querySelectorAll('.fh-primary').length, lifeLinks: [...lp.querySelectorAll('a[href*="learn-life"]')].length, courses: has('.hv-pick') && lp.firstElementChild.nextElementSibling === lp.querySelector('.hv-pick') || lp.querySelector('.hv-pick') === [...lp.children].find(e => e.offsetHeight), oldCourses: has('.hv-courses'), lifeCard: has('.hv-life'), progress: has('.hv-progress'),
    height: document.documentElement.scrollHeight, hscroll: document.documentElement.scrollWidth > innerWidth, small} });
  const finish = (page, n) => page.evaluate(n => { const m = learningPath.model, ids = LerenLearningPath.catalog(DATA, LerenCurriculum).lessons.slice(0, n).map(l => l.id); if (!m.state.started) m.start(); for (const id of ids) m.state.completed[id] = 1; m.state.session = null; m.save(); learningPath.home() }, n);
  try {
@@ -34,10 +34,19 @@ const repo = path.join(__dirname, '..'), root = path.join(repo, 'app');
    const {ctx, page, errors} = await open(w, h);
    const s = await home(page);
    assert.equal(s.mode, 'simple', w + ': beginner → simple home'); assert(s.more && !s.intro && !s.features && !s.overview, w + ': the long showcase is folded');
-   assert(s.courses && s.lifeCard && s.progress, w + ': courses, LIFE and progress stay'); assert.equal(s.heroBtns, 0, w + ': no buttons in the HERO'); assert.equal(s.primary, 1, w + ': one main button');
+   assert(s.courses && !s.oldCourses && s.lifeCard && s.progress, w + ': «Я вчу» is the first block (no separate Courses block), LIFE and progress stay'); assert.equal(s.heroBtns, 0, w + ': no buttons in the HERO'); assert.equal(s.primary, 1, w + ': one main button');
    assert.equal(s.lifeLinks, 1, w + ': one LIFE entrance'); assert(!s.hscroll, w + ': no horizontal scroll'); assert.deepEqual(s.small, [], w + ': tap targets ≥ 44 px');
    assert.deepEqual(await page.$$eval('.fh-more-tile strong', x => x.map(e => e.textContent)), ['Ігри', 'Поговорити з AI', 'Годинник', 'Усі теми']);
    await shot(page, w + '-beginner', true);
+   // «Я вчу» — one button at the top: opens every language and the Dutch levels; picking a level changes the label and the lesson
+   assert.match(await page.locator('.hv-pick-btn').textContent(), /Я вчу.*Нідерландська · Починаю з нуля/); assert.equal(await page.getAttribute('.hv-pick-btn', 'aria-expanded'), 'false'); assert.equal(await page.locator('.hv-pick-panel').isVisible(), false);
+   const cta = await page.evaluate(() => document.querySelector('.fh-primary').getBoundingClientRect().bottom); assert(cta <= h, w + ': lesson button stays on the first screen under the picker (' + Math.round(cta) + ')');
+   await page.click('.hv-pick-btn'); assert.equal(await page.getAttribute('.hv-pick-btn', 'aria-expanded'), 'true'); assert.deepEqual(await page.$$eval('.hv-pick-panel .hv-course', x => x.map(e => e.dataset.course)), ['nl', 'en', 'fr', 'de']);
+   assert.deepEqual(await page.$$eval('.hv-pick-panel .hv-level-name', x => x.map(e => e.textContent)), ['Починаю з нуля', 'Вивчаю основи', 'Спілкуюся в повсякденних ситуаціях']); assert(await page.locator('.hv-pick-panel .hv-cefr').count(), 'CEFR note');
+   assert.deepEqual(await page.evaluate(() => [...document.querySelectorAll('.hv-pick button')].filter(e => { const r = e.getBoundingClientRect(); return r.width && r.height < 44 }).length), 0, w + ': picker targets ≥ 44 px'); await shot(page, w + '-picker-open');
+   await page.click('.hv-pick-panel .hv-level[data-level="A1.2"]'); await page.waitForFunction(() => /Вивчаю основи/.test(document.querySelector('.hv-pick-btn')?.textContent || '')); assert.equal(await page.evaluate(() => localStorage.getItem('poly_level')), 'a12'); assert.equal(await page.locator('.hv-pick-panel').isVisible(), false, 'closes after the choice');
+   await page.click('.hv-pick-btn'); await page.click('.hv-pick-panel .hv-level[data-level="A1.1"]'); await page.waitForFunction(() => /Починаю з нуля/.test(document.querySelector('.hv-pick-btn')?.textContent || ''));
+   await page.click('.hv-pick-btn'); await page.click('.hv-pick-panel .hv-course[data-course="en"] button'); await page.waitForSelector('.cp-stage'); await page.goto(B); await page.waitForSelector('.fh-more'); await page.waitForTimeout(300);
    // everything from the folded part is one tap away
    await page.click('.fh-more-tile[data-more="topics"]'); await page.waitForFunction(() => document.querySelector('#learningPath').dataset.screen === 'map'); await page.click('.fh-back'); await page.waitForSelector('.fh-more');
    await page.click('.fh-more-tile[data-more="games"]'); await page.waitForFunction(() => view === 'games'); await page.evaluate(() => setView('path')); await page.waitForSelector('.fh-more');

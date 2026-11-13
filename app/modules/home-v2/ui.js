@@ -73,33 +73,23 @@
   { const hd = el('div', 'hv-course-head'); hd.append(badge(id), t[id]); c.append(hd) } c.append(el('small', 'hv-course-meta', (info?.levels || []).join(' · ') + ' · ' + (hasPack ? t.preview : t.soon)));
   const b = button(hasPack ? t.open + ' →' : t.soon, () => P?.open?.(id, lang), 'hv-btn hv-small'); b.disabled = !hasPack || !P; c.append(b); return c;
  }
- // TEST-022 trial — the language choice at the very top of the home, two variants to compare:
- //  "a": one button «Я вчу: Нідерландська · …  ▾» that opens every language and the Dutch levels;
- //  "b": a row of language chips (Dutch is on; English / French open their course; German: soon).
- const PICK = {uk: {learn: 'Я вчу', choose: 'Обрати мову й рівень', levelsT: 'Рівні нідерландської', langs: 'Мова, яку вчу'},
-  en: {learn: 'I’m learning', choose: 'Choose a language and level', levelsT: 'Dutch levels', langs: 'Language I’m learning'},
-  fr: {learn: 'J’apprends', choose: 'Choisir une langue et un niveau', levelsT: 'Niveaux de néerlandais', langs: 'Langue que j’apprends'},
-  ar: {learn: 'أتعلّم', choose: 'اختر لغة ومستوى', levelsT: 'مستويات الهولندية', langs: 'اللغة التي أتعلّمها'}};
+ // TEST-022 — the language choice at the very top of the home: one button «Я вчу: Нідерландська · <level> ▾» that opens
+ // every language and the Dutch levels (chosen by the user over a row of language chips).
+ const PICK = {uk: {learn: 'Я вчу', choose: 'Обрати мову й рівень', langs: 'Мова, яку вчу'},
+  en: {learn: 'I’m learning', choose: 'Choose a language and level', langs: 'Language I’m learning'},
+  fr: {learn: 'J’apprends', choose: 'Choisir une langue et un niveau', langs: 'Langue que j’apprends'},
+  ar: {learn: 'أتعلّم', choose: 'اختر لغة ومستوى', langs: 'اللغة التي أتعلّمها'}};
  function picker(ctx) {
-  const lang = T[ctx.lang] ? ctx.lang : 'uk', t = {...T[lang], ...PICK[lang]}, v = ctx.variant === 'b' ? 'b' : 'a';
-  const box = el('section', 'hv-pick hv-pick-' + v); box.dir = lang === 'ar' ? 'rtl' : 'ltr'; box.lang = lang; box.setAttribute('aria-label', t.langs);
+  const lang = T[ctx.lang] ? ctx.lang : 'uk', t = {...T[lang], ...PICK[lang]};
+  const box = el('section', 'hv-pick'); box.dir = lang === 'ar' ? 'rtl' : 'ltr'; box.lang = lang; box.setAttribute('aria-label', t.langs);
   const cur = (ctx.levels || []).find(l => l.active) || (ctx.levels || [])[0], ln = cur ? ((LEVEL_NAME[lang] || LEVEL_NAME.uk)[cur.level] || cur.level) : '';
-  const P = globalThis.LerenCoursePlayer;
-  if (v === 'a') {
-   const panel = el('div', 'hv-pick-panel'); panel.hidden = true; panel.id = 'hvPickPanel';
-   const btn = button('', () => { const open = panel.hidden; panel.hidden = !open; btn.setAttribute('aria-expanded', String(open)) }, 'hv-pick-btn');
-   btn.setAttribute('aria-expanded', 'false'); btn.setAttribute('aria-controls', 'hvPickPanel'); btn.setAttribute('aria-label', t.choose + ': ' + t.nl + (ln ? ' · ' + ln : ''));
-   const tx = el('span', 'hv-pick-text'); tx.append(el('small', '', t.learn), el('b', '', t.nl + (ln ? ' · ' + ln : '')));
-   const ar = el('span', 'hv-pick-arrow', '▾'); ar.setAttribute('aria-hidden', 'true'); btn.append(badge('nl'), tx, ar);
-   const grid = el('div', 'hv-course-grid'); grid.append(dutchCard(ctx, t, lang)); for (const id of ['en', 'fr', 'de']) grid.append(otherCard(id, t, lang));
-   panel.append(grid); box.append(btn, panel);
-  } else {
-   const row = el('div', 'hv-pick-chips'); row.setAttribute('role', 'group'); row.setAttribute('aria-label', t.langs);
-   const chip = (id, on, fn, off) => { const b = button('', fn, 'hv-chip-lang' + (on ? ' is-on' : '')); b.dataset.course = id; b.setAttribute('aria-pressed', String(!!on)); b.disabled = !!off; b.append(badge(id), el('span', '', t[id] + (off ? ' · ' + t.soon : ''))); return b };
-   row.append(chip('nl', true, () => document.querySelector('.hv-courses')?.scrollIntoView({behavior: 'smooth', block: 'start'})));
-   for (const id of ['en', 'fr', 'de']) { const has = !!globalThis.LerenCourseData?.[id] && !!P; row.append(chip(id, false, () => P?.open?.(id, lang), !has)) }
-   box.append(row);
-  }
+  const panel = el('div', 'hv-pick-panel'); panel.hidden = true; panel.id = 'hvPickPanel';
+  const btn = button('', () => { const open = panel.hidden; panel.hidden = !open; btn.setAttribute('aria-expanded', String(open)) }, 'hv-pick-btn');
+  btn.setAttribute('aria-expanded', 'false'); btn.setAttribute('aria-controls', 'hvPickPanel'); btn.setAttribute('aria-label', t.choose + ': ' + t.nl + (ln ? ' · ' + ln : ''));
+  const tx = el('span', 'hv-pick-text'); tx.append(el('small', '', t.learn), el('b', '', t.nl + (ln ? ' · ' + ln : '')));
+  const ar = el('span', 'hv-pick-arrow', '▾'); ar.setAttribute('aria-hidden', 'true'); btn.append(badge('nl'), tx, ar);
+  const grid = el('div', 'hv-course-grid'); grid.append(dutchCard(ctx, t, lang)); for (const id of ['en', 'fr', 'de']) grid.append(otherCard(id, t, lang));
+  panel.append(grid); box.append(btn, panel);
   return box;
  }
  function top(ctx) {
@@ -123,13 +113,12 @@
   const cat = single(VIS?.mascot, 'hv-cat', t.cat) || (() => { const img = el('img', 'hv-cat'); img.src = 'img/home/hero-cat-v196-320.webp'; img.alt = t.cat; img.width = 320; img.height = 320; img.loading = 'lazy'; img.decoding = 'async'; img.onerror = () => img.remove(); return img })();
   hero.append(copy, cat); box.append(hero);
 
-  // Courses (TEST-022 trial: with ctx.picker "a" the whole choice lives in the top button, with "b" only the Dutch
-  // levels stay here and the languages are the chips at the top)
-  if (ctx.picker !== 'a') {
-   const courses = el('section', 'hv-courses'); courses.append(el('h2', 'hv-h2', ctx.picker === 'b' ? t.levelsT : t.courses));
-   const grid = el('div', 'hv-course-grid' + (ctx.picker === 'b' ? ' is-single' : ''));
-   grid.append(dutchCard(ctx, t, lang));
-   if (ctx.picker !== 'b') for (const id of ['en', 'fr', 'de']) grid.append(otherCard(id, t, lang));
+  // Courses: on the app's home the choice lives in the «Я вчу» button at the top (picker(), TEST-022); this block
+  // stays only for layouts without that button.
+  if (!ctx.picker) {
+   const courses = el('section', 'hv-courses'); courses.append(el('h2', 'hv-h2', t.courses));
+   const grid = el('div', 'hv-course-grid'); grid.append(dutchCard(ctx, t, lang));
+   for (const id of ['en', 'fr', 'de']) grid.append(otherCard(id, t, lang));
    courses.append(grid); box.append(courses);
   }
 
