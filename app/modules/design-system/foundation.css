@@ -1,5 +1,5 @@
 /* Presentation adapters for existing components; DOM actions remain owned by their modules. */
-:root{
+:root,:root[data-theme="dark"]{
  --bg:var(--lb-canvas);--surface:var(--lb-surface);--surface-2:var(--lb-subtle);--soft:var(--lb-brand-soft);
  --ink:var(--lb-ink);--ink-2:var(--lb-muted);--mut:var(--lb-muted);--line:var(--lb-line);--edge:var(--lb-line);
  --oranje:var(--lb-brand);--oranje-deep:var(--lb-brand-hover);--on-oranje:var(--lb-on-brand);
@@ -55,3 +55,8 @@ button:disabled{cursor:default}
 #modeButtons button.primary{transform:none}
 main>header .hdr-stats .streak-pill.off{color:var(--lb-muted)}
 main>header .header-language select{box-shadow:none}
+/* Author layout rules must not reveal unavailable controls marked hidden by the app. */
+[hidden]{display:none!important}
+main>header .brand{min-height:44px}
+@media(max-width:650px){main>header .brand{flex-basis:44px;min-width:44px}}
+.dh-icon{min-width:44px;min-height:44px;border-radius:12px;background:var(--lb-subtle);color:var(--lb-ink);box-shadow:none}

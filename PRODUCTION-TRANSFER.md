@@ -141,3 +141,4 @@
 - Semantic design tokens and adapters live under `app/modules/design-system/`; app, LIFE and guides reuse the same palette and component rules. Preserve approved HERO A/C and cat assets.
 - No course IDs, learning algorithms or storage migration. PR #13 and TEST-024 are unmerged parallel work, not dependencies silently included here. Resolve shell/cache changes explicitly when integrating.
 - Not approved for production; physical Samsung and owner visual approval required.
+- TEST-025 integration: release 250, cache v250, tokens/foundation/home/learning/engagement/life/guides CSS v1. New stylesheets must ship together with the page hooks and SW references. 22 existing suites + new design suite (164 screen checks) pass. 14 Before/After pairs in screenshots/test-025; keep Draft pending owner and Samsung review.

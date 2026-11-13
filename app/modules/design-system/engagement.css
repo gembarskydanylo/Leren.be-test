@@ -18,3 +18,8 @@
 .dict-search{background:var(--lb-surface);border-color:var(--lb-line);border-radius:12px;min-height:48px}.dict-row{padding:16px;border-color:var(--lb-line)}
 .hs-feedback-link,.hs-life-link{box-shadow:none;border-color:var(--lb-line);border-radius:14px}
 @media(max-width:600px){.sheet{padding:12px;padding-bottom:calc(12px + env(safe-area-inset-bottom));align-items:flex-end}.sheet-panel{padding:20px 16px;border-radius:24px 24px 16px 16px}.pv-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.pv-tile{padding:18px}.pv-row{flex-wrap:wrap}.pv-insights{padding:18px}}
+.sheet-panel :is(.set-btn,.ch-mini,.switch,.report-bug-btn){min-width:44px;min-height:44px;box-shadow:none}
+.sheet-panel .switch{height:44px;width:58px;border-radius:14px;background:var(--lb-subtle);border:1px solid var(--lb-line)}
+.sheet-panel .switch i{top:8px;inset-inline-start:5px;box-shadow:none;background:var(--lb-muted)}
+.sheet-panel .switch[aria-checked=true]{background:var(--lb-success-soft);border-color:var(--lb-success)}
+.sheet-panel .switch[aria-checked=true] i{inset-inline-start:25px;background:var(--lb-success)}

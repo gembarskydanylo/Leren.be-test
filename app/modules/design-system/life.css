@@ -26,3 +26,9 @@ body{font-family:var(--lb-font);line-height:1.55;background:var(--lb-canvas);col
 .ll-hero,.ll-story,.ll-quick{border-radius:24px;border-color:var(--lb-line);box-shadow:var(--lb-shadow);background:var(--lb-surface);color:var(--lb-ink)}
 .ll-hero h1{font-family:var(--lb-heading);font-weight:900;letter-spacing:-.04em}.ll-start{min-height:48px;border-radius:12px;background:var(--lb-brand);color:var(--lb-on-brand);box-shadow:none}
 .ll-stage-nav button,.ll-choice,.ll-action,.ll-btn{min-height:48px;min-width:44px;border-radius:12px;border-color:var(--lb-line);box-shadow:none}.ll-story-head h2{font-family:var(--lb-heading)}
+:root{--ink:var(--lb-ink);--line:var(--lb-line)}
+body:has(.ll-top) button{min-width:44px;min-height:44px}
+.ll-hero .ll-kicker{color:var(--lb-brand)}
+.ll-hero h1 em{color:var(--lb-brand)}
+.ll-hero-copy>p:not(.ll-kicker){color:var(--lb-muted)}
+.ll-story,.ll-quick,.ll-speak,.ll-bank{background:var(--lb-surface);color:var(--lb-ink);border:1px solid var(--lb-line);border-radius:24px;box-shadow:var(--lb-shadow)}

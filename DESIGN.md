@@ -1,3 +1,5 @@
+> TEST-025: для тестового `app/`, LIFE та посібників нова система й правила — [LerenBe 3.0](docs/design/LERENBE-3.md), [Before / After](docs/design/BEFORE-AFTER.md). Нижче збережено опис попереднього v2.
+
 # Leren.be — дизайн-система «Oranje × België» (v2)
 
 Усі стилі зібрані в одному блоці `<style>` в `index.html`, на одній системі токенів, без `!important`-шарів. Тем дві: світла (типова) і темна, `data-theme="light" | "dark"` на `<html>`.

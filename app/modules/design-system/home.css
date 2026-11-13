@@ -46,3 +46,15 @@
 @media(max-width:430px){.fh-hero{padding:20px 16px 0;grid-template-columns:minmax(0,1fr) 76px;gap:10px}.fh-hero-art .comp-cat{width:90px;height:90px}.fh-hero-art:before{width:76px;height:76px}.fh-hero h2{font-size:1.65rem}.hv-progress,.hv-route,.hv-benefits,.fh-more{padding:20px}.hv-life{grid-template-columns:minmax(0,1fr)}.hv-life-art{height:160px;min-height:160px}.fh-more-grid{grid-template-columns:minmax(0,1fr)}}
 .fh-goal{background:var(--lb-subtle);color:var(--lb-ink);border-radius:12px}
 .fh-hero .fh-alternative{box-shadow:none}
+/* Remove the old desktop decorative frame without changing the approved cat asset. */
+.fh-hero-art{min-height:0;align-self:center;justify-content:center}
+.fh-hero-art:before{top:50%;transform:translateY(-50%);background:var(--lb-brand-soft)}
+.fh-hero-art::after{display:none}
+@media(min-width:900px){.fh-hero-footer{margin-top:8px}.hv-progress{align-self:start}}
+/* Explicit theme adapters outrank legacy dark-theme rules and keep text on an opaque surface. */
+:root[data-theme=dark] .hv-hero[data-art=image] .hv-hero-copy{background:var(--lb-surface)}
+:root[data-theme=dark] .hv-hero-copy .hv-title{color:var(--lb-ink)}
+:root[data-theme=dark] .hv-hero-copy .hv-title em,:root[data-theme=dark] .hv-hero-copy .hv-kicker{color:var(--lb-brand)}
+:root[data-theme=dark] .hv-hero-copy .hv-sub{color:var(--lb-muted)}
+.fh-hero-footer .fh-meter{height:8px;min-width:0;flex:1 1 100%;max-width:none}
+.hv-progress .hv-btn,.hv-benefits .hv-btn{background:var(--lb-surface);color:var(--lb-ink);border:1px solid var(--lb-line)}
