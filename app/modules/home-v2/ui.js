@@ -121,6 +121,8 @@
    fr:['Ton parcours de néerlandais','Chaque étape est un thème du cours. Les leçons terminées comptent dans ta progression.','Tu es ici','À venir','Terminé','Commence par le premier thème. Termine une leçon pour voir ta progression.','Tous les thèmes'],
    ar:['مسارك في تعلّم الهولندية','كل محطة موضوع في دورتك. الدروس المكتملة محسوبة في تقدّمك.','أنت هنا','قادم','مكتمل','ابدأ بالموضوع الأول. يظهر التقدّم بعد إكمال الدرس.','جميع المواضيع']
   }[lang];
+  // Ukrainian agrees with the number: 1 урок, 2–4 уроки, 5+ уроків (11–14 → уроків).
+  const lessonsWord=n=>lang!=='uk'?t.lessons:n%10===1&&n%100!==11?'урок':n%10>=2&&n%10<=4&&(n%100<12||n%100>14)?'уроки':'уроків';
   if(ctx.route?.length){
    const route=el('section','hv-route'), heading=el('h2','hv-h2',routeText[0]);
    route.append(heading,el('p','hv-route-intro',routeText[1]));
@@ -131,7 +133,7 @@
     li.dataset.chapter=c.id; li.dataset.state=complete?'complete':c.current?'current':'ahead';
     const b=button('',c.open,'hv-stop-button');if(c.current)b.setAttribute('aria-current','step');
     const number=el('span','hv-stop-number',complete?'✓':String(i+1));number.setAttribute('aria-hidden','true');
-    const info=el('span','hv-stop-info');info.append(el('small','',complete?routeText[4]:c.current?routeText[2]:routeText[3]),el('b','',c.title),el('span','',c.done+' / '+c.total+' '+t.lessons));
+    const info=el('span','hv-stop-info');info.append(el('small','',complete?routeText[4]:c.current?routeText[2]:routeText[3]),el('b','',c.title),el('span','',c.done+' / '+c.total+' '+lessonsWord(c.total)));
     const meter=el('progress');meter.max=c.total||1;meter.value=c.done;meter.setAttribute('aria-label',c.title+' — '+c.done+' / '+c.total);
     info.append(meter);b.append(number,info);li.append(b);list.append(li);
    });
