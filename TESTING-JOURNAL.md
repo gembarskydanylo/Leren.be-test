@@ -289,3 +289,8 @@ Total output lines: 142
 ## TEST-025 B · Learning Experience · 2026-11-13 21:26 CET
 - Додано `design-system/learning.css`: спільний вигляд guided Study/Listen/Check/Review, free Study/Quiz/Audio/Review, preview-player, карти тем і списку уроків. Великі варіанти, фокус, семантичні кольори feedback, чітка кнопка звуку. Жодних змін алгоритмів чи ID.
 - PASS `first-lesson.cjs` (новачки, reload, XP, мова en) і `learning-map-edges.cjs` (незалежні A1.1/A1.2/A2). Browser matrix 8 ширин із console/error/navigation/reload та screenshots `/private/tmp/test025-evidence/stage-b/` PASS. Аудіо в цих знімках — стан інтерфейсу, не оцінка якості голосу.
+
+## TEST-025 C · Engagement · 2026-11-13 21:34 CET
+- Додано engagement/life/guides adapters, спільні токени для progress/XP/streak/goals/settings, LIFE scene/home/result та посібників. LIFE зберігає існуючі stage-ілюстрації/логіку, має великі керування й цілісні діалоги. Оновлено також наявний режим паркану; фальшивого Profile немає.
+- PASS `life-quality.cjs`: завершення, повтор, голосові fallback, збереження, великі шрифти, rotation, mobile/desktop; PASS `learning-map-seo.cjs`. Матриця 8 ширин із pageerror/overflow/navigation/reload PASS, докази `/private/tmp/test025-evidence/stage-c/`. Підключені CSS у app/LIFE/guides, офлайн references у SW; ні індексація, ні контент не змінені.
+- Автоматична темна палітра для LIFE/посібників без data-theme; у застосунку явна наявна тема користувача має пріоритет.

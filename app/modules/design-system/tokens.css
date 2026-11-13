@@ -19,3 +19,13 @@
  --lb-danger:#ffb5bc;--lb-danger-soft:#452b32;--lb-warning:#f0d18a;--lb-warning-soft:#3c3322;
  --lb-focus:#9bc5ff;--lb-shadow:none;
 }
+
+@media(prefers-color-scheme:dark){
+:root:not([data-theme]){
+ --lb-brand:#ffb18c;--lb-brand-hover:#ffc7ad;--lb-brand-soft:#3e2b25;--lb-on-brand:#291c14;
+ --lb-canvas:#14231f;--lb-surface:#1e302a;--lb-subtle:#273c33;--lb-ink:#f0f6ee;
+ --lb-muted:#b5c6b9;--lb-line:#40564a;--lb-success:#9cdbb4;--lb-success-soft:#203d2d;
+ --lb-danger:#ffb5bc;--lb-danger-soft:#452b32;--lb-warning:#f0d18a;--lb-warning-soft:#3c3322;
+ --lb-focus:#9bc5ff;--lb-shadow:none;
+}
+}
