@@ -34,7 +34,12 @@
   if (ok(d) && ok(m)) { const s = el('source'); s.media = '(min-width: 768px)'; s.srcset = d.src; s.width = d.width; s.height = d.height; pic.append(s) }
   const img = el('img'); img.src = main.src; img.alt = entry.alt || ''; img.width = main.width; img.height = main.height; img.decoding = 'async';
   img.loading = eager ? 'eager' : 'lazy'; if (eager) img.fetchPriority = 'high';
-  img.onerror = () => pic.remove(); pic.append(img); return pic;
+  // Keep the reserved picture box on network/decode failure: removing it shifts the mobile HERO.
+  img.onerror = () => {
+   pic.dataset.state = 'failed'; img.style.visibility = 'hidden'; img.alt = '';
+   pic.setAttribute('role', 'img'); pic.setAttribute('aria-label', entry.alt || '');
+   if (!eager) pic.append(el('span', 'hv-life-icon', '🚉'));
+  }; pic.append(img); return pic;
  }
  function single(entry, cls, alt) {
   if (!ok(entry)) return null; const img = el('img', cls); img.src = entry.src; img.alt = alt ?? entry.alt ?? ''; img.width = entry.width; img.height = entry.height; img.loading = 'lazy'; img.decoding = 'async'; img.onerror = () => img.remove(); return img;
@@ -49,8 +54,47 @@
   return wrap;
  }
 
+ // Dutch course card: the three levels in plain words with progress, and the CEFR sentence.
+ function dutchCard(ctx, t, lang, after) {
+  const nl = el('article', 'hv-course is-live'); nl.dataset.course = 'nl';
+  { const hd = el('div', 'hv-course-head'); hd.append(badge('nl'), t.nl); nl.append(hd) }
+  for (const lv of ctx.levels || []) {
+   const row = button('', () => { lv.pick?.(); after?.() }, 'hv-level' + (lv.active ? ' is-active' : '')); row.disabled = !!lv.soon; row.dataset.level = lv.level;
+   const pct = lv.total ? Math.round(100 * lv.done / lv.total) : 0, bar = el('span', 'hv-bar'), f = el('span'); f.style.width = pct + '%'; bar.append(f);
+   const ln = (LEVEL_NAME[lang] || LEVEL_NAME.uk)[lv.level] || lv.level;
+   const code = lv.level === 'A2' ? 'A2.1' : lv.level; // the A2 course covers A2.1 (COURSE-CURRICULUM.md); the stored ID stays A2
+   row.append(el('b', 'hv-level-name', ln), el('small', '', code + ' · ' + (lv.soon ? t.soon : lv.done + ' / ' + lv.total + ' ' + t.lessons + (lv.active ? ' · ' + t.active : ''))), bar);
+   row.setAttribute('aria-label', t.nl + ' · ' + ln + ' (' + code + ')' + (lv.soon ? ' — ' + t.soon : ' — ' + pct + '%')); nl.append(row) }
+  if ((ctx.levels || []).length) nl.append(el('p', 'hv-cefr', (LEVEL_NAME[lang] || LEVEL_NAME.uk).cefr));
+  return nl;
+ }
+ function otherCard(id, t, lang) {
+  const R = globalThis.LerenCourses, P = globalThis.LerenCoursePlayer;
+  const info = R?.COURSES?.[id], hasPack = !!globalThis.LerenCourseData?.[id], c = el('article', 'hv-course'); c.dataset.course = id;
+  { const hd = el('div', 'hv-course-head'); hd.append(badge(id), t[id]); c.append(hd) } c.append(el('small', 'hv-course-meta', (info?.levels || []).join(' · ') + ' · ' + (hasPack ? t.preview : t.soon)));
+  const b = button(hasPack ? t.open + ' →' : t.soon, () => P?.open?.(id, lang), 'hv-btn hv-small'); b.disabled = !hasPack || !P; c.append(b); return c;
+ }
+ // TEST-022 — the language choice at the very top of the home: one button «Я вчу: Нідерландська · <level> ▾» that opens
+ // every language and the Dutch levels (chosen by the user over a row of language chips).
+ const PICK = {uk: {learn: 'Я вчу', choose: 'Обрати мову й рівень', langs: 'Мова, яку вчу'},
+  en: {learn: 'I’m learning', choose: 'Choose a language and level', langs: 'Language I’m learning'},
+  fr: {learn: 'J’apprends', choose: 'Choisir une langue et un niveau', langs: 'Langue que j’apprends'},
+  ar: {learn: 'أتعلّم', choose: 'اختر لغة ومستوى', langs: 'اللغة التي أتعلّمها'}};
+ function picker(ctx) {
+  const lang = T[ctx.lang] ? ctx.lang : 'uk', t = {...T[lang], ...PICK[lang]};
+  const box = el('section', 'hv-pick'); box.dir = lang === 'ar' ? 'rtl' : 'ltr'; box.lang = lang; box.setAttribute('aria-label', t.langs);
+  const cur = (ctx.levels || []).find(l => l.active) || (ctx.levels || [])[0], ln = cur ? ((LEVEL_NAME[lang] || LEVEL_NAME.uk)[cur.level] || cur.level) : '';
+  const panel = el('div', 'hv-pick-panel'); panel.hidden = true; panel.id = 'hvPickPanel';
+  const btn = button('', () => { const open = panel.hidden; panel.hidden = !open; btn.setAttribute('aria-expanded', String(open)) }, 'hv-pick-btn');
+  btn.setAttribute('aria-expanded', 'false'); btn.setAttribute('aria-controls', 'hvPickPanel'); btn.setAttribute('aria-label', t.choose + ': ' + t.nl + (ln ? ' · ' + ln : ''));
+  const tx = el('span', 'hv-pick-text'); tx.append(el('small', '', t.learn), el('b', '', t.nl + (ln ? ' · ' + ln : '')));
+  const ar = el('span', 'hv-pick-arrow', '▾'); ar.setAttribute('aria-hidden', 'true'); btn.append(badge('nl'), tx, ar);
+  const grid = el('div', 'hv-course-grid'); grid.append(dutchCard(ctx, t, lang)); for (const id of ['en', 'fr', 'de']) grid.append(otherCard(id, t, lang));
+  panel.append(grid); box.append(btn, panel);
+  return box;
+ }
  function top(ctx) {
-  const lang = T[ctx.lang] ? ctx.lang : 'uk', t = T[lang], box = el('section', 'hv'); box.dir = lang === 'ar' ? 'rtl' : 'ltr'; box.lang = lang;
+  const lang = T[ctx.lang] ? ctx.lang : 'uk', t = {...T[lang], ...PICK[lang]}, box = el('section', 'hv'); box.dir = lang === 'ar' ? 'rtl' : 'ltr'; box.lang = lang;
   box.setAttribute('aria-label', t.kicker);
   // HERO
   const hero = el('div', 'hv-hero'); hero.dataset.art = 'fallback';
@@ -63,7 +107,7 @@
   const acts = el('div', 'hv-actions');
   acts.append(button((ctx.started ? t.cont : t.start) + ' →', () => ctx.onContinue?.(), ctx.secondary ? 'hv-btn hv-ghost' : 'hv-btn hv-primary')); // secondary: the next-lesson card above carries the main button
   const life = el('a', 'hv-btn hv-ghost', '🎬 ' + t.life); life.href = './learn-life-story.html?s=first-day'; acts.append(life);
-  copy.append(acts);
+  if (!ctx.secondary) copy.append(acts); // TEST-022: under the next-lesson card the HERO has no buttons (no second «Start», LIFE has its own card below)
   const stats = ctx.stats || {}, strip = el('div', 'hv-stats');
   strip.append(el('span', 'hv-chip', '🔥 ' + (stats.streak || 0) + ' ' + t.streak), el('span', 'hv-chip', '⭐ ' + Number(stats.points || 0).toLocaleString(lang === 'ar' ? 'ar' : 'uk-UA') + ' ' + t.xp));
   copy.append(strip);
@@ -91,28 +135,17 @@
     const meter=el('progress');meter.max=c.total||1;meter.value=c.done;meter.setAttribute('aria-label',c.title+' — '+c.done+' / '+c.total);
     info.append(meter);b.append(number,info);li.append(b);list.append(li);
    });
-   const details=el('details','hv-route-details');details.append(el('summary','',routeText[6]+' · '+ctx.route.length),list);details.open=true;route.append(details);box.append(route);
+   const details=el('details','hv-route-details');details.append(el('summary','',routeText[6]+' · '+ctx.route.length),list);details.open=ctx.routeOpen!==false;route.append(details);box.append(route);
   }
 
-  // Courses
-  const courses = el('section', 'hv-courses'); courses.append(el('h2', 'hv-h2', t.courses));
-  const grid = el('div', 'hv-course-grid');
-  const nl = el('article', 'hv-course is-live'); nl.dataset.course = 'nl';
-  { const hd = el('div', 'hv-course-head'); hd.append(badge('nl'), t.nl); nl.append(hd) }
-  for (const lv of ctx.levels || []) {
-   const row = button('', () => lv.pick?.(), 'hv-level' + (lv.active ? ' is-active' : '')); row.disabled = !!lv.soon; row.dataset.level = lv.level;
-   const pct = lv.total ? Math.round(100 * lv.done / lv.total) : 0, bar = el('span', 'hv-bar'), f = el('span'); f.style.width = pct + '%'; bar.append(f);
-   const ln = (LEVEL_NAME[lang] || LEVEL_NAME.uk)[lv.level] || lv.level;
-   row.append(el('b', 'hv-level-name', ln), el('small', '', (lv.level === 'A2' ? 'A2.1' : lv.level) + ' · ' + (lv.soon ? t.soon : lv.done + ' / ' + lv.total + ' ' + t.lessons + (lv.active ? ' · ' + t.active : ''))), bar);
-   row.setAttribute('aria-label', t.nl + ' · ' + ln + ' (' + (lv.level === 'A2' ? 'A2.1' : lv.level) + ')' + (lv.soon ? ' — ' + t.soon : ' — ' + pct + '%')); nl.append(row) }
-  if ((ctx.levels || []).length) nl.append(el('p', 'hv-cefr', (LEVEL_NAME[lang] || LEVEL_NAME.uk).cefr));
-  grid.append(nl);
-  const R = globalThis.LerenCourses, P = globalThis.LerenCoursePlayer;
-  for (const id of ['en', 'fr', 'de']) {
-   const info = R?.COURSES?.[id], hasPack = !!globalThis.LerenCourseData?.[id], c = el('article', 'hv-course'); c.dataset.course = id;
-   { const hd = el('div', 'hv-course-head'); hd.append(badge(id), t[id]); c.append(hd) } c.append(el('small', 'hv-course-meta', (info?.levels || []).join(' · ') + ' · ' + (hasPack ? t.preview : t.soon)));
-   const b = button(hasPack ? t.open + ' →' : t.soon, () => P?.open?.(id, lang), 'hv-btn hv-small'); b.disabled = !hasPack || !P; c.append(b); grid.append(c) }
-  courses.append(grid); box.append(courses);
+  // Courses: on the app's home the choice lives in the «Я вчу» button at the top (picker(), TEST-022); this block
+  // stays only for layouts without that button.
+  if (!ctx.picker) {
+   const courses = el('section', 'hv-courses'); courses.append(el('h2', 'hv-h2', t.courses));
+   const grid = el('div', 'hv-course-grid'); grid.append(dutchCard(ctx, t, lang));
+   for (const id of ['en', 'fr', 'de']) grid.append(otherCard(id, t, lang));
+   courses.append(grid); box.append(courses);
+  }
 
   // LIFE entrance + progress side by side on wide screens
   const duo = el('div', 'hv-duo');
@@ -134,5 +167,5 @@
   const guides=el('a','hv-btn hv-small',benefitsText[2]);guides.href='./guides/';benefits.append(guides);box.append(benefits);
   return box;
  }
- globalThis.LerenHomeV2 = {top, ready: () => ready, T, langSelect};
+ globalThis.LerenHomeV2 = {top, picker, ready: () => ready, T, langSelect};
 })();

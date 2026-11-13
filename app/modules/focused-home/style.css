@@ -195,3 +195,14 @@
 /* TEST-019: today's plan from the daily goal, under the next-lesson title */
 .fh-goal{font-size:14px;line-height:1.5;margin:0 0 14px;padding:8px 12px;border-radius:12px;background:var(--oranje-soft,#ffe7cf);color:var(--ink);max-width:460px}
 @media (max-width:560px){.fh-goal{grid-column:1/-1;max-width:none}}
+/* TEST-022: short «More» block on the beginner's home; secondary actions keep a 44 px tap height */
+.fh-more{margin:18px 0;padding:18px;border-radius:22px;background:var(--surface,#fff);border:1px solid var(--line,#eed9c4);display:grid;gap:10px}
+.fh-more h2{margin:0;font:900 19px/1.2 var(--font-display,inherit)}.fh-more .lp-caption{margin:0}
+.fh-more-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.fh-more-tile{display:flex;align-items:center;gap:10px;min-height:64px;padding:10px 12px;border-radius:16px;border:1px solid var(--line,#eed9c4);background:var(--surface-2,#fff0e0);color:var(--ink);font:inherit;text-align:start;cursor:pointer}
+.fh-more-tile:focus-visible,.fh-more-all:focus-visible{outline:3px solid #1f5fd6;outline-offset:2px}
+.fh-more-icon{font-size:26px;flex:none}.fh-more-text{display:grid;min-width:0}.fh-more-text strong{font-size:15px;line-height:1.2;overflow-wrap:break-word}.fh-more-text small{color:var(--ink-2,#6f5a47);font-size:12px;line-height:1.3}
+.fh-more-all{justify-self:start;min-height:44px;padding:8px 4px;border:0;background:none;color:var(--oranje-deep,#b04a00);font:800 14px var(--font-body,inherit);text-decoration:underline;cursor:pointer}
+@media (min-width:768px){.fh-more-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.fh-alternative{min-height:44px;display:inline-flex;align-items:center;justify-content:center}
+.fh-extra-link{min-height:44px}

@@ -2,8 +2,8 @@
 // Static: the snapshot is cut off from Firebase / Google sign-in / AI worker / analytics by its CSP; the home module is
 // hooked into the existing learning-path home; home-visuals.json is valid (approved files exist with their real size,
 // missing ones are not requested); the Codex art backlog is complete.
-// Browser (Playwright Chromium, emulated widths 360 / 390 / 430 / 1280 / 1440, without and with a HERO picture — the
-// test stand-in is an existing reference image, not delivered art): HERO and text, no horizontal scroll, no layout shift,
+// Browser (Playwright Chromium, emulated widths 360 / 390 / 430 / 1280 / 1440, with the delivered HERO files (TEST-017)
+// and with the HERO marked missing in a test-only copy of the manifest — the CSS fallback): HERO and text, no horizontal scroll, no layout shift,
 // no request leaves the test site, no 404 for missing art; interface language switch; Dutch level cards; English course
 // player with recorded audio; LIFE story with recorded voices; progress, XP and rewards; continue → lesson.
 // Run: node tests/home-v2.cjs (the browser part is skipped without Playwright).
@@ -20,9 +20,9 @@ function size(file){const b=fs.readFileSync(file);
  const html=read('index.html'),csp=html.match(/http-equiv="Content-Security-Policy" content="([^"]+)"/)[1];
  assert.match(csp,/connect-src 'self';/);assert(!/googleapis|gstatic|apis\.google|workers\.dev|cloudflareinsights|www\.google\.com/.test(csp),'test snapshot CSP is closed to external services');
  assert(!/static\.cloudflareinsights\.com\/beacon/.test(html),'no analytics in the test snapshot');assert(/noindex,nofollow/.test(html));
- assert(html.includes('./modules/home-v2/ui.js?v=2')&&html.includes('./modules/home-v2/style.css?v=2'));
+ assert(html.includes('./modules/home-v2/ui.js?v=4')&&html.includes('./modules/home-v2/style.css?v=4'));
  const lp=read('modules/learning-path/ui.js');assert(lp.includes('globalThis.LerenHomeV2?.top?.(')&&lp.includes('if(!homeTop)courseSwitch')&&lp.includes('!placing&&!homeTop'),'hooked into the existing home, old duplicates hidden');
- const sw=read('sw.js');for(const f of ['./modules/home-v2/ui.js?v=2','./modules/home-v2/style.css?v=2','./img/home/hero-cat-v196-320.webp','./img/home/home-visuals.json','./modules/learning-path/ui.js?v=213'])assert(sw.includes('"'+f+'"'),'offline: '+f);
+ const sw=read('sw.js');for(const f of ['./modules/home-v2/ui.js?v=4','./modules/home-v2/style.css?v=4','./img/home/hero-cat-v196-320.webp','./img/home/home-visuals.json','./modules/learning-path/ui.js?v=214'])assert(sw.includes('"'+f+'"'),'offline: '+f);
  assert.equal(sw.match(/leren-be-v(\d+)/)[1],read('app.js').match(/RELEASE_VERSION="(\d+)"/)[1],'cache name matches the release (update check)');
  const ui=read('modules/home-v2/ui.js');assert(!/localStorage\.setItem|leren_path_v1|poly_score\s*=/.test(ui),'home v2 writes no progress');assert(!/fetch\((?!'img\/home\/home-visuals\.json')/.test(ui),'only fetches its own manifest');
  const V=JSON.parse(read('img/home/home-visuals.json')),entries=[];
@@ -30,7 +30,11 @@ function size(file){const b=fs.readFileSync(file);
  for(const [k,e] of entries){assert(/^img\/[a-z0-9][a-z0-9/_.-]*\.(webp|avif|png|jpe?g)$/i.test(e.src),k+': path');assert(Number.isInteger(e.width)&&Number.isInteger(e.height),k+': intrinsic size');
   const f=path.join(root,e.src);if(e.status==='approved'){assert(fs.existsSync(f),k+': approved file exists');const s=size(f);assert.deepEqual(s,{w:e.width,h:e.height},k+': declared size = real size')}
   else assert.equal(e.status,'missing',k+': status')}
- assert.equal(V.mascot.status,'approved');assert(fs.statSync(path.join(root,V.mascot.src)).size<40000,'mascot optimized for phones');
+ assert.equal(V.mascot.status,'approved');
+ // TEST-017: final HERO art is delivered — exact sizes, weight limits
+ assert.equal(V.hero.status,'approved');for(const [v,w,h,max] of [['desktop',1920,1080,350000],['mobile',1280,800,220000]]){const e=V.hero[v];assert.equal(e.status,'approved');assert.deepEqual([e.width,e.height],[w,h],'hero '+v+' size');assert(fs.statSync(path.join(root,e.src)).size<=max,'hero '+v+' weight')}
+ assert(!/home-hero-(desktop|mobile)\.webp/.test(sw),'HERO is cached on first view, not precached for everyone');
+ for(const k of ['catWelcome','catCelebrate'])if(V[k]){assert.deepEqual([V[k].width,V[k].height],[512,512]);assert(fs.statSync(path.join(root,V[k].src)).size<=60000,k+' weight');const b=fs.readFileSync(path.join(root,V[k].src));assert(b.toString('ascii',12,16)==='VP8X'&&(b[20]&0x10),k+': WebP with alpha')}assert(fs.statSync(path.join(root,V.mascot.src)).size<40000,'mascot optimized for phones');
  // Codex backlog
  const bl=fs.readFileSync(path.join(repo,'CODEX_ART_BACKLOG.md'),'utf8'),items=bl.split(/\n### /).slice(1);
  assert(items.length>=10,'backlog items: '+items.length);
@@ -41,29 +45,35 @@ function size(file){const b=fs.readFileSync(file);
  // ---- browser
  let chromium;try{({chromium}=require('playwright'))}catch{console.log('SKIP: browser part (Playwright is not installed)');return}
  const types={'.html':'text/html','.js':'text/javascript','.mjs':'text/javascript','.css':'text/css','.json':'application/json','.png':'image/png','.webp':'image/webp','.svg':'image/svg+xml','.woff':'font/woff','.m4a':'audio/mp4','.webmanifest':'application/json','.jpg':'image/jpeg','.txt':'text/plain'};
- const server=http.createServer((q,r)=>{let f=path.join(root,decodeURIComponent(new URL(q.url,'http://x').pathname));if(!f.startsWith(root)||!fs.existsSync(f)){r.statusCode=404;return r.end()}if(fs.statSync(f).isDirectory())f=path.join(f,'index.html');r.setHeader('content-type',types[path.extname(f)]||'application/octet-stream');fs.createReadStream(f).pipe(r)});
- await new Promise(r=>server.listen(0,'127.0.0.1',r));const base='http://127.0.0.1:'+server.address().port+'/';
+ const server=http.createServer((q,r)=>{let f=path.join(repo,decodeURIComponent(new URL(q.url,'http://x').pathname));if(!f.startsWith(repo)||!fs.existsSync(f)){r.statusCode=404;return r.end()}if(fs.statSync(f).isDirectory())f=path.join(f,'index.html');r.setHeader('content-type',types[path.extname(f)]||'application/octet-stream');fs.createReadStream(f).pipe(r)});
+ await new Promise(r=>server.listen(0,'127.0.0.1',r));const base='http://127.0.0.1:'+server.address().port+'/app/';
  let browser;try{browser=await chromium.launch()}catch{console.log('SKIP: no Chromium');server.close();return}
- const release=read('app.js').match(/RELEASE_VERSION="(\d+)"/)[1],standIn=fs.readFileSync(path.join(repo,'life/assets/lerenbe-life/reference/visual-style-and-cast.webp'));
+ const release=read('app.js').match(/RELEASE_VERSION="(\d+)"/)[1];
  const open=async(w,h,{art=false,seed={}}={})=>{const ctx=await browser.newContext({viewport:{width:w,height:h},serviceWorkers:'block'}),page=await ctx.newPage(),errors=[],outside=[],missing=[];
   page.on('pageerror',e=>errors.push(e.message));page.on('response',r=>{if(r.status()===404)missing.push(r.url())});
   await ctx.route(/^https?:\/\/(?!127\.0\.0\.1)/,r=>{outside.push(r.request().url());r.abort()});
-  if(art){const vis=JSON.parse(JSON.stringify(V));for(const v of ['desktop','mobile']){vis.hero[v].status='approved';vis.hero[v].width=1672;vis.hero[v].height=941}
-   await ctx.route('**/img/home/home-visuals.json',r=>r.fulfill({status:200,contentType:'application/json',body:JSON.stringify(vis)}));
-   await ctx.route(/home-hero-(desktop|mobile)\.webp$/,r=>r.fulfill({status:200,contentType:'image/webp',body:standIn}))}
+  const heroReq=[];page.on('request',r=>{if(/home-hero-(desktop|mobile)\.webp/.test(r.url()))heroReq.push(r.url())});
+  if(!art){const vis=JSON.parse(JSON.stringify(V));vis.hero.status='missing';for(const v of ['desktop','mobile'])vis.hero[v].status='missing';
+   await ctx.route('**/img/home/home-visuals.json',r=>r.fulfill({status:200,contentType:'application/json',body:JSON.stringify(vis)}))}
   await page.addInitScript(([r,s])=>{window.__cls=0;try{new PerformanceObserver(l=>{for(const e of l.getEntries())if(!e.hadRecentInput)window.__cls+=e.value}).observe({type:'layout-shift',buffered:true})}catch(e){}
    if(sessionStorage.getItem('seeded'))return;sessionStorage.setItem('seeded','1');localStorage.clear();for(const [k,v] of Object.entries({leren_release_seen:JSON.stringify(r),poly_ui:'uk',leren_home_v1:'path',leren_welcome_seen:'true',leren_onboarding_language_v1:'1',...s}))localStorage.setItem(k,v)},[release,seed]);
-  await page.goto(base+'index.html');await page.waitForSelector('.hv .hv-title',{timeout:20000});await page.waitForTimeout(700);return {ctx,page,errors,outside,missing}};
+  await page.goto(base+'index.html');await page.waitForSelector('.hv .hv-title',{timeout:20000});await page.waitForTimeout(700);return {ctx,page,errors,outside,missing,heroReq}};
  const report=[];
  try{
   for(const [w,h] of [[360,780],[390,844],[430,932],[1280,800],[1440,900]])for(const art of [false,true]){
-   const {ctx,page,errors,outside,missing}=await open(w,h,{art,seed:{poly_score:'120'}});
+   const {ctx,page,errors,outside,missing,heroReq}=await open(w,h,{art,seed:{poly_score:'120'}});
    assert.match(await page.locator('.hv-title').textContent(),/Вивчай мови для реального життя в Бельгії/);
    assert.equal(await page.locator('.hv-hero').getAttribute('data-art'),art?'image':'fallback');
-   if(art){const img=page.locator('.hv-hero-art img');assert.equal(await img.getAttribute('width'),'1672');assert.equal(await img.getAttribute('fetchpriority'),'high');assert(((await img.getAttribute('alt'))||'').length>20);assert.equal(await page.locator('.hv-hero-art source').getAttribute('media'),'(min-width: 768px)');
+   if(art){const img=page.locator('.hv-hero-art img');assert.equal(await img.getAttribute('width'),'1280');assert.equal(await img.getAttribute('fetchpriority'),'high');assert(((await img.getAttribute('alt'))||'').length>20);assert.equal(await page.locator('.hv-hero-art source').getAttribute('media'),'(min-width: 768px)');
     const box=await page.evaluate(()=>{const c=document.querySelector('.hv-hero-copy').getBoundingClientRect(),i=document.querySelector('.hv-hero-art').getBoundingClientRect();return {c:[c.left,c.top,c.right,c.bottom],i:[i.left,i.top,i.right,i.bottom]}});
-    if(w<768)assert(box.c[1]>=box.i[3]-1,'phone: text below the picture, characters stay visible')}
-   else assert.equal(await page.locator('.hv-hero picture, .hv-hero-art').count(),0,'no picture without delivered art (emoji icons are the app\'s own renderer)');
+    if(w<768)assert(box.c[1]>=box.i[3]-1,'phone: text below the picture, characters stay visible');
+    // the right file for the width is really loaded and decoded
+    const got=await page.evaluate(async()=>{const i=document.querySelector('.hv-hero-art img');await i.decode().catch(()=>{});return {src:i.currentSrc,w:i.naturalWidth,h:i.naturalHeight}});
+    assert.deepEqual([got.w,got.h],w<768?[1280,800]:[1920,1080],'HERO file at '+w+': '+got.src);assert.equal(heroReq.length,1,'one HERO file per width: '+heroReq.join(', '));
+    // ПК: текст лежить на спокійній лівій частині; персонажі (праві ~35 % картинки) лишаються правіше за текст
+    if(w>=768){const t=await page.evaluate(()=>{const h=document.querySelector('.hv-hero').getBoundingClientRect();let r=0;for(const e of document.querySelectorAll('.hv-hero-copy > *'))for(const q of e.getClientRects())r=Math.max(r,q.right);return {right:(r-h.left)/h.width}});
+     assert(t.right<=0.6,'desktop: text ends at '+(t.right*100).toFixed(0)+'% of the HERO, characters start after 65%')}}
+   else{assert.equal(await page.locator('.hv-hero picture, .hv-hero-art').count(),0,'no picture when the HERO is marked missing (emoji icons are the app\'s own renderer)');assert.deepEqual(heroReq,[],'missing HERO is not requested')}
    assert.equal(await page.locator('.hv-cat').count(),1,'orange cat');assert.equal(await page.locator('.hv-course').count(),4,'Dutch, English, French, German');
    assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'no horizontal scroll at '+w);
    const cls=await page.evaluate(()=>window.__cls);assert(cls<0.1,'layout shift at '+w+(art?' with art':'')+': '+cls.toFixed(3));
@@ -77,17 +87,17 @@ function size(file){const b=fs.readFileSync(file);
    await page.locator('#uiLangPicker').selectOption('en',{force:true});await page.waitForFunction(()=>/Learn languages/.test(document.querySelector('.hv-title')?.textContent||''));
    await page.locator('#uiLangPicker').selectOption('uk',{force:true});await page.waitForFunction(()=>/Вивчай/.test(document.querySelector('.hv-title')?.textContent||''));
    // Dutch level
-   await page.click('.hv-level[data-level="A1.2"]');await page.waitForSelector('.hv-level.is-active[data-level="A1.2"]');
-   await page.click('.hv-level[data-level="A1.1"]');await page.waitForSelector('.hv-level.is-active[data-level="A1.1"]');
+   await page.click('.hv-pick-btn');await page.click('.hv-level[data-level="A1.2"]');await page.waitForSelector('.hv-level.is-active[data-level="A1.2"]',{state:'attached'});
+   await page.click('.hv-pick-btn');await page.click('.hv-level[data-level="A1.1"]');await page.waitForSelector('.hv-level.is-active[data-level="A1.1"]',{state:'attached'});
    // English course player with recorded audio
-   await page.click('.hv-course[data-course="en"] button');await page.waitForSelector('.cp-stage');await page.waitForTimeout(500);
+   await page.click('.hv-pick-btn');await page.click('.hv-course[data-course="en"] button');await page.waitForSelector('.cp-stage');await page.waitForTimeout(500);
    await page.click('.cp-stage .cp-primary');await page.waitForSelector('.cp-word');await page.locator('.cp-sound').first().click();await page.waitForTimeout(300);
    assert((await page.evaluate(()=>globalThis.__cpRecorded||[])).length>0,'English card plays the recorded voice');await page.click('.cp-close');
    // rewards → progress view
    await page.click('.hv-progress .hv-btn');await page.waitForFunction(()=>view==='progress');
    await page.evaluate(()=>setView('path'));await page.waitForSelector('.hv');
    // continue → a lesson starts
-   await page.click('.hv-primary');await page.waitForFunction(()=>document.querySelector('[data-screen]')?.dataset.screen!=='home',null,{timeout:10000});
+   assert.equal(await page.locator('.hv-hero .hv-btn').count(),0,'TEST-022: no duplicate buttons in the HERO under the next-lesson card');await page.click('.fh-hero .fh-primary');await page.waitForFunction(()=>document.querySelector('#learningPath')?.dataset.screen==='lesson',null,{timeout:10000});
    assert.deepEqual(errors,[]);assert.deepEqual(outside,[]);await ctx.close();report.push('language uk⇄en, levels, EN player + audio, rewards, continue')}
   // LIFE story from the home page, recorded voices
   {const {ctx,page,errors}=await open(390,844);const audio=[];page.on('response',r=>{if(/\/audio\/nl(-f)?\/[0-9a-f]{8}\.m4a$/.test(r.url()))audio.push(r.status())});

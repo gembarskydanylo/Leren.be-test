@@ -4,9 +4,9 @@
 //  🟡 practice — Dutch text without translations (translation on request), say the phrase from its meaning
 //  🔴 real     — the character just talks at normal speed; text only on request, no translations, no sample
 // Voices: recorded Azure clips (audio/nl = male, audio/nl-f = female, same hash as app.js), device voice as fallback.
-import {STORIES, ROADMAP, storyById} from './stories/index.mjs?v=3';
-import {createStorySession, recordXp, XP_PER_STEP} from './story-engine.mjs?v=2';
-import {loadVisuals, sceneVisual, storyCover, characterImage, characterAlt, protagonistId, empty} from './visuals.mjs?v=2';
+import {STORIES, ROADMAP, storyById} from './stories/index.mjs?v=4';
+import {createStorySession, recordXp, XP_PER_STEP} from './story-engine.mjs?v=3';
+import {loadVisuals, sceneVisual, storyCover, characterImage, characterAlt, protagonistId, empty} from './visuals.mjs?v=3';
 
 const $ = id => document.getElementById(id);
 const el = (tag, cls, text) => { const n = document.createElement(tag); if (cls) n.className = cls; if (text != null) n.textContent = text; return n };
@@ -20,21 +20,34 @@ const hash = t => { let h = 0x811c9dc5; const s = norm(t); for (let i = 0; i < s
 const DIRS = {m: 'audio/nl/', f: 'audio/nl-f/'}, REC = {m: new Set(), f: new Set()};
 for (const k in DIRS) { try { fetch(DIRS[k] + 'manifest.json', {cache: 'no-cache'}).then(r => r.ok ? r.json() : []).then(a => { if (Array.isArray(a)) a.forEach(h => REC[k].add(h)) }).catch(() => {}) } catch {} }
 const RATE = {learn: .85, practice: .95, real: 1};
-let audio = null;
+// One voice at a time. A tap (🔊, 🐢, a new line) stops what is playing and speaks now; the story's own lines
+// (the learner's answer → the character's reaction → the next line) are queued so none cuts another off.
+// Leaving a scene stops all sound and empties the queue. A missing or broken recording falls back to the device
+// voice once (only if it is still the current line), so the story never waits for audio.
+let audio = null, queue = [];
+function stopAudio() { queue = []; try { globalThis.speechSynthesis?.cancel() } catch {} try { audio?.pause() } catch {} audio = null }
+const busy = () => !!audio && !audio.paused && !audio.ended;
+function playNext() { const n = queue.shift(); if (n) say(n[0], n[1], false, true) }
 function tts(text, rate) {
  try { const s = globalThis.speechSynthesis; if (!s || !globalThis.SpeechSynthesisUtterance) return;
   const u = new SpeechSynthesisUtterance(text); u.lang = 'nl-BE'; u.rate = rate;
   const v = s.getVoices(); u.voice = v.find(x => x.lang?.toLowerCase() === 'nl-be') || v.find(x => x.lang?.toLowerCase().startsWith('nl')) || null;
   s.cancel(); s.speak(u) } catch {}
 }
-function say(text, voice = 'm', slow = false) {
+function say(text, voice = 'm', slow = false, queued = false) {
  const h = hash(text), other = voice === 'f' ? 'm' : 'f', k = REC[voice].has(h) ? voice : REC[other].has(h) ? other : null;
  const rate = slow ? .7 : RATE[session.state.mode];
  globalThis.__lsSaid = (globalThis.__lsSaid || []).concat(text);
- try { globalThis.speechSynthesis?.cancel() } catch {} try { audio?.pause() } catch {}
- if (!k) return tts(text, rate * .9);
- try { const a = new Audio(DIRS[k] + h + '.m4a'); audio = a; a.preservesPitch = true; a.playbackRate = rate; a.onerror = () => tts(text, rate * .9); const p = a.play(); if (p?.catch) p.catch(() => {}) } catch { tts(text, rate) }
+ globalThis.__lsVoices = (globalThis.__lsVoices || []).concat(k || 'tts');
+ if (queued) { try { globalThis.speechSynthesis?.cancel() } catch {} try { audio?.pause() } catch {} audio = null } else stopAudio();
+ if (!k) { tts(text, rate * .9); return playNext() }
+ try { const a = new Audio(DIRS[k] + h + '.m4a'); audio = a; a.preservesPitch = true; a.playbackRate = rate;
+  a.onended = () => { if (audio === a) { audio = null; playNext() } };
+  a.onerror = () => { if (audio === a) { audio = null; queue = []; tts(text, rate * .9) } };
+  const p = a.play(); if (p?.catch) p.catch(() => { if (audio === a && a.paused) { audio = null; playNext() } }) } catch { audio = null; tts(text, rate) }
 }
+// A line of the story: after whatever the story is already saying.
+function sayInTurn(text, voice) { if (busy() || queue.length) queue.push([text, voice]); else say(text, voice) }
 
 // ---- speech recognition (Chrome / Android): checks that the words were recognised and their order, not the accent.
 const Rec = globalThis.SpeechRecognition || globalThis.webkitSpeechRecognition;
@@ -55,7 +68,7 @@ const mode = () => session.state.mode, learn = () => mode() === 'learn', real = 
 const MODE_LINE = {learn: '🟢 Початківець: переклад, підказки, повільне аудіо', practice: '🟡 Практика: переклад лише за кнопкою, фразу кажеш сам', real: '🔴 Реальне життя: природна швидкість, мінімум підказок'};
 
 function setModeButtons() { document.querySelectorAll('.ls-mode button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.mode === mode()))); document.body.dataset.mode = mode() }
-document.querySelectorAll('.ls-mode button').forEach(b => b.onclick = () => { session.setMode(b.dataset.mode); setModeButtons(); if (current) renderStep(); else home() });
+document.querySelectorAll('.ls-mode button').forEach(b => b.onclick = () => { session.setMode(b.dataset.mode); setModeButtons(); if (current) { renderStage(); renderStep() } else home() });
 setModeButtons();
 
 // ---- visuals (assets/lerenbe-life/visual-manifest.json): drawn scenes and characters when the artist's files are in;
@@ -63,36 +76,65 @@ setModeButtons();
 let VIS = empty(), stage = null, spoken = null, heroEmotion = 'neutral';
 loadVisuals().then(m => { VIS = m; if (current) renderStage(); else home() });
 const DESKTOP = globalThis.matchMedia?.('(min-width: 768px)');
-function picture(pair, alt, cls) {
+function picture(pair, alt, cls, onFail) {
  const pic = el('picture', cls), src = el('source'); src.media = '(min-width: 768px)'; src.srcset = pair.desktop;
- const img = el('img'); img.src = pair.mobile; img.alt = alt; img.decoding = 'async'; img.loading = 'eager'; img.onerror = () => pic.remove();
+ const img = el('img'); img.src = pair.mobile; img.alt = alt; img.decoding = 'async'; img.loading = 'eager'; img.onerror = () => { pic.remove(); onFail?.() };
  pic.append(src, img); return pic;
+}
+// Files that failed to load in this visit (missing on the server, damaged): drawn as missing from then on.
+const BROKEN = new Set();
+const FACE = {neutral: '🙂', happy: '😊', thinking: '🤔', surprised: '😮'}, FEEL = {neutral: 'спокійно', happy: 'радіє', thinking: 'думає', surprised: 'здивовано'};
+const HERO_ICON = {anastasia: '🙋🏻‍♀️', 'hero-male': '🙋🏻‍♂️'};
+// A character whose picture is not delivered yet: a large stand-in on the same place of the stage with the
+// character's name and current emotion (never a random or another character's picture).
+function standIn(c) {
+ const f = el('div', 'ls-stage-char ls-stage-token is-' + c.position + (c.id === spoken?.who ? ' is-speaking' : '') + (c.protagonist ? ' is-hero' : ''));
+ f.dataset.character = c.id; f.dataset.emotion = c.emotion; f.dataset.fallback = 'true'; f.setAttribute('role', 'img');
+ f.setAttribute('aria-label', c.name + ' — ' + FEEL[c.emotion]);
+ const icon = story.cast[c.id]?.icon || HERO_ICON[c.id] || '🧑';
+ const head = el('span', 'ls-token-head'); head.append(el('span', 'ls-token-icon', icon), el('span', 'ls-token-emo', FACE[c.emotion]));
+ f.append(head, el('span', 'ls-token-name', c.protagonist ? c.name + ' (ти)' : c.name)); return f;
 }
 function renderStage() {
  if (!stage || !current) return;
- const v = sceneVisual(VIS, story.id, current.scene.id, {who: spoken?.who, emotion: spoken?.emotion, heroEmotion});
+ const v = sceneVisual(VIS, story.id, current.scene.id, {who: spoken?.who, emotion: spoken?.emotion, heroEmotion, placeholders: true, broken: BROKEN});
+ const bg = v.background && !BROKEN.has(v.background.mobile) && !BROKEN.has(v.background.desktop) ? v.background : null;
  stage.dataset.heroEmotion = heroEmotion; stage.style.setProperty('--ls-dialogue', String(v.dialogue.reserve));
- stage.replaceChildren(); stage.classList.toggle('has-art', !!v.background);
- if (v.background) stage.append(picture(v.background, v.alt, 'ls-stage-bg'));
+ stage.replaceChildren(); stage.classList.toggle('has-art', !!bg);
+ if (bg) stage.append(picture(bg, v.alt, 'ls-stage-bg', () => { BROKEN.add(bg.mobile); BROKEN.add(bg.desktop); renderStage() }));
  else { const ph = el('div', 'ls-stage-ph'); ph.setAttribute('role', 'img'); ph.setAttribute('aria-label', v.alt || current.scene.title); ph.append(el('span', 'ls-stage-icon', current.scene.icon)); stage.append(ph) }
- for (const c of v.characters.slice(0, 3)) { const img = el('img', 'ls-stage-char is-' + c.position + (c.id === spoken?.who ? ' is-speaking' : '') + (c.protagonist ? ' is-hero' : '')); img.src = c.src; img.alt = c.alt; img.dataset.character = c.id; img.dataset.emotion = c.emotion; img.onerror = () => img.remove(); stage.append(img) }
+ for (const c of v.characters.slice(0, 3)) {
+  if (!c.src) { stage.append(standIn(c)); continue }
+  const img = el('img', 'ls-stage-char is-' + c.position + (c.id === spoken?.who ? ' is-speaking' : '') + (c.protagonist ? ' is-hero' : '')); img.src = c.src; img.alt = c.alt; img.dataset.character = c.id; img.dataset.emotion = c.emotion;
+  img.onerror = () => { BROKEN.add(c.src); renderStage() }; stage.append(img) }
  if (spoken) {
   const c = speaker(spoken.who), box = el('div', 'ls-stage-say'), t = el('p', 'ls-nl', spoken.nl); t.lang = 'nl-BE';
   if (real() && !spoken.revealed) t.classList.add('is-hidden');
-  box.append(el('span', 'ls-who', c.icon + ' ' + c.name), t);
-  if (learn() && spoken.uk) box.append(el('p', 'ls-uk', spoken.uk));
   const tools = el('span', 'ls-tools');
   tools.append(btn('🔊', () => say(spoken.nl, c.voice), 'ls-icon ls-stage-listen'), btn('🔁 Повільніше', () => say(spoken.nl, c.voice, true), 'ls-icon ls-stage-repeat'));
   if (real() && !spoken.revealed) tools.append(btn('👁 Текст', () => { spoken.revealed = true; renderStage() }, 'ls-icon'));
-  box.append(tools); stage.append(box);
+  tools.querySelector('.ls-stage-listen').setAttribute('aria-label', 'Послухати ще раз');
+  const top = el('div', 'ls-say-top'); top.append(el('span', 'ls-who', c.icon + ' ' + c.name), tools);
+  box.append(top, t);
+  if (learn() && spoken.uk) box.append(el('p', 'ls-uk', spoken.uk));
+  stage.append(box);
  }
 }
 function setHero(e) { heroEmotion = e; renderStage() }
+// The character who spoke reacts to a wrong answer (surprised) without changing the line on screen.
+function setSpokenEmotion(e) { if (spoken) { spoken.emotion = e; renderStage() } }
 function showSpoken(who, nl, uk, emotion) { if (!who || who === 'me') return; spoken = {who, nl, uk, emotion: emotion || null}; renderStage() }
+
+// ---- scene lifetime: timers started in a scene (reactions, retries) die with it, so nothing from an old scene
+// (a late reply bubble, its voice, an answer from the microphone) can reach the next one.
+let token = 0, timers = new Set();
+function later(fn, ms) { const t0 = token, id = setTimeout(() => { timers.delete(id); if (t0 === token) fn() }, ms); timers.add(id); return id }
+function leaveScene() { token++; for (const id of timers) clearTimeout(id); timers.clear(); stopAudio() }
 
 // ---- home of the story
 let current = null, log = null, panel = null, shown = new Set();
 function home() {
+ leaveScene(); stage = null;
  current = null; app.replaceChildren(); delete app.dataset.scene; delete app.dataset.step; window.scrollTo?.(0, 0);
  const hero = el('section', 'ls-hero'), cover = storyCover(VIS, story.id);
  if (cover) hero.append(picture(cover, cover.alt, 'ls-cover'));
@@ -136,6 +178,7 @@ function skillCard(title, sk) {
 
 // ---- a scene
 function start(scene) {
+ leaveScene();
  current = session.play(scene.id); app.replaceChildren(); app.dataset.scene = scene.id; window.scrollTo?.(0, 0);
  const head = el('div', 'ls-scene-head'); head.append(btn('←', home, 'ls-icon ls-back-scene'), el('h2', '', scene.icon + ' ' + scene.title), el('span', 'ls-step-n'));
  const bar = el('div', 'ls-progress'); bar.setAttribute('role', 'progressbar'); bar.setAttribute('aria-label', 'Прогрес сцени'); bar.append(el('span', 'ls-progress-fill'));
@@ -145,7 +188,9 @@ function start(scene) {
  const bodyEl = el('div', 'ls-scene-body'); bodyEl.append(stage, side);
  app.append(head, bar, bodyEl); renderStage(); renderStep();
 }
-function speaker(who) { return story.cast[who] || {name: 'Ти', icon: '🙂', voice: 'm'} }
+// The learner speaks with the protagonist's voice (Anastasia → female; a story can set hero: {voice}).
+const ME = {name: 'Ти', icon: '🙂', voice: story.hero?.voice === 'm' ? 'm' : 'f'};
+function speaker(who) { return story.cast[who] || ME }
 function bubble(who, nl, uk, {slow = false} = {}) {
  const c = speaker(who), mine = who === 'me', b = el('div', 'ls-bubble' + (mine ? ' is-me' : '') + (slow ? ' is-slow' : ''));
  if (mine) { const face = characterImage(VIS, protagonistId(VIS), {pose: 'portrait', emotion: heroEmotion}); if (face) { const img = el('img', 'ls-avatar ls-avatar-me'); img.src = face; img.alt = ''; img.onerror = () => img.remove(); b.append(img) } }
@@ -154,13 +199,13 @@ function bubble(who, nl, uk, {slow = false} = {}) {
   b.append(whoEl) }
  const t = el('p', 'ls-nl', nl); t.lang = 'nl-BE'; b.append(t);
  const tools = el('span', 'ls-tools');
- if (!mine) tools.append(btn('🔊', () => say(nl, c.voice), 'ls-icon'), btn('🐢', () => say(nl, c.voice, true), 'ls-icon'));
+ if (!mine) { const l = btn('🔊', () => say(nl, c.voice), 'ls-icon'), sl = btn('🐢', () => say(nl, c.voice, true), 'ls-icon'); l.setAttribute('aria-label', 'Послухати'); sl.setAttribute('aria-label', 'Повільніше'); tools.append(l, sl) }
  if (!mine && real() && !slow) { t.classList.add('is-hidden'); tools.append(btn('👁 Текст', e => { t.classList.remove('is-hidden'); e.target.remove() }, 'ls-icon ls-reveal')) }
  if (uk && (learn() || slow)) b.append(el('p', 'ls-uk', uk));
  else if (uk && mode() === 'practice' && !mine) tools.append(btn('Переклад', e => { b.insertBefore(el('p', 'ls-uk', uk), tools); e.target.remove() }, 'ls-icon ls-translate'));
- b.append(tools); log.append(b); b.scrollIntoView?.({block: 'nearest'}); return b;
+ b.append(tools); log.append(b); log.scrollTop = log.scrollHeight; return b; // the log scrolls itself; the page (and the stage) stays put
 }
-function npc(step, key) { if (shown.has(key)) return; shown.add(key); bubble(step.who, step.nl, step.uk); showSpoken(step.who, step.nl, step.uk, step.emotion); say(step.nl, speaker(step.who).voice) }
+function npc(step, key) { if (shown.has(key)) return; shown.add(key); bubble(step.who, step.nl, step.uk); showSpoken(step.who, step.nl, step.uk, step.emotion); sayInTurn(step.nl, speaker(step.who).voice) }
 function feedback(ok, text) { const f = el('p', 'ls-feedback ' + (ok ? 'is-ok' : 'is-no'), (ok ? '✓ ' : '✗ ') + (text || (ok ? 'Правильно!' : 'Спробуй ще раз.'))); panel.prepend(f); return f }
 
 function renderStep() {
@@ -179,35 +224,36 @@ function renderStep() {
   panel.append(el('p', 'ls-prompt', s.prompt));
   s.options.forEach((o, i) => { const b = btn('', () => {
     const r = current.answer(i);
-    if (r.repeat) { setHero('thinking'); bubble('me', o.nl, o.uk); const prev = lastLine(); if (prev) { bubble(prev.who, prev.nl, prev.uk, {slow: true}); say(prev.nl, speaker(prev.who).voice, true) }
+    if (r.repeat) { setHero('thinking'); bubble('me', o.nl, o.uk); const prev = lastLine(); if (prev) { bubble(prev.who, prev.nl, prev.uk, {slow: true}); showSpoken(prev.who, prev.nl, prev.uk, 'neutral'); say(prev.nl, speaker(prev.who).voice, true) }
      renderStep(); feedback(true, 'Добре, що перепитав(ла)! ' + (r.explain || 'Тепер повільніше.')); return }
-    if (r.ok) { setHero('happy'); bubble('me', o.nl, o.uk); say(o.nl, 'm');
-     if (r.react) { const re = r.react; setTimeout(() => { bubble(re.who, re.nl, re.uk); showSpoken(re.who, re.nl, re.uk, re.emotion || 'happy'); say(re.nl, speaker(re.who).voice) }, 700) }
+    if (r.ok) { setHero('happy'); bubble('me', o.nl, o.uk); say(o.nl, ME.voice);
+     if (r.react) { const re = r.react; bubble(re.who, re.nl, re.uk); showSpoken(re.who, re.nl, re.uk, re.emotion || 'happy'); sayInTurn(re.nl, speaker(re.who).voice) }
      renderStep() }
-    else { setHero('thinking'); b.disabled = true; b.classList.add('is-wrong'); feedback(false, r.why) }
+    else { setHero('thinking'); setSpokenEmotion('surprised'); b.disabled = true; b.classList.add('is-wrong'); feedback(false, r.why) }
    }, 'ls-option'); b.dataset.option = i; const nl = el('span', 'ls-opt-nl', o.nl); nl.lang = 'nl-BE'; b.append(nl); if (learn()) b.append(el('span', 'ls-opt-uk', o.uk)); panel.append(b) });
  } else if (s.type === 'listen') {
   npc(s, 'l' + current.index);
   panel.append(el('p', 'ls-prompt', '👂 ' + s.q));
-  s.options.forEach((o, i) => { const b = btn(o, () => { const r = current.answer(i); if (r.ok) { feedback(true, s.why); next(); } else { b.disabled = true; b.classList.add('is-wrong'); feedback(false, s.why) } }, 'ls-option'); b.dataset.option = i; panel.append(b) });
+  s.options.forEach((o, i) => { const b = btn(o, () => { const r = current.answer(i); if (!r) return; if (r.ok) { setHero('happy'); feedback(true, s.why); next(); } else { setHero('thinking'); setSpokenEmotion('surprised'); b.disabled = true; b.classList.add('is-wrong'); feedback(false, s.why) } }, 'ls-option'); b.dataset.option = i; panel.append(b) });
  } else if (s.type === 'find') {
   const t = current.findTarget, q = t.q || 'Waar is ' + t.nl + '?';
-  if (!shown.has('f' + current.index + t.id)) { shown.add('f' + current.index + t.id); bubble(s.who, q, t.quk || 'Де ' + t.uk + '?'); showSpoken(s.who, q, t.quk || 'Де ' + t.uk + '?', 'thinking'); say(q, speaker(s.who).voice) }
+  if (!shown.has('f' + current.index + t.id)) { shown.add('f' + current.index + t.id); bubble(s.who, q, t.quk || 'Де ' + t.uk + '?'); showSpoken(s.who, q, t.quk || 'Де ' + t.uk + '?', 'thinking'); sayInTurn(q, speaker(s.who).voice) }
   panel.append(el('p', 'ls-prompt', s.prompt));
   const grid = el('div', 'ls-find');
   for (const it of s.items) { const b = btn('', () => { const r = current.answer(it.id);
-    if (r.ok) { b.classList.add('is-right'); say(it.nl, 'm'); if (r.done) { feedback(true, 'Усе знайдено!'); next() } else setTimeout(renderStep, 450) }
-    else { b.classList.add('is-wrong'); setTimeout(() => b.classList.remove('is-wrong'), 600); feedback(false, 'Це ' + it.nl + (real() ? '' : ' (' + it.uk + ')') + '. Шукай: ' + t.nl + '.') } }, 'ls-item');
+    if (!r) return;
+    if (r.ok) { b.classList.add('is-right'); say(it.nl, ME.voice); if (r.done) { setHero('happy'); feedback(true, 'Усе знайдено!'); next() } else later(renderStep, 450) }
+    else { setHero('thinking'); b.classList.add('is-wrong'); later(() => b.classList.remove('is-wrong'), 600); feedback(false, 'Це ' + it.nl + (real() ? '' : ' (' + it.uk + ')') + '. Шукай: ' + t.nl + '.') } }, 'ls-item');
    b.dataset.item = it.id; b.append(el('span', 'ls-item-i', it.icon)); if (learn()) b.append(el('span', 'ls-item-l', it.uk)); b.setAttribute('aria-label', it.uk); grid.append(b) }
   panel.append(grid);
  } else if (s.type === 'say') {
   panel.append(el('p', 'ls-prompt', '🗣️ Скажи нідерландською: «' + s.uk + '»'));
   if (learn()) { const t = el('p', 'ls-say-target', s.nl); t.lang = 'nl-BE'; panel.append(t) }
-  if (!real()) panel.append(btn('🔊 Послухати зразок', () => say(s.nl, 'm'), 'ls-btn ls-sample'));
+  if (!real()) panel.append(btn('🔊 Послухати зразок', () => say(s.nl, ME.voice), 'ls-btn ls-sample'));
   const status = el('p', 'ls-say-status');
-  if (Rec) panel.append(btn('🎤 Сказати', e => { status.textContent = 'Слухаю…'; e.target.disabled = true;
-   const ok = listenOnce(alts => { const r = current.answer(alts); status.textContent = 'Почуто: «' + (alts[0] || '') + '»';
-    if (r.ok) { bubble('me', s.nl, s.uk); feedback(true, r.why); next() } else feedback(false, r.why) }, () => { e.target.disabled = false; if (status.textContent === 'Слухаю…') status.textContent = '' });
+  if (Rec) panel.append(btn('🎤 Сказати', e => { status.textContent = 'Слухаю…'; e.target.disabled = true; const t0 = token, run = current;
+   const ok = listenOnce(alts => { if (t0 !== token || run !== current) return; const r = current.answer(alts); if (!r) return; status.textContent = 'Почуто: «' + (alts[0] || '') + '»';
+    if (r.ok) { setHero('happy'); bubble('me', s.nl, s.uk); feedback(true, r.why); next() } else { setHero('thinking'); feedback(false, r.why) } }, () => { e.target.disabled = false; if (status.textContent === 'Слухаю…') status.textContent = '' });
    if (!ok) { e.target.disabled = false; status.textContent = 'Мікрофон недоступний — склади фразу зі слів.' } }, 'ls-btn ls-primary ls-mic'));
   panel.append(status, btn('🧩 Скласти зі слів', () => tiles(s), 'ls-btn'));
  }
@@ -222,8 +268,9 @@ function tiles(s) {
  out.lang = 'nl-BE';
  shuffle(words).forEach(w => { const b = btn(w, () => { picked.push(w); b.disabled = true; out.textContent = picked.join(' ');
    if (picked.length === words.length) { const r = current.answer({tiles: picked.join(' ')});
-    if (r.ok) { bubble('me', s.nl, s.uk); say(s.nl, 'm'); panel.replaceChildren(); feedback(true, r.why); next() }
-    else { feedback(false, r.why); setTimeout(() => tiles(s), 1800) } } }, 'ls-tile'); row.append(b) });
+    if (!r) return;
+    if (r.ok) { setHero('happy'); bubble('me', s.nl, s.uk); say(s.nl, ME.voice); panel.replaceChildren(); feedback(true, r.why); next() }
+    else { setHero('thinking'); feedback(false, r.why); later(() => tiles(s), 1800) } } }, 'ls-tile'); row.append(b) });
  panel.append(out, row, btn('Пропустити', () => { current.skip(); renderStep() }, 'ls-btn ls-ghost'));
 }
 

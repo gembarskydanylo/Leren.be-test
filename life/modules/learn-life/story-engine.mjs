@@ -81,7 +81,7 @@ export function createStorySession(story, storage, {mode} = {}) {
 
  function play(sceneId) {
   const scene = sceneById.get(sceneId); if (!scene) return null;
-  let index = -1, findIndex = 0, firstTry = true, correct = 0, total = 0;
+  let index = -1, findIndex = 0, firstTry = true, correct = 0, total = 0, result = null;
   const skills = {understand: [0, 0], grammar: [0, 0], speaking: [0, 0]}, people = new Set();
   const advance = from => { let i = from; while (i < scene.steps.length && !matches(scene.steps[i].if, state.flags)) i++; index = i; findIndex = 0; firstTry = true };
   const count = (skill, ok) => { skills[skill][1]++; if (ok) skills[skill][0]++ };
@@ -98,7 +98,7 @@ export function createStorySession(story, storage, {mode} = {}) {
    next() { if (scene.steps[index]?.type === 'line') advance(index + 1); return run.step },
    // value: option index (reply, listen), item id (find), heard text or [alternatives] (say), {tiles: text} (say by tiles)
    answer(value) {
-    const s = scene.steps[index]; if (!s || !GRADED.has(s.type)) return null;
+    const s = scene.steps[index]; if (result || !s || !GRADED.has(s.type)) return null;
     let ok = false, why = s.why || '', react = null, jump = null;
     if (s.type === 'reply') {
      const o = s.options[value]; if (!o) return null;
@@ -135,11 +135,13 @@ export function createStorySession(story, storage, {mode} = {}) {
    },
    skip() { const s = scene.steps[index]; if (!s) return; if (GRADED.has(s.type)) { missed(s.nl || s.options?.find(o => o.ok)?.nl); total++ } advance(index + 1) },
    get finished() { return index >= scene.steps.length },
+   // Idempotent: the end card can be drawn again (mode switch, re-render) without adding the scene's skills twice.
    finish() {
+    if (result) return result;
     const prev = state.best[scene.id] || 0; if (correct > prev) state.best[scene.id] = correct;
     for (const k in skills) { state.skills[k][0] += skills[k][0]; state.skills[k][1] += skills[k][1] }
     save(); remember([...people].filter(p => story.cast?.[p]));
-    return {correct, total, xp: correct * XP_PER_STEP, gained: Math.max(0, correct - prev) * XP_PER_STEP, skills};
+    return (result = {correct, total, xp: correct * XP_PER_STEP, gained: Math.max(0, correct - prev) * XP_PER_STEP, skills});
    }
   };
   function finishStep(r) {

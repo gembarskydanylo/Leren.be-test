@@ -4,6 +4,13 @@
 
 Статус: користувач просить спочатку оцінити тест. Жоден експеримент цього журналу автоматично не переносити на lerenbe.com.
 
+## TEST-020 · Shared LIFE entry and resilient home images (awaiting review)
+- Depends on TEST-016 Home V2 and TEST-014 LIFE visual renderer. No storage migration or story/scene ID changes.
+- Files: home-v2 UI/CSS, app/learn-life-story.html, worker update marker, browser regression tests. Approved-image failures retain layout and alt; the app entry reuses `life/` rather than the stale snapshot renderer.
+- Test-only `base href="../life/"` must be adapted when porting to production paths. Review offline caching of shared LIFE files; bump production release/cache consistently instead of copying the isolated app snapshot. No deployment in this task.
+- Before transfer: approve art (PR #5 uses A-derived mobile), combine reviewed patches, run installed-worker and slow-network checks, then a physical Android check; preserve existing user progress and a rollback release. See `docs/reviews/HOME-VISUAL-SYNC.md`.
+
+
 ## Порядок майбутнього перенесення
 1. Звірити поточні main обох репозиторіїв і підтвердити, які TEST-ID користувач схвалив.
 2. Переносити окремі модулі та інтеграційні зміни; не замінювати основний index.html тестовим цілком. В основному вже інші дифтонги, вибір тем і опис оновлень.
@@ -101,12 +108,29 @@
 3. **LIFE:** TEST-013/014 (візуальна система, Anastasia з новими записами).
 4. Після кожного кроку — перевірка на lerenbe.com (версія в `sw.js`), фізичний телефон користувача, можливість відкоту (вимкнути модуль: без `LerenHomeV2` повертається старий банер).
 
+## TEST-017 · Фінальна графіка головної (очікує оцінки користувача; у production не переносити без схвалення)
+- Файли (шляхи від кореня сайту в production): `img/home/home-hero-desktop.webp` (1920×1080, 341 КБ), `img/home/home-hero-mobile.webp` (1280×800, 220 КБ), `img/home/cat-welcome.webp`, `img/home/cat-celebrate.webp` (512×512, альфа), `img/home/home-visuals.json` v2. Залежить від кроку 1 TEST-016 (модуль `home-v2`); міграцій сховища немає, прогрес не зачіпається.
+- HERO — похідні від чернеток Codex (C → ПК, A → телефон), не нові малюнки. Перед перенесенням користувач вирішує: лишити ці версії чи чекати нових від Codex (файли замінюються за тими самими шляхами, у маніфесті змінити лише розміри, якщо інші).
+- **Не готово:** `life-promo-desktop.webp`, `life-promo-mobile.webp` (`missing`) — потрібен малюнок вокзалу; справжні нові пози котика. Пози котика в інтерфейсі ще не підключені.
+- Під час перенесення: HERO не додавати в `APP_FILES`; підняти `RELEASE_VERSION`/кеш, щоб оновився закешований `home-visuals.json`; кандидати `img/home/home-hero-option-*.webp` у production не переносити.
+
+## TEST-018 · Якість і мобільний режим LIFE (очікує оцінки користувача)
+- Переносити разом із TEST-013/014 (або окремим PR поверх них), звіривши з актуальним production Engine 2.0: `story-engine.mjs` (ідемпотентний `finish()`, відповіді після завершення ігноруються), `story-ui.mjs` (черга голосу, зупинка при виході зі сцени, таймери сцени, жіночий голос учня, заміники персонажів, пошкоджені файли, перемальовування сцени при зміні рівня), `visuals.mjs` (`placeholders`, `broken`), `story.css` (повноекранна сцена, горизонтальний режим, 44 px, safe-area), `stories/first-day.mjs` (лише поле `emotion`), `tests/life-quality.cjs` (шлях `life/` → корінь; перевірку CSP звірити з production-CSP).
+- Сховище: ключі й формат (`leren_life_story_v1_*`, `leren_life_xp_v1`, `leren_life_memory_v1`) не змінюються; міграція не потрібна. Правила XP не змінено. Записи голосу не перезаписувались (жіночі записи реплік учня вже є в production `audio/nl-f`).
+- Production додатково: підняти `?v=` модулів і кеш у `sw.js`; перевірити на lerenbe.com і фізичному телефоні (поворот, системний великий шрифт, виріз екрана), бо тут була лише емуляція Chromium.
+- Відкриті рішення: окремий третій голос для Anastasia (зараз як Annick); чи зберігати прогрес усередині сцени (зачепить підрахунок XP першої спроби — потрібне окреме рішення); перемикач мови підказок LIFE (зараз лише українська).
+
 ## TEST-019 · Новачок — одразу до першого уроку (очікує оцінки користувача)
 - Переносити окремим PR у production (`app.js`, `index.html`, `sw.js`, `modules/learning-path/ui.js`, `modules/focused-home/{ui.js,style.css}`), підняти версії й кеш. У production немає `modules/home-v2` (TEST-016 ще не перенесено): там назви рівнів простими словами вже є в `focused-home` (`COURSE_COPY`), а речення про CEFR потрібно додати до перемикача курсів `LerenFocus.courses`; порядок «наступний урок → курси → вітрина» працює і без home-v2.
 - Окремо варто перенести й без решти змін (це помилки production): порожня дія кнопки «Почати» у вітальному вікні нідерландського маршруту; `row.children.forEach` у кнопках 5/20 хв; вікно без прокрутки на низьких екранах.
 - Сховище: новий ключ `leren_start_known_v1` (лише відповідь на питання); `leren_goal_min`, `poly_ui`, `leren_path_v1`, XP не змінюються, міграція не потрібна. Додати ключ до синхронізації (`modules/sync/merge.js`) — за бажанням.
 - Перевірити на lerenbe.com: новий користувач (інкогніто) на телефоні й ПК, користувач із прогресом, тест `tests/first-lesson.cjs` (шлях `app/` → корінь), фізичний телефон.
 
+## TEST-021 · Свіжі JSON-маніфести в Service Worker (пропозиція, очікує рішення)
+- У production та сама стратегія cache-first для маніфестів аудіо (`audio/*/manifest.json`) і LIFE. Переносити разом із наступним випуском: `freshManifest()` у `sw.js`, адаптувавши `MANIFEST_RE` до шляхів production; тест `tests/sw-manifests.cjs`. Міграція сховища не потрібна.
+
+## TEST-022 · Спокійна головна для новачка (очікує оцінки користувача)
+- Залежить від home v2 (TEST-016/017/020), якої в production ще немає: правило спрощення діє лише з `LerenHomeV2`. Окремо в production можна перенести лише кнопки ≥ 44 px (`focused-home/style.css`, `home-showcase/style.css`). Новий ключ `leren_home_all_v1` (лише вигляд головної); прогрес і XP не змінюються.
 ## TEST-020 Learning (beta only; not approved for production)
 - Home V2 learning route reads existing model statistics only; no new storage keys or migration. Chapter actions reuse existing navigation.
 - Four substantial Ukrainian static guides + index under `app/guides/`, linked from home. `noindex,nofollow` remains until editorial/legal/SEO review. Verify official links and Ukrainian/Dutch copy before indexing.
