@@ -136,3 +136,9 @@
 - Four substantial Ukrainian static guides + index under `app/guides/`, linked from home. `noindex,nofollow` remains until editorial/legal/SEO review. Verify official links and Ukrainian/Dutch copy before indexing.
 - No certification, user-count or review claims. No extra JS/image dependencies. Tests: `tests/learning-map-seo.cjs` and full local suite; details in TESTING-JOURNAL.md.
 - Audit 2026-11-13: release 230 (cache name + `?v=` for home-v2 ui/style and learning-path/ui). The route list follows TEST-022's calm rule (folded until 3 lessons). Guides: linguistic fixes, `lang="nl"` on inline Dutch. Before indexing, add canonical and OG for the production URL, remove the test footer, and get a native Flemish review.
+
+## TEST-025 — LerenBe 3.0 presentation redesign (awaiting owner review)
+- Semantic design tokens and adapters live under `app/modules/design-system/`; app, LIFE and guides reuse the same palette and component rules. Preserve approved HERO A/C and cat assets.
+- No course IDs, learning algorithms or storage migration. PR #13 and TEST-024 are unmerged parallel work, not dependencies silently included here. Resolve shell/cache changes explicitly when integrating.
+- Not approved for production; physical Samsung and owner visual approval required.
+- TEST-025 integration: release 250, cache v250, tokens/foundation/home/learning/engagement/life/guides CSS v1. New stylesheets must ship together with the page hooks and SW references. 22 existing suites + new design suite (164 screen checks) pass. 14 Before/After pairs in screenshots/test-025; keep Draft pending owner and Samsung review.
