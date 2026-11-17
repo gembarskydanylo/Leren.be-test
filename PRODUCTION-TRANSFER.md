@@ -141,3 +141,7 @@
 - Narrow-screen shortcut tiles use one column at ≤360 px; header settings/streak retain 44 px touch targets, narrow header wraps without clipping the logo.
 - Requires app release 231 + SW cache v231 + focused-home CSS v209 and matching index references. No storage migration or learning-engine change.
 - Browser emulation is complete; physical Samsung/PWA/audio checks remain. Details: `docs/audits/TEST-023.md`. Not approved for production transfer.
+## TEST-024 (beta only; production candidates need separate approval)
+- Також потрібні в production (код однаковий): `fetchT` (тайм-аути Firestore і AI) і один `acctLoad()` в `app.js`; fallback офлайн-навігації з `ignoreSearch` у `sw.js`.
+- Лише для знімка, не переносити: CSP лише 'self' і статична сторінка відгуків у `app/reviews.html`; без Cloudflare в `app/privacy.html`.
+- Перевірити в production-консолі (лише читання): чи є анонімні користувачі й записи `reviews_pending` з github.io; чи збігаються помилки App Check за часом із тестовим трафіком; чи github.io відсутній у дозволених доменах ключа reCAPTCHA.

@@ -2,7 +2,8 @@
 <html lang="uk">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.gstatic.com https://apis.google.com https://www.google.com https://static.cloudflareinsights.com; connect-src 'self' https://*.googleapis.com https://www.gstatic.com https://www.google.com https://leren-ai.gembarsky-d.workers.dev https://cloudflareinsights.com; frame-src 'self' https://leren-be.firebaseapp.com https://accounts.google.com https://www.google.com; img-src 'self' data: blob:; media-src 'self' blob:; style-src 'self' 'unsafe-inline'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta name="robots" content="noindex,nofollow">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; connect-src 'self'; frame-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; style-src 'self' 'unsafe-inline'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#EB6A00">
@@ -122,6 +123,6 @@ nav a{display:inline-block;padding:8px 14px;border-radius:999px;background:var(-
 </section>
 </main>
 <script src="./modules/emoji/renderer.js?v=1"></script>
-<!-- Cloudflare Web Analytics (cookieless visit statistics) --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "3149b6230dac4574be45cc1c1a12cdbd"}'></script><!-- End Cloudflare Web Analytics -->
+<!-- TEST-024: no production analytics in the beta snapshot --><!-- End Cloudflare Web Analytics -->
 </body>
 </html>
