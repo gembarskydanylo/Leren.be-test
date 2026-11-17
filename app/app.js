@@ -1468,8 +1468,10 @@ function goalCheck(){
  rewardCheck(true);queueProgressSync();if(typeof pushSync==="function")pushSync();updateStats();return true;
 }
 // Facts for Peter's advice, from results already saved on this device.
+// TEST-027: the exam of a course (A1.1, A1.2). A2 has no exam: before, it showed and advised the A1.1 exam.
+function examOf(lv){return lv==="a12"?{E:window.EXAM12,key:"leren_exam12"}:lv==="a11"?{E:window.EXAM11,key:"leren_exam11"}:{E:null,key:null}}
 function adviceFor(lv=curLevel){
- const E=lv==="a12"?window.EXAM12:window.EXAM11,exam=lsGet(lv==="a12"?"leren_exam12":"leren_exam11",{}),best=lsGet("poly_toetsbest",{});
+ const {E,key:ek}=examOf(lv),exam=ek?lsGet(ek,{}):{},best=lsGet("poly_toetsbest",{});
  const tests=TOETS.filter(t=>t.kind!=="leveltest"&&(t.lvl||"a11")===lv&&Number.isFinite(best[t.id])).map(t=>({id:t.id,title:t.title[uiLang]||t.title.en||t.id,best:best[t.id],total:t.questions.length}));
  const wt=E?E.tasks().find(w=>!(E.writeBest(w.id)>=80)):null,L=levelById(lv);
  return LerenInsights.recommend({lv,skills:LerenInsights.summary(LerenMerge.skillsView(skillsStore()),lv,exam),slips:LerenInsights.cleanSlips(LerenMerge.slipsView(slipsStore()))[lv],
@@ -1481,7 +1483,7 @@ function runAdvice(a){
  if(!a)return;
  if(a.t==="review"){if(targetLang==="nl"&&learningPath){setView("path");if(learningPath.review(a.ids))return}lessonMode="review";mode="review";setView("lesson");newRound();return}
  if(a.t==="game"){setView("games");const f={om:()=>omPlay("one"),dc:dcStart,sp:spStart}[a.id];if(f)f();return}
- if(a.t==="exam"||a.t==="write"){const E=a.lv==="a12"?window.EXAM12:window.EXAM11;if(!E)return;setView("toets");if(a.t==="exam")E.practice(a.part);else E.writeTask(a.id);return}
+ if(a.t==="exam"||a.t==="write"){const E=examOf(a.lv).E;if(!E)return;setView("toets");if(a.t==="exam")E.practice(a.part);else E.writeTask(a.id);return}
  if(a.t==="test"){const test=TOETS.find(t=>t.id===a.id);if(!test)return;setView("toets");toetsId=test.id;toetsQ=0;toetsRight=0;toetsLocked=false;nextToetsQuestion();return}
  if(a.t==="tab"){const c=levelCats().find(c=>c.tabs.includes(a.tab));if(c){currentCat=c.id;tab=a.tab}}
  if(a.t==="tab"||a.t==="mode"){lessonMode=a.mode;mode=a.mode;try{localStorage.setItem("leren_lesson_mode",a.mode)}catch(e){}saveStore();setView("lesson");buildNav();newRound()}
@@ -1489,7 +1491,7 @@ function runAdvice(a){
 // Progress screen: the four skills of the current course and Peter's advice.
 function renderInsights(host){
  const lv=curLevel,L=levelById(lv).name,iu=LerenInsights.ui(uiLang),pt=LerenInsights.tr(uiLang);
- const exam=lsGet(lv==="a12"?"leren_exam12":"leren_exam11",{}),sk=LerenInsights.summary(LerenMerge.skillsView(skillsStore()),lv,exam);
+ const ek=examOf(lv).key,exam=ek?lsGet(ek,{}):{},sk=LerenInsights.summary(LerenMerge.skillsView(skillsStore()),lv,exam);
  const box=el("section","ins-skills");box.id="insSkills";box.appendChild(el("h3","",iu.skills(L)));
  const row=(key,lines,pct)=>{const r=el("div","ins-row");r.dataset.skill=key;const head=el("div","ins-head");head.append(el("strong","",iu.sk[key]));if(pct!=null)head.append(el("span","ins-pct",pct+"%"));r.appendChild(head);
   if(pct!=null){const m=el("div","ins-meter");m.setAttribute("role","img");m.setAttribute("aria-label",iu.sk[key]+" "+pct+"%");const i=el("i");i.style.width=pct+"%";m.appendChild(i);r.appendChild(m)}

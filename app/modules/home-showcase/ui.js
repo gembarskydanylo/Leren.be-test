@@ -36,7 +36,7 @@
   const intro=el('section','hs-intro');intro.setAttribute('aria-label',t.eyebrow);
   const introCopy=el('div','hs-intro-copy');add(introCopy,el('p','hs-kicker',t.eyebrow),el('h2','hs-display',t.title),el('p','hs-lead',t.intro));
   const introActions=el('div','hs-actions');add(introActions,button(t.play,onGames,'hs-button hs-button-light'),button(t.talk,()=>onChat('peter'),'hs-button hs-button-outline'),button(t.route,onRoute,'hs-text-link'));introCopy.appendChild(introActions);
-  const introArt=el('div','hs-intro-art'),cat=el('img','hs-intro-cat');cat.src='./img/home/hero-cat-v196.png';cat.alt=catAlt[lang]||catAlt.uk;cat.width=470;cat.height=470;cat.decoding='async';add(introArt,cat,el('span','hs-float hs-float-top','hallo!'),el('span','hs-float hs-float-bottom','goed bezig ✦'));add(intro,introCopy,introArt);
+  const introArt=el('div','hs-intro-art'),cat=el('img','hs-intro-cat');cat.src='./img/home/hero-cat-v196-512.webp';cat.alt=catAlt[lang]||catAlt.uk;cat.width=470;cat.height=470;cat.decoding='async';add(introArt,cat,el('span','hs-float hs-float-top','hallo!'),el('span','hs-float hs-float-bottom','goed bezig ✦'));add(intro,introCopy,introArt);
 
   const features=el('div','hs-features');
   if(lang==='uk'){

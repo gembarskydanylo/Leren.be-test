@@ -135,7 +135,7 @@
   function illustration(w){
    const figure=node('figure','lp-word-art');
    if(w.id==='b_wakker'||w.nl==='wakker worden'){
-    const img=node('img');img.src='./img/learning-path/wake-cat-v1.png';img.alt='Кіт прокидається і потягується біля будильника';figure.appendChild(img);
+    const img=node('img');img.src='./img/learning-path/wake-cat-v1-656.webp';img.alt='Кіт прокидається і потягується біля будильника';figure.appendChild(img);
    }else{
     const icon=String(w.icon||'📚'),svg=icon.startsWith('<')?icon:(globalThis.LerenCardArt?.A?.[icon]||'');figure.setAttribute('aria-label',w.nl);
     if(svg){figure.classList.add('lp-drawn');figure.innerHTML=svg}

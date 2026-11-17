@@ -20,7 +20,7 @@
  if(skip||storage(key)==="1"||languages.some(function(l){return l.id===storage("poly_ui")})){remove();return}
  var selected=false;
  function node(tag,cls,content){var el=document.createElement(tag);if(cls)el.className=cls;if(content!=null)el.textContent=content;return el}
- function cat(){var img=node("img","onboard-cat");img.alt="";img.src="./img/mascot/student-cat-v1.png";return img}
+ function cat(){var img=node("img","onboard-cat");img.alt="";img.src="./img/mascot/student-cat-v1-900.webp";return img}
  function finish(){if(!box)return;box.classList.add("out");setTimeout(remove,320)}
  function choose(l){
   if(selected)return;selected=true;
@@ -34,7 +34,7 @@
   box.replaceChildren();
   var banner=node("section","onboard-banner");if(l.id==="ar")banner.dir="rtl";
   var heading=node("h2","",l.title),sub=node("p","",l.subtitle),logo=node("strong","","lerenbe.com");
-  var img=node("img");img.src="./img/home/hero-cat-v196.png";img.alt="";
+  var img=node("img");img.src="./img/home/hero-cat-v196-512.webp";img.alt="";
   banner.append(heading,img,sub,logo);box.append(banner);
   // Four seconds after the language choice, reveal the main app.
   setTimeout(finish,4000);

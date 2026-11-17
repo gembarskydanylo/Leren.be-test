@@ -11,7 +11,7 @@
    Everything else has an explicit rule per key (see mergeKey). Data written by v174 and older (the *_v1 keys and
    poly_score) is read as one extra "legacy" part, the same on every device, so it is never counted twice either. */
 (()=>{'use strict';
- const LEGACY='v1',KEEP_DAYS=60,RECENT=30,SLIP_RECENT=20,LEVELS=['a11','a12'],QUIZ=['lezen','luisteren','schrijven'];
+ const LEGACY='v1',KEEP_DAYS=60,RECENT=30,SLIP_RECENT=20,LEVELS=['a11','a12','a21'],QUIZ=['lezen','luisteren','schrijven'];
  const obj=v=>v!==null&&typeof v==='object'&&!Array.isArray(v);
  const num=v=>Number.isFinite(Number(v))&&Number(v)>0?Number(v):0;
  const int=v=>Math.floor(num(v));
@@ -70,7 +70,7 @@
  function slipsMerge(a,b){const x=cleanSlips2(a),y=cleanSlips2(b),o={v:2,dev:{}};for(const dev of new Set([...Object.keys(x.dev),...Object.keys(y.dev)])){const p=x.dev[dev]||{},q=y.dev[dev]||{},r={};
    for(const l of new Set([...Object.keys(p),...Object.keys(q)])){r[l]={};for(const tag of new Set([...Object.keys(p[l]||{}),...Object.keys(q[l]||{})])){const P=(p[l]||{})[tag],Q=(q[l]||{})[tag];r[l][tag]=!P?Q:!Q?P:(Q.n>P.n?Q:P)}}o.dev[dev]=r}return o}
  // {a11:{omdat:"0110"}}: the recent results of all devices in time order (what modules/insights/core.js reads).
- function slipsView(raw){const s=cleanSlips2(raw),out={a11:{},a12:{}};for(const l of LEVELS){const tags={};for(const d of Object.values(s.dev))for(const [tag,x] of Object.entries(d[l]||{}))(tags[tag]=tags[tag]||[]).push(x);
+ function slipsView(raw){const s=cleanSlips2(raw),out={a11:{},a12:{},a21:{}};for(const l of LEVELS){const tags={};for(const d of Object.values(s.dev))for(const [tag,x] of Object.entries(d[l]||{}))(tags[tag]=tags[tag]||[]).push(x);
    for(const [tag,xs] of Object.entries(tags))out[l][tag]=xs.sort((a,b)=>a.t-b.t).map(x=>x.r).join('').slice(-SLIP_RECENT)}return out}
  function slipsFromV1(v1){const o={};if(obj(v1))for(const l of LEVELS)if(obj(v1[l])){o[l]={};for(const [tag,r] of Object.entries(v1[l]))if(SAFE(tag)&&typeof r==='string'&&r)o[l][tag]={r:r.replace(/[^01]/g,'').slice(-SLIP_RECENT),n:r.length,t:0}}return {v:2,dev:{[LEGACY]:o}}}
 

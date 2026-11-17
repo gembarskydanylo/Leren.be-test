@@ -166,3 +166,5 @@
 :root[data-theme="dark"] .lp-topic-done.lp-block-done .lp-td-title{color:#fbbf24}
 @keyframes lp-td-in{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){.lp-topic-done{animation:none}}
+/* TEST-027: the «How does it work?» toggle of the starting check was a 20 px tall tap target; 44 px like the other controls. */
+.lp-placement-help summary{padding-block:12px}
