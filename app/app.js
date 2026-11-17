@@ -4280,7 +4280,7 @@ $("remindHour").addEventListener("change",e=>{const st=pushState();st.hour=Numbe
 
 // ========== GAMES: dialogue puzzle, role-play, speaking, blitz, memory, dictation, my day ==========
 const G_UI={
- uk:{games:"Ігри",story:"День у Бельгії",storyS:"{Nu} проведе тебе через день у Бельгії: кафе, магазин, аптека, комуна, вокзал, {сусід|сусідка}",ai:"Praat met {N} · AI",aiS:"Вільна розмова з AI: пиши або говори, {Nu} виправить помилки",ask:"Запитай {Пітера|Дафну} · AI",askS:"Граматика, слова, переклад, вправи: питай українською",title:"Ігри",sub:"Говори, слухай і грай — так, як на уроці в CVO",back:"← Ігри",best:"Рекорд",week:"Виклик тижня",weekT:"Зіграй 5 різних ігор цього тижня — отримаєш +100 балів",weekDone:"Виклик тижня виконано! +100 ⭐",nlOnly:"Ця гра — для нідерландської. Обери 🇧🇪 BE у налаштуваннях.",
+ uk:{games:"Ігри",story:"День у Бельгії",storyS:"{Nu} проведе тебе через день у Бельгії: кафе, магазин, аптека, комуна, вокзал, {сусід|сусідка}",ai:"Praat met Lexi · AI",aiS:"Вільна розмова з AI: пиши або говори, Lexi виправить помилки",ask:"Запитай Lexi · AI",askS:"Граматика, слова, переклад, вправи: питай українською",title:"Ігри",sub:"Говори, слухай і грай — так, як на уроці в CVO",back:"← Ігри",best:"Рекорд",week:"Виклик тижня",weekT:"Зіграй 5 різних ігор цього тижня — отримаєш +100 балів",weekDone:"Виклик тижня виконано! +100 ⭐",nlOnly:"Ця гра — для нідерландської. Обери 🇧🇪 BE у налаштуваннях.",
   dlg:"Діалог-пазл",dlgS:"Розклади репліки в правильному порядку",rp:"Рольова гра",rpS:"Веди розмову: ти — одна з двох людей",sp:"Відповідай на питання",spS:"Скажи відповідь у мікрофон, як на уроці",bl:"Бліц 60 секунд",blS:"Скільки слів устигнеш за хвилину?",mm:"Мемо",mmS:"Знайди пари: слово й переклад",dc:"Диктант",dcS:"Послухай і напиши речення",md:"Мій день",mdS:"Розкажи про свій день: «Om 7 uur sta ik op»",
   pick:"Обери діалог",order:"Натискай репліки по порядку — від першої до останньої",check:"Перевірити",again:"Ще раз",wrongOrder:"Майже! Зелені репліки на місці, решту переставимо.",solved:"Правильно! Ось увесь діалог:",play:"▶ Прослухати діалог",clear:"Очистити",
   role:"Твоя роль",level:"Рівень",l1:"Вибрати",l2:"Скласти",l3:"Сказати",yourTurn:"Твоя черга:",choose:"Обери, що сказати",build:"Склади репліку з карток",say:"Натисни 🎤 і скажи",mic:"🎤 Говорити",listening:"Слухаю…",type:"⌨ Написати",send:"Готово",heard:"Почуто:",tryAgain:"Спробуй ще раз",noMic:"Розпізнавання мови недоступне тут — напиши відповідь.",micDenied:"Немає доступу до мікрофона. Дозволь його в налаштуваннях або напиши відповідь.",wellDone:"Чудова розмова! 🎉",
@@ -4289,7 +4289,7 @@ const G_UI={
   write:"Напиши, що почув(-ла)",slow:"🐢 Повільно",correctIs:"Правильно:",
   mdPick:"О котрій?",mdBuild:"Склади речення",mdRule:"Час на початку → спочатку дієслово, потім «ik»: Om zeven uur sta ik op.",mdAll:"Мій день",
   pts:n=>"+"+n+" ⭐"},
- en:{games:"Games",story:"A day in Belgium",storyS:"{N} takes you through a day in Belgium: café, shop, pharmacy, town hall, station, neighbour",ai:"Praat met {N} · AI",aiS:"Free conversation with AI: write or speak, {N} corrects you",ask:"Ask {N} · AI",askS:"Grammar, words, translation, exercises: ask anything about the language",title:"Games",sub:"Speak, listen and play — like in class",back:"← Games",best:"Best",week:"Weekly challenge",weekT:"Play 5 different games this week to earn +100 points",weekDone:"Weekly challenge complete! +100 ⭐",nlOnly:"This game is for Dutch. Choose 🇧🇪 BE in Settings.",
+ en:{games:"Games",story:"A day in Belgium",storyS:"{N} takes you through a day in Belgium: café, shop, pharmacy, town hall, station, neighbour",ai:"Praat met Lexi · AI",aiS:"Free conversation with AI: write or speak, Lexi corrects you",ask:"Ask Lexi · AI",askS:"Grammar, words, translation, exercises: ask anything about the language",title:"Games",sub:"Speak, listen and play — like in class",back:"← Games",best:"Best",week:"Weekly challenge",weekT:"Play 5 different games this week to earn +100 points",weekDone:"Weekly challenge complete! +100 ⭐",nlOnly:"This game is for Dutch. Choose 🇧🇪 BE in Settings.",
   dlg:"Dialogue puzzle",dlgS:"Put the lines in the right order",rp:"Role-play",rpS:"Hold the conversation: you are one of the two people",sp:"Answer the question",spS:"Say your answer into the microphone",bl:"60-second blitz",blS:"How many words in one minute?",mm:"Memory",mmS:"Find the pairs: word and translation",dc:"Dictation",dcS:"Listen and type the sentence",md:"My day",mdS:"Tell about your day: “Om 7 uur sta ik op”",
   pick:"Choose a dialogue",order:"Tap the lines in order — from first to last",check:"Check",again:"Again",wrongOrder:"Almost! Green lines are in place, let's fix the rest.",solved:"Correct! Here is the whole dialogue:",play:"▶ Play dialogue",clear:"Clear",
   role:"Your role",level:"Level",l1:"Choose",l2:"Build",l3:"Speak",yourTurn:"Your turn:",choose:"Choose what to say",build:"Build the line from cards",say:"Tap 🎤 and speak",mic:"🎤 Speak",listening:"Listening…",type:"⌨ Type",send:"Done",heard:"Heard:",tryAgain:"Try again",noMic:"Speech recognition isn't available here — type your answer.",micDenied:"No microphone access. Allow it in settings or type your answer.",wellDone:"Great conversation! 🎉",
@@ -4298,7 +4298,7 @@ const G_UI={
   write:"Type what you heard",slow:"🐢 Slow",correctIs:"Correct:",
   mdPick:"What time?",mdBuild:"Build the sentence",mdRule:"Time first → verb, then “ik”: Om zeven uur sta ik op.",mdAll:"My day",
   pts:n=>"+"+n+" ⭐"},
- fr:{games:"Jeux",story:"Une journée en Belgique",storyS:"{N} t'emmène à travers une journée en Belgique : café, magasin, pharmacie, commune, gare, {voisin|voisine}",ai:"Praat met {N} · AI",aiS:"Conversation libre avec l'IA : {N} corrige tes erreurs",ask:"Demande à {N} · IA",askS:"Grammaire, mots, traduction, exercices : pose tes questions",title:"Jeux",sub:"Parle, écoute et joue — comme en classe",back:"← Jeux",best:"Record",week:"Défi de la semaine",weekT:"Joue à 5 jeux différents cette semaine : +100 points",weekDone:"Défi de la semaine réussi ! +100 ⭐",nlOnly:"Ce jeu est pour le néerlandais. Choisis 🇧🇪 BE dans les réglages.",
+ fr:{games:"Jeux",story:"Une journée en Belgique",storyS:"{N} t'emmène à travers une journée en Belgique : café, magasin, pharmacie, commune, gare, {voisin|voisine}",ai:"Praat met Lexi · AI",aiS:"Conversation libre avec l'IA : Lexi corrige tes erreurs",ask:"Demande à Lexi · IA",askS:"Grammaire, mots, traduction, exercices : pose tes questions",title:"Jeux",sub:"Parle, écoute et joue — comme en classe",back:"← Jeux",best:"Record",week:"Défi de la semaine",weekT:"Joue à 5 jeux différents cette semaine : +100 points",weekDone:"Défi de la semaine réussi ! +100 ⭐",nlOnly:"Ce jeu est pour le néerlandais. Choisis 🇧🇪 BE dans les réglages.",
   dlg:"Puzzle de dialogue",dlgS:"Remets les répliques dans l'ordre",rp:"Jeu de rôle",rpS:"Mène la conversation : tu es l'une des deux personnes",sp:"Réponds à la question",spS:"Dis ta réponse au micro",bl:"Blitz 60 secondes",blS:"Combien de mots en une minute ?",mm:"Memory",mmS:"Trouve les paires : mot et traduction",dc:"Dictée",dcS:"Écoute et écris la phrase",md:"Ma journée",mdS:"Raconte ta journée : « Om 7 uur sta ik op »",
   pick:"Choisis un dialogue",order:"Touche les répliques dans l'ordre",check:"Vérifier",again:"Encore",wrongOrder:"Presque ! Les répliques vertes sont bien placées.",solved:"Correct ! Voici tout le dialogue :",play:"▶ Écouter le dialogue",clear:"Effacer",
   role:"Ton rôle",level:"Niveau",l1:"Choisir",l2:"Construire",l3:"Parler",yourTurn:"À toi :",choose:"Choisis quoi dire",build:"Construis la réplique",say:"Touche 🎤 et parle",mic:"🎤 Parler",listening:"J'écoute…",type:"⌨ Écrire",send:"OK",heard:"Entendu :",tryAgain:"Réessaie",noMic:"Reconnaissance vocale indisponible — écris ta réponse.",micDenied:"Pas d'accès au micro. Autorise-le ou écris ta réponse.",wellDone:"Belle conversation ! 🎉",
@@ -4307,7 +4307,7 @@ const G_UI={
   write:"Écris ce que tu entends",slow:"🐢 Lent",correctIs:"Correct :",
   mdPick:"À quelle heure ?",mdBuild:"Construis la phrase",mdRule:"L'heure d'abord → le verbe, puis « ik » : Om zeven uur sta ik op.",mdAll:"Ma journée",
   pts:n=>"+"+n+" ⭐"},
- ar:{games:"ألعاب",story:"يوم في بلجيكا",storyS:"{يأخذك|تأخذك} {Na} في يوم ببلجيكا: مقهى، متجر، صيدلية، بلدية، محطة، {جار|جارة}",ai:"Praat met {N} · AI",aiS:"محادثة حرة مع الذكاء الاصطناعي تصحح أخطاءك",ask:"اسأل {Na} · AI",askS:"القواعد والكلمات والترجمة والتمارين: اسأل عن اللغة",title:"ألعاب",sub:"تكلّم واستمع والعب — كما في الصف",back:"→ الألعاب",best:"الأفضل",week:"تحدّي الأسبوع",weekT:"العب 5 ألعاب مختلفة هذا الأسبوع لتربح 100 نقطة",weekDone:"أنجزت تحدّي الأسبوع! +100 ⭐",nlOnly:"هذه اللعبة للهولندية. اختر 🇧🇪 BE في الإعدادات.",
+ ar:{games:"ألعاب",story:"يوم في بلجيكا",storyS:"{يأخذك|تأخذك} {Na} في يوم ببلجيكا: مقهى، متجر، صيدلية، بلدية، محطة، {جار|جارة}",ai:"Praat met Lexi · AI",aiS:"محادثة حرة مع الذكاء الاصطناعي تصحح أخطاءك",ask:"اسأل Lexi · AI",askS:"القواعد والكلمات والترجمة والتمارين: اسأل عن اللغة",title:"ألعاب",sub:"تكلّم واستمع والعب — كما في الصف",back:"→ الألعاب",best:"الأفضل",week:"تحدّي الأسبوع",weekT:"العب 5 ألعاب مختلفة هذا الأسبوع لتربح 100 نقطة",weekDone:"أنجزت تحدّي الأسبوع! +100 ⭐",nlOnly:"هذه اللعبة للهولندية. اختر 🇧🇪 BE في الإعدادات.",
   dlg:"لغز الحوار",dlgS:"رتّب الجمل بالترتيب الصحيح",rp:"لعب الأدوار",rpS:"أدِر الحوار: أنت أحد الشخصين",sp:"أجب عن السؤال",spS:"قل إجابتك في الميكروفون",bl:"تحدّي 60 ثانية",blS:"كم كلمة في دقيقة؟",mm:"الذاكرة",mmS:"اعثر على الأزواج: الكلمة والترجمة",dc:"إملاء",dcS:"استمع واكتب الجملة",md:"يومي",mdS:"احكِ عن يومك: «Om 7 uur sta ik op»",
   pick:"اختر حوارًا",order:"اضغط الجمل بالترتيب",check:"تحقّق",again:"مرة أخرى",wrongOrder:"تقريبًا! الجمل الخضراء في مكانها.",solved:"صحيح! هذا الحوار كاملًا:",play:"▶ استمع إلى الحوار",clear:"مسح",
   role:"دورك",level:"المستوى",l1:"اختيار",l2:"تركيب",l3:"نطق",yourTurn:"دورك:",choose:"اختر ما تقوله",build:"ركّب الجملة من البطاقات",say:"اضغط 🎤 وتكلّم",mic:"🎤 تكلّم",listening:"أستمع…",type:"⌨ اكتب",send:"تم",heard:"سمعت:",tryAgain:"حاول مرة أخرى",noMic:"التعرف على الكلام غير متاح هنا — اكتب إجابتك.",micDenied:"لا يوجد إذن للميكروفون. اسمح به أو اكتب إجابتك.",wellDone:"حوار رائع! 🎉",
@@ -5470,10 +5470,33 @@ function storyAnswer(k,spoken,loose){
 
 // ========== AI CHAT with {N} (hidden until AI_ENDPOINT is set; server: tools/ai-worker.js) ==========
 // For local testing of tools/ai-worker.js: localStorage.leren_ai_endpoint="http://localhost:8787" (works on localhost only).
-const AI_ENDPOINT=(location.hostname==="localhost"&&lsGet("leren_ai_endpoint",""))||"https://leren-ai.gembarsky-d.workers.dev/";
-const AI_TITLE={nl:"Praat met {N} · AI",en:"Talk to {N} · AI",fr:"Parle avec {N} · IA"};
+// TEST-031 · Lexi (app/modules/lexi/engine.js) is the one AI tutor: every AI request below goes through LerenLexi, which
+// adds the identity, the minimal learning context and the scenario, and keeps the beta snapshot off the production AI
+// (prodServices(): lerenbe.com without the leren-env=beta marker). A local endpoint works on localhost only (tests).
+const AI_LOCAL=location.hostname==="localhost"&&lsGet("leren_ai_endpoint","")||"";
+const AI_URL=AI_LOCAL||"https://leren-ai.gembarsky-d.workers.dev/";
+// The engine is a deferred script (not needed for the first screen): configured on first use.
+let lexiReady=false;
+function lexi(){const L=window.LerenLexi;if(L&&!lexiReady){L.configure({endpoint:AI_URL,local:()=>!!AI_LOCAL,production:()=>prodServices()});lexiReady=true}return L}
+// AI entry points are shown where Lexi can run (offline they stay and explain why they wait); hidden in the beta snapshot.
+const AI_ENDPOINT=AI_LOCAL||(prodServices()?AI_URL:"");
+// What Lexi knows about the moment: interface + studied language, level, topic; lesson / question / answer when given.
+function lexiCtx(s,extra){return {ui:s&&s.lang||uiLang,target:s&&s.target||targetLang,level:curLevel,topic:aiProfile().topic,...(s&&s.lexiCtx||{}),...(extra||{})}}
+// Lexi's picture until the approved artwork exists (TEST-030): the LerenBe cat.
+const lexiAv=()=>'<img class="lexi-av" src="./img/home/hero-cat-v196-320.webp" alt="" width="64" height="64" decoding="async" style="width:100%;height:100%;object-fit:contain">';
+// Lexi cannot run here (beta snapshot, no endpoint, offline at start): a clear card instead of a chat that fails.
+function lexiBlocked(title){const L=lexi(),a=L?L.availability():{ok:false,code:"unavailable"};if(a.ok)return false;const card=gHead(title,"");const h=el("div","st-head lexi-off");const av=el("div","st-av");av.innerHTML=lexiAv();h.append(av,el("div","st-say",L?L.message(a.code,uiLang):"Lexi …"));h.setAttribute("role","status");card.appendChild(h);
+ if(a.code==="offline"){const r=el("button","btn primary",({uk:"Спробувати ще раз",en:"Try again",fr:"Réessayer",ar:"حاول مرة أخرى"})[uiLang]||"Try again");r.type="button";r.onclick=()=>{if(gState&&gState.lexiRetry)gState.lexiRetry()};card.appendChild(r)}
+ return true}
+// Opens Lexi from anywhere (UI contract): scenario free | grammar | roleplay | lesson | speaking; ctx: {topic, lesson, question, answer, scene}.
+function lexiOpen(scenario,ctx){const L=lexi(),sc=L?L.scenario(scenario):"free",c=ctx&&typeof ctx==="object"?ctx:{};if(view!=="games")setView("games");
+ if(sc==="grammar"||sc==="lesson")return askStart({scenario:sc,lexiCtx:{lesson:c.lesson,question:c.question,answer:c.answer,topic:c.topic},send:c.send});
+ if(sc==="roleplay"){const id=L&&L.ROLEPLAYS[c.scene]||c.scene;return aiStart(SCENES.find(x=>x.id===id)||{id:L&&L.ROLEPLAYS[c.scene]?id:"super"})}
+ return aiStart(null,sc)}
+window.lexiOpen=lexiOpen;
+const AI_TITLE={nl:"Praat met Lexi · AI",en:"Talk to Lexi · AI",fr:"Parle avec {N} · IA"};
 // Game and chat title in the interface language (the conversation itself stays in Dutch).
-const aiTitle=()=>{const d=charId()==="dafna";return ({uk:"Розмова з "+(d?"Дафною":"Пітером")+" · AI",ar:"تحدّث مع "+(d?"دافنا":"بيتر")+" · AI",fr:cx(AI_TITLE.fr),en:cx(AI_TITLE.en)})[uiLang]||cx(AI_TITLE.en)};
+const aiTitle=()=>({uk:"Розмова з Lexi · AI",ar:"تحدّث مع Lexi · AI",fr:AI_TITLE.fr.replace("{N}","Lexi"),en:AI_TITLE.en.replace("{N}","Lexi")})[uiLang]||AI_TITLE.en.replace("{N}","Lexi");
 const AI_UI={uk:{sub:{nl:"Пиши або говори нідерландською",en:"Пиши або говори англійською",fr:"Пиши або говори французькою"},intro:"Говори зі мною просто, як на A1. Помилки я виправлю й поясню.",consentT:"Перед початком",consent:"Розмова з AI працює через інтернет. Текст твоїх повідомлень надсилається на сервер lerenbe.com і до AI-моделі, щоб {Nu} {міг|могла} відповісти. Розмови не зберігаються. Не пиши паролі, номери документів чи банківські дані. {Nu} запам’ятовує кілька фактів про тебе лише на цьому пристрої, щоб наступного разу продовжити розмову; їх можна переглянути й видалити.",adult:"Мені виповнилося 18 років",trShow:"🇺🇦 Перекласти українською",trHide:"Сховати переклад",memT:"🧠 Що {Nu} пам’ятає про тебе",memForget:"Забути все",memNote:"Зберігається лише на цьому пристрої.",report:"⚑ Поскаржитися",reportQ:"Поскаржитися на цю відповідь AI (образлива, небезпечна або хибна)? Текст відповіді буде надіслано розробнику.",reportOk:"Дякуємо! Скаргу надіслано.",agree:"Зрозуміло, почати",fix:"Краще сказати:",tr:"Переклад",err:"{Nu} зараз {недоступний|недоступна}. Перевір інтернет і спробуй ще раз.",limit:"На сьогодні розмов досить 🙂 Повертайся завтра!",limitHead:"На сьогодні розмов досить 🙂",limitAt:"Доступ відновиться {t}.",netLimit:"З цієї мережі Wi‑Fi сьогодні вже багато запитів 🙂",slowIn:"Забагато повідомлень за хвилину. Зачекай {s} с і надішли ще раз.",slow:"Забагато повідомлень за хвилину. Зачекай трохи й надішли ще раз.",
   askTitle:"Запитай {Пітера|Дафну} · AI",askSub:"Нідерландська, англійська, французька",askIntro:"Привіт! Я {Nu}. Питай мене про граматику, слова, переклад чи вимову, або попроси вправу.",askPh:"Твоє питання…",send:"Надіслати",ex:"Приклади (натисни, щоб послухати)",
   chips:{nl:["Коли «de», а коли «het»?","Поясни інверсію: «Om 7 uur sta ik op»","Як утворюється perfectum?","Дай мені вправу на дієслово «zijn»"],en:["Коли «do», а коли «does»?","Яка різниця між «a» і «the»?","Як утворюється Past Simple?","Дай мені вправу на «to be»"],fr:["Коли «le», а коли «la»?","Як відмінюється «être»?","Що таке «septante» і «nonante»?","Дай мені вправу на «avoir»"]}},
@@ -5486,7 +5509,8 @@ const AI_UI={uk:{sub:{nl:"Пиши або говори нідерландськ�
  ar:{sub:{nl:"اكتب أو تحدّث بالهولندية",en:"اكتب أو تحدّث بالإنجليزية",fr:"اكتب أو تحدّث بالفرنسية"},intro:"تحدّث معي ببساطة بمستوى A1. سأصحّح أخطاءك وأشرحها.",consentT:"قبل البدء",consent:"تعمل المحادثة مع الذكاء الاصطناعي عبر الإنترنت. تُرسل رسائلك إلى خادم lerenbe.com وإلى نموذج ذكاء اصطناعي ليتمكّن {Na} من الرد. لا تُحفظ المحادثات. لا تكتب كلمات المرور أو أرقام الوثائق أو البيانات البنكية. يتذكر {Na} بعض المعلومات عنك على هذا الجهاز فقط لمتابعة الحديث لاحقًا، ويمكنك عرضها وحذفها.",adult:"عمري 18 عامًا أو أكثر",trShow:"عرض الترجمة",trHide:"إخفاء الترجمة",memT:"🧠 ما يتذكره {Na} عنك",memForget:"انسَ كل شيء",memNote:"محفوظ على هذا الجهاز فقط.",report:"⚑ إبلاغ",reportQ:"الإبلاغ عن رد الذكاء الاصطناعي هذا (مسيء أو ضار أو خاطئ)؟ سيُرسل نص الرد إلى المطوّر.",reportOk:"شكرًا! تم إرسال البلاغ.",agree:"حسنًا، ابدأ",fix:"الأفضل:",tr:"الترجمة",err:"{Na} غير متاح الآن. تحقّق من الاتصال وحاول مرة أخرى.",limit:"يكفي حديثًا لهذا اليوم 🙂 عد غدًا!",limitHead:"يكفي حديثًا لهذا اليوم 🙂",limitAt:"يعود الوصول {t}.",netLimit:"أرسلت شبكة الواي فاي هذه الكثير من الطلبات اليوم 🙂",slowIn:"رسائل كثيرة في دقيقة واحدة. انتظر {s} ثانية ثم أرسل مرة أخرى.",slow:"رسائل كثيرة في دقيقة واحدة. انتظر قليلًا ثم أرسل مرة أخرى.",
   askTitle:"اسأل {Na} · AI",askSub:"الهولندية، الإنجليزية، الفرنسية",askIntro:"مرحبًا! أنا {Na}. اسألني عن القواعد أو الكلمات أو الترجمة أو النطق، أو اطلب تمرينًا.",askPh:"سؤالك…",send:"إرسال",ex:"أمثلة (اضغط للاستماع)",
   chips:{nl:["متى نستخدم «de» ومتى «het»؟","اشرح القلب: «Om 7 uur sta ik op»","كيف يُصاغ الـ perfectum؟","أعطني تمرينًا على «zijn»"],en:["متى «do» ومتى «does»؟","ما الفرق بين «a» و«the»؟","كيف يُصاغ الماضي البسيط؟","أعطني تمرينًا على «to be»"],fr:["متى «le» ومتى «la»؟","كيف يُصرَّف «être»؟","ما معنى «septante» و«nonante»؟","أعطني تمرينًا على «avoir»"]}}};
-const aiU=()=>cxDeep(AI_UI[uiLang]||AI_UI.en);
+const lexiName=o=>typeof o==="string"?o.replace(/\{Пітера\|Дафну\}/g,"Lexi").replace(/\{([^{}|]*)\|([^{}|]*)\}/g,(_,m)=>m).replace(/\{N[ua]?\}/g,"Lexi"):Array.isArray(o)?o.map(lexiName):o&&typeof o==="object"?Object.fromEntries(Object.entries(o).map(([k,v])=>[k,typeof v==="function"?v:lexiName(v)])):o;
+const aiU=()=>lexiName(AI_UI[uiLang]||AI_UI.en);
 // Text for a 429: says when the learner can write again (minute limit: seconds; daily limit: local time of the reset).
 function aiLimitText(err){
  const u=aiU(),w=err&&(err.wait||LerenAICoach.wait(err.data));
@@ -5513,7 +5537,7 @@ function aiProfile(){
 // Report an AI answer (Google Play AI-generated content policy): the text goes to the worker log.
 async function aiReport(text,mode){
  const g=aiU();if(!confirm(g.reportQ))return;
- try{await fetch(AI_ENDPOINT,{method:"POST",headers:LerenAICoach.headers(),body:JSON.stringify({mode:"report",kind:mode,target:targetLang,lang:uiLang,text:String(text).slice(0,1500)})})}catch(e){}
+ await lexi().report(lexiCtx(),mode,text);
  toast(g.reportOk,true);
 }
 // Memory between conversations: short notes about the learner, written by the tutor, kept only on this device.
@@ -5526,8 +5550,7 @@ async function aiRemember(s){
  const msgs=s.msgs.slice(s.memoFrom||0),uc=s.msgs.filter(m=>m.role==="user").length;
  if(s.memoBusy||uc<=(s.memoAt||0)||!AI_ENDPOINT||!msgs.some(m=>m.role==="user"))return;
  s.memoBusy=true;s.memoAt=uc;const rev=aiMemRev();
- try{const r=await fetch(AI_ENDPOINT,{method:"POST",headers:LerenAICoach.headers(),body:JSON.stringify({mode:"memo",target:targetLang,lang:uiLang,memory:aiMemory(),messages:aiMsgs(msgs)})});
-  const j=await r.json().catch(()=>({}));if(r.ok&&typeof j.memory==="string"&&lsGet("leren_ai_consent18",false)&&rev===aiMemRev())lsSet("leren_ai_memory",j.memory.trim())}catch(e){}
+ const mem=await lexi().memo(lexiCtx(s),msgs,aiMemory());if(typeof mem==="string"&&lsGet("leren_ai_consent18",false)&&rev===aiMemRev())lsSet("leren_ai_memory",mem);
  s.memoBusy=false;
 }
 function aiMemoryBox(rerender){
@@ -5539,12 +5562,14 @@ function aiMemoryBox(rerender){
 const aiMsgs=msgs=>msgs.slice(-12).map(m=>({role:m.role,content:m.alts&&m.alts.length>1?m.content+"\n[spoken; other possible transcriptions: "+m.alts.slice(1,4).join(" | ")+"]":m.content}));
 function aiConsent(title,go){
  if(lsGet("leren_ai_consent18",false))return true; // AI chat is for adults: consent includes 18+
- {const g=aiU(),card=gHead(title,"");const h=el("div","st-head");const av=el("div","st-av");av.innerHTML=charSvg("happy");h.append(av,el("div","st-say",g.intro));card.appendChild(h);
+ {const g=aiU(),card=gHead(title,"");const h=el("div","st-head");const av=el("div","st-av");av.innerHTML=lexiAv();h.append(av,el("div","st-say",g.intro));card.appendChild(h);
   const box=el("div","ai-consent");box.append(el("h3","",g.consentT),el("p","",g.consent));const age=el("label","ai-age");const cb=el("input");cb.type="checkbox";age.append(cb,el("span","",g.adult));box.appendChild(age);const ok=el("button","btn primary",g.agree);ok.disabled=true;cb.onchange=()=>{ok.disabled=!cb.checked};ok.onclick=()=>{if(!cb.checked)return;lsSet("leren_ai_consent18",true);go()};box.appendChild(ok);card.appendChild(box);return false}
 }
-function aiStart(scene){
- if(!aiConsent(aiTitle(),()=>aiStart(scene)))return;
- gState={chat:true,msgs:[],busy:false,draft:"",target:targetLang,lang:uiLang,view,scene:targetLang==="nl"&&scene&&scene.id||null,fromExam:!!(scene&&scene.fromExam),style:["talk","teacher","slow"].includes(lsGet("leren_ai_style","teacher"))?lsGet("leren_ai_style","teacher"):"teacher"};
+function aiStart(scene,scenario){
+ gState={lexiRetry:()=>aiStart(scene,scenario)};if(lexiBlocked(aiTitle()))return;
+ if(!aiConsent(aiTitle(),()=>aiStart(scene,scenario)))return;
+ const sid=scene&&scene.id,style=scenario==="speaking"?"slow":scenario==="free"?"talk":["talk","teacher","slow"].includes(lsGet("leren_ai_style","teacher"))?lsGet("leren_ai_style","teacher"):"teacher";
+ gState={chat:true,msgs:[],busy:false,draft:"",target:targetLang,lang:uiLang,view,scene:sid&&(sid!=="exam11"||targetLang==="nl")?sid:null,fromExam:!!(scene&&scene.fromExam),style};
  if(gState.scene==="exam11"&&window.EXAM11&&EXAM11.speakScript){
   const saved=!scene.fresh&&lsGet("leren_exam11_ai",null);
   if(saved&&saved.exam&&!saved.exam.done&&Array.isArray(saved.msgs)&&saved.msgs.length){gState.exam=saved.exam;gState.msgs=saved.msgs;aiRender();toast(uiLang==="uk"?"Продовжуємо з того місця, де ти зупинився":"Continuing where you stopped");return}
@@ -5568,7 +5593,7 @@ function aiRender(){
  s.msgs.forEach(m=>{
   if(m.role==="user"){const b=el("div","g-bub me");b.appendChild(tgt(el("span","",m.content)));chat.appendChild(b);
    if(m.fix&&(s.exam||s.style!=="talk")){const f=el("div","ai-fix");f.append(el("small","",g.fix));const c=tgt(el("b","",m.fix.corrected));c.onclick=()=>say(m.fix.corrected);f.append(c);if(m.fix.explanation)f.append(el("span","",m.fix.explanation));const practise=el("button","btn",LerenAICoach.tr("practise",uiLang));practise.type="button";practise.disabled=!!(s.busy||s.helpBusy||s.failed);practise.onclick=()=>{if(!aiCurrent(s)||s.busy||s.helpBusy)return;s.practice={corrected:m.fix.corrected,draft:"",status:""};s.help=null;aiRender()};f.appendChild(practise);chat.appendChild(f)}
-  }else{const row=el("div","ai-row");const av=el("div","st-av xs");av.innerHTML=charSvg("happy");const col=el("div","ai-col");
+  }else{const row=el("div","ai-row");const av=el("div","st-av xs");av.innerHTML=lexiAv();const col=el("div","ai-col");
    const b=el("button","g-bub them");b.type="button";b.appendChild(tgt(el("span","",m.content)));b.onclick=()=>say(m.content); // tap = listen
    col.appendChild(b);
    const acts=el("div","ai-acts");
@@ -5580,10 +5605,10 @@ function aiRender(){
    const fl=el("button","ai-tr ai-flag",g.report);fl.type="button";fl.onclick=()=>aiReport(m.content+(m.tr?"\n("+m.tr+")":""),"chat");acts.appendChild(fl);col.appendChild(acts)
    row.append(av,col);chat.appendChild(row)}
  });
- if(s.busy){const row=el("div","ai-row");const av=el("div","st-av xs");av.innerHTML=charSvg("think");row.append(av,el("div","g-bub them ai-typing","• • •"));chat.appendChild(row)}
+ if(s.busy){const row=el("div","ai-row lexi-thinking");row.setAttribute("role","status");row.setAttribute("aria-label",({uk:"Lexi думає…",en:"Lexi is thinking…",fr:"Lexi réfléchit…",ar:"Lexi يفكّر…"})[uiLang]||"Lexi is thinking…");const av=el("div","st-av xs");av.innerHTML=lexiAv();row.append(av,el("div","g-bub them ai-typing","• • •"));chat.appendChild(row)}
  {const mb0=aiMemoryBox(aiRender);if(mb0)card.appendChild(mb0)}card.appendChild(chat);
  if(s.err)card.appendChild(el("p","st-fb bad",s.err));
- if(!(s.exam&&s.exam.done))LerenAICoach.tools(card,s,{lang:uiLang,target:targetLang,limit:s.limitText||g.limit,retry:()=>aiSend(null),
+ if(!(s.exam&&s.exam.done))LerenAICoach.tools(card,s,{lang:uiLang,target:targetLang,limit:s.limitText||g.limit,message:code=>["offline","beta","unavailable","refusal","off","tooLong","format"].includes(code)?lexi().message(code,uiLang):"",retry:()=>aiSend(null),
   edit:()=>{if(s.pendingUser&&s.msgs.at(-1)===s.pendingUser){s.msgs.pop();s.draft=s.pendingUser.content;s.pendingUser=null}s.failed=false;s.errorCode="";aiRender()},
   help:corrected=>aiHelp(corrected),use:text=>{s.draft=text;s.practice=null;s.help=null;aiRender()},close:()=>{s.practice=null;s.help=null;aiRender()}});
  if(s.exam&&s.exam.done){const row=el("div","row");const a=el("button","btn primary",uiLang==="uk"?"🔁 Пройти ще раз":"🔁 Again");a.type="button";a.onclick=()=>aiStart({id:"exam11",fromExam:true,fresh:true});const h=el("button","btn",uiLang==="uk"?"← Іспит":"← Exam");h.type="button";h.onclick=()=>{aiRemember(s);gStop();EXAM11.open()};row.append(a,h);card.appendChild(row);return}
@@ -5614,9 +5639,9 @@ async function aiHelp(corrected){ // "I don't know what to answer": one hint + o
  s.helpBusy=true;s.helpError=false;aiRender();
  const profile=aiProfile(),target=s.target,lang=s.lang;
  try{
-  const data=await LerenAICoach.request(AI_ENDPOINT,{mode:"ask",target,lang,level:profile.level,char:charId(),profile,memory:aiMemory(),messages:[{role:"user",content:LerenAICoach.helpPrompt({target,question,corrected})}]});
-  if(!aiCurrent(s))return;if(typeof data.answer!=="string"||!data.answer.trim())throw Error("format");
-  s.help={answer:data.answer.slice(0,1500),examples:LerenAICoach.examples(data,target)};
+  const data=await lexi().send("lesson",lexiCtx(s,{question}),[{role:"user",content:LerenAICoach.helpPrompt({target,question,corrected})}],{learning:profile,memory:aiMemory()});
+  if(!aiCurrent(s))return;
+  s.help={answer:data.answer,examples:LerenAICoach.examples(data,target)};
  }catch(e){if(!aiCurrent(s))return;s.helpError=true}
  finally{s.helpBusy=false;if(aiCurrent(s))aiRender()}
 }
@@ -5624,9 +5649,8 @@ async function aiTranslate(m){
  const s=gState;if(!aiCurrent(s)||m.translating)return;
  m.translating=true;m.translateError=false;aiRender();
  try{
-  const data=await LerenAICoach.request(AI_ENDPOINT,{mode:"ask",target:s.target,lang:"uk",level:curLevel,char:charId(),messages:[{role:"user",content:"Translate the following "+({nl:"Dutch",en:"English",fr:"French"}[s.target]||"Dutch")+" text completely into Ukrainian. Output only the Ukrainian translation in the answer field, with no explanation: "+String(m.content).slice(0,400)}]});
+  const data=await lexi().send("grammar",lexiCtx(s,{ui:"uk"}),[{role:"user",content:"Translate the following "+({nl:"Dutch",en:"English",fr:"French"}[s.target]||"Dutch")+" text completely into Ukrainian. Output only the Ukrainian translation in the answer field, with no explanation: "+String(m.content).slice(0,400)}]);
   if(!aiCurrent(s))return;
-  if(typeof data.answer!=="string"||!data.answer.trim())throw Error("empty translation");
   m.tr=data.answer.trim().slice(0,1500);m.showTr=true;
  }catch(e){if(aiCurrent(s))m.translateError=true}
  finally{m.translating=false;if(aiCurrent(s))aiRender()}
@@ -5640,16 +5664,16 @@ async function aiSend(text,alts){
  const target=s.target,lang=s.lang;
  try{
   // 30 s timeout; on failure the message stays and can be retried (no duplicate) or edited
-  const j=await LerenAICoach.request(AI_ENDPOINT,{mode:"chat",style:s.exam?"exam":s.style,exam:aiExamStep(s),target,lang,level:curLevel,scene:s.scene,char:charId(),profile:aiProfile(),memory:aiMemory(),messages:aiMsgs(s.msgs)});
+  const j=await lexi().send(s.scene?"roleplay":s.style==="slow"?"speaking":"free",lexiCtx(s),s.msgs,{style:s.exam?"exam":s.style,exam:aiExamStep(s),scene:s.scene,learning:aiProfile(),memory:aiMemory()});
   if(!aiCurrent(s))return;
-  const reply=j.reply||j.reply_nl;if(typeof reply!=="string"||!reply.trim())throw Error("format");
+  const reply=j.reply;
   const lastUser=s.pendingUser;
-  if(lastUser&&(s.exam||s.style!=="talk"||j.correction&&j.correction.severity==="major")&&j.correction&&j.correction.has_error===true&&typeof j.correction.corrected==="string"&&j.correction.corrected.trim()&&gNorm(j.correction.corrected)!==gNorm(lastUser.content)){lastUser.fix={corrected:j.correction.corrected.slice(0,300),explanation:typeof j.correction.explanation==="string"?j.correction.explanation.slice(0,300):""};if(target==="nl")logMistake(lastUser.fix.corrected,lastUser.fix.explanation)}
-  if(s.exam&&lastUser){const ex=s.exam,err=!!(j.correction&&j.correction.has_error);if(err&&ex.tries<1)ex.tries++;else{ex.i++;ex.tries=0;if(ex.i>=ex.list.length)ex.done=true}}
-  s.msgs.push({role:"assistant",content:reply,tr:typeof j.translation==="string"?j.translation.trim():""});s.pendingUser=null;s.busy=false;aiExamSave(s);aiRender();say(reply);
+  if(lastUser&&(s.exam||s.style!=="talk"||j.correction&&j.correction.severity==="major")&&j.correction&&gNorm(j.correction.corrected)!==gNorm(lastUser.content)){lastUser.fix={corrected:j.correction.corrected,explanation:j.correction.explanation};if(target==="nl")logMistake(lastUser.fix.corrected,lastUser.fix.explanation)}
+  if(s.exam&&lastUser){const ex=s.exam,err=!!j.correction;if(err&&ex.tries<1)ex.tries++;else{ex.i++;ex.tries=0;if(ex.i>=ex.list.length)ex.done=true}}
+  s.msgs.push({role:"assistant",content:reply,tr:j.translation,verdict:j.verdict});s.pendingUser=null;s.busy=false;aiExamSave(s);aiRender();say(reply);
   const uc=s.msgs.filter(m=>m.role==="user").length;if(uc===5)gameDone("ai",30);
   if(uc>=2&&uc%3===2)aiRemember(s);
- }catch(e){s.busy=false;if(!aiCurrent(s))return;s.failed=true;s.errorCode=e.code||"network";s.limitText=e.code==="limit"?aiLimitText(e):"";s.limitDaily=e.code==="limit"&&!!e.data&&e.data.error==="limit";aiRender()}
+ }catch(e){s.busy=false;if(!aiCurrent(s))return;s.failed=true;s.errorCode=e.code||"network";s.limitText=e.code==="limit"||e.code==="slow"?aiLimitText(e):"";s.limitDaily=e.code==="limit";aiRender()}
 }
 // ========== ASK {N}: questions about Dutch, English or French, answered in the interface language ==========
 function sayIn(text,lang){ // examples may be in another language than the one being studied
@@ -5660,17 +5684,17 @@ function sayIn(text,lang){ // examples may be in another language than the one b
   ttsSpeak([u])}catch(e){}
 }
 function askStart(opts){
- const g=aiU();if(!aiConsent(g.askTitle,()=>askStart(opts)))return;
- gState={ask:true,msgs:[],busy:false,focus:opts&&opts.focus||null,fromExam:opts&&opts.focus==="exam11"?"EXAM11":opts&&opts.focus==="exam12"?"EXAM12":false};askRender();
+ const g=aiU();gState={lexiRetry:()=>askStart(opts)};if(lexiBlocked(g.askTitle))return;if(!aiConsent(g.askTitle,()=>askStart(opts)))return;
+ gState={ask:true,msgs:[],busy:false,focus:opts&&opts.focus||null,scenario:opts&&opts.scenario==="lesson"?"lesson":"grammar",lexiCtx:opts&&opts.lexiCtx||null,fromExam:opts&&opts.focus==="exam11"?"EXAM11":opts&&opts.focus==="exam12"?"EXAM12":false};askRender();
  if(opts&&opts.send)askSend(opts.send);
 }
 function askRender(){
  const g=aiU(),s=gState,card=gHead(g.askTitle,g.askSub);
  const chat=el("div","g-chat ai-chat");
- const intro=el("div","ai-row");const av0=el("div","st-av xs");av0.innerHTML=charSvg("happy");intro.append(av0,el("div","g-bub them ai-ans",g.askIntro));chat.appendChild(intro);
+ const intro=el("div","ai-row");const av0=el("div","st-av xs");av0.innerHTML=lexiAv();intro.append(av0,el("div","g-bub them ai-ans",g.askIntro));chat.appendChild(intro);
  s.msgs.forEach(m=>{
   if(m.role==="user"){chat.appendChild(el("div","g-bub me ai-ans",m.content));return}
-  const row=el("div","ai-row");const av=el("div","st-av xs");av.innerHTML=charSvg("happy");
+  const row=el("div","ai-row");const av=el("div","st-av xs");av.innerHTML=lexiAv();
   const b=el("div","g-bub them ai-ans",m.content.replace(/\s+•\s*/g,"\n• "));
   if(m.examples&&m.examples.length){const ex=el("div","ai-ex");ex.appendChild(el("small","",g.ex));
    m.examples.forEach(e=>{const x=el("button");x.type="button";const t=el("b","","🔊 "+e.text);t.lang=e.lang;t.dir="ltr";x.append(t);if(e.translation)x.append(el("span","",e.translation));x.onclick=()=>sayIn(e.text,e.lang);ex.appendChild(x)});
@@ -5678,18 +5702,18 @@ function askRender(){
   const fl=el("button","ai-tr ai-flag",g.report);fl.type="button";fl.onclick=()=>aiReport(m.content,"ask");b.appendChild(fl);
   row.append(av,b);chat.appendChild(row);
  });
- if(s.busy){const row=el("div","ai-row");const av=el("div","st-av xs");av.innerHTML=charSvg("think");row.append(av,el("div","g-bub them ai-typing","• • •"));chat.appendChild(row)}
+ if(s.busy){const row=el("div","ai-row lexi-thinking");row.setAttribute("role","status");row.setAttribute("aria-label",({uk:"Lexi думає…",en:"Lexi is thinking…",fr:"Lexi réfléchit…",ar:"Lexi يفكّر…"})[uiLang]||"Lexi is thinking…");const av=el("div","st-av xs");av.innerHTML=lexiAv();row.append(av,el("div","g-bub them ai-typing","• • •"));chat.appendChild(row)}
  {const mb0=aiMemoryBox(askRender);if(mb0)card.appendChild(mb0)}card.appendChild(chat);
  if(s.err)card.appendChild(el("p","st-fb bad",s.err));
  if(!s.msgs.length){const chips=el("div","ai-chips");((s.focus==="exam11"&&window.EXAM11&&EXAM11.chips())||(s.focus==="exam12"&&window.EXAM12&&EXAM12.chips())||g.chips[targetLang]||g.chips.nl).forEach(q=>{const c=el("button","btn ai-chip",q);c.type="button";c.onclick=()=>askSend(q);chips.appendChild(c)});card.appendChild(chips)}
  const form=el("form","g-type");const inp=el("input");inp.type="text";inp.autocomplete="off";inp.maxLength=s.focus==="exam11"?1600:600;inp.placeholder=g.askPh;inp.setAttribute("aria-label",g.askPh);if(s.askDraft){inp.value=s.askDraft;s.askDraft=""}
  const ok=el("button","btn primary",g.send);ok.type="submit";ok.disabled=s.busy;form.append(inp,ok);
- form.onsubmit=e=>{e.preventDefault();if(inp.value.trim())askSend(inp.value)};
+ form.onsubmit=e=>{e.preventDefault();if(!inp.value.trim())return;const a=s.askAlts&&s.askAlts[0]===inp.value?s.askAlts:null;s.askAlts=null;askSend(inp.value,a)};
  if(window.SpeechRecognition||window.webkitSpeechRecognition){ // questions are asked in the interface language
   const gg=gU(),st=el("p","g-heard"),mic=el("button","btn g-mic-btn",gg.mic);mic.type="button";mic.disabled=s.busy;
   mic.onclick=()=>{if(mic.classList.contains("rec")){gRec&&gRec.stop&&gRec.stop();return}
    mic.textContent=gg.listening+" ⏹";mic.classList.add("rec");
-   listenOnce(alts=>{mic.disabled=false;mic.textContent=gg.mic;mic.classList.remove("rec");askSend(alts[0],alts)},
+   listenOnce(alts=>{mic.disabled=false;mic.textContent=gg.mic;mic.classList.remove("rec");inp.value=alts[0];s.askAlts=alts;st.textContent=({uk:"Перевір текст: виправ, якщо треба, і натисни «Надіслати»",en:"Check the text, fix it if needed, then tap Send",fr:"Vérifie le texte, corrige-le si besoin, puis touche Envoyer",ar:"تحقّق من النص وصحّحه إن لزم ثم اضغط إرسال"})[uiLang]||"";setTimeout(()=>{try{inp.focus()}catch(e){}},30)},
     err=>{mic.disabled=false;mic.textContent=gg.mic;mic.classList.remove("rec");st.textContent=(err==="not-allowed"||err==="service-not-allowed")?gg.micDenied:gg.tryAgain},
     {uk:"uk-UA",en:"en-GB",fr:"fr-BE",ar:"ar-SA"}[uiLang]||"uk-UA")};
   const row=el("div","row g-mic-row");row.appendChild(mic);card.append(row,st)}
@@ -5700,14 +5724,11 @@ async function askSend(text,alts){
  const s=gState;if(s.busy||!s.ask)return;s.msgs.push({role:"user",content:String(text).trim().slice(0,s.focus==="exam11"?1600:600),alts:alts||null});
  s.busy=true;s.err="";askRender();
  try{
-  const r=await fetchT(AI_ENDPOINT,{method:"POST",headers:LerenAICoach.headers(),body:JSON.stringify({mode:"ask",focus:s.focus||undefined,target:targetLang,lang:uiLang,level:curLevel,char:charId(),profile:aiProfile(),memory:aiMemory(),messages:aiMsgs(s.msgs)})},45000);
-  const j=await r.json().catch(()=>({}));
+  const j=await lexi().send(s.scenario||"grammar",lexiCtx(s),s.msgs,{focus:s.focus||undefined,learning:aiProfile(),memory:aiMemory()});
   if(gState!==s)return;
-  if(r.status===429){const lost=s.msgs.pop();s.busy=false;s.askDraft=lost&&lost.role==="user"?lost.content:"";s.err=aiLimitText({data:j});askRender();return}
-  if(!r.ok||!j.answer)throw new Error(j.error||("HTTP "+r.status));
-  s.msgs.push({role:"assistant",content:j.answer,examples:Array.isArray(j.examples)?j.examples:[]});s.busy=false;askRender();
+  s.msgs.push({role:"assistant",content:j.answer,examples:j.examples});s.busy=false;askRender();
   if(s.msgs.filter(m=>m.role==="user").length===3)gameDone("ask",15);
- }catch(e){if(gState!==s)return;s.msgs.pop();s.busy=false;s.err=aiU().err;askRender()}
+ }catch(e){if(gState!==s)return;const lost=s.msgs.pop();s.busy=false;s.askDraft=lost&&lost.role==="user"?lost.content:"";s.err=e.code==="limit"||e.code==="slow"?aiLimitText(e):lexi().message(e.code,uiLang);askRender()}
 }
 function renderMistakes(box){
  const m=lsGet("leren_mistakes",[]);box.replaceChildren(el("h3","",stU().mistakes));
@@ -5978,7 +5999,8 @@ function initLearningPath(){
   gameCards:()=>gameCards(),
   game:id=>{if(id==="kamer1"&&curLevel==="a21")switchCourse("a11");setView("games");gameStart(id)?.()},
   clock:()=>{switchCourse("a11");currentCat="nums";tab="clock";saveStore();buildNav();setView("lesson");newRound()},
-  chat:id=>{lsSet("leren_char",id==="dafna"?"dafna":"peter");lsSet("leren_rec_voice","");lsSet("leren_voice_force_tts",false);lsSet("leren_voice_nl","");renderCharRow();setView("games");aiStart()},
+  chat:()=>{setView("games");aiStart()}, // every "talk to AI" button opens Lexi; the voice/teacher choice (leren_char) is not touched
+  lexi:(scenario,ctx)=>lexiOpen(scenario,ctx),
   person:()=>{const id=charId();return {name:id==="dafna"?"Dafna":"Peter",image:"./img/chars/"+id+".webp"}},
   canListen:()=>!!(window.SpeechRecognition||window.webkitSpeechRecognition),
   listen:(ok,fail)=>listenOnce(a=>{skillSpoke();ok(a)},fail,"nl-BE"),
@@ -6109,7 +6131,7 @@ const UPD_UI={uk:{t:"Вийшла нова версія застосунку",ve
  ar:{t:"يتوفر إصدار جديد من التطبيق",ver:"الإصدار",go:"تحديث",done:"✓ تم تحديث التطبيق إلى الإصدار "}};
 const updU=()=>UPD_UI[uiLang]||UPD_UI.uk;
 // Keep the announcement available after updating, including users who already installed v87.
-const RELEASE_VERSION="253";
+const RELEASE_VERSION="254";
 // The release whose notes RELEASE_UI describes. A small update keeps the notes of the last bigger one: whoever already
 // saw those notes is not shown them again.
 const RELEASE_NOTES_VERSION="176";

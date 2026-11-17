@@ -38,7 +38,8 @@
 <link rel="preload" as="script" href="./modules/lesson-conversation/core.js?v=112">
 <link rel="preload" as="script" href="./modules/lesson-conversation/ui.js?v=112">
 <link rel="preload" as="script" href="./modules/ai-coach/core.js?v=169">
-<link rel="preload" as="script" href="./modules/ai-coach/ui.js?v=169">
+<link rel="preload" as="script" href="./modules/ai-coach/ui.js?v=254">
+<link rel="preload" as="script" href="./modules/lexi/engine.js?v=1">
 <link rel="preload" as="script" href="./modules/word-builder/art.js?v=150">
 <link rel="preload" as="script" href="./modules/emoji/cards.js?v=146">
 <link rel="preload" as="script" href="./modules/emoji/variants.js?v=147">
@@ -46,12 +47,12 @@
 <link rel="preload" as="script" href="./modules/word-builder/game.js?v=172">
 <link rel="preload" as="script" href="./modules/kamer/game.js?v=198">
 <link rel="preload" as="script" href="./modules/learning-path/invitation.js?v=2">
-<link rel="preload" as="script" href="./modules/home-showcase/ui.js?v=224">
-<link rel="preload" as="script" href="./modules/learning-path/ui.js?v=216">
+<link rel="preload" as="script" href="./modules/home-showcase/ui.js?v=254">
+<link rel="preload" as="script" href="./modules/learning-path/ui.js?v=254">
 <link rel="preload" as="script" href="./modules/dialogues/translations.js?v=177">
 <link rel="preload" as="script" href="./course-curriculum.js?v=178">
-<link rel="preload" as="script" href="./app.js?v=253">
-<link rel="preload" as="script" href="./modules/exam/exam-core.js?v=176">
+<link rel="preload" as="script" href="./app.js?v=254">
+<link rel="preload" as="script" href="./modules/exam/exam-core.js?v=254">
 <link rel="preload" as="script" href="./modules/exam/exam11.js?v=176">
 <link rel="preload" as="script" href="./modules/exam/exam12-data.js?v=173">
 <link rel="preload" as="script" href="./modules/exam/exam12.js?v=177">
@@ -64,13 +65,13 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="lerenbe.com">
 <meta name="application-name" content="lerenbe.com">
-<meta name="description" content="Безкоштовно вивчайте нідерландську українською: уроки A1.1 і A1.2, ігри, інтерактивний годинник та розмови з AI Пітером і Дафною — для життя в Бельгії.">
+<meta name="description" content="Безкоштовно вивчайте нідерландську українською: уроки A1.1 і A1.2, ігри, інтерактивний годинник та розмови з AI-репетитором Lexi — для життя в Бельгії.">
 <meta name="robots" content="noindex,nofollow"><meta name="leren-env" content="beta"><!-- TEST-016: snapshot of production Leren.be main 34add48 in Leren.be-test/app; CSP keeps it offline from Firebase, Google sign-in, the AI worker and analytics -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="lerenbe.com">
 <meta property="og:url" content="https://lerenbe.com/">
 <meta property="og:title" content="Нідерландська для українців у Бельгії — A1.1–A1.2 | lerenbe.com">
-<meta property="og:description" content="Безкоштовно вивчайте нідерландську українською: уроки A1.1 і A1.2, ігри, інтерактивний годинник та розмови з AI Пітером і Дафною — для життя в Бельгії.">
+<meta property="og:description" content="Безкоштовно вивчайте нідерландську українською: уроки A1.1 і A1.2, ігри, інтерактивний годинник та розмови з AI-репетитором Lexi — для життя в Бельгії.">
 <meta property="og:image" content="https://lerenbe.com/og-image.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -78,9 +79,9 @@
 <meta property="og:locale" content="uk_UA">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Нідерландська для українців у Бельгії — A1.1–A1.2 | lerenbe.com">
-<meta name="twitter:description" content="Безкоштовно вивчайте нідерландську українською: уроки A1.1 і A1.2, ігри, інтерактивний годинник та розмови з AI Пітером і Дафною — для життя в Бельгії.">
+<meta name="twitter:description" content="Безкоштовно вивчайте нідерландську українською: уроки A1.1 і A1.2, ігри, інтерактивний годинник та розмови з AI-репетитором Lexi — для життя в Бельгії.">
 <meta name="twitter:image" content="https://lerenbe.com/og-image.jpg">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "lerenbe.com", "url": "https://lerenbe.com/", "description": "Безкоштовно вивчайте нідерландську українською: уроки A1.1 і A1.2, ігри, інтерактивний годинник та розмови з AI Пітером і Дафною — для життя в Бельгії.", "applicationCategory": "EducationalApplication", "operatingSystem": "Web, Android, iOS", "inLanguage": "uk", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "EUR"}, "educationalLevel": "A1 (CEFR)", "teaches": "Dutch language (Nederlands, Flemish usage) at level A1.1 and A1.2", "author": {"@type": "Person", "name": "Danylo Hembarskyi"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "lerenbe.com", "url": "https://lerenbe.com/", "description": "Безкоштовно вивчайте нідерландську українською: уроки A1.1 і A1.2, ігри, інтерактивний годинник та розмови з AI-репетитором Lexi — для життя в Бельгії.", "applicationCategory": "EducationalApplication", "operatingSystem": "Web, Android, iOS", "inLanguage": "uk", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "EUR"}, "educationalLevel": "A1 (CEFR)", "teaches": "Dutch language (Nederlands, Flemish usage) at level A1.1 and A1.2", "author": {"@type": "Person", "name": "Danylo Hembarskyi"}}</script>
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <noscript><style>.seo-shell{display:block}</style></noscript>
 <link rel="manifest" href="./manifest.webmanifest">
@@ -1390,7 +1391,8 @@ header .hdr-btn{min-width:44px;min-height:44px}main>header .hdr-stats .streak-pi
 <script src="./modules/lesson-conversation/core.js?v=112"></script>
 <script src="./modules/lesson-conversation/ui.js?v=112"></script>
 <script src="./modules/ai-coach/core.js?v=169"></script>
-<script src="./modules/ai-coach/ui.js?v=169"></script>
+<script src="./modules/ai-coach/ui.js?v=254"></script>
+<script src="./modules/lexi/engine.js?v=1" defer></script>
 <script src="./modules/word-builder/art.js?v=150"></script>
 <script src="./modules/emoji/cards.js?v=146"></script>
 <script src="./modules/emoji/variants.js?v=147"></script>
@@ -1398,14 +1400,14 @@ header .hdr-btn{min-width:44px;min-height:44px}main>header .hdr-stats .streak-pi
 <script src="./modules/word-builder/game.js?v=172"></script>
 <script src="./modules/kamer/game.js?v=198"></script>
 <script src="./modules/learning-path/invitation.js?v=2"></script>
-<script src="./modules/home-showcase/ui.js?v=224"></script>
-<script src="./modules/learning-path/ui.js?v=216"></script>
+<script src="./modules/home-showcase/ui.js?v=254"></script>
+<script src="./modules/learning-path/ui.js?v=254"></script>
 <script src="./modules/dialogues/translations.js?v=177"></script>
 <script src="./course-curriculum.js?v=178"></script>
-<script src="./app.js?v=253"></script>
+<script src="./app.js?v=254"></script>
   <div class="modes-wrapper" id="modeButtons"></div>
    <!-- LEREN.BE — МОДУЛЬ ДИФТОНГІВ -->
-<script src="./modules/exam/exam-core.js?v=176" defer></script>
+<script src="./modules/exam/exam-core.js?v=254" defer></script>
 <script src="./modules/exam/exam11.js?v=176" defer></script>
 <script src="./modules/exam/exam12-data.js?v=173" defer></script>
 <script src="./modules/exam/exam12.js?v=177" defer></script>
