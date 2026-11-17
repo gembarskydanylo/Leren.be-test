@@ -9,7 +9,7 @@
    - leren_slips_v1 {a11:{omdat:"0110",…},a12:{…}}: the last 20 results per grammar point, for Peter's advice. */
 (()=>{'use strict';
  const DAY=864e5,IDLE=90e3,STEP=15e3,GOALS=[5,10,15,20,30],GOAL_DEFAULT=10,KEEP_DAYS=60,RECENT=30,SLIP_RECENT=20,MIN_ANSWERS=10;
- const LEVELS=['a11','a12'],QUIZ_SKILLS=['lezen','luisteren','schrijven'],TAGS=['omdat','perfectum','meervoud','vergelijking','scheidbaar','werkwoorden','klinkers','spelling','grammatica'];
+ const LEVELS=['a11','a12','a21'],QUIZ_SKILLS=['lezen','luisteren','schrijven'],TAGS=['omdat','perfectum','meervoud','vergelijking','scheidbaar','werkwoorden','klinkers','spelling','grammatica'];
  const obj=v=>v!==null&&typeof v==='object'&&!Array.isArray(v);
  const int=v=>Number.isFinite(Number(v))&&Number(v)>0?Math.floor(Number(v)):0;
 
@@ -75,10 +75,12 @@
   if(tag==='meervoud')return {t:'exam',lv:'a11',part:'meervoud'};
   const tab={scheidbaar:'separable',werkwoorden:'vervoegen',klinkers:'klanken'}[tag];
   if(tab&&(tabs||[]).includes(tab))return {t:'tab',tab,mode:'quiz'};
+  // TEST-027: A2 has no exam — its grammar slips open the matching A2 grammar practice (or no advice, never a dead button).
+  if(lv==='a21'){const t={perfectum:'a2tijden',vergelijking:'a2adj'}[tag]||'a2bijzin';return (tabs||[]).includes(t)?{t:'tab',tab:t,mode:'quiz'}:null}
   return {t:'exam',lv,part:'grammatica'}}
  function recommend(f){
   const out=[],sk=f.skills||summary({},f.lv,{}),recent=k=>rate(sk[k].r||'');
-  const slip=weakSlips(f.slips)[0];if(slip)out.push({kind:'slip',tag:slip.tag,wrong:slip.wrong,n:slip.n,action:slipAction(slip.tag,f.lv,f.tabs)});
+  const slip=weakSlips(f.slips)[0],slipDo=slip&&slipAction(slip.tag,f.lv,f.tabs);if(slipDo)out.push({kind:'slip',tag:slip.tag,wrong:slip.wrong,n:slip.n,action:slipDo});
   // The weakest checked skill among recent answers (at least 10), below 70%.
   const weak=['luisteren','lezen'].filter(k=>sk[k].n>=MIN_ANSWERS&&recent(k)!==null&&recent(k)<.7).sort((a,b)=>recent(a)-recent(b))[0];
   if(weak)out.push({kind:'skill',skill:weak,pct:Math.round(recent(weak)*100),action:{t:'mode',mode:weak==='luisteren'?'audio':'quiz'}});
