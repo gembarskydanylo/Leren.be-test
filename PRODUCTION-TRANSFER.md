@@ -136,3 +136,8 @@
 - Four substantial Ukrainian static guides + index under `app/guides/`, linked from home. `noindex,nofollow` remains until editorial/legal/SEO review. Verify official links and Ukrainian/Dutch copy before indexing.
 - No certification, user-count or review claims. No extra JS/image dependencies. Tests: `tests/learning-map-seo.cjs` and full local suite; details in TESTING-JOURNAL.md.
 - Audit 2026-11-13: release 230 (cache name + `?v=` for home-v2 ui/style and learning-path/ui). The route list follows TEST-022's calm rule (folded until 3 lessons). Guides: linguistic fixes, `lang="nl"` on inline Dutch. Before indexing, add canonical and OG for the production URL, remove the test footer, and get a native Flemish review.
+
+## TEST-023 · pending Samsung review
+- Narrow-screen shortcut tiles use one column at ≤360 px; header settings/streak retain 44 px touch targets, narrow header wraps without clipping the logo.
+- Requires app release 231 + SW cache v231 + focused-home CSS v209 and matching index references. No storage migration or learning-engine change.
+- Browser emulation is complete; physical Samsung/PWA/audio checks remain. Details: `docs/audits/TEST-023.md`. Not approved for production transfer.
