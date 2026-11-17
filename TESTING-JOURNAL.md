@@ -355,3 +355,11 @@ Total output lines: 142
 - **Продуктивність** (slow 4G, CPU ×4, gzip, медіана): головна видима `main` 13,2 с → інтеграція 7,5 с; передано 3,9 → 1,77 МБ; FCP 1,28 → 1,8 с. Експеримент без 10 скриптів курсів en/fr, іспитів і `kamer`: ще −0,96 с, але потрібен завантажувач на вимогу — відкладено до після TEST-027 (деталі в `docs/LERENBE-3-UI-CONTRACTS.md` §12).
 - Документ контрактів оновлено, додано §13 «Передача для Codex».
 - Тести: 37 наборів PASS. Межі: емуляція Chromium; Safari, справжні телефони й GitHub Pages не перевірялись.
+
+## TEST-030 · Gamified Belgium + Lexi · 2026-11-17 (Europe/Brussels)
+
+- Окремий test worktree / гілка `codex/test-030-lexi-design` від перевіреної інтеграції `4a60a3d` (release 253). Origin main, TEST-027, Draft PR #14 та UI contracts перевірено; TEST-027 не перезаписано.
+- Додано тільки `design-lab/test-030`, `docs/design/test-030` і `screenshots/test-030`: 7 екранів B/light+C/dark, 8 mock-станів єдиного Lexi, локальна дизайн-система, галерея Before/After, пропозиція master + 6 емоцій, ресурсний та AI-entry аудити. Затверджений Lexi-референс не знайдено, нове мистецтво чітко позначено proposal.
+- Перевірки: 37/37 базових suites, 0 fail/skip; повторний design-system 164 screen checks. Прототип: 240 комбінацій на 320/360/390/430/768/1024/1280/1440, 14 станів тексту 200%, 11 interaction-груп, 16 контрастних пар min 5.63:1. Деталі та JSON: docs/design/test-030/REPORT.md.
+- Виправлено aspect ratio Lexi, reflow 200%, втрату фокусу/чернетки при re-render, доступні назви виходів і touch-ціль review-link. Скриншоти зроблено в Chromium.
+- Межі: емуляція, не фізичний Samsung; mock без AI/мікрофона/голосу/зберігання; LIFE — статична ілюстрація-пропозиція. App/, life/, рушій, Firebase, XP, SW та production не змінено. Draft PR на integration, без merge; потрібне затвердження образу/композицій перед інтеграцією.

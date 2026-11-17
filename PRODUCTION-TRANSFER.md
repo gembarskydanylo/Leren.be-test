@@ -166,3 +166,9 @@
 - **Обов’язково під час перенесення в production:** прибрати `<meta name="leren-env" content="beta">` з `index.html` production-копії. Інакше `prodServices()` = false: вхід, синхронізація, App Check і нагадування в production буде вимкнено. `prodServices()` / `prodOnly()` переносити разом з усім `app.js`.
 - Номер релізу на момент перенесення: max(production, усі гілки) + 1. Перед перенесенням прогнати `sw-release-chain.cjs` з CHAIN від поточного production-коміту.
 - Решта — за записами TEST-023…028 вище (кожен має свої межі й відкриті перевірки).
+
+## TEST-030 · Design lab Lexi · 2026-11-17
+
+**Тільки прототип, не переносити в production або app/ без окремого затвердження.** `design-lab/test-030` містить B/light + C/dark, сім екранів та вісім mock-станів Lexi. База — `claude/test-028-integration` @ `4a60a3d`; PR є stacked Draft на цю гілку. Автоматичного злиття немає.
+
+Образ Lexi/емоції та LIFE-scene — пропозиції, не затверджений runtime art. Жодного реального API, запису, озвучення, Firebase, XP або SRS у lab немає. Не копіювати mock-цифри чи повідомлення до продукту як справжні. Для майбутньої інтеграції виконати UI contracts, зберегти IDs/прогрес і людських героїв LIFE, перенаправляючи тільки AI-ролі на Lexi. Докладні звіт, evidence та assets: `docs/design/test-030/REPORT.md`.

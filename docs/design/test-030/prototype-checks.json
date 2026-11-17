@@ -1,0 +1,1869 @@
+{
+  "rows": [
+    {
+      "width": 320,
+      "theme": "light",
+      "screen": "home",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 320,
+      "theme": "light",
+      "screen": "chat",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 320,
+      "theme": "light",
+      "screen": "study",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 320,
+      "theme": "light",
+      "screen": "quiz",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 320,
+      "theme": "light",
+      "screen": "audio",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 320,
+      "theme": "light",
+      "screen": "review",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 320,
+      "theme": "light",
+      "screen": "life",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "screen": "home",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "screen": "chat",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "screen": "study",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "screen": "quiz",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "screen": "audio",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "screen": "review",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "screen": "life",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 360,
+      "theme": "light",
+      "screen": "home",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 360,
+      "theme": "light",
+      "screen": "chat",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 360,
+      "theme": "light",
+      "screen": "study",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 360,
+      "theme": "light",
+      "screen": "quiz",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 360,
+      "theme": "light",
+      "screen": "audio",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 360,
+      "theme": "light",
+      "screen": "review",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 360,
+      "theme": "light",
+      "screen": "life",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 360,
+      "theme": "dark",
+      "screen": "home",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 360,
+      "theme": "dark",
+      "screen": "chat",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 360,
+      "theme": "dark",
+      "screen": "study",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 360,
+      "theme": "dark",
+      "screen": "quiz",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 360,
+      "theme": "dark",
+      "screen": "audio",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 360,
+      "theme": "dark",
+      "screen": "review",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 360,
+      "theme": "dark",
+      "screen": "life",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 390,
+      "theme": "light",
+      "screen": "home",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 390,
+      "theme": "light",
+      "screen": "chat",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 390,
+      "theme": "light",
+      "screen": "study",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 390,
+      "theme": "light",
+      "screen": "quiz",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 390,
+      "theme": "light",
+      "screen": "audio",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 390,
+      "theme": "light",
+      "screen": "review",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 390,
+      "theme": "light",
+      "screen": "life",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "screen": "home",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "screen": "chat",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "screen": "study",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "screen": "quiz",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "screen": "audio",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "screen": "review",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "screen": "life",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 430,
+      "theme": "light",
+      "screen": "home",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 430,
+      "theme": "light",
+      "screen": "chat",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 430,
+      "theme": "light",
+      "screen": "study",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 430,
+      "theme": "light",
+      "screen": "quiz",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 430,
+      "theme": "light",
+      "screen": "audio",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 430,
+      "theme": "light",
+      "screen": "review",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 430,
+      "theme": "light",
+      "screen": "life",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 430,
+      "theme": "dark",
+      "screen": "home",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 430,
+      "theme": "dark",
+      "screen": "chat",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 430,
+      "theme": "dark",
+      "screen": "study",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 430,
+      "theme": "dark",
+      "screen": "quiz",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 430,
+      "theme": "dark",
+      "screen": "audio",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 430,
+      "theme": "dark",
+      "screen": "review",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 430,
+      "theme": "dark",
+      "screen": "life",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 768,
+      "theme": "light",
+      "screen": "home",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 768,
+      "theme": "light",
+      "screen": "chat",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 768,
+      "theme": "light",
+      "screen": "study",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 768,
+      "theme": "light",
+      "screen": "quiz",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 768,
+      "theme": "light",
+      "screen": "audio",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 768,
+      "theme": "light",
+      "screen": "review",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 768,
+      "theme": "light",
+      "screen": "life",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 768,
+      "theme": "dark",
+      "screen": "home",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 768,
+      "theme": "dark",
+      "screen": "chat",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 768,
+      "theme": "dark",
+      "screen": "study",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 768,
+      "theme": "dark",
+      "screen": "quiz",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 768,
+      "theme": "dark",
+      "screen": "audio",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 768,
+      "theme": "dark",
+      "screen": "review",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 768,
+      "theme": "dark",
+      "screen": "life",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 1024,
+      "theme": "light",
+      "screen": "home",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 1024,
+      "theme": "light",
+      "screen": "chat",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 1024,
+      "theme": "light",
+      "screen": "study",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 1024,
+      "theme": "light",
+      "screen": "quiz",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 1024,
+      "theme": "light",
+      "screen": "audio",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 1024,
+      "theme": "light",
+      "screen": "review",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 1024,
+      "theme": "light",
+      "screen": "life",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 1024,
+      "theme": "dark",
+      "screen": "home",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 1024,
+      "theme": "dark",
+      "screen": "chat",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 1024,
+      "theme": "dark",
+      "screen": "study",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 1024,
+      "theme": "dark",
+      "screen": "quiz",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 1024,
+      "theme": "dark",
+      "screen": "audio",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 1024,
+      "theme": "dark",
+      "screen": "review",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 1024,
+      "theme": "dark",
+      "screen": "life",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 1280,
+      "theme": "light",
+      "screen": "home",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 1280,
+      "theme": "light",
+      "screen": "chat",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 1280,
+      "theme": "light",
+      "screen": "study",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 1280,
+      "theme": "light",
+      "screen": "quiz",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 1280,
+      "theme": "light",
+      "screen": "audio",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 1280,
+      "theme": "light",
+      "screen": "review",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 1280,
+      "theme": "light",
+      "screen": "life",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 1280,
+      "theme": "dark",
+      "screen": "home",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 1280,
+      "theme": "dark",
+      "screen": "chat",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 1280,
+      "theme": "dark",
+      "screen": "study",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 1280,
+      "theme": "dark",
+      "screen": "quiz",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 1280,
+      "theme": "dark",
+      "screen": "audio",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 1280,
+      "theme": "dark",
+      "screen": "review",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 1280,
+      "theme": "dark",
+      "screen": "life",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "screen": "home",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "screen": "chat",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "screen": "study",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "screen": "quiz",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "screen": "audio",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "screen": "review",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "screen": "life",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 1440,
+      "theme": "dark",
+      "screen": "home",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 1440,
+      "theme": "dark",
+      "screen": "chat",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 1440,
+      "theme": "dark",
+      "screen": "study",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 1440,
+      "theme": "dark",
+      "screen": "quiz",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 1440,
+      "theme": "dark",
+      "screen": "audio",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 1440,
+      "theme": "dark",
+      "screen": "review",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 1440,
+      "theme": "dark",
+      "screen": "life",
+      "overflow": false,
+      "small": [],
+      "images": []
+    },
+    {
+      "width": 320,
+      "theme": "light",
+      "screen": "chat",
+      "state": "welcome",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "theme": "light",
+      "screen": "chat",
+      "state": "listening",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "theme": "light",
+      "screen": "chat",
+      "state": "thinking",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "theme": "light",
+      "screen": "chat",
+      "state": "speaking",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "theme": "light",
+      "screen": "chat",
+      "state": "correct",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "theme": "light",
+      "screen": "chat",
+      "state": "incorrect",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "theme": "light",
+      "screen": "chat",
+      "state": "offline",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "theme": "light",
+      "screen": "chat",
+      "state": "api-error",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "screen": "chat",
+      "state": "welcome",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "screen": "chat",
+      "state": "listening",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "screen": "chat",
+      "state": "thinking",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "screen": "chat",
+      "state": "speaking",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "screen": "chat",
+      "state": "correct",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "screen": "chat",
+      "state": "incorrect",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "screen": "chat",
+      "state": "offline",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "screen": "chat",
+      "state": "api-error",
+      "overflow": false
+    },
+    {
+      "width": 360,
+      "theme": "light",
+      "screen": "chat",
+      "state": "welcome",
+      "overflow": false
+    },
+    {
+      "width": 360,
+      "theme": "light",
+      "screen": "chat",
+      "state": "listening",
+      "overflow": false
+    },
+    {
+      "width": 360,
+      "theme": "light",
+      "screen": "chat",
+      "state": "thinking",
+      "overflow": false
+    },
+    {
+      "width": 360,
+      "theme": "light",
+      "screen": "chat",
+      "state": "speaking",
+      "overflow": false
+    },
+    {
+      "width": 360,
+      "theme": "light",
+      "screen": "chat",
+      "state": "correct",
+      "overflow": false
+    },
+    {
+      "width": 360,
+      "theme": "light",
+      "screen": "chat",
+      "state": "incorrect",
+      "overflow": false
+    },
+    {
+      "width": 360,
+      "theme": "light",
+      "screen": "chat",
+      "state": "offline",
+      "overflow": false
+    },
+    {
+      "width": 360,
+      "theme": "light",
+      "screen": "chat",
+      "state": "api-error",
+      "overflow": false
+    },
+    {
+      "width": 360,
+      "theme": "dark",
+      "screen": "chat",
+      "state": "welcome",
+      "overflow": false
+    },
+    {
+      "width": 360,
+      "theme": "dark",
+      "screen": "chat",
+      "state": "listening",
+      "overflow": false
+    },
+    {
+      "width": 360,
+      "theme": "dark",
+      "screen": "chat",
+      "state": "thinking",
+      "overflow": false
+    },
+    {
+      "width": 360,
+      "theme": "dark",
+      "screen": "chat",
+      "state": "speaking",
+      "overflow": false
+    },
+    {
+      "width": 360,
+      "theme": "dark",
+      "screen": "chat",
+      "state": "correct",
+      "overflow": false
+    },
+    {
+      "width": 360,
+      "theme": "dark",
+      "screen": "chat",
+      "state": "incorrect",
+      "overflow": false
+    },
+    {
+      "width": 360,
+      "theme": "dark",
+      "screen": "chat",
+      "state": "offline",
+      "overflow": false
+    },
+    {
+      "width": 360,
+      "theme": "dark",
+      "screen": "chat",
+      "state": "api-error",
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "theme": "light",
+      "screen": "chat",
+      "state": "welcome",
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "theme": "light",
+      "screen": "chat",
+      "state": "listening",
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "theme": "light",
+      "screen": "chat",
+      "state": "thinking",
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "theme": "light",
+      "screen": "chat",
+      "state": "speaking",
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "theme": "light",
+      "screen": "chat",
+      "state": "correct",
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "theme": "light",
+      "screen": "chat",
+      "state": "incorrect",
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "theme": "light",
+      "screen": "chat",
+      "state": "offline",
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "theme": "light",
+      "screen": "chat",
+      "state": "api-error",
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "screen": "chat",
+      "state": "welcome",
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "screen": "chat",
+      "state": "listening",
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "screen": "chat",
+      "state": "thinking",
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "screen": "chat",
+      "state": "speaking",
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "screen": "chat",
+      "state": "correct",
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "screen": "chat",
+      "state": "incorrect",
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "screen": "chat",
+      "state": "offline",
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "screen": "chat",
+      "state": "api-error",
+      "overflow": false
+    },
+    {
+      "width": 430,
+      "theme": "light",
+      "screen": "chat",
+      "state": "welcome",
+      "overflow": false
+    },
+    {
+      "width": 430,
+      "theme": "light",
+      "screen": "chat",
+      "state": "listening",
+      "overflow": false
+    },
+    {
+      "width": 430,
+      "theme": "light",
+      "screen": "chat",
+      "state": "thinking",
+      "overflow": false
+    },
+    {
+      "width": 430,
+      "theme": "light",
+      "screen": "chat",
+      "state": "speaking",
+      "overflow": false
+    },
+    {
+      "width": 430,
+      "theme": "light",
+      "screen": "chat",
+      "state": "correct",
+      "overflow": false
+    },
+    {
+      "width": 430,
+      "theme": "light",
+      "screen": "chat",
+      "state": "incorrect",
+      "overflow": false
+    },
+    {
+      "width": 430,
+      "theme": "light",
+      "screen": "chat",
+      "state": "offline",
+      "overflow": false
+    },
+    {
+      "width": 430,
+      "theme": "light",
+      "screen": "chat",
+      "state": "api-error",
+      "overflow": false
+    },
+    {
+      "width": 430,
+      "theme": "dark",
+      "screen": "chat",
+      "state": "welcome",
+      "overflow": false
+    },
+    {
+      "width": 430,
+      "theme": "dark",
+      "screen": "chat",
+      "state": "listening",
+      "overflow": false
+    },
+    {
+      "width": 430,
+      "theme": "dark",
+      "screen": "chat",
+      "state": "thinking",
+      "overflow": false
+    },
+    {
+      "width": 430,
+      "theme": "dark",
+      "screen": "chat",
+      "state": "speaking",
+      "overflow": false
+    },
+    {
+      "width": 430,
+      "theme": "dark",
+      "screen": "chat",
+      "state": "correct",
+      "overflow": false
+    },
+    {
+      "width": 430,
+      "theme": "dark",
+      "screen": "chat",
+      "state": "incorrect",
+      "overflow": false
+    },
+    {
+      "width": 430,
+      "theme": "dark",
+      "screen": "chat",
+      "state": "offline",
+      "overflow": false
+    },
+    {
+      "width": 430,
+      "theme": "dark",
+      "screen": "chat",
+      "state": "api-error",
+      "overflow": false
+    },
+    {
+      "width": 768,
+      "theme": "light",
+      "screen": "chat",
+      "state": "welcome",
+      "overflow": false
+    },
+    {
+      "width": 768,
+      "theme": "light",
+      "screen": "chat",
+      "state": "listening",
+      "overflow": false
+    },
+    {
+      "width": 768,
+      "theme": "light",
+      "screen": "chat",
+      "state": "thinking",
+      "overflow": false
+    },
+    {
+      "width": 768,
+      "theme": "light",
+      "screen": "chat",
+      "state": "speaking",
+      "overflow": false
+    },
+    {
+      "width": 768,
+      "theme": "light",
+      "screen": "chat",
+      "state": "correct",
+      "overflow": false
+    },
+    {
+      "width": 768,
+      "theme": "light",
+      "screen": "chat",
+      "state": "incorrect",
+      "overflow": false
+    },
+    {
+      "width": 768,
+      "theme": "light",
+      "screen": "chat",
+      "state": "offline",
+      "overflow": false
+    },
+    {
+      "width": 768,
+      "theme": "light",
+      "screen": "chat",
+      "state": "api-error",
+      "overflow": false
+    },
+    {
+      "width": 768,
+      "theme": "dark",
+      "screen": "chat",
+      "state": "welcome",
+      "overflow": false
+    },
+    {
+      "width": 768,
+      "theme": "dark",
+      "screen": "chat",
+      "state": "listening",
+      "overflow": false
+    },
+    {
+      "width": 768,
+      "theme": "dark",
+      "screen": "chat",
+      "state": "thinking",
+      "overflow": false
+    },
+    {
+      "width": 768,
+      "theme": "dark",
+      "screen": "chat",
+      "state": "speaking",
+      "overflow": false
+    },
+    {
+      "width": 768,
+      "theme": "dark",
+      "screen": "chat",
+      "state": "correct",
+      "overflow": false
+    },
+    {
+      "width": 768,
+      "theme": "dark",
+      "screen": "chat",
+      "state": "incorrect",
+      "overflow": false
+    },
+    {
+      "width": 768,
+      "theme": "dark",
+      "screen": "chat",
+      "state": "offline",
+      "overflow": false
+    },
+    {
+      "width": 768,
+      "theme": "dark",
+      "screen": "chat",
+      "state": "api-error",
+      "overflow": false
+    },
+    {
+      "width": 1024,
+      "theme": "light",
+      "screen": "chat",
+      "state": "welcome",
+      "overflow": false
+    },
+    {
+      "width": 1024,
+      "theme": "light",
+      "screen": "chat",
+      "state": "listening",
+      "overflow": false
+    },
+    {
+      "width": 1024,
+      "theme": "light",
+      "screen": "chat",
+      "state": "thinking",
+      "overflow": false
+    },
+    {
+      "width": 1024,
+      "theme": "light",
+      "screen": "chat",
+      "state": "speaking",
+      "overflow": false
+    },
+    {
+      "width": 1024,
+      "theme": "light",
+      "screen": "chat",
+      "state": "correct",
+      "overflow": false
+    },
+    {
+      "width": 1024,
+      "theme": "light",
+      "screen": "chat",
+      "state": "incorrect",
+      "overflow": false
+    },
+    {
+      "width": 1024,
+      "theme": "light",
+      "screen": "chat",
+      "state": "offline",
+      "overflow": false
+    },
+    {
+      "width": 1024,
+      "theme": "light",
+      "screen": "chat",
+      "state": "api-error",
+      "overflow": false
+    },
+    {
+      "width": 1024,
+      "theme": "dark",
+      "screen": "chat",
+      "state": "welcome",
+      "overflow": false
+    },
+    {
+      "width": 1024,
+      "theme": "dark",
+      "screen": "chat",
+      "state": "listening",
+      "overflow": false
+    },
+    {
+      "width": 1024,
+      "theme": "dark",
+      "screen": "chat",
+      "state": "thinking",
+      "overflow": false
+    },
+    {
+      "width": 1024,
+      "theme": "dark",
+      "screen": "chat",
+      "state": "speaking",
+      "overflow": false
+    },
+    {
+      "width": 1024,
+      "theme": "dark",
+      "screen": "chat",
+      "state": "correct",
+      "overflow": false
+    },
+    {
+      "width": 1024,
+      "theme": "dark",
+      "screen": "chat",
+      "state": "incorrect",
+      "overflow": false
+    },
+    {
+      "width": 1024,
+      "theme": "dark",
+      "screen": "chat",
+      "state": "offline",
+      "overflow": false
+    },
+    {
+      "width": 1024,
+      "theme": "dark",
+      "screen": "chat",
+      "state": "api-error",
+      "overflow": false
+    },
+    {
+      "width": 1280,
+      "theme": "light",
+      "screen": "chat",
+      "state": "welcome",
+      "overflow": false
+    },
+    {
+      "width": 1280,
+      "theme": "light",
+      "screen": "chat",
+      "state": "listening",
+      "overflow": false
+    },
+    {
+      "width": 1280,
+      "theme": "light",
+      "screen": "chat",
+      "state": "thinking",
+      "overflow": false
+    },
+    {
+      "width": 1280,
+      "theme": "light",
+      "screen": "chat",
+      "state": "speaking",
+      "overflow": false
+    },
+    {
+      "width": 1280,
+      "theme": "light",
+      "screen": "chat",
+      "state": "correct",
+      "overflow": false
+    },
+    {
+      "width": 1280,
+      "theme": "light",
+      "screen": "chat",
+      "state": "incorrect",
+      "overflow": false
+    },
+    {
+      "width": 1280,
+      "theme": "light",
+      "screen": "chat",
+      "state": "offline",
+      "overflow": false
+    },
+    {
+      "width": 1280,
+      "theme": "light",
+      "screen": "chat",
+      "state": "api-error",
+      "overflow": false
+    },
+    {
+      "width": 1280,
+      "theme": "dark",
+      "screen": "chat",
+      "state": "welcome",
+      "overflow": false
+    },
+    {
+      "width": 1280,
+      "theme": "dark",
+      "screen": "chat",
+      "state": "listening",
+      "overflow": false
+    },
+    {
+      "width": 1280,
+      "theme": "dark",
+      "screen": "chat",
+      "state": "thinking",
+      "overflow": false
+    },
+    {
+      "width": 1280,
+      "theme": "dark",
+      "screen": "chat",
+      "state": "speaking",
+      "overflow": false
+    },
+    {
+      "width": 1280,
+      "theme": "dark",
+      "screen": "chat",
+      "state": "correct",
+      "overflow": false
+    },
+    {
+      "width": 1280,
+      "theme": "dark",
+      "screen": "chat",
+      "state": "incorrect",
+      "overflow": false
+    },
+    {
+      "width": 1280,
+      "theme": "dark",
+      "screen": "chat",
+      "state": "offline",
+      "overflow": false
+    },
+    {
+      "width": 1280,
+      "theme": "dark",
+      "screen": "chat",
+      "state": "api-error",
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "screen": "chat",
+      "state": "welcome",
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "screen": "chat",
+      "state": "listening",
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "screen": "chat",
+      "state": "thinking",
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "screen": "chat",
+      "state": "speaking",
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "screen": "chat",
+      "state": "correct",
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "screen": "chat",
+      "state": "incorrect",
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "screen": "chat",
+      "state": "offline",
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "screen": "chat",
+      "state": "api-error",
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "theme": "dark",
+      "screen": "chat",
+      "state": "welcome",
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "theme": "dark",
+      "screen": "chat",
+      "state": "listening",
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "theme": "dark",
+      "screen": "chat",
+      "state": "thinking",
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "theme": "dark",
+      "screen": "chat",
+      "state": "speaking",
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "theme": "dark",
+      "screen": "chat",
+      "state": "correct",
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "theme": "dark",
+      "screen": "chat",
+      "state": "incorrect",
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "theme": "dark",
+      "screen": "chat",
+      "state": "offline",
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "theme": "dark",
+      "screen": "chat",
+      "state": "api-error",
+      "overflow": false
+    }
+  ],
+  "zoom": [
+    {
+      "screen": "home",
+      "theme": "light",
+      "overflow": false
+    },
+    {
+      "screen": "home",
+      "theme": "dark",
+      "overflow": false
+    },
+    {
+      "screen": "chat",
+      "theme": "light",
+      "overflow": false
+    },
+    {
+      "screen": "chat",
+      "theme": "dark",
+      "overflow": false
+    },
+    {
+      "screen": "study",
+      "theme": "light",
+      "overflow": false
+    },
+    {
+      "screen": "study",
+      "theme": "dark",
+      "overflow": false
+    },
+    {
+      "screen": "quiz",
+      "theme": "light",
+      "overflow": false
+    },
+    {
+      "screen": "quiz",
+      "theme": "dark",
+      "overflow": false
+    },
+    {
+      "screen": "audio",
+      "theme": "light",
+      "overflow": false
+    },
+    {
+      "screen": "audio",
+      "theme": "dark",
+      "overflow": false
+    },
+    {
+      "screen": "review",
+      "theme": "light",
+      "overflow": false
+    },
+    {
+      "screen": "review",
+      "theme": "dark",
+      "overflow": false
+    },
+    {
+      "screen": "life",
+      "theme": "light",
+      "overflow": false
+    },
+    {
+      "screen": "life",
+      "theme": "dark",
+      "overflow": false
+    }
+  ],
+  "errors": []
+}
