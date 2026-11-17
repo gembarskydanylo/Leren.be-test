@@ -4173,17 +4173,23 @@ const PUSH_UI={
  ar:{label:"التذكيرات",on:h=>"يوميًا الساعة "+h+" إن لم تحقق هدف اليوم بعد",off:"سأذكّرك بالحفاظ على سلسلتك 🔥",denied:"الإشعارات محظورة. اسمح بها لـ lerenbe.com في إعدادات الهاتف.",fail:"تعذّر تفعيل التذكيرات. تحقّق من الاتصال وحاول مجددًا.",ok:"تم تفعيل التذكيرات 🔔",time:"وقت التذكير",wait:"جارٍ التفعيل…",waitOff:"جارٍ الإيقاف…"}
 };
 const pushU=()=>PUSH_UI[uiLang]||PUSH_UI.uk;
-const pushReady=()=>!!(PUSH_CONFIG.projectId&&PUSH_CONFIG.apiKey&&"serviceWorker" in navigator&&"PushManager" in window&&"Notification" in window);
+// TEST-028 · Production services (Firebase Auth, Firestore users/ and subs/, App Check, push reminders) only from the
+// production site: lerenbe.com and a page that is not marked <meta name="leren-env" content="beta">. The beta snapshot
+// keeps that marker, so it never signs in to or writes into the live project — even on a lerenbe.com subdomain and even
+// if its CSP is loosened. CSP stays the first wall; this is the second one, in code. tests/firebase-isolation.cjs.
+function prodServices(){try{return /(^|\.)lerenbe\.com$/.test(location.hostname)&&document.querySelector('meta[name="leren-env"]')?.content!=="beta"}catch(e){return false}}
+function prodOnly(){if(!prodServices())throw new Error("production services are off in this copy (leren-env=beta or not lerenbe.com)")}
+const pushReady=()=>!!(prodServices()&&PUSH_CONFIG.projectId&&PUSH_CONFIG.apiKey&&"serviceWorker" in navigator&&"PushManager" in window&&"Notification" in window);
 const pushState=()=>lsGet("leren_push",{on:false,hour:18});
 const hh=h=>String(h).padStart(2,"0")+":00";
 function b64uToBytes(s){const p="=".repeat((4-s.length%4)%4),b=atob((s+p).replace(/-/g,"+").replace(/_/g,"/"));return Uint8Array.from(b,c=>c.charCodeAt(0))}
 async function sha256Hex(t){const d=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(t));return [...new Uint8Array(d)].map(x=>x.toString(16).padStart(2,"0")).join("")}
-function docUrl(id){return "https://firestore.googleapis.com/v1/projects/"+PUSH_CONFIG.projectId+"/databases/(default)/documents/subs/"+id+"?key="+PUSH_CONFIG.apiKey}
+function docUrl(id){prodOnly();return "https://firestore.googleapis.com/v1/projects/"+PUSH_CONFIG.projectId+"/databases/(default)/documents/subs/"+id+"?key="+PUSH_CONFIG.apiKey}
 // Each reminder subscription belongs to an anonymous Firebase user of this device (a separate Firebase app, so it never
 // shows up as a signed-in account). firestore.rules let only that user change or delete it.
 let pushAuthP=null;
 function pushToken(){
- if(!pushAuthP)pushAuthP=(async()=>{const [a,b]=await Promise.all([import(FB_SDK+"firebase-app.js"),import(FB_SDK+"firebase-auth.js")]);
+ if(!pushAuthP)pushAuthP=(async()=>{prodOnly();const [a,b]=await Promise.all([import(FB_SDK+"firebase-app.js"),import(FB_SDK+"firebase-auth.js")]);
   const auth=b.getAuth(await fbApp(a,"push"));
   await auth.authStateReady();if(!auth.currentUser)await b.signInAnonymously(auth);return auth})();
  return pushAuthP.then(auth=>auth.currentUser.getIdToken().then(t=>({uid:auth.currentUser.uid,t}))).catch(e=>{pushAuthP=null;throw e});
@@ -5724,6 +5730,7 @@ const onLerenbe=()=>/(^|\.)lerenbe\.com$/.test(location.hostname);
 // Every named Firebase app gets its own App Check instance on lerenbe.com, so the Auth SDK (sign-in, token refresh) sends
 // the X-Firebase-AppCheck header too. Without it Firebase counts all Authentication requests as unverified.
 async function fbApp(a,name){
+ prodOnly();
  const app=a.initializeApp({apiKey:PUSH_CONFIG.apiKey,authDomain:"leren-be.firebaseapp.com",projectId:PUSH_CONFIG.projectId,appId:"1:533895640416:web:770d52f1926e13a186da05"},name);
  if(!onLerenbe())return app;
  try{const c=await import(FB_SDK+"firebase-app-check.js");
@@ -5732,7 +5739,7 @@ async function fbApp(a,name){
 }
 let appCheckP=null;
 function appCheckHeaders(h){
- if(!onLerenbe())return Promise.resolve(h);
+ if(!prodServices())return Promise.resolve(h);
  if(!appCheckP)appCheckP=import(FB_SDK+"firebase-app.js").then(a=>fbApp(a,"appcheck")).then(app=>{if(!app._ac)throw new Error("App Check unavailable");return app._ac}).catch(e=>{appCheckP=null;throw e});
  const tok=appCheckP.then(({c,ac})=>c.getToken(ac,false)).then(r=>r.token);
  return Promise.race([tok,new Promise(r=>setTimeout(()=>r(""),5000))]).catch(()=>"").then(t=>t?{...h,"X-Firebase-AppCheck":t}:h);
@@ -5808,13 +5815,14 @@ const acct={mod:null,auth:null,user:null,lastSnap:"",busy:false,rev:"",syncing:n
 function acctLoad(){
  if(acct.mod)return Promise.resolve(acct.mod);
  return acct.loading||(acct.loading=(async()=>{
-  const [a,b]=await Promise.all([import(FB_SDK+"firebase-app.js"),import(FB_SDK+"firebase-auth.js")]);
+  prodOnly();const [a,b]=await Promise.all([import(FB_SDK+"firebase-app.js"),import(FB_SDK+"firebase-auth.js")]);
   acct.auth=b.getAuth(await fbApp(a,"acct"));
   b.onAuthStateChanged(acct.auth,u=>{acct.user=u;acctRender();if(u)syncPull().catch(()=>{})});
   acct.mod=b;return b;
  })().finally(()=>{acct.loading=null}));
 }
 async function fsUserDoc(method,body){
+ prodOnly();
  const t=await acct.user.getIdToken();
  return fetchT("https://firestore.googleapis.com/v1/projects/"+PUSH_CONFIG.projectId+"/databases/(default)/documents/users/"+acct.user.uid,{method,headers:await appCheckHeaders({Authorization:"Bearer "+t,"Content-Type":"application/json"}),body:body?JSON.stringify(body):undefined});
 }
@@ -5824,6 +5832,7 @@ const syncPaused=()=>!acct.user||acct.deleting||lsGet("leren_del_pending",false)
 // Firestore rules allow a blob below 900,000 characters (firestore.rules); a larger copy is not sent at all.
 const SYNC_MAX=899000;
 async function syncWrite(snap){
+ if(!prodServices())return syncFail("denied");
  const ts=Date.now(),q=acct.rev?"?currentDocument.updateTime="+encodeURIComponent(acct.rev):"?currentDocument.exists=false",blob=JSON.stringify(snap);
  if(blob.length>=SYNC_MAX)return syncFail("size");
  let t,r;try{t=await acct.user.getIdToken();
