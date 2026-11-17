@@ -101,6 +101,14 @@ const CHAT_FIX = {reply: 'Ah, in Gent! Werk je daar ook?', translation: 'А, у 
   await page.waitForFunction(() => /мікрофон|Мікрофон|дозв/.test(document.querySelector('.g-heard').textContent), null, {timeout: 15000});
   console.log('PASS: voice — recognised question shown in the field, corrected by the learner, only then sent; microphone refused → message');
 
+  // ---- exam A1.1 with AI on: the AI coach cards are Lexi (name and picture), the page does not break
+  await page.evaluate(() => EXAM11.open()); await page.waitForSelector('.ex-ai', {timeout: 15000});
+  const exam = await page.evaluate(() => [...document.querySelectorAll('.ex-ai')].map(b => ({text: b.textContent, lexi: !!b.querySelector('img.lexi-av'), svg: !!b.querySelector('svg')})));
+  assert(exam.length >= 1, 'exam AI coach cards shown'); assert(exam.every(b => b.lexi && !b.svg), 'exam AI cards use the Lexi picture, not the teacher drawing');
+  assert(!/Peter|Pieter|Пітер|Dafna|Дафн/.test(await page.evaluate(() => [...document.querySelectorAll('.ex-aih, .ex-aih + .ex-sub, .ex-ai')].map(e => e.textContent).join(' '))), 'no Peter / Dafna in the exam AI coach');
+  assert.deepEqual(errors, [], 'exam home with AI renders without errors');
+  console.log('PASS: exam A1.1 with AI on — the AI coach is Lexi (name and picture), no page error');
+
   // ---- old route: «talk to AI» with an id still opens Lexi and leaves the teacher / voice choice alone
   queue.push({status: 200, body: CHAT_OK}); await page.evaluate(() => setView('path')); await page.waitForSelector('.hv');
   // the real «talk to AI» buttons still pass an old tutor id (learning-path tile: 'peter'); the bridge ignores it

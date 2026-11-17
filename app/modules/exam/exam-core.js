@@ -89,9 +89,9 @@ function home(){
  });
  c.appendChild(grid);
  if(D.ai&&typeof AI_ENDPOINT!=="undefined"&&AI_ENDPOINT&&targetLang==="nl"){
-  const nm="Lexi"; // the AI coach of the exams is Lexi (TEST-031)const fix=t=>t.replace(/Peter/g,nm);
+  const nm="Lexi";const fix=t=>t.replace(/Peter/g,nm);
   c.appendChild(el("h3","ex-aih",u.ai));c.appendChild(el("p","ex-sub",fix(u.aiS)));
-  const mk=(id,t,d,fn)=>{const b=el("button","btn toets-pick ex-ai");b.type="button";b.dataset.ai=id;const av=el("span","tp-no ex-av");try{av.innerHTML=charSvg("happy")}catch(e){av.textContent="🤖"}b.appendChild(av);const tx=el("span","tp-text");tx.append(el("strong","",fix(t)),el("small","tp-meta",fix(d)));b.appendChild(tx);b.onclick=fn;c.appendChild(b)};
+  const mk=(id,t,d,fn)=>{const b=el("button","btn toets-pick ex-ai");b.type="button";b.dataset.ai=id;const av=el("span","tp-no ex-av");try{av.innerHTML=typeof lexiAv==="function"?lexiAv():"🤖"}catch(e){av.textContent="🤖"}b.appendChild(av);const tx=el("span","tp-text");tx.append(el("strong","",fix(t)),el("small","tp-meta",fix(d)));b.appendChild(tx);b.onclick=fn;c.appendChild(b)};
   let aiRun=null;try{aiRun=lsGet(D.ai.store,null)}catch(e){}
   const cont=aiRun&&aiRun.exam&&!aiRun.exam.done&&aiRun.msgs&&aiRun.msgs.length?" · ▶ "+X().contAt+(aiRun.exam.i+1)+"/"+aiRun.exam.list.length:"";
   mk("speak",u.aiSpeak,u.aiSpeakS+cont,()=>aiStart({id:D.ai.scene,fromExam:true}));

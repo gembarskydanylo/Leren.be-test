@@ -84,16 +84,18 @@ bridge.chat()                      // «Поговорити з AI» (стари
 
 **Стани** (`LerenLexi.STATES`) — для анімацій Lexi:
 
-| Стан | Коли |
-|---|---|
-| `welcome` | Чат відкрито, відповіді ще немає |
-| `listening` | Мікрофон слухає (стан інтерфейсу; рушій його не надсилає) |
-| `thinking` | Запит у дорозі |
-| `speaking` | Відповідь озвучується (стан інтерфейсу) |
-| `correct` / `incorrect` | Відповідь чату без помилки / з виправленням |
-| `offline` | Немає мережі |
-| `error` | Будь-яка інша помилка (поле `code`) |
-| `idle` | Відповідь на питання (`ask`) отримано |
+| Стан | Хто надсилає | Коли |
+|---|---|---|
+| `welcome` | інтерфейс | Чат відкрито, відповіді ще немає |
+| `listening` | інтерфейс | Мікрофон слухає |
+| `thinking` | рушій | Запит у дорозі |
+| `speaking` | інтерфейс | Відповідь озвучується |
+| `correct` / `incorrect` | рушій | Відповідь чату без помилки / з виправленням |
+| `idle` | рушій | Відповідь без оцінки: перше привітання чату або відповідь на питання (`ask`) |
+| `offline` | рушій | Немає мережі |
+| `error` | рушій | Будь-яка інша помилка (поле `code`) |
+
+Рушій надсилає лише `thinking`, `correct`, `incorrect`, `idle`, `offline` і `error`. Стани `welcome`, `listening` і `speaking` інтерфейс вмикає сам: рушій про мікрофон і озвучення не знає.
 
 **Події:** `LerenLexi.on(fn)` повертає функцію відписки. `fn` отримує `{type: 'state', state, code?, scenario}`.
 
@@ -171,6 +173,7 @@ bridge.chat()                      // «Поговорити з AI» (стари
 | Помилка й повтор | `.ac-tools .st-fb.bad` + перша `.ac-tools .btn` |
 | Lexi недоступний | `.lexi-off` з `role=status` (beta, офлайн під час старту, немає адреси) |
 | Поле питання | `form.g-type input`, мікрофон `.g-mic-btn`, підказка `.g-heard` |
+| AI-тренер в іспиті | `.ex-aih`, картки `.ex-ai` з `img.lexi-av` |
 
 ---
 
@@ -193,10 +196,66 @@ TEST-031 змінив спільні з дизайном файли:
 | `app/app.js` | AI-розділ (`lexiOpen`, `lexiBlocked`, `lexiAv`, запити через `lexi()`), назви в `G_UI` | Codex не змінює логіку `app.js`; конфлікти можливі лише в текстах. Брати версію TEST-031 |
 | `app/modules/home-showcase/ui.js` | Картка «Знайомся: Lexi» замість вибору Пітер/Дафна | Якщо Codex переробляє головну — замінити картку новою, викликати `onChat()` / `bridge.lexi()` |
 | `app/modules/learning-path/ui.js` | Лише `chatHint` (Пітер → Lexi) | Тексти брати з TEST-031 |
-| `app/modules/exam/exam-core.js` | AI-тренер іспиту — Lexi | — |
+| `app/modules/exam/exam-core.js` | AI-тренер іспиту — Lexi (назва й аватар `lexiAv()`) | — |
 | `app/index.html` | `<script defer>` рушія + preload; опис сторінки | Зберегти обидва рядки рушія; `defer` залишити |
 | `app/sw.js` | Реліз 254, рушій у `APP_FILES` і `critical` | Номер релізу визначається під час злиття: `max + 1` |
 
 `design-lab/` не змінювався.
 
 Тимчасовий аватар — котик LerenBe. Його треба замінити на затверджений образ Lexi з TEST-030, коли той буде готовий: це один рядок `lexiAv()` в `app.js` і одна картинка в `home-showcase`.
+
+---
+
+## 10. Точні назви для Codex (перевірено за кодом рушія)
+
+Цей список узято з `Object.keys(LerenLexi)` і констант рушія. Якщо назва змінюється, міняти треба і рушій, і тести.
+
+**Глобальні функції в `app.js`:**
+- `lexiOpen(scenario, ctx)` — відкриває Lexi в потрібному сценарії;
+- `lexiAv()` — HTML аватара (`img.lexi-av`);
+- `lexiBlocked(title)` — повертає `true` і показує `.lexi-off`, якщо Lexi недоступний;
+- `aiStart(scene?, scenario?)` — розмова;
+- `askStart(opts?)` — питання.
+
+**Міст для модулів:** `bridge.lexi(scenario, ctx)`, `bridge.chat()`, `bridge.ai(chapter)`.
+
+**`LerenLexi`, константи:**
+- `NAME` = `"Lexi"`, `CHAR` = `"lexi"`;
+- `TARGETS`: `nl`, `fr`, `en`;
+- `UI`: `uk`, `en`, `fr`, `ar`;
+- `LEVELS`: `a11`, `a12`, `a21`;
+- `SCENARIOS`: `free`, `grammar`, `roleplay`, `lesson`, `speaking`;
+- `ROLEPLAYS`: `shop`, `school`, `work`, `doctor`, `transport`, `municipality`;
+- `STATES`: `welcome`, `listening`, `thinking`, `speaking`, `correct`, `incorrect`, `offline`, `error`, `idle`;
+- `ERRORS`: `offline`, `beta`, `unavailable`, `timeout`, `network`, `limit`, `slow`, `format`, `refusal`, `off`, `tooLong`, `empty` — у кожного є поле `retry`;
+- `LIMITS`: `chat` 300, `ask` 600, `exam` 1600, `history` 12, `topic` 60, `lesson` 80, `question` 200, `answer` 200.
+
+**`LerenLexi`, функції:**
+- `configure({endpoint, production, local, online, fetch})`
+- `availability()` → `{ok: false, code}` або `{ok: true, endpoint, local?}`
+- `context(raw)`
+- `profile(ctx, learning)`
+- `body(scenario, ctx, messages, extra)`
+- `normalize(mode, data, lastUser)`
+- `send(scenario, ctx, messages, extra)` → Promise
+- `memo(ctx, messages, memory)` → нотатки або `null`
+- `report(ctx, kind, text)` → `true`/`false`
+- `message(code, ui)`
+- `voice()` → `{listen, speak}`
+- `speechTag(lang)`
+- `scenario(id)`
+- `on(fn)` → функція відписки
+- `emit` — внутрішня; інтерфейс її не викликає.
+
+**Подія:** одна — `{type: 'state', state, code?, scenario}`.
+
+**Відповідність прототипу Codex** (`design-lab/test-030/prototype.js`, `chatStates`):
+
+| Codex | Рушій |
+|---|---|
+| `welcome`, `listening`, `speaking` | Стани інтерфейсу, рушій їх не надсилає |
+| `thinking`, `correct`, `incorrect`, `offline` | Ті самі назви |
+| `api-error` | `state: 'error'` + `code` (текст — `LerenLexi.message(code, ui)`, кнопку повтору показувати за `ERRORS[code].retry`) |
+| немає | `idle`: відповідь без оцінки (привітання чату або відповідь на питання). Lexi можна показувати спокійним, як у `welcome` |
+
+Мови в прототипі (`nl`, `en`, `fr`) збігаються з `TARGETS`. Рівнів і сценаріїв прототип не задає, тому вони беруться з рушія.

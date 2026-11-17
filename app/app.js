@@ -4784,7 +4784,7 @@ function wbCourseWords(lv=curLevel){
 }
 const gameStart=id=>({story:storyMap,ai:aiStart,ask:askStart,dlg:dlgPick,rp:rpPick,sp:spStart,bl:blStart,mm:mmStart,dc:dcStart,md:mdStart,om:omStart,ks:ksStart,wb:wbStart,kamer:kamerStart,kamer1:kamer1Start})[id];
 const gameArt=id=>id==="wb"?"./img/games/wb-v114.webp":id==="kamer"?"./img/games/kamer-v186.webp":id==="kamer1"?"./img/games/kamer1-v196.jpg":"./img/games/"+id+"-v111.webp";
-// Games of the current level that open right now (not the AI chat: the home page has its own Peter and Dafna block).
+// Games of the current level that open right now (not the AI chat: the home page has its own «Meet Lexi» block).
 function gameCards(){const g=gU();return GAMES.filter(([id,,nl])=>id!=="ai"&&gameForLevel(id)&&!(nl&&targetLang!=="nl")&&!(id==="ask"&&!AI_ENDPOINT)).map(([id])=>({id,title:g[id],text:g[id+"S"]||"",art:gameArt(id)}))}
 function renderGamesHome(){
  if(gState&&gState.chat)aiRemember(gState); // leaving the AI chat: save what was learned about the learner
