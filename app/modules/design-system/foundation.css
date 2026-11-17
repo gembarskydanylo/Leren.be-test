@@ -1,0 +1,62 @@
+/* Presentation adapters for existing components; DOM actions remain owned by their modules. */
+:root,:root[data-theme="dark"]{
+ --bg:var(--lb-canvas);--surface:var(--lb-surface);--surface-2:var(--lb-subtle);--soft:var(--lb-brand-soft);
+ --ink:var(--lb-ink);--ink-2:var(--lb-muted);--mut:var(--lb-muted);--line:var(--lb-line);--edge:var(--lb-line);
+ --oranje:var(--lb-brand);--oranje-deep:var(--lb-brand-hover);--on-oranje:var(--lb-on-brand);
+ --ok:var(--lb-success);--bad:var(--lb-danger);--font-body:var(--lb-font);--font-display:var(--lb-heading);
+ --depth:0px;--depth-sm:0px;--r-sm:var(--lb-r-sm);--r-md:var(--lb-r-md);--r-lg:var(--lb-r-lg);
+}
+html{scroll-padding-bottom:calc(var(--lb-dock) + env(safe-area-inset-bottom))}
+body{background:var(--lb-canvas);color:var(--lb-ink);font-family:var(--lb-font);line-height:1.55}
+body>main{max-width:1200px;padding:16px 16px calc(var(--lb-dock) + 24px + env(safe-area-inset-bottom));margin-inline:auto}
+main>header{display:flex;flex-wrap:wrap;gap:12px;align-items:center;background:var(--lb-surface);color:var(--lb-ink);border:1px solid var(--lb-line);border-radius:var(--lb-r-md);box-shadow:none;padding:12px 16px;width:auto;max-width:none;min-height:68px;margin:0 0 24px;container-type:normal}
+main>header .brand{flex:1 1 100px;min-width:32px;gap:8px;overflow:hidden;display:flex;color:var(--lb-ink)}
+main>header .brand::before{width:32px;height:32px;border-radius:10px}
+main>header .brand h1{font:900 20px/1.2 var(--lb-heading);color:var(--lb-ink)}
+main>header #tagline{display:none}
+main>header .header-language{margin-inline-start:auto;min-width:0}
+main>header .header-language label{color:var(--lb-muted);font-size:var(--lb-caption)}
+main>header .header-language select{max-width:155px;min-height:44px;background:var(--lb-subtle);color:var(--lb-ink);border:1px solid var(--lb-line);border-radius:10px;padding:8px;font:800 .875rem var(--lb-font)}
+main>header .hdr-stats{margin:0;gap:6px;align-items:center}
+main>header .hdr-stats .hdr-pill{background:transparent;box-shadow:none;color:var(--lb-muted);min-height:44px;padding-inline:5px;font-size:.875rem}
+main>header .hdr-stats .streak-pill,main>header .hdr-btn{min-height:44px;min-width:44px;color:var(--lb-ink);background:var(--lb-subtle);border-radius:10px;box-shadow:none}
+main>header .hdr-stats .score-pill .ico{color:var(--lb-warning)}
+:is(button,a,select,input,textarea,summary,[tabindex]):focus-visible{outline:3px solid var(--lb-focus);outline-offset:3px}
+:is(button,select,input,textarea){font-family:var(--lb-font)}
+:is(.btn,.lp-button,.fh-primary,.hv-btn,.cp-btn){min-height:var(--lb-tap);border-radius:var(--lb-r-sm);box-shadow:none;font-weight:800;line-height:1.4;transition:background var(--lb-motion),border-color var(--lb-motion);white-space:normal}
+:is(.btn,.lp-button,.cp-btn){background:var(--lb-surface);color:var(--lb-ink);border:1px solid var(--lb-line);padding:12px 18px}
+:is(.btn.primary,.lp-primary,.fh-primary,.hv-primary,.cp-primary){background:var(--lb-brand);color:var(--lb-on-brand);border:1px solid var(--lb-brand);box-shadow:none}
+:is(.btn.primary,.lp-primary,.fh-primary,.hv-primary,.cp-primary):hover{background:var(--lb-brand-hover);border-color:var(--lb-brand-hover);box-shadow:none}
+button:disabled{cursor:default}
+:is(input:not([type=checkbox]):not([type=radio]):not([type=range]),textarea,select){border-radius:var(--lb-r-sm);min-height:44px;color:var(--lb-ink);background-color:var(--lb-surface);border-color:var(--lb-line)}
+:is(.empty,.pv-empty,.lp-done,.lp-topic-done,.cp-card){border-radius:var(--lb-r-md);border:1px solid var(--lb-line);padding:20px;background:var(--lb-surface);color:var(--lb-ink)}
+:is(.feedback,.lp-feedback){border-radius:var(--lb-r-md);line-height:1.6}
+:is(.listen,.fh-say){min-width:44px;min-height:44px;background:var(--lb-warning-soft);color:var(--lb-warning);border:1px solid var(--lb-line);box-shadow:none;border-radius:12px}
+#modeButtons{position:fixed;top:auto;bottom:calc(12px + env(safe-area-inset-bottom));inset-inline:12px;width:min(560px,calc(100% - 24px));margin-inline:auto;display:flex;align-items:stretch;justify-content:space-around;gap:4px;padding:6px;background:var(--lb-dark);border:1px solid #ffffff24;border-radius:20px;box-shadow:0 8px 30px #102b3226;z-index:35}
+#modeButtons button{flex:1;min-width:0;min-height:52px;border:0;border-radius:14px;box-shadow:none;background:transparent;color:#d7e5dc;font-size:.75rem;line-height:1.2;padding:7px 4px}
+#modeButtons button[aria-current],#modeButtons button.active,#modeButtons button.is-active{background:var(--lb-yellow);color:#243025}
+#modeButtons .ico{width:21px;height:21px}
+.sheet-panel,.voice-dialog{background:var(--lb-surface);color:var(--lb-ink);border:1px solid var(--lb-line);border-radius:24px;box-shadow:var(--lb-shadow)}
+.sheet-panel{padding-bottom:calc(24px + env(safe-area-inset-bottom))}
+.sheet-head{border-color:var(--lb-line)}
+.sheet-head h2{font:900 1.5rem/1.2 var(--lb-heading)}
+.sheet-x{min-width:44px;min-height:44px;border-radius:50%;background:var(--lb-subtle);color:var(--lb-ink);box-shadow:none}
+.set-row{padding-block:14px;border-color:var(--lb-line)}
+.onb-panel{background:var(--lb-surface);color:var(--lb-ink);border-radius:24px;padding:24px;border:1px solid var(--lb-line)}
+.onb-panel h2{font:900 var(--lb-title)/1.2 var(--lb-heading);letter-spacing:-.035em}
+.onb-opt{background:var(--lb-surface);border:1px solid var(--lb-line);border-radius:14px;box-shadow:none;min-height:64px}
+.onb-opt:hover,.welcome-goal[aria-pressed=true]{border-color:var(--lb-brand);background:var(--lb-brand-soft);color:var(--lb-ink)}
+.onb-next{background:var(--lb-brand);color:var(--lb-on-brand);min-height:48px;box-shadow:none}
+@media(max-width:650px){main>header{gap:8px;padding:10px;margin-bottom:16px}main>header .brand{flex:0 0 32px}main>header .brand h1{display:none}main>header .header-language label{display:none}main>header .header-language select{max-width:132px;font-size:.8125rem}main>header .hdr-stats{margin-inline-start:auto;gap:3px}}
+@media(max-width:360px){main>header .header-language select{max-width:118px}main>header .hdr-stats .score-pill{font-size:.75rem}body>main{padding-inline:12px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+/* The legacy dock used translateX(-50%); the inset-based shell does not. */
+#modeButtons{transform:none}
+#modeButtons button.primary{transform:none}
+main>header .hdr-stats .streak-pill.off{color:var(--lb-muted)}
+main>header .header-language select{box-shadow:none}
+/* Author layout rules must not reveal unavailable controls marked hidden by the app. */
+[hidden]{display:none!important}
+main>header .brand{min-height:44px}
+@media(max-width:650px){main>header .brand{flex-basis:44px;min-width:44px}}
+.dh-icon{min-width:44px;min-height:44px;border-radius:12px;background:var(--lb-subtle);color:var(--lb-ink);box-shadow:none}

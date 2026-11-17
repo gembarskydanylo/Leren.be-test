@@ -1,0 +1,31 @@
+/* LerenBe 3.0 — shared semantic tokens. No course, storage or engine dependencies. */
+:root{
+ --lb-brand:#b84616;--lb-brand-hover:#96370f;--lb-brand-soft:#fff0e8;
+ --lb-teal:#17483f;--lb-yellow:#f6d86b;--lb-canvas:#f5f5f0;--lb-surface:#fff;
+ --lb-subtle:#efefE8;--lb-ink:#202d2a;--lb-muted:#53655e;--lb-line:#d7ded6;
+ --lb-success:#216344;--lb-success-soft:#eaf5ed;--lb-danger:#a7353f;--lb-danger-soft:#fcebee;
+ --lb-warning:#765214;--lb-warning-soft:#fff3d7;--lb-focus:#215fc0;--lb-on-brand:#fff;
+ --lb-dark:#173b34;--lb-on-dark:#f4faf5;--lb-shadow:0 4px 20px #20352b09;
+ --lb-font:"Nunito",system-ui,sans-serif;--lb-heading:"Nunito",system-ui,sans-serif;
+ --lb-text:1rem;--lb-caption:.8125rem;--lb-title:clamp(1.65rem,3.2vw,2.4rem);
+ --lb-word:clamp(1.8rem,5vw,2.8rem);--lb-r-sm:10px;--lb-r-md:16px;--lb-r-lg:24px;
+ --lb-space-1:4px;--lb-space-2:8px;--lb-space-3:12px;--lb-space-4:16px;--lb-space-6:24px;--lb-space-8:32px;
+ --lb-tap:44px;--lb-motion:140ms;--lb-dock:78px;
+}
+:root[data-theme="dark"]{
+ --lb-brand:#ffb18c;--lb-brand-hover:#ffc7ad;--lb-brand-soft:#3e2b25;--lb-on-brand:#291c14;
+ --lb-canvas:#14231f;--lb-surface:#1e302a;--lb-subtle:#273c33;--lb-ink:#f0f6ee;
+ --lb-muted:#b5c6b9;--lb-line:#40564a;--lb-success:#9cdbb4;--lb-success-soft:#203d2d;
+ --lb-danger:#ffb5bc;--lb-danger-soft:#452b32;--lb-warning:#f0d18a;--lb-warning-soft:#3c3322;
+ --lb-focus:#9bc5ff;--lb-shadow:none;
+}
+
+@media(prefers-color-scheme:dark){
+:root:not([data-theme]){
+ --lb-brand:#ffb18c;--lb-brand-hover:#ffc7ad;--lb-brand-soft:#3e2b25;--lb-on-brand:#291c14;
+ --lb-canvas:#14231f;--lb-surface:#1e302a;--lb-subtle:#273c33;--lb-ink:#f0f6ee;
+ --lb-muted:#b5c6b9;--lb-line:#40564a;--lb-success:#9cdbb4;--lb-success-soft:#203d2d;
+ --lb-danger:#ffb5bc;--lb-danger-soft:#452b32;--lb-warning:#f0d18a;--lb-warning-soft:#3c3322;
+ --lb-focus:#9bc5ff;--lb-shadow:none;
+}
+}

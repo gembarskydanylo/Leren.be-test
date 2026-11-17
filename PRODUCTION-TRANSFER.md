@@ -145,3 +145,8 @@
 - Також потрібні в production (код однаковий): `fetchT` (тайм-аути Firestore і AI) і один `acctLoad()` в `app.js`; fallback офлайн-навігації з `ignoreSearch` у `sw.js`.
 - Лише для знімка, не переносити: CSP лише 'self' і статична сторінка відгуків у `app/reviews.html`; без Cloudflare в `app/privacy.html`.
 - Перевірити в production-консолі (лише читання): чи є анонімні користувачі й записи `reviews_pending` з github.io; чи збігаються помилки App Check за часом із тестовим трафіком; чи github.io відсутній у дозволених доменах ключа reCAPTCHA.
+## TEST-025 — LerenBe 3.0 presentation redesign (awaiting owner review)
+- Semantic design tokens and adapters live under `app/modules/design-system/`; app, LIFE and guides reuse the same palette and component rules. Preserve approved HERO A/C and cat assets.
+- No course IDs, learning algorithms or storage migration. PR #13 and TEST-024 are unmerged parallel work, not dependencies silently included here. Resolve shell/cache changes explicitly when integrating.
+- Not approved for production; physical Samsung and owner visual approval required.
+- TEST-025 integration: release 250, cache v250, tokens/foundation/home/learning/engagement/life/guides CSS v1. New stylesheets must ship together with the page hooks and SW references. 22 existing suites + new design suite (164 screen checks) pass. 14 Before/After pairs in screenshots/test-025; keep Draft pending owner and Samsung review.
