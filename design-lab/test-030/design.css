@@ -214,7 +214,7 @@ button:hover:not(:disabled){transform:translateY(-1px)}
 .review-actions>*{flex:1}
 .life-screen{position:relative;min-height:calc(100dvh - 44px);padding:20px 30px 32px;isolation:isolate;display:flex;flex-direction:column;align-items:center}
 .life-scene{position:absolute;inset:0;z-index:-2;background:#d6d1b6}
-.life-scene img{height:100%;width:100%;object-position:center 35%;opacity:.8}
+.life-scene img{height:100%;width:100%;object-position:center 18%;opacity:.8}
 .life-scene:after{content:'';position:absolute;inset:0;background:linear-gradient(0deg,#173e3380,transparent 70%)}
 .life-header{display:flex;gap:14px;align-items:center;background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:12px;width:min(100%,1040px)}
 .life-header>div{display:grid;gap:3px;flex:1;min-width:0}

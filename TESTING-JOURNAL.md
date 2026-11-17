@@ -371,3 +371,5 @@ Total output lines: 142
 - У read-only Beta checks workflow додано Playwright 1.64.1 + Chromium/system dependencies у RUNNER_TEMP та три lab checks. Tests не вимкнено; Pages/import workflows і app/life не змінено. Результат повторного CI фіксується у PR.
 
 - CI 44188940132 після встановлення браузера виявив відсутній origin/main у checkout. Workflow тепер явно отримує тільки test main та PR #13/#14 для SW upgrade/release-chain suites; SW/тести незмінні.
+
+- Фінальний desktop-огляд LIFE виявив обрізані обличчя у вертикальному artwork: скориговано focal position без зміни графіки й повторно знято матрицю та галерею.
