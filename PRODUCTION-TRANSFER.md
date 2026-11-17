@@ -161,3 +161,8 @@
 - Нові файли: `life/modules/learn-life/{i18n.mjs,i18n-story.mjs}`, `app/modules/learn-life/{i18n.mjs,i18n-fence.mjs}`; змінені `story-ui.mjs`, `story.css`, `ui.mjs`, `data.mjs` (пошук), `style.css`, обидві `learn-life-story.html` і `learn-life.html` (лише `?v=`), `sw.js` (precache + назва кешу).
 - Збережені дані не змінюються (`leren_learn_life_v1_*`, ключі історій): прогрес, зроблений українською, видно іншою мовою. Українська сторінка не вантажить словник.
 - Перед production: перевірка перекладів носіями англійської, французької й арабської; `tests/life-i18n.cjs` у CI. Мова береться з `poly_ui` того самого домену — у production LIFE і застосунок мають бути на одному origin.
+
+## TEST-028 · Інтеграція 3.0 (beta; перед production потрібне окреме погодження)
+- **Обов’язково під час перенесення в production:** прибрати `<meta name="leren-env" content="beta">` з `index.html` production-копії. Інакше `prodServices()` = false: вхід, синхронізація, App Check і нагадування в production буде вимкнено. `prodServices()` / `prodOnly()` переносити разом з усім `app.js`.
+- Номер релізу на момент перенесення: max(production, усі гілки) + 1. Перед перенесенням прогнати `sw-release-chain.cjs` з CHAIN від поточного production-коміту.
+- Решта — за записами TEST-023…028 вище (кожен має свої межі й відкриті перевірки).
