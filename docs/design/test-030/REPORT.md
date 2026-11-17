@@ -86,7 +86,7 @@ node design-lab/test-030/checks/interactions.cjs
 node design-lab/test-030/checks/gallery.cjs
 ```
 
-Усі три скрипти завершуються ненульовим кодом при невиконаних assertions. Залежність не включена в продукт; у цьому середовищі запускалися з `NODE_PATH=/Users/danylohembarskyi/.cache/leren-audio/node_modules`. Немає skip/fallback при відсутності Playwright.
+Усі три скрипти завершуються ненульовим кодом при невиконаних assertions. Залежність не включена в продукт; у цьому середовищі запускалися з `NODE_PATH=/Users/danylohembarskyi/.cache/leren-audio/node_modules`. Немає skip/fallback при відсутності Playwright. Before навчальних екранів можна повторити через `SHOTS=/tmp/test030-before node tests/design-system.cjs`; порожній mock-чат — `node design-lab/test-030/checks/before-chat.cjs`. Останній спочатку закриває onboarding штатною кнопкою, щоб кадр не містив затемнювальної модальної підкладки.
 
 ## Рішення власника перед інтеграцією
 
