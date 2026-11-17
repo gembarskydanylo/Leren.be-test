@@ -1,95 +1,95 @@
 path,width,height,format,priority,purpose,status,manifest_value
-life/assets/lerenbe-life/characters/anastasia/full-neutral.webp,900,1600,WebP alpha,P0-first-day,Anastasia; full; neutral,missing,None
-life/assets/lerenbe-life/characters/anastasia/full-happy.webp,900,1600,WebP alpha,P0-first-day,Anastasia; full; happy,missing,None
-life/assets/lerenbe-life/characters/anastasia/full-thinking.webp,900,1600,WebP alpha,P0-first-day,Anastasia; full; thinking,missing,None
-life/assets/lerenbe-life/characters/anastasia/full-surprised.webp,900,1600,WebP alpha,P0-first-day,Anastasia; full; surprised,missing,None
-life/assets/lerenbe-life/characters/anastasia/portrait-neutral.webp,512,512,WebP,P0-first-day,Anastasia; portrait; neutral,missing,None
-life/assets/lerenbe-life/characters/anastasia/portrait-happy.webp,512,512,WebP,P0-first-day,Anastasia; portrait; happy,missing,None
-life/assets/lerenbe-life/characters/anastasia/portrait-thinking.webp,512,512,WebP,P0-first-day,Anastasia; portrait; thinking,missing,None
-life/assets/lerenbe-life/characters/anastasia/portrait-surprised.webp,512,512,WebP,P0-first-day,Anastasia; portrait; surprised,missing,None
-life/assets/lerenbe-life/characters/annick/full-neutral.webp,900,1600,WebP alpha,P0-first-day,Annick; full; neutral,missing,None
-life/assets/lerenbe-life/characters/annick/full-happy.webp,900,1600,WebP alpha,P0-first-day,Annick; full; happy,missing,None
-life/assets/lerenbe-life/characters/annick/full-thinking.webp,900,1600,WebP alpha,P0-first-day,Annick; full; thinking,missing,None
-life/assets/lerenbe-life/characters/annick/full-surprised.webp,900,1600,WebP alpha,P0-first-day,Annick; full; surprised,missing,None
-life/assets/lerenbe-life/characters/annick/portrait-neutral.webp,512,512,WebP,P0-first-day,Annick; portrait; neutral,missing,None
-life/assets/lerenbe-life/characters/annick/portrait-happy.webp,512,512,WebP,P0-first-day,Annick; portrait; happy,missing,None
-life/assets/lerenbe-life/characters/annick/portrait-thinking.webp,512,512,WebP,P0-first-day,Annick; portrait; thinking,missing,None
-life/assets/lerenbe-life/characters/annick/portrait-surprised.webp,512,512,WebP,P0-first-day,Annick; portrait; surprised,missing,None
-life/assets/lerenbe-life/characters/jan/full-neutral.webp,900,1600,WebP alpha,P0-first-day,Jan; full; neutral,missing,None
-life/assets/lerenbe-life/characters/jan/full-happy.webp,900,1600,WebP alpha,P0-first-day,Jan; full; happy,missing,None
-life/assets/lerenbe-life/characters/jan/full-thinking.webp,900,1600,WebP alpha,P0-first-day,Jan; full; thinking,missing,None
-life/assets/lerenbe-life/characters/jan/full-surprised.webp,900,1600,WebP alpha,P0-first-day,Jan; full; surprised,missing,None
-life/assets/lerenbe-life/characters/jan/portrait-neutral.webp,512,512,WebP,P0-first-day,Jan; portrait; neutral,missing,None
-life/assets/lerenbe-life/characters/jan/portrait-happy.webp,512,512,WebP,P0-first-day,Jan; portrait; happy,missing,None
-life/assets/lerenbe-life/characters/jan/portrait-thinking.webp,512,512,WebP,P0-first-day,Jan; portrait; thinking,missing,None
-life/assets/lerenbe-life/characters/jan/portrait-surprised.webp,512,512,WebP,P0-first-day,Jan; portrait; surprised,missing,None
-life/assets/lerenbe-life/characters/peter/full-neutral.webp,900,1600,WebP alpha,P2-future-cast,Peter; full; neutral,missing,None
-life/assets/lerenbe-life/characters/peter/full-happy.webp,900,1600,WebP alpha,P2-future-cast,Peter; full; happy,missing,None
-life/assets/lerenbe-life/characters/peter/full-thinking.webp,900,1600,WebP alpha,P2-future-cast,Peter; full; thinking,missing,None
-life/assets/lerenbe-life/characters/peter/full-surprised.webp,900,1600,WebP alpha,P2-future-cast,Peter; full; surprised,missing,None
-life/assets/lerenbe-life/characters/peter/portrait-neutral.webp,512,512,WebP,P2-future-cast,Peter; portrait; neutral,missing,None
-life/assets/lerenbe-life/characters/peter/portrait-happy.webp,512,512,WebP,P2-future-cast,Peter; portrait; happy,missing,None
-life/assets/lerenbe-life/characters/peter/portrait-thinking.webp,512,512,WebP,P2-future-cast,Peter; portrait; thinking,missing,None
-life/assets/lerenbe-life/characters/peter/portrait-surprised.webp,512,512,WebP,P2-future-cast,Peter; portrait; surprised,missing,None
-life/assets/lerenbe-life/characters/sofie/full-neutral.webp,900,1600,WebP alpha,P2-future-cast,Sofie; full; neutral,missing,None
-life/assets/lerenbe-life/characters/sofie/full-happy.webp,900,1600,WebP alpha,P2-future-cast,Sofie; full; happy,missing,None
-life/assets/lerenbe-life/characters/sofie/full-thinking.webp,900,1600,WebP alpha,P2-future-cast,Sofie; full; thinking,missing,None
-life/assets/lerenbe-life/characters/sofie/full-surprised.webp,900,1600,WebP alpha,P2-future-cast,Sofie; full; surprised,missing,None
-life/assets/lerenbe-life/characters/sofie/portrait-neutral.webp,512,512,WebP,P2-future-cast,Sofie; portrait; neutral,missing,None
-life/assets/lerenbe-life/characters/sofie/portrait-happy.webp,512,512,WebP,P2-future-cast,Sofie; portrait; happy,missing,None
-life/assets/lerenbe-life/characters/sofie/portrait-thinking.webp,512,512,WebP,P2-future-cast,Sofie; portrait; thinking,missing,None
-life/assets/lerenbe-life/characters/sofie/portrait-surprised.webp,512,512,WebP,P2-future-cast,Sofie; portrait; surprised,missing,None
-life/assets/lerenbe-life/characters/van-den-berg/full-neutral.webp,900,1600,WebP alpha,P2-future-cast,Dr. Van den Berg; full; neutral,missing,None
-life/assets/lerenbe-life/characters/van-den-berg/full-happy.webp,900,1600,WebP alpha,P2-future-cast,Dr. Van den Berg; full; happy,missing,None
-life/assets/lerenbe-life/characters/van-den-berg/full-thinking.webp,900,1600,WebP alpha,P2-future-cast,Dr. Van den Berg; full; thinking,missing,None
-life/assets/lerenbe-life/characters/van-den-berg/full-surprised.webp,900,1600,WebP alpha,P2-future-cast,Dr. Van den Berg; full; surprised,missing,None
-life/assets/lerenbe-life/characters/van-den-berg/portrait-neutral.webp,512,512,WebP,P2-future-cast,Dr. Van den Berg; portrait; neutral,missing,None
-life/assets/lerenbe-life/characters/van-den-berg/portrait-happy.webp,512,512,WebP,P2-future-cast,Dr. Van den Berg; portrait; happy,missing,None
-life/assets/lerenbe-life/characters/van-den-berg/portrait-thinking.webp,512,512,WebP,P2-future-cast,Dr. Van den Berg; portrait; thinking,missing,None
-life/assets/lerenbe-life/characters/van-den-berg/portrait-surprised.webp,512,512,WebP,P2-future-cast,Dr. Van den Berg; portrait; surprised,missing,None
-life/assets/lerenbe-life/characters/hero-male/full-neutral.webp,900,1600,WebP alpha,P2-future-cast,Male protagonist; full; neutral,missing,None
-life/assets/lerenbe-life/characters/hero-male/full-happy.webp,900,1600,WebP alpha,P2-future-cast,Male protagonist; full; happy,missing,None
-life/assets/lerenbe-life/characters/hero-male/full-thinking.webp,900,1600,WebP alpha,P2-future-cast,Male protagonist; full; thinking,missing,None
-life/assets/lerenbe-life/characters/hero-male/full-surprised.webp,900,1600,WebP alpha,P2-future-cast,Male protagonist; full; surprised,missing,None
-life/assets/lerenbe-life/characters/hero-male/portrait-neutral.webp,512,512,WebP,P2-future-cast,Male protagonist; portrait; neutral,missing,None
-life/assets/lerenbe-life/characters/hero-male/portrait-happy.webp,512,512,WebP,P2-future-cast,Male protagonist; portrait; happy,missing,None
-life/assets/lerenbe-life/characters/hero-male/portrait-thinking.webp,512,512,WebP,P2-future-cast,Male protagonist; portrait; thinking,missing,None
-life/assets/lerenbe-life/characters/hero-male/portrait-surprised.webp,512,512,WebP,P2-future-cast,Male protagonist; portrait; surprised,missing,None
-life/assets/lerenbe-life/stories/first-day/cover-mobile.webp,1080,1080,WebP,P0-first-day,Перший день у Бельгії: Анастасія й Annick на вокзалі Gent-Sint-Pieters; cover mobile,missing,None
-life/assets/lerenbe-life/stories/first-day/cover-desktop.webp,1600,900,WebP,P0-first-day,Перший день у Бельгії: Анастасія й Annick на вокзалі Gent-Sint-Pieters; cover desktop,missing,None
-life/assets/lerenbe-life/stories/first-day/station-mobile.webp,1200,900,WebP,P0-first-day,Вокзал Gent-Sint-Pieters: Annick зустрічає Анастасію біля табло; background without characters,missing,None
-life/assets/lerenbe-life/stories/first-day/station-desktop.webp,1920,1320,WebP,P0-first-day,Вокзал Gent-Sint-Pieters: Annick зустрічає Анастасію біля табло; background without characters,missing,None
-life/assets/lerenbe-life/stories/first-day/machine-mobile.webp,1200,900,WebP,P0-first-day,Автомат для квитків De Lijn на трамвайній зупинці біля вокзалу; background without characters,missing,None
-life/assets/lerenbe-life/stories/first-day/machine-desktop.webp,1920,1320,WebP,P0-first-day,Автомат для квитків De Lijn на трамвайній зупинці біля вокзалу; background without characters,missing,None
-life/assets/lerenbe-life/stories/first-day/meet-mobile.webp,1200,900,WebP,P0-first-day,Привокзальна площа в Генті: Анастасія й Annick знайомляться; background without characters,missing,None
-life/assets/lerenbe-life/stories/first-day/meet-desktop.webp,1920,1320,WebP,P0-first-day,Привокзальна площа в Генті: Анастасія й Annick знайомляться; background without characters,missing,None
-life/assets/lerenbe-life/stories/first-day/tram-mobile.webp,1200,900,WebP,P0-first-day,Усередині трамвая 1 у Генті: Анастасія й Annick їдуть до Коренмаркту; background without characters,missing,None
-life/assets/lerenbe-life/stories/first-day/tram-desktop.webp,1920,1320,WebP,P0-first-day,Усередині трамвая 1 у Генті: Анастасія й Annick їдуть до Коренмаркту; background without characters,missing,None
-life/assets/lerenbe-life/stories/first-day/flat-mobile.webp,1200,900,WebP,P0-first-day,"Нова квартира Анастасії: кімната з ліжком, вікном, радіатором і ключами на столі; background without characters",missing,None
-life/assets/lerenbe-life/stories/first-day/flat-desktop.webp,1920,1320,WebP,P0-first-day,"Нова квартира Анастасії: кімната з ліжком, вікном, радіатором і ключами на столі; background without characters",missing,None
-life/assets/lerenbe-life/stories/first-day/neighbour-mobile.webp,1200,900,WebP,P0-first-day,Сходовий майданчик: сусід Jan у дверях своєї квартири; background without characters,missing,None
-life/assets/lerenbe-life/stories/first-day/neighbour-desktop.webp,1920,1320,WebP,P0-first-day,Сходовий майданчик: сусід Jan у дверях своєї квартири; background without characters,missing,None
-life/assets/lerenbe-life/stories/first-day/tomorrow-mobile.webp,1200,900,WebP,P0-first-day,Вечір у квартирі: Annick прощається з Анастасією до завтра; background without characters,missing,None
-life/assets/lerenbe-life/stories/first-day/tomorrow-desktop.webp,1920,1320,WebP,P0-first-day,Вечір у квартирі: Annick прощається з Анастасією до завтра; background without characters,missing,None
-life/assets/lerenbe-life/stories/supermarket/cover-mobile.webp,1080,1080,WebP,P2-unpublished-story,Покупки в супермаркеті; cover mobile,missing,None
-life/assets/lerenbe-life/stories/supermarket/cover-desktop.webp,1600,900,WebP,P2-unpublished-story,Покупки в супермаркеті; cover desktop,missing,None
-life/assets/lerenbe-life/stories/supermarket/list-mobile.webp,1200,900,WebP,P2-unpublished-story,Annick надсилає список покупок; background without characters,missing,None
-life/assets/lerenbe-life/stories/supermarket/list-desktop.webp,1920,1320,WebP,P2-unpublished-story,Annick надсилає список покупок; background without characters,missing,None
-life/assets/lerenbe-life/stories/supermarket/shelves-mobile.webp,1200,900,WebP,P2-unpublished-story,"Супермаркет: полиці з молоком, хлібом, яблуками, яйцями; background without characters",missing,None
-life/assets/lerenbe-life/stories/supermarket/shelves-desktop.webp,1920,1320,WebP,P2-unpublished-story,"Супермаркет: полиці з молоком, хлібом, яблуками, яйцями; background without characters",missing,None
-life/assets/lerenbe-life/stories/supermarket/help-mobile.webp,1200,900,WebP,P2-unpublished-story,Працівник Tom біля полиць; background without characters,missing,None
-life/assets/lerenbe-life/stories/supermarket/help-desktop.webp,1920,1320,WebP,P2-unpublished-story,Працівник Tom біля полиць; background without characters,missing,None
-life/assets/lerenbe-life/stories/supermarket/counter-mobile.webp,1200,900,WebP,P2-unpublished-story,Прилавок із сиром; background without characters,missing,None
-life/assets/lerenbe-life/stories/supermarket/counter-desktop.webp,1920,1320,WebP,P2-unpublished-story,Прилавок із сиром; background without characters,missing,None
-life/assets/lerenbe-life/stories/supermarket/till-mobile.webp,1200,900,WebP,P2-unpublished-story,Каса: касирка Lien; background without characters,missing,None
-life/assets/lerenbe-life/stories/supermarket/till-desktop.webp,1920,1320,WebP,P2-unpublished-story,Каса: касирка Lien; background without characters,missing,None
-life/assets/lerenbe-life/stories/supermarket/home-mobile.webp,1200,900,WebP,P2-unpublished-story,Дорога додому з покупками; background without characters,missing,None
-life/assets/lerenbe-life/stories/supermarket/home-desktop.webp,1920,1320,WebP,P2-unpublished-story,Дорога додому з покупками; background without characters,missing,None
-life/assets/lerenbe-life/stories/commune/cover-mobile.webp,1080,1080,WebP,P2-unpublished-story,Реєстрація в комуні (gemeentehuis); cover mobile,missing,None
-life/assets/lerenbe-life/stories/commune/cover-desktop.webp,1600,900,WebP,P2-unpublished-story,Реєстрація в комуні (gemeentehuis); cover desktop,missing,None
-life/assets/lerenbe-life/stories/fence/cover-mobile.webp,1080,1080,WebP,P2-unpublished-story,Будівництво паркану із сусідом; cover mobile,missing,None
-life/assets/lerenbe-life/stories/fence/cover-desktop.webp,1600,900,WebP,P2-unpublished-story,Будівництво паркану із сусідом; cover desktop,missing,None
-life/assets/lerenbe-life/stories/doctor/cover-mobile.webp,1080,1080,WebP,P2-unpublished-story,Візит до лікаря; cover mobile,missing,None
-life/assets/lerenbe-life/stories/doctor/cover-desktop.webp,1600,900,WebP,P2-unpublished-story,Візит до лікаря; cover desktop,missing,None
+life/assets/lerenbe-life/characters/anastasia/full-neutral.webp,900,1600,WebP alpha,P0-first-day,Anastasia; full; neutral,missing,null
+life/assets/lerenbe-life/characters/anastasia/full-happy.webp,900,1600,WebP alpha,P0-first-day,Anastasia; full; happy,missing,null
+life/assets/lerenbe-life/characters/anastasia/full-thinking.webp,900,1600,WebP alpha,P0-first-day,Anastasia; full; thinking,missing,null
+life/assets/lerenbe-life/characters/anastasia/full-surprised.webp,900,1600,WebP alpha,P0-first-day,Anastasia; full; surprised,missing,null
+life/assets/lerenbe-life/characters/anastasia/portrait-neutral.webp,512,512,WebP,P0-first-day,Anastasia; portrait; neutral,missing,null
+life/assets/lerenbe-life/characters/anastasia/portrait-happy.webp,512,512,WebP,P0-first-day,Anastasia; portrait; happy,missing,null
+life/assets/lerenbe-life/characters/anastasia/portrait-thinking.webp,512,512,WebP,P0-first-day,Anastasia; portrait; thinking,missing,null
+life/assets/lerenbe-life/characters/anastasia/portrait-surprised.webp,512,512,WebP,P0-first-day,Anastasia; portrait; surprised,missing,null
+life/assets/lerenbe-life/characters/annick/full-neutral.webp,900,1600,WebP alpha,P0-first-day,Annick; full; neutral,missing,null
+life/assets/lerenbe-life/characters/annick/full-happy.webp,900,1600,WebP alpha,P0-first-day,Annick; full; happy,missing,null
+life/assets/lerenbe-life/characters/annick/full-thinking.webp,900,1600,WebP alpha,P0-first-day,Annick; full; thinking,missing,null
+life/assets/lerenbe-life/characters/annick/full-surprised.webp,900,1600,WebP alpha,P0-first-day,Annick; full; surprised,missing,null
+life/assets/lerenbe-life/characters/annick/portrait-neutral.webp,512,512,WebP,P0-first-day,Annick; portrait; neutral,missing,null
+life/assets/lerenbe-life/characters/annick/portrait-happy.webp,512,512,WebP,P0-first-day,Annick; portrait; happy,missing,null
+life/assets/lerenbe-life/characters/annick/portrait-thinking.webp,512,512,WebP,P0-first-day,Annick; portrait; thinking,missing,null
+life/assets/lerenbe-life/characters/annick/portrait-surprised.webp,512,512,WebP,P0-first-day,Annick; portrait; surprised,missing,null
+life/assets/lerenbe-life/characters/jan/full-neutral.webp,900,1600,WebP alpha,P0-first-day,Jan; full; neutral,missing,null
+life/assets/lerenbe-life/characters/jan/full-happy.webp,900,1600,WebP alpha,P0-first-day,Jan; full; happy,missing,null
+life/assets/lerenbe-life/characters/jan/full-thinking.webp,900,1600,WebP alpha,P0-first-day,Jan; full; thinking,missing,null
+life/assets/lerenbe-life/characters/jan/full-surprised.webp,900,1600,WebP alpha,P0-first-day,Jan; full; surprised,missing,null
+life/assets/lerenbe-life/characters/jan/portrait-neutral.webp,512,512,WebP,P0-first-day,Jan; portrait; neutral,missing,null
+life/assets/lerenbe-life/characters/jan/portrait-happy.webp,512,512,WebP,P0-first-day,Jan; portrait; happy,missing,null
+life/assets/lerenbe-life/characters/jan/portrait-thinking.webp,512,512,WebP,P0-first-day,Jan; portrait; thinking,missing,null
+life/assets/lerenbe-life/characters/jan/portrait-surprised.webp,512,512,WebP,P0-first-day,Jan; portrait; surprised,missing,null
+life/assets/lerenbe-life/characters/peter/full-neutral.webp,900,1600,WebP alpha,P2-future-cast,Peter; full; neutral,missing,null
+life/assets/lerenbe-life/characters/peter/full-happy.webp,900,1600,WebP alpha,P2-future-cast,Peter; full; happy,missing,null
+life/assets/lerenbe-life/characters/peter/full-thinking.webp,900,1600,WebP alpha,P2-future-cast,Peter; full; thinking,missing,null
+life/assets/lerenbe-life/characters/peter/full-surprised.webp,900,1600,WebP alpha,P2-future-cast,Peter; full; surprised,missing,null
+life/assets/lerenbe-life/characters/peter/portrait-neutral.webp,512,512,WebP,P2-future-cast,Peter; portrait; neutral,missing,null
+life/assets/lerenbe-life/characters/peter/portrait-happy.webp,512,512,WebP,P2-future-cast,Peter; portrait; happy,missing,null
+life/assets/lerenbe-life/characters/peter/portrait-thinking.webp,512,512,WebP,P2-future-cast,Peter; portrait; thinking,missing,null
+life/assets/lerenbe-life/characters/peter/portrait-surprised.webp,512,512,WebP,P2-future-cast,Peter; portrait; surprised,missing,null
+life/assets/lerenbe-life/characters/sofie/full-neutral.webp,900,1600,WebP alpha,P2-future-cast,Sofie; full; neutral,missing,null
+life/assets/lerenbe-life/characters/sofie/full-happy.webp,900,1600,WebP alpha,P2-future-cast,Sofie; full; happy,missing,null
+life/assets/lerenbe-life/characters/sofie/full-thinking.webp,900,1600,WebP alpha,P2-future-cast,Sofie; full; thinking,missing,null
+life/assets/lerenbe-life/characters/sofie/full-surprised.webp,900,1600,WebP alpha,P2-future-cast,Sofie; full; surprised,missing,null
+life/assets/lerenbe-life/characters/sofie/portrait-neutral.webp,512,512,WebP,P2-future-cast,Sofie; portrait; neutral,missing,null
+life/assets/lerenbe-life/characters/sofie/portrait-happy.webp,512,512,WebP,P2-future-cast,Sofie; portrait; happy,missing,null
+life/assets/lerenbe-life/characters/sofie/portrait-thinking.webp,512,512,WebP,P2-future-cast,Sofie; portrait; thinking,missing,null
+life/assets/lerenbe-life/characters/sofie/portrait-surprised.webp,512,512,WebP,P2-future-cast,Sofie; portrait; surprised,missing,null
+life/assets/lerenbe-life/characters/van-den-berg/full-neutral.webp,900,1600,WebP alpha,P2-future-cast,Dr. Van den Berg; full; neutral,missing,null
+life/assets/lerenbe-life/characters/van-den-berg/full-happy.webp,900,1600,WebP alpha,P2-future-cast,Dr. Van den Berg; full; happy,missing,null
+life/assets/lerenbe-life/characters/van-den-berg/full-thinking.webp,900,1600,WebP alpha,P2-future-cast,Dr. Van den Berg; full; thinking,missing,null
+life/assets/lerenbe-life/characters/van-den-berg/full-surprised.webp,900,1600,WebP alpha,P2-future-cast,Dr. Van den Berg; full; surprised,missing,null
+life/assets/lerenbe-life/characters/van-den-berg/portrait-neutral.webp,512,512,WebP,P2-future-cast,Dr. Van den Berg; portrait; neutral,missing,null
+life/assets/lerenbe-life/characters/van-den-berg/portrait-happy.webp,512,512,WebP,P2-future-cast,Dr. Van den Berg; portrait; happy,missing,null
+life/assets/lerenbe-life/characters/van-den-berg/portrait-thinking.webp,512,512,WebP,P2-future-cast,Dr. Van den Berg; portrait; thinking,missing,null
+life/assets/lerenbe-life/characters/van-den-berg/portrait-surprised.webp,512,512,WebP,P2-future-cast,Dr. Van den Berg; portrait; surprised,missing,null
+life/assets/lerenbe-life/characters/hero-male/full-neutral.webp,900,1600,WebP alpha,P2-future-cast,Male protagonist; full; neutral,missing,null
+life/assets/lerenbe-life/characters/hero-male/full-happy.webp,900,1600,WebP alpha,P2-future-cast,Male protagonist; full; happy,missing,null
+life/assets/lerenbe-life/characters/hero-male/full-thinking.webp,900,1600,WebP alpha,P2-future-cast,Male protagonist; full; thinking,missing,null
+life/assets/lerenbe-life/characters/hero-male/full-surprised.webp,900,1600,WebP alpha,P2-future-cast,Male protagonist; full; surprised,missing,null
+life/assets/lerenbe-life/characters/hero-male/portrait-neutral.webp,512,512,WebP,P2-future-cast,Male protagonist; portrait; neutral,missing,null
+life/assets/lerenbe-life/characters/hero-male/portrait-happy.webp,512,512,WebP,P2-future-cast,Male protagonist; portrait; happy,missing,null
+life/assets/lerenbe-life/characters/hero-male/portrait-thinking.webp,512,512,WebP,P2-future-cast,Male protagonist; portrait; thinking,missing,null
+life/assets/lerenbe-life/characters/hero-male/portrait-surprised.webp,512,512,WebP,P2-future-cast,Male protagonist; portrait; surprised,missing,null
+life/assets/lerenbe-life/stories/first-day/cover-mobile.webp,1080,1080,WebP,P0-first-day,Перший день у Бельгії: Анастасія й Annick на вокзалі Gent-Sint-Pieters; cover mobile,missing,null
+life/assets/lerenbe-life/stories/first-day/cover-desktop.webp,1600,900,WebP,P0-first-day,Перший день у Бельгії: Анастасія й Annick на вокзалі Gent-Sint-Pieters; cover desktop,missing,null
+life/assets/lerenbe-life/stories/first-day/station-mobile.webp,1200,900,WebP,P0-first-day,Вокзал Gent-Sint-Pieters: Annick зустрічає Анастасію біля табло; background without characters,missing,null
+life/assets/lerenbe-life/stories/first-day/station-desktop.webp,1920,1320,WebP,P0-first-day,Вокзал Gent-Sint-Pieters: Annick зустрічає Анастасію біля табло; background without characters,missing,null
+life/assets/lerenbe-life/stories/first-day/machine-mobile.webp,1200,900,WebP,P0-first-day,Автомат для квитків De Lijn на трамвайній зупинці біля вокзалу; background without characters,missing,null
+life/assets/lerenbe-life/stories/first-day/machine-desktop.webp,1920,1320,WebP,P0-first-day,Автомат для квитків De Lijn на трамвайній зупинці біля вокзалу; background without characters,missing,null
+life/assets/lerenbe-life/stories/first-day/meet-mobile.webp,1200,900,WebP,P0-first-day,Привокзальна площа в Генті: Анастасія й Annick знайомляться; background without characters,missing,null
+life/assets/lerenbe-life/stories/first-day/meet-desktop.webp,1920,1320,WebP,P0-first-day,Привокзальна площа в Генті: Анастасія й Annick знайомляться; background without characters,missing,null
+life/assets/lerenbe-life/stories/first-day/tram-mobile.webp,1200,900,WebP,P0-first-day,Усередині трамвая 1 у Генті: Анастасія й Annick їдуть до Коренмаркту; background without characters,missing,null
+life/assets/lerenbe-life/stories/first-day/tram-desktop.webp,1920,1320,WebP,P0-first-day,Усередині трамвая 1 у Генті: Анастасія й Annick їдуть до Коренмаркту; background without characters,missing,null
+life/assets/lerenbe-life/stories/first-day/flat-mobile.webp,1200,900,WebP,P0-first-day,"Нова квартира Анастасії: кімната з ліжком, вікном, радіатором і ключами на столі; background without characters",missing,null
+life/assets/lerenbe-life/stories/first-day/flat-desktop.webp,1920,1320,WebP,P0-first-day,"Нова квартира Анастасії: кімната з ліжком, вікном, радіатором і ключами на столі; background without characters",missing,null
+life/assets/lerenbe-life/stories/first-day/neighbour-mobile.webp,1200,900,WebP,P0-first-day,Сходовий майданчик: сусід Jan у дверях своєї квартири; background without characters,missing,null
+life/assets/lerenbe-life/stories/first-day/neighbour-desktop.webp,1920,1320,WebP,P0-first-day,Сходовий майданчик: сусід Jan у дверях своєї квартири; background without characters,missing,null
+life/assets/lerenbe-life/stories/first-day/tomorrow-mobile.webp,1200,900,WebP,P0-first-day,Вечір у квартирі: Annick прощається з Анастасією до завтра; background without characters,missing,null
+life/assets/lerenbe-life/stories/first-day/tomorrow-desktop.webp,1920,1320,WebP,P0-first-day,Вечір у квартирі: Annick прощається з Анастасією до завтра; background without characters,missing,null
+life/assets/lerenbe-life/stories/supermarket/cover-mobile.webp,1080,1080,WebP,P2-unpublished-story,Покупки в супермаркеті; cover mobile,missing,null
+life/assets/lerenbe-life/stories/supermarket/cover-desktop.webp,1600,900,WebP,P2-unpublished-story,Покупки в супермаркеті; cover desktop,missing,null
+life/assets/lerenbe-life/stories/supermarket/list-mobile.webp,1200,900,WebP,P2-unpublished-story,Annick надсилає список покупок; background without characters,missing,null
+life/assets/lerenbe-life/stories/supermarket/list-desktop.webp,1920,1320,WebP,P2-unpublished-story,Annick надсилає список покупок; background without characters,missing,null
+life/assets/lerenbe-life/stories/supermarket/shelves-mobile.webp,1200,900,WebP,P2-unpublished-story,"Супермаркет: полиці з молоком, хлібом, яблуками, яйцями; background without characters",missing,null
+life/assets/lerenbe-life/stories/supermarket/shelves-desktop.webp,1920,1320,WebP,P2-unpublished-story,"Супермаркет: полиці з молоком, хлібом, яблуками, яйцями; background without characters",missing,null
+life/assets/lerenbe-life/stories/supermarket/help-mobile.webp,1200,900,WebP,P2-unpublished-story,Працівник Tom біля полиць; background without characters,missing,null
+life/assets/lerenbe-life/stories/supermarket/help-desktop.webp,1920,1320,WebP,P2-unpublished-story,Працівник Tom біля полиць; background without characters,missing,null
+life/assets/lerenbe-life/stories/supermarket/counter-mobile.webp,1200,900,WebP,P2-unpublished-story,Прилавок із сиром; background without characters,missing,null
+life/assets/lerenbe-life/stories/supermarket/counter-desktop.webp,1920,1320,WebP,P2-unpublished-story,Прилавок із сиром; background without characters,missing,null
+life/assets/lerenbe-life/stories/supermarket/till-mobile.webp,1200,900,WebP,P2-unpublished-story,Каса: касирка Lien; background without characters,missing,null
+life/assets/lerenbe-life/stories/supermarket/till-desktop.webp,1920,1320,WebP,P2-unpublished-story,Каса: касирка Lien; background without characters,missing,null
+life/assets/lerenbe-life/stories/supermarket/home-mobile.webp,1200,900,WebP,P2-unpublished-story,Дорога додому з покупками; background without characters,missing,null
+life/assets/lerenbe-life/stories/supermarket/home-desktop.webp,1920,1320,WebP,P2-unpublished-story,Дорога додому з покупками; background without characters,missing,null
+life/assets/lerenbe-life/stories/commune/cover-mobile.webp,1080,1080,WebP,P2-unpublished-story,Реєстрація в комуні (gemeentehuis); cover mobile,missing,null
+life/assets/lerenbe-life/stories/commune/cover-desktop.webp,1600,900,WebP,P2-unpublished-story,Реєстрація в комуні (gemeentehuis); cover desktop,missing,null
+life/assets/lerenbe-life/stories/fence/cover-mobile.webp,1080,1080,WebP,P2-unpublished-story,Будівництво паркану із сусідом; cover mobile,missing,null
+life/assets/lerenbe-life/stories/fence/cover-desktop.webp,1600,900,WebP,P2-unpublished-story,Будівництво паркану із сусідом; cover desktop,missing,null
+life/assets/lerenbe-life/stories/doctor/cover-mobile.webp,1080,1080,WebP,P2-unpublished-story,Візит до лікаря; cover mobile,missing,null
+life/assets/lerenbe-life/stories/doctor/cover-desktop.webp,1600,900,WebP,P2-unpublished-story,Візит до лікаря; cover desktop,missing,null
 app/img/home/life-promo-mobile.webp,960,540,WebP,P1-home-LIFE,"LIFE entry card, Gent-Sint-Pieters",missing,missing
 app/img/home/life-promo-desktop.webp,1200,675,WebP,P1-home-LIFE,"LIFE entry card, Gent-Sint-Pieters",missing,missing
