@@ -136,3 +136,8 @@
 - Four substantial Ukrainian static guides + index under `app/guides/`, linked from home. `noindex,nofollow` remains until editorial/legal/SEO review. Verify official links and Ukrainian/Dutch copy before indexing.
 - No certification, user-count or review claims. No extra JS/image dependencies. Tests: `tests/learning-map-seo.cjs` and full local suite; details in TESTING-JOURNAL.md.
 - Audit 2026-11-13: release 230 (cache name + `?v=` for home-v2 ui/style and learning-path/ui). The route list follows TEST-022's calm rule (folded until 3 lessons). Guides: linguistic fixes, `lang="nl"` on inline Dutch. Before indexing, add canonical and OG for the production URL, remove the test footer, and get a native Flemish review.
+
+## TEST-028 · LIFE en / fr / ar (beta; переносити разом із LIFE)
+- Нові файли: `life/modules/learn-life/{i18n.mjs,i18n-story.mjs}`, `app/modules/learn-life/{i18n.mjs,i18n-fence.mjs}`; змінені `story-ui.mjs`, `story.css`, `ui.mjs`, `data.mjs` (пошук), `style.css`, обидві `learn-life-story.html` і `learn-life.html` (лише `?v=`), `sw.js` (precache + назва кешу).
+- Збережені дані не змінюються (`leren_learn_life_v1_*`, ключі історій): прогрес, зроблений українською, видно іншою мовою. Українська сторінка не вантажить словник.
+- Перед production: перевірка перекладів носіями англійської, французької й арабської; `tests/life-i18n.cjs` у CI. Мова береться з `poly_ui` того самого домену — у production LIFE і застосунок мають бути на одному origin.

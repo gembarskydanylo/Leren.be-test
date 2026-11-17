@@ -137,3 +137,7 @@ a.ls-btn{display:block;text-align:center;text-decoration:none;box-sizing:border-
 @media (min-width:1360px){.ls-main{max-width:1360px}.ls-scene-body{grid-template-columns:minmax(0,1.6fr) minmax(360px,1fr)}}
 /* narrow screens and large text: the help-level switch wraps its labels instead of pushing the page sideways */
 @media (max-width:420px){.ls-mode{min-width:0;gap:2px}.ls-mode button{flex:1 1 auto;min-width:0;white-space:normal;line-height:1.15;padding:4px 3px;letter-spacing:-.01em}}
+/* Arabic (html dir=rtl, set by i18n.mjs): Dutch stays left-to-right inside the right-to-left page, aligned like its
+   surroundings; the back arrow of a scene points the other way. Other languages are unaffected. */
+[dir=rtl] [lang|=nl]{direction:ltr;unicode-bidi:isolate;text-align:match-parent}
+[dir=rtl] .ls-back-scene{transform:scaleX(-1)}
