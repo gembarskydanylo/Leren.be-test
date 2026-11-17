@@ -150,3 +150,6 @@
 - No course IDs, learning algorithms or storage migration. PR #13 and TEST-024 are unmerged parallel work, not dependencies silently included here. Resolve shell/cache changes explicitly when integrating.
 - Not approved for production; physical Samsung and owner visual approval required.
 - TEST-025 integration: release 250, cache v250, tokens/foundation/home/learning/engagement/life/guides CSS v1. New stylesheets must ship together with the page hooks and SW references. 22 existing suites + new design suite (164 screen checks) pass. 14 Before/After pairs in screenshots/test-025; keep Draft pending owner and Samsung review.
+## TEST-026 (лише документація й тести; переносити в production нічого)
+- Перед перенесенням редизайну 3.0: прогнати `ui-contracts.cjs`, `sync-merge-app.cjs` і `perf-budget.cjs` на кандидаті. Ключі `leren_path_v1` і `leren_path_rewards_v1` переносити й скидати лише разом.
+- Відкрите питання для окремого релізу: A2 у `merge.js` LEVELS. Це зміна формату синхронізації, потрібен тест сумісності зі старими версіями.
