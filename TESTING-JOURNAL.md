@@ -364,3 +364,8 @@ Total output lines: 142
 - Виправлено aspect ratio Lexi, reflow 200%, втрату фокусу/чернетки при re-render, доступні назви виходів і touch-ціль review-link. Скриншоти зроблено в Chromium.
 - Фінальний огляд Before: повторно знято чат після штатного закриття onboarding, щоб прибрати його затемнювальну підкладку; галерею перевірено повторно.
 - Межі: емуляція, не фізичний Samsung; mock без AI/мікрофона/голосу/зберігання; LIFE — статична ілюстрація-пропозиція. App/, life/, рушій, Firebase, XP, SW та production не змінено. Draft PR на integration, без merge; потрібне затвердження образу/композицій перед інтеграцією.
+
+### TEST-030 · CI dependency correction · 2026-11-17
+
+- PR #15 створено Draft на claude/test-028-integration. Перший GitHub run 44188726316 впав через відсутній Playwright; це не успішна браузерна перевірка.
+- У read-only Beta checks workflow додано Playwright 1.64.1 + Chromium/system dependencies у RUNNER_TEMP та три lab checks. Tests не вимкнено; Pages/import workflows і app/life не змінено. Результат повторного CI фіксується у PR.

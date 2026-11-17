@@ -19,6 +19,13 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
+      - name: Install browser test dependencies
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm install --prefix "$RUNNER_TEMP/leren-test-deps" --no-audit --no-fund --package-lock=false playwright@1.64.1
+          echo "NODE_PATH=$RUNNER_TEMP/leren-test-deps/node_modules" >> "$GITHUB_ENV"
+          "$RUNNER_TEMP/leren-test-deps/node_modules/.bin/playwright" install --with-deps chromium
       - name: Check app, beta lessons and offline dependencies
         shell: bash
         run: |
@@ -26,3 +33,14 @@ jobs:
           for test in tests/*.cjs; do
             node "$test"
           done
+      - name: Check TEST-030 design lab
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m http.server 8279 --bind 127.0.0.1 > "$RUNNER_TEMP/test030-http.log" 2>&1 &
+          test030_server=$!
+          trap 'kill "$test030_server"' EXIT
+          curl --fail --silent --retry 5 --retry-connrefused --retry-delay 1 http://127.0.0.1:8279/design-lab/test-030/ > /dev/null
+          node design-lab/test-030/checks/audit.cjs
+          node design-lab/test-030/checks/interactions.cjs
+          node design-lab/test-030/checks/gallery.cjs

@@ -88,6 +88,12 @@ node design-lab/test-030/checks/gallery.cjs
 
 Усі три скрипти завершуються ненульовим кодом при невиконаних assertions. Залежність не включена в продукт; у цьому середовищі запускалися з `NODE_PATH=/Users/danylohembarskyi/.cache/leren-audio/node_modules`. Немає skip/fallback при відсутності Playwright. Before навчальних екранів можна повторити через `SHOTS=/tmp/test030-before node tests/design-system.cjs`; порожній mock-чат — `node design-lab/test-030/checks/before-chat.cjs`. Останній спочатку закриває onboarding штатною кнопкою, щоб кадр не містив затемнювальної модальної підкладки.
 
+## GitHub CI
+
+Перший PR-run [44188726316](https://github.com/gembarskydanylo/Leren.be-test/actions/runs/44188726316) завершився помилкою конфігурації: `Cannot find module playwright`, а попередня браузерна частина A2 була пропущена. Цей run не зараховується як успішний.
+
+У `.github/workflows/fix-beta-html.yml` додано pinned Playwright 1.64.1 (та сама перевірена локально версія), Chromium із системними залежностями та запуск трьох перевірок lab. Установка відбувається в RUNNER_TEMP, не додає package/runtime залежностей до продукту. Жодного тесту не вимкнено. Workflow має тільки contents:read і не публікує сайт; workflows імпорту/Pages не змінювалися. Це єдина зміна поза design-lab/docs/screenshots/журналами.
+
 ## Рішення власника перед інтеграцією
 
 1. Затвердити або скоригувати **зовнішність Lexi** та шість емоцій: це пропозиція, не наявний затверджений референс.
