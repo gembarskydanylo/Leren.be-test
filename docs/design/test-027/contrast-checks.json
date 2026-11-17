@@ -1,0 +1,394 @@
+[
+  {
+    "concept": "a",
+    "screen": "home",
+    "selector": "P",
+    "text": "Привітайся, назви себе й почни роз",
+    "ratio": 6.13865189078733
+  },
+  {
+    "concept": "a",
+    "screen": "home",
+    "selector": "primary",
+    "text": "Продовжити урок ",
+    "ratio": 5.841873726967587
+  },
+  {
+    "concept": "a",
+    "screen": "study",
+    "selector": "word-label",
+    "text": "Слово 1 із 5",
+    "ratio": 5.6129823804480505
+  },
+  {
+    "concept": "a",
+    "screen": "study",
+    "selector": "translation",
+    "text": "привіт",
+    "ratio": 5.6129823804480505
+  },
+  {
+    "concept": "a",
+    "screen": "study",
+    "selector": "P",
+    "text": "Hallo, ik ben Anastasia.",
+    "ratio": 13.338438597185451
+  },
+  {
+    "concept": "a",
+    "screen": "study",
+    "selector": "P",
+    "text": "Привіт, я Анастасія.",
+    "ratio": 6.13865189078733
+  },
+  {
+    "concept": "a",
+    "screen": "study",
+    "selector": "primary",
+    "text": "Зрозуміло, далі ",
+    "ratio": 5.841873726967587
+  },
+  {
+    "concept": "a",
+    "screen": "quiz",
+    "selector": "answer",
+    "text": "01Goedemorgen",
+    "ratio": 13.338438597185451
+  },
+  {
+    "concept": "a",
+    "screen": "quiz",
+    "selector": "answer",
+    "text": "02hallo",
+    "ratio": 13.338438597185451
+  },
+  {
+    "concept": "a",
+    "screen": "quiz",
+    "selector": "answer",
+    "text": "03Dank je wel",
+    "ratio": 13.338438597185451
+  },
+  {
+    "concept": "a",
+    "screen": "quiz",
+    "selector": "answer",
+    "text": "04Alsjeblieft",
+    "ratio": 13.338438597185451
+  },
+  {
+    "concept": "a",
+    "screen": "life",
+    "selector": "H1",
+    "text": "Hallo! Ben jijAnastasia?",
+    "ratio": 11.569623163169119
+  },
+  {
+    "concept": "a",
+    "screen": "life",
+    "selector": "dialogue-translation",
+    "text": "Привіт! Ти Анастасія?",
+    "ratio": 6.267755456947429
+  },
+  {
+    "concept": "a",
+    "screen": "life",
+    "selector": "SPAN",
+    "text": "Ja, ik ben Anastasia.",
+    "ratio": 9.522575741422145
+  },
+  {
+    "concept": "a",
+    "screen": "life",
+    "selector": "SMALL",
+    "text": "Так, я Анастасія.",
+    "ratio": 6.242083011411543
+  },
+  {
+    "concept": "a",
+    "screen": "life",
+    "selector": "SPAN",
+    "text": "Nee, ik woon in Gent.",
+    "ratio": 9.522575741422145
+  },
+  {
+    "concept": "a",
+    "screen": "life",
+    "selector": "SMALL",
+    "text": "Ні, я живу в Генті.",
+    "ratio": 6.242083011411543
+  },
+  {
+    "concept": "b",
+    "screen": "home",
+    "selector": "P",
+    "text": "Навчись починати розмову нідерланд",
+    "ratio": 6.201338533750414
+  },
+  {
+    "concept": "b",
+    "screen": "home",
+    "selector": "primary",
+    "text": "Продовжити урок ",
+    "ratio": 7.685753368447542
+  },
+  {
+    "concept": "b",
+    "screen": "study",
+    "selector": "word-label",
+    "text": "Слово 1 із 5",
+    "ratio": 5.37224338477883
+  },
+  {
+    "concept": "b",
+    "screen": "study",
+    "selector": "translation",
+    "text": "привіт",
+    "ratio": 5.201341680079513
+  },
+  {
+    "concept": "b",
+    "screen": "study",
+    "selector": "P",
+    "text": "Hallo, ik ben Anastasia.",
+    "ratio": 11.563599610523566
+  },
+  {
+    "concept": "b",
+    "screen": "study",
+    "selector": "P",
+    "text": "Привіт, я Анастасія.",
+    "ratio": 6.201338533750414
+  },
+  {
+    "concept": "b",
+    "screen": "study",
+    "selector": "primary",
+    "text": "Зрозуміло, далі ",
+    "ratio": 8.028837578968153
+  },
+  {
+    "concept": "b",
+    "screen": "quiz",
+    "selector": "answer",
+    "text": "01Goedemorgen",
+    "ratio": 11.563599610523566
+  },
+  {
+    "concept": "b",
+    "screen": "quiz",
+    "selector": "answer",
+    "text": "02hallo",
+    "ratio": 11.563599610523566
+  },
+  {
+    "concept": "b",
+    "screen": "quiz",
+    "selector": "answer",
+    "text": "03Dank je wel",
+    "ratio": 11.563599610523566
+  },
+  {
+    "concept": "b",
+    "screen": "quiz",
+    "selector": "answer",
+    "text": "04Alsjeblieft",
+    "ratio": 11.563599610523566
+  },
+  {
+    "concept": "b",
+    "screen": "life",
+    "selector": "H1",
+    "text": "Hallo! Ben jijAnastasia?",
+    "ratio": 11.353900711994246
+  },
+  {
+    "concept": "b",
+    "screen": "life",
+    "selector": "dialogue-translation",
+    "text": "Привіт! Ти Анастасія?",
+    "ratio": 6.150889457816043
+  },
+  {
+    "concept": "b",
+    "screen": "life",
+    "selector": "SPAN",
+    "text": "Ja, ik ben Anastasia.",
+    "ratio": 9.522575741422145
+  },
+  {
+    "concept": "b",
+    "screen": "life",
+    "selector": "SMALL",
+    "text": "Так, я Анастасія.",
+    "ratio": 6.242083011411543
+  },
+  {
+    "concept": "b",
+    "screen": "life",
+    "selector": "SPAN",
+    "text": "Nee, ik woon in Gent.",
+    "ratio": 9.522575741422145
+  },
+  {
+    "concept": "b",
+    "screen": "life",
+    "selector": "SMALL",
+    "text": "Ні, я живу в Генті.",
+    "ratio": 6.242083011411543
+  },
+  {
+    "concept": "b",
+    "screen": "audio",
+    "selector": "answer",
+    "text": "1привіт",
+    "ratio": 11.563599610523566
+  },
+  {
+    "concept": "b",
+    "screen": "audio",
+    "selector": "answer",
+    "text": "2дякую",
+    "ratio": 11.563599610523566
+  },
+  {
+    "concept": "b",
+    "screen": "audio",
+    "selector": "answer",
+    "text": "3до завтра",
+    "ratio": 11.563599610523566
+  },
+  {
+    "concept": "b",
+    "screen": "audio",
+    "selector": "primary",
+    "text": "До огляду ",
+    "ratio": 7.879135164447547
+  },
+  {
+    "concept": "b",
+    "screen": "review",
+    "selector": "primary",
+    "text": "Згадав / згадала",
+    "ratio": 7.879135164447547
+  },
+  {
+    "concept": "c",
+    "screen": "home",
+    "selector": "P",
+    "text": "Знайомство · A1.1 · 5–10 хв",
+    "ratio": 7.176944847999299
+  },
+  {
+    "concept": "c",
+    "screen": "home",
+    "selector": "primary",
+    "text": "Продовжити ",
+    "ratio": 7.4766889876938185
+  },
+  {
+    "concept": "c",
+    "screen": "study",
+    "selector": "word-label",
+    "text": "Слово 1 із 5",
+    "ratio": 9.075125514670498
+  },
+  {
+    "concept": "c",
+    "screen": "study",
+    "selector": "translation",
+    "text": "привіт",
+    "ratio": 9.075125514670498
+  },
+  {
+    "concept": "c",
+    "screen": "study",
+    "selector": "P",
+    "text": "Hallo, ik ben Anastasia.",
+    "ratio": 11.283816711542853
+  },
+  {
+    "concept": "c",
+    "screen": "study",
+    "selector": "P",
+    "text": "Привіт, я Анастасія.",
+    "ratio": 7.057796732969187
+  },
+  {
+    "concept": "c",
+    "screen": "study",
+    "selector": "primary",
+    "text": "Зрозуміло, далі ",
+    "ratio": 7.4766889876938185
+  },
+  {
+    "concept": "c",
+    "screen": "quiz",
+    "selector": "answer",
+    "text": "01Goedemorgen",
+    "ratio": 14.50906803017374
+  },
+  {
+    "concept": "c",
+    "screen": "quiz",
+    "selector": "answer",
+    "text": "02hallo",
+    "ratio": 14.50906803017374
+  },
+  {
+    "concept": "c",
+    "screen": "quiz",
+    "selector": "answer",
+    "text": "03Dank je wel",
+    "ratio": 14.50906803017374
+  },
+  {
+    "concept": "c",
+    "screen": "quiz",
+    "selector": "answer",
+    "text": "04Alsjeblieft",
+    "ratio": 14.50906803017374
+  },
+  {
+    "concept": "c",
+    "screen": "life",
+    "selector": "H1",
+    "text": "Hallo! Ben jijAnastasia?",
+    "ratio": 13.937558820747837
+  },
+  {
+    "concept": "c",
+    "screen": "life",
+    "selector": "dialogue-translation",
+    "text": "Привіт! Ти Анастасія?",
+    "ratio": 9.686392467022149
+  },
+  {
+    "concept": "c",
+    "screen": "life",
+    "selector": "SPAN",
+    "text": "Ja, ik ben Anastasia.",
+    "ratio": 11.984056761921371
+  },
+  {
+    "concept": "c",
+    "screen": "life",
+    "selector": "SMALL",
+    "text": "Так, я Анастасія.",
+    "ratio": 8.37798123379433
+  },
+  {
+    "concept": "c",
+    "screen": "life",
+    "selector": "SPAN",
+    "text": "Nee, ik woon in Gent.",
+    "ratio": 11.984056761921371
+  },
+  {
+    "concept": "c",
+    "screen": "life",
+    "selector": "SMALL",
+    "text": "Ні, я живу в Генті.",
+    "ratio": 8.37798123379433
+  }
+]

@@ -142,3 +142,8 @@
 - No course IDs, learning algorithms or storage migration. PR #13 and TEST-024 are unmerged parallel work, not dependencies silently included here. Resolve shell/cache changes explicitly when integrating.
 - Not approved for production; physical Samsung and owner visual approval required.
 - TEST-025 integration: release 250, cache v250, tokens/foundation/home/learning/engagement/life/guides CSS v1. New stylesheets must ship together with the page hooks and SW references. 22 existing suites + new design suite (164 screen checks) pass. 14 Before/After pairs in screenshots/test-025; keep Draft pending owner and Samsung review.
+
+## TEST-027 Visual Redesign 2.0 — concept selection only
+- Isolated design-lab/test-027 with three compositions and Before/Proposed screenshots. No application hook, engine/storage/XP/Firebase or cache change relative to TEST-025.
+- One unapproved combined station concept image is prototype-only; it does not satisfy the missing runtime-art manifest. Inventory/brief: docs/design/test-027/.
+- Await owner choice A/B/C before a new implementation branch/Draft PR. Coordinate existing #13/#14, TEST-024/026 and quality work then. No production transfer approved.
