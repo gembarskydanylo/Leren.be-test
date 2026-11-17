@@ -92,6 +92,8 @@ node design-lab/test-030/checks/gallery.cjs
 
 Перший PR-run [44188726316](https://github.com/gembarskydanylo/Leren.be-test/actions/runs/44188726316) завершився помилкою конфігурації: `Cannot find module playwright`, а попередня браузерна частина A2 була пропущена. Цей run не зараховується як успішний.
 
+Другий run 44188940132 пройшов браузерні перевірки до SW manifest suite і виявив ще одну відсутню передумову checkout: `origin/main`. Додано явний shallow fetch тестового main та PR #13/#14 для реальних upgrade/release-chain перевірок; SW і самі тести не змінювалися.
+
 У `.github/workflows/fix-beta-html.yml` додано pinned Playwright 1.64.1 (та сама перевірена локально версія), Chromium із системними залежностями та запуск трьох перевірок lab. Установка відбувається в RUNNER_TEMP, не додає package/runtime залежностей до продукту. Жодного тесту не вимкнено. Workflow має тільки contents:read і не публікує сайт; workflows імпорту/Pages не змінювалися. Це єдина зміна поза design-lab/docs/screenshots/журналами.
 
 ## Рішення власника перед інтеграцією

@@ -19,6 +19,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
+      - name: Fetch previous beta releases for upgrade checks
+        shell: bash
+        run: git fetch --no-tags --depth=1 origin main:refs/remotes/origin/main pull/13/head:refs/heads/pr/13 pull/14/head:refs/heads/pr/14
       - name: Install browser test dependencies
         shell: bash
         run: |
