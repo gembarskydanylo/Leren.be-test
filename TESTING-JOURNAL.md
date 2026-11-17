@@ -355,3 +355,13 @@ Total output lines: 142
 - **Продуктивність** (slow 4G, CPU ×4, gzip, медіана): головна видима `main` 13,2 с → інтеграція 7,5 с; передано 3,9 → 1,77 МБ; FCP 1,28 → 1,8 с. Експеримент без 10 скриптів курсів en/fr, іспитів і `kamer`: ще −0,96 с, але потрібен завантажувач на вимогу — відкладено до після TEST-027 (деталі в `docs/LERENBE-3-UI-CONTRACTS.md` §12).
 - Документ контрактів оновлено, додано §13 «Передача для Codex».
 - Тести: 37 наборів PASS. Межі: емуляція Chromium; Safari, справжні телефони й GitHub Pages не перевірялись.
+
+## TEST-031 · Lexi — один AI-репетитор на наявному стеку · 2026-11-17 23:50 CET (Europe/Brussels)
+- Гілка `claude/test-031-lexi-engine` від `claude/test-028-integration` (253). **Реліз 254.** Production, Firebase, Cloudflare не змінювались; Worker не розгорнуто.
+- Аудит: `docs/audits/TEST-031-AI-AUDIT.md` (2 AI-персони, 9 точок входу, 5 шляхів запиту, знахідки безпеки). Контракт для Codex: `docs/LEXI-UI-CONTRACT.md`.
+- Рушій `app/modules/lexi/engine.js` (`LerenLexi`) на `LerenAICoach.request`: 5 сценаріїв (free, grammar, roleplay, lesson, speaking), стани, коди помилок 4 мовами, мінімальний контекст. Усі AI-запити `app.js` (chat, ask, help, translate, memo, report) ідуть через нього.
+- Peter/Dafna прибрано з AI (назви, аватари, маршрутизація); як вчителі, голос, LIFE та історії лишились. Ключі прогресу не змінено.
+- Голос: у «Запитай Lexi» розпізнаний текст тепер потрапляє в поле для перевірки, а не надсилається одразу. Голос не зберігається.
+- Worker (`2026-11-18-lexi-v1`, у гілці): особа Lexi, анти-injection, «не вигадуй прогрес», рольові ігри nl/fr/en, school/werk, A2.1, контекст уроку, без origin github.io.
+- Нові тести з mock AI: `lexi-engine.cjs`, `lexi-app.cjs` (браузер, фейкові SpeechRecognition і TTS), `lexi-worker.cjs` (мок Anthropic), `ai-worker-limits.cjs` (з production). Реальні AI-виклики не робились.
+- Межі: голос перевірено лише фейковим SR у Chromium; аватар — тимчасовий котик; A2 використовує правила стилю A1.2.
