@@ -9,7 +9,9 @@ const root = path.join(__dirname, '..', 'app'), app = fs.readFileSync(path.join(
  assert(/function fetchT\(/.test(app), 'deadline helper exists');
  for (const re of [/fetchT\(docUrl\(id\)/g, /fetchT\("https:\/\/firestore\.googleapis\.com/g]) assert.equal((app.match(re) || []).length, 2, 'Firestore calls use the deadline: ' + re);
  assert(!/[^T]\(?fetch\("https:\/\/firestore/.test(app.replace(/fetchT\(/g, '')), 'no Firestore fetch without a deadline');
- assert(/fetchT\(AI_ENDPOINT,\{method:"POST"[^\n]*mode:"ask"/.test(app), 'AI questions use the deadline');
+ // TEST-031: AI questions go through Lexi (app/modules/lexi/engine.js), whose transport LerenAICoach.request aborts at 45 s.
+ const lexi = fs.readFileSync(path.join(root, 'modules/lexi/engine.js'), 'utf8');
+ assert(/lexi\(\)\.send\(s\.scenario\|\|"grammar"/.test(app) && /timeout: extra\.timeout \|\| \(b\.mode === 'chat' \? 30000 : 45000\)/.test(lexi) && !/fetch\(AI_ENDPOINT/.test(app), 'AI questions use the deadline (through Lexi)');
  console.log('PASS: static — every Firestore request and the AI question go through fetchT');
  let chromium; try { ({chromium} = require('playwright')) } catch { console.log('SKIP: browser part (Playwright is not installed)'); return }
  const T = {'.html': 'text/html', '.js': 'text/javascript', '.mjs': 'text/javascript', '.css': 'text/css', '.json': 'application/json', '.webp': 'image/webp', '.png': 'image/png', '.svg': 'image/svg+xml', '.woff': 'font/woff', '.jpg': 'image/jpeg'};

@@ -8,7 +8,7 @@
  const button=(text,fn)=>{const b=node('button','btn',text);b.type='button';b.onclick=fn;return b};
  function tools(root,state,bridge){
   const t=k=>tr(k,bridge.lang),box=node('section','ac-tools');
-  if(state.failed){const err=node('p','st-fb bad',state.errorCode==='limit'?bridge.limit:t(state.errorCode==='timeout'?'timeout':'failed'));err.setAttribute('role','status');box.append(err);if(!state.limitDaily)box.appendChild(button(t('retry'),bridge.retry));if(state.pendingUser)box.appendChild(button(t('edit'),bridge.edit));root.appendChild(box);return}
+  if(state.failed){const err=node('p','st-fb bad',state.errorCode==='limit'||state.errorCode==='slow'?bridge.limit:(bridge.message&&bridge.message(state.errorCode))||t(state.errorCode==='timeout'?'timeout':'failed'));err.setAttribute('role','status');box.append(err);if(!state.limitDaily)box.appendChild(button(t('retry'),bridge.retry));if(state.pendingUser)box.appendChild(button(t('edit'),bridge.edit));root.appendChild(box);return}
   if(!state.busy&&!state.practice&&state.msgs.some(x=>x.role==='assistant')){const b=button(t(state.helpBusy?'loading':'help'),()=>bridge.help());b.disabled=!!state.helpBusy;box.appendChild(b)}
   if(state.helpError){const e=node('p','st-fb bad',t('helpError'));e.setAttribute('role','status');box.appendChild(e)}
   if(state.help){const h=node('div','ac-hint');h.append(node('h3','',t('hint')),node('p','',state.help.answer));

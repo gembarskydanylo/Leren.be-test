@@ -24,13 +24,13 @@ const BASE={
   done:"Terminé !",score:(a,b)=>a+" sur "+b+" correct",repeat:"À revoir :",restart:"Recommencer",best:"Meilleur",order:"Touche les mots dans l’ordre",clear:"Effacer",
   wTask:"Consigne",wWrite:"Écris ici…",wCheck:"Vérifier mon texte",wModel:"Voir le modèle",wHideModel:"Masquer le modèle",wTips:"Liste de contrôle :",wSaved:"Ton brouillon est enregistré sur cet appareil.",
   sAsk:"🔊 Question",sSpeak:"🎤 Répondre",sShow:"Voir la réponse",sHeard:"Tu as dit :",sModel:"Modèle :",sOk:"✓ Je sais",sRe:"↺ M’entraîner encore",sTopic:"Thème",sDone:(a,b)=>a+" questions sur "+b+" maîtrisées",
-  ai:"🤖 Coach IA",wAi:"🤖 Vérifier avec Peter",wAiEmpty:"Écris d’abord ton texte.",timer:"Temps"},
+  ai:"🤖 Coach IA",wAi:"🤖 Vérifier avec Lexi",wAiEmpty:"Écris d’abord ton texte.",timer:"Temps"},
  ar:{back:"→ الامتحان",toets:"→ الاختبارات",backLesson:"→ العودة إلى الدرس",q:"السؤال",of:"من",next:"التالي",check:"تحقق",right:"صحيح!",wrong:"ليس تماماً. الإجابة الصحيحة:",
   listen:"🎧 استمع",again:"🔁 مرة أخرى",showText:"أظهر النص",hideText:"أخفِ النص",readFirst:"اقرأ السؤال أولاً، ثم استمع.",
   done:"انتهيت!",score:(a,b)=>a+" من "+b+" صحيحة",repeat:"للمراجعة:",restart:"أعد المحاولة",best:"الأفضل",order:"اضغط على الكلمات بالترتيب",clear:"امسح",
   wTask:"المهمة",wWrite:"اكتب هنا…",wCheck:"تحقق من نصي",wModel:"أظهر النموذج",wHideModel:"أخفِ النموذج",wTips:"قائمة التحقق:",wSaved:"تُحفظ مسودتك على هذا الجهاز.",
   sAsk:"🔊 السؤال",sSpeak:"🎤 أجب",sShow:"أظهر الجواب",sHeard:"قلتَ:",sModel:"النموذج:",sOk:"✓ أستطيع",sRe:"↺ أتدرب أكثر",sTopic:"الموضوع",sDone:(a,b)=>a+" من "+b+" أسئلة متقنة",
-  ai:"🤖 المدرّب الذكي",wAi:"🤖 تحقق مع بيتر",wAiEmpty:"اكتب نصك أولاً.",timer:"الوقت"}
+  ai:"🤖 المدرّب الذكي",wAi:"🤖 تحقق مع Lexi",wAiEmpty:"اكتب نصك أولاً.",timer:"الوقت"}
 };
 // Writing checklist, shared by the exam and the lesson writing practice. Returns {items:[{ok,label}], ok, total, pct, tips}.
 function score(w,text,common,minDefault=5){
@@ -89,9 +89,9 @@ function home(){
  });
  c.appendChild(grid);
  if(D.ai&&typeof AI_ENDPOINT!=="undefined"&&AI_ENDPOINT&&targetLang==="nl"){
-  const nm=(typeof cx==="function"?cx("{N}"):"Peter");const fix=t=>t.replace(/Peter/g,nm);
+  const nm="Lexi";const fix=t=>t.replace(/Peter/g,nm);
   c.appendChild(el("h3","ex-aih",u.ai));c.appendChild(el("p","ex-sub",fix(u.aiS)));
-  const mk=(id,t,d,fn)=>{const b=el("button","btn toets-pick ex-ai");b.type="button";b.dataset.ai=id;const av=el("span","tp-no ex-av");try{av.innerHTML=charSvg("happy")}catch(e){av.textContent="🤖"}b.appendChild(av);const tx=el("span","tp-text");tx.append(el("strong","",fix(t)),el("small","tp-meta",fix(d)));b.appendChild(tx);b.onclick=fn;c.appendChild(b)};
+  const mk=(id,t,d,fn)=>{const b=el("button","btn toets-pick ex-ai");b.type="button";b.dataset.ai=id;const av=el("span","tp-no ex-av");try{av.innerHTML=typeof lexiAv==="function"?lexiAv():"🤖"}catch(e){av.textContent="🤖"}b.appendChild(av);const tx=el("span","tp-text");tx.append(el("strong","",fix(t)),el("small","tp-meta",fix(d)));b.appendChild(tx);b.onclick=fn;c.appendChild(b)};
   let aiRun=null;try{aiRun=lsGet(D.ai.store,null)}catch(e){}
   const cont=aiRun&&aiRun.exam&&!aiRun.exam.done&&aiRun.msgs&&aiRun.msgs.length?" · ▶ "+X().contAt+(aiRun.exam.i+1)+"/"+aiRun.exam.list.length:"";
   mk("speak",u.aiSpeak,u.aiSpeakS+cont,()=>aiStart({id:D.ai.scene,fromExam:true}));
@@ -248,7 +248,7 @@ function write(w,back){
  };
  md.onclick=()=>{model.hidden=!model.hidden;md.textContent=model.hidden?u.wModel:u.wHideModel};
  row.append(ck,md);
- if(typeof AI_ENDPOINT!=="undefined"&&AI_ENDPOINT){const ai=el("button","btn",(U().wAi).replace(/Peter/g,typeof cx==="function"?cx("{N}"):"Peter"));ai.type="button";ai.onclick=()=>{const t=ta.value.trim();if(t.length<20){toast(U().wAiEmpty);return}
+ if(typeof AI_ENDPOINT!=="undefined"&&AI_ENDPOINT){const ai=el("button","btn",(U().wAi).replace(/Peter/g,"Lexi"));ai.type="button";ai.onclick=()=>{const t=ta.value.trim();if(t.length<20){toast(U().wAiEmpty);return}
   askStart({focus:D.focus,send:"Kijk mijn e-mail na ("+D.examName+"). Opdracht: "+w.task+(w.card?"\nUitnodiging: "+w.card.replace(/\n/g," "):"")+"\n\nMijn e-mail:\n"+t})};row.appendChild(ai)}
  c.append(row,res,model);
 }
