@@ -136,3 +136,8 @@
 - Four substantial Ukrainian static guides + index under `app/guides/`, linked from home. `noindex,nofollow` remains until editorial/legal/SEO review. Verify official links and Ukrainian/Dutch copy before indexing.
 - No certification, user-count or review claims. No extra JS/image dependencies. Tests: `tests/learning-map-seo.cjs` and full local suite; details in TESTING-JOURNAL.md.
 - Audit 2026-11-13: release 230 (cache name + `?v=` for home-v2 ui/style and learning-path/ui). The route list follows TEST-022's calm rule (folded until 3 lessons). Guides: linguistic fixes, `lang="nl"` on inline Dutch. Before indexing, add canonical and OG for the production URL, remove the test footer, and get a native Flemish review.
+
+## TEST-027 (кандидати для production; потрібне окреме погодження)
+- Production має ту саму CSP у `<meta>`, тож preload-підказки для скриптів, імовірно, дадуть такий самий виграш. Їх треба виміряти на production-копії перед перенесенням.
+- WebP-версії `student-cat-v1`, `hero-cat-v196` і `wake-cat-v1`: перенести файли й посилання, PNG залишити.
+- A2 у `merge.js`, `insights` і `examOf()`: формат синхронізації розширено (додано a21). Старі версії під час злиття ігнорують a21 і нічого не ламають.
