@@ -360,7 +360,7 @@ Total output lines: 142
 
 - Окремий test worktree / гілка `codex/test-030-lexi-design` від перевіреної інтеграції `4a60a3d` (release 253). Origin main, TEST-027, Draft PR #14 та UI contracts перевірено; TEST-027 не перезаписано.
 - Додано тільки `design-lab/test-030`, `docs/design/test-030` і `screenshots/test-030`: 7 екранів B/light+C/dark, 8 mock-станів єдиного Lexi, локальна дизайн-система, галерея Before/After, пропозиція master + 6 емоцій, ресурсний та AI-entry аудити. Затверджений Lexi-референс не знайдено, нове мистецтво чітко позначено proposal.
-- Перевірки: 37/37 базових suites, 0 fail/skip; повторний design-system 164 screen checks. Прототип: 240 комбінацій на 320/360/390/430/768/1024/1280/1440, 14 станів тексту 200%, 11 interaction-груп, 16 контрастних пар min 5.63:1. Деталі та JSON: docs/design/test-030/REPORT.md.
+- Перевірки: 37/37 базових suites, 0 fail/skip; повторний design-system 164 screen checks. Прототип: 240 комбінацій на 320/360/390/430/768/1024/1280/1440, 14 станів тексту 200%, 12 interaction-груп, 16 контрастних пар min 5.63:1. Деталі та JSON: docs/design/test-030/REPORT.md.
 - Виправлено aspect ratio Lexi, reflow 200%, втрату фокусу/чернетки при re-render, доступні назви виходів і touch-ціль review-link. Скриншоти зроблено в Chromium.
 - Фінальний огляд Before: повторно знято чат після штатного закриття onboarding, щоб прибрати його затемнювальну підкладку; галерею перевірено повторно.
 - Межі: емуляція, не фізичний Samsung; mock без AI/мікрофона/голосу/зберігання; LIFE — статична ілюстрація-пропозиція. App/, life/, рушій, Firebase, XP, SW та production не змінено. Draft PR на integration, без merge; потрібне затвердження образу/композицій перед інтеграцією.

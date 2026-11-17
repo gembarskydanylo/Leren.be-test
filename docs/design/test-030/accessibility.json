@@ -10,7 +10,8 @@
     "review reveals translation",
     "LIFE feedback",
     "URL reload and reduced motion",
-    "no storage or external requests"
+    "no storage or external requests",
+    "language switch cancels pending mock reply"
   ],
   "contrast": [
     {

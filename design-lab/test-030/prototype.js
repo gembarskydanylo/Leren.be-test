@@ -55,7 +55,7 @@ function navigate(s){clearTimeout(timeout);demo.screen=s;demo.selected=null;demo
 app.addEventListener('click',e=>{const b=e.target.closest('button[data-action]');if(!b||b.disabled)return;const a=b.dataset.action;
  if(a==='navigate')return navigate(b.dataset.screen);
  if(a==='theme'){demo.theme=demo.theme==='dark'?'light':'dark';const input=document.getElementById('messageInput')?.value;render();if(input&&document.getElementById('messageInput'))document.getElementById('messageInput').value=input;return}
- if(a==='scenario'){demo.scenario=b.dataset.scenario;demo.chatState='welcome';demo.messages=[];render();return}
+ if(a==='scenario'){clearTimeout(timeout);demo.scenario=b.dataset.scenario;demo.chatState='welcome';demo.messages=[];render();return}
  if(a==='listen-demo'||a==='stop-listening'){clearTimeout(timeout);demo.chatState=a==='listen-demo'?'listening':'welcome';render();return}
  if(a==='voice-toggle'){demo.voice=!demo.voice;b.setAttribute('aria-pressed',String(demo.voice));b.setAttribute('aria-label',(demo.voice?'Вимкнути':'Увімкнути')+' озвучення (демо)');notify('Демонстраційне налаштування. Звук не підключено.');return}
  if(a==='speak-demo'){demo.chatState='speaking';render();return}
@@ -69,7 +69,7 @@ app.addEventListener('click',e=>{const b=e.target.closest('button[data-action]')
  if(a==='review-success'||a==='review-again'){notify(a==='review-success'?'Демо успіху. Результат не зберігається.':'Демо повторення. SRS не змінюється.');return}
  if(a==='life-answer'){demo.lifeReply=+b.dataset.answer;render();return}
 });
-app.addEventListener('change',e=>{const type=e.target.dataset.select;if(type==='target'){demo.target=e.target.value;demo.messages=[];demo.chatState='welcome';render()}if(type==='level'){demo.level=e.target.value;render()}if(type==='chat-state'){clearTimeout(timeout);demo.chatState=e.target.value;demo.messages=[];render()}});
+app.addEventListener('change',e=>{const type=e.target.dataset.select;if(type==='target'){clearTimeout(timeout);demo.target=e.target.value;demo.messages=[];demo.chatState='welcome';render()}if(type==='level'){demo.level=e.target.value;render()}if(type==='chat-state'){clearTimeout(timeout);demo.chatState=e.target.value;demo.messages=[];render()}});
 app.addEventListener('input',e=>{if(e.target.id==='messageInput')demo.draft=e.target.value});
 function send(){const input=document.getElementById('messageInput'),text=input?.value.trim();if(!text)return;demo.draft='';demo.messages.push({who:'user',text});demo.chatState='thinking';render();clearTimeout(timeout);timeout=setTimeout(()=>{demo.chatState='welcome';demo.messages.push({who:'lexi',text:'Демо-відповідь: гарний початок! У справжньому чаті тут буде відповідь Lexi на твій запит. Спробуй коротке речення про свій день.'});render();document.getElementById('messageInput')?.focus();document.querySelector('.chat-log')?.scrollTo({top:99999})},950)}
 app.addEventListener('submit',e=>{e.preventDefault();if(e.target.id==='composer')send()});app.addEventListener('keydown',e=>{if(e.target.id==='messageInput'&&e.key==='Enter'&&!e.shiftKey&&!e.isComposing){e.preventDefault();send()}});

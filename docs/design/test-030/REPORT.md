@@ -55,7 +55,7 @@ Chat state selector дає оглянути Welcome / Listening / Thinking / Spe
 | Матриця prototype | 240 комбінацій = 8 ширин × 2 теми × 7 екранів + 8 ширин × 2 теми × 8 станів чату; 0 overflow, 0 JS exceptions |
 | Текст 200% | 14 комбінацій: сім екранів × дві теми на 320px; 0 горизонтального overflow |
 | Touch / графіка | Усі видимі кнопки, select і посилання семи екранів на восьми ширинах: ≥44×44; відсутніх зображень немає |
-| Інтерактивність | 11 груп перевірок: чернетка/тема, retry, безпечний текст, Shift+Enter, mock mic, Quiz/focus, Audio/navigation, Review, LIFE, reload/reduced motion, storage/network |
+| Інтерактивність | 12 груп перевірок: чернетка/тема, retry, безпечний текст, Shift+Enter, mock mic, Quiz/focus, Audio/navigation, Review, LIFE, reload/reduced motion, storage/network, скасування застарілої mock-відповіді після зміни мови |
 | Галерея | 8 наборів зображень (4 ширини × 2 теми), без битих зображень/JS exceptions, reflow 320px |
 | Контраст | 16 семантичних пар, мінімум 5.63:1; це перевірка палітри, не сертифікація всього WCAG |
 
