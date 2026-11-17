@@ -98,7 +98,8 @@ export const fence = {
 
 export const phraseById = id => fence.phrases.find(p=>p.id===id);
 export const objectById = id => fence.objects.find(o=>o.id===id);
-const searchTokens=text=>(text.toLocaleLowerCase().match(/[a-z0-9а-яіїєґ]+/gu)||[]).map(token=>token.length>=3?token.replace(/[аеєиіїоуюя]$/u,''):token);
+// Words in any script (Latin with accents, Cyrillic, Arabic), so the phrase bank searches the translated meanings too.
+const searchTokens=text=>(text.toLocaleLowerCase().match(/[\p{L}\p{N}]+/gu)||[]).map(token=>token.length>=3?token.replace(/[аеєиіїоуюя]$/u,''):token);
 export function searchPhrases(phrases,query){
  const terms=searchTokens(query);
  if(!terms.length)return phrases;

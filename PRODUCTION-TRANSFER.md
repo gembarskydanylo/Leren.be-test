@@ -157,3 +157,7 @@
 - Production має ту саму CSP у `<meta>`, тож preload-підказки для скриптів, імовірно, дадуть такий самий виграш. Їх треба виміряти на production-копії перед перенесенням.
 - WebP-версії `student-cat-v1`, `hero-cat-v196` і `wake-cat-v1`: перенести файли й посилання, PNG залишити.
 - A2 у `merge.js`, `insights` і `examOf()`: формат синхронізації розширено (додано a21). Старі версії під час злиття ігнорують a21 і нічого не ламають.
+## TEST-028 · LIFE en / fr / ar (beta; переносити разом із LIFE)
+- Нові файли: `life/modules/learn-life/{i18n.mjs,i18n-story.mjs}`, `app/modules/learn-life/{i18n.mjs,i18n-fence.mjs}`; змінені `story-ui.mjs`, `story.css`, `ui.mjs`, `data.mjs` (пошук), `style.css`, обидві `learn-life-story.html` і `learn-life.html` (лише `?v=`), `sw.js` (precache + назва кешу).
+- Збережені дані не змінюються (`leren_learn_life_v1_*`, ключі історій): прогрес, зроблений українською, видно іншою мовою. Українська сторінка не вантажить словник.
+- Перед production: перевірка перекладів носіями англійської, французької й арабської; `tests/life-i18n.cjs` у CI. Мова береться з `poly_ui` того самого домену — у production LIFE і застосунок мають бути на одному origin.

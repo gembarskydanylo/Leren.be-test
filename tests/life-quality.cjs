@@ -254,20 +254,21 @@ const A = 'assets/lerenbe-life/';
    await page.setViewportSize({width: 390, height: 844}); await page.waitForTimeout(200);
    assert.equal(await idx(page), i0); await playScene(page, 'station'); assert.deepEqual(errors, []); await ctx.close(); report.push('rotation');
   }
-  // ---- 10 language: the app's interface language (poly_ui) does not break LIFE; LIFE help texts are Ukrainian
-  //      only (no UI-language switch yet); Dutch is marked nl-BE; help levels switch mid-step without losing it
+  // ---- 10 language: LIFE follows the app's interface language (poly_ui; TEST-028 — before it, LIFE was Ukrainian
+  //      only); Dutch is marked nl-BE; help levels switch mid-step without losing it
   {
    const {ctx, page, errors} = await open({init: () => { try { localStorage.setItem('poly_ui', 'en') } catch {} }});
-   assert.equal(await page.evaluate(() => document.documentElement.lang), 'uk');
+   assert.equal(await page.evaluate(() => document.documentElement.lang), 'en');
    await page.click('.ls-hero .ls-primary'); await page.waitForSelector('.ls-stage-say');
    assert.equal(await page.locator('.ls-stage-say .ls-nl').getAttribute('lang'), 'nl-BE');
    assert.equal(await page.locator('.ls-stage-say .ls-uk').count(), 1, 'learn: translation shown');
+   assert.equal(await page.locator('.ls-stage-say .ls-uk').textContent(), 'Hi! Are you Anastasia?', 'learn: the translation is in the app language');
    await page.click('.ls-panel .ls-primary'); const i0 = await idx(page);
    await page.click('.ls-mode [data-mode="practice"]'); assert.equal(await idx(page), i0, 'practice: same step');
    assert.equal(await page.locator('.ls-opt-uk').count(), 0, 'practice: no translations under the answers');
    await page.click('.ls-mode [data-mode="real"]'); assert.equal(await idx(page), i0);
    assert.equal(await page.locator('.ls-stage-say .ls-nl.is-hidden').count(), 1, 'real: text hidden until asked');
-   await page.click('.ls-stage-say button:has-text("Текст")'); assert.equal(await page.locator('.ls-stage-say .ls-nl.is-hidden').count(), 0);
+   await page.click('.ls-stage-say button:has-text("Text")'); assert.equal(await page.locator('.ls-stage-say .ls-nl.is-hidden').count(), 0);
    await page.click('.ls-mode [data-mode="learn"]'); assert.equal(await page.locator('.ls-opt-uk').count(), 3);
    assert.deepEqual(errors, []); await ctx.close(); report.push('language/help levels');
   }

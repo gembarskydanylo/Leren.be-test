@@ -84,3 +84,8 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
 .ll-story-link{display:flex;align-items:center;gap:14px;margin:16px clamp(12px,3vw,24px) 0;padding:14px 18px;border-radius:18px;background:#fff1df;border:1px solid #f0c48f;color:#2a1c0c;text-decoration:none}
 .ll-story-link b{display:block}.ll-story-link small{display:block;color:#6b5435}.ll-story-icon{font-size:32px}.ll-story-link>span:last-child{margin-left:auto;font-weight:900;font-size:20px}
 .ll-story-link:focus-visible{outline:3px solid #2a6fd6;outline-offset:2px}
+/* Arabic (html dir=rtl, set by i18n.mjs): Dutch stays left-to-right inside the right-to-left page, aligned like its
+   surroundings, also while typing it; the story card arrow points the reading way. Other languages are unaffected. */
+[dir=rtl] [lang|=nl],[dir=rtl] #speakInput{direction:ltr;unicode-bidi:isolate;text-align:match-parent}
+[dir=rtl] #speakInput{text-align:right}
+[dir=rtl] .ll-story-link>span:last-child{margin-left:0;margin-right:auto;transform:scaleX(-1)}
