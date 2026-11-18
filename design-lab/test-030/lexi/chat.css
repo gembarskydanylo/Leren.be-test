@@ -4,7 +4,8 @@
 @media(max-width:359px){.settings{grid-template-columns:minmax(0,1fr)}.settings label:last-child select{max-width:none}}
 .chat-log:has(>.live-state):not(:has(.g-bub)){display:grid;align-content:center;justify-content:center}.chat-log:has(>.live-state):not(:has(.g-bub)) .avatar{width:120px;height:120px}
 
-/* Lexi remains visibly present alongside each reply, not only in the page header. */
-.assistant-identity{display:flex;align-items:center;gap:16px;margin-bottom:16px;flex-wrap:wrap}.assistant-identity .author{margin:0}.avatar.message-avatar{width:112px;height:112px;margin:0}.assistant-identity .author{min-width:0;overflow-wrap:anywhere}
-@media(max-width:767px){.avatar.message-avatar{width:88px;height:88px}.assistant-identity{gap:12px}}
-@media(max-width:359px){.avatar.message-avatar{width:80px;height:80px}}
+/* The character sits beside its reply and stays alongside long messages. */
+.assistant-row{display:flex;align-items:flex-start;gap:16px;max-width:100%;margin-bottom:20px;direction:ltr}
+.assistant-row .g-bub.them{min-width:0;max-width:calc(100% - 128px);margin:0}
+.avatar.message-avatar{width:112px;height:112px;margin:0;position:sticky;top:0;flex-shrink:0}
+@media(max-width:767px){.assistant-row{gap:12px}.avatar.message-avatar{width:80px;height:80px}.assistant-row .g-bub.them{max-width:calc(100% - 92px);padding:14px}}

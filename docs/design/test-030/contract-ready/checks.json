@@ -1314,7 +1314,8 @@
     "real TEST-031 engine fixture: signature, talk correction hidden, roleplay mapping, teacher correction",
     "real ask/lesson context and example shape",
     "all twelve error retry policies",
-    "stale reply ignored after context change"
+    "stale reply ignored after context change",
+    "avatar stays visible beside long scrolled reply"
   ],
   "errors": [],
   "external": []
