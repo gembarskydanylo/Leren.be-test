@@ -35,10 +35,10 @@ nav a{display:inline-block;padding:8px 14px;border-radius:999px;background:var(-
 <body>
 <main>
 <div class="hero"><h1>lerenbe.com — Privacy Policy</h1>
-<p class="mut">Last updated / Оновлено / Bijgewerkt: 03.11.2026</p></div>
-<nav><a href="#uk">Українська</a><a href="#en">English</a><a href="#nl">Nederlands</a><a href="#delete">🗑 Delete account / Видалити акаунт</a><a href="./">← lerenbe.com</a></nav>
+<p class="mut" id="updated">Last updated / Оновлено / Bijgewerkt: 03.11.2026</p><p class="mut" id="langNote" hidden></p></div>
+<nav><a href="#uk" lang="uk">Українська</a><a href="#en" lang="en">English</a><a href="#nl" lang="nl">Nederlands</a><a href="#delete" id="deleteLink">🗑 Delete account / Видалити акаунт</a><a href="./">← lerenbe.com</a></nav>
 
-<section id="uk">
+<section id="uk" lang="uk">
 <h2>Українська</h2>
 <p>lerenbe.com — це застосунок для вивчення нідерландської мови. Ми поважаємо вашу приватність.</p>
 <ul>
@@ -59,7 +59,7 @@ nav a{display:inline-block;padding:8px 14px;border-radius:999px;background:var(-
 <p>Питання: <a href="mailto:gembarsky.d@gmail.com">gembarsky.d@gmail.com</a></p>
 </section>
 
-<section id="en">
+<section id="en" lang="en">
 <h2>English</h2>
 <p>lerenbe.com is an app for learning Dutch. We respect your privacy.</p>
 <ul>
@@ -80,7 +80,7 @@ nav a{display:inline-block;padding:8px 14px;border-radius:999px;background:var(-
 <p>Contact: <a href="mailto:gembarsky.d@gmail.com">gembarsky.d@gmail.com</a></p>
 </section>
 
-<section id="nl">
+<section id="nl" lang="nl">
 <h2>Nederlands</h2>
 <p>lerenbe.com is een app om Nederlands te leren. Wij respecteren je privacy.</p>
 <ul>
@@ -102,27 +102,31 @@ nav a{display:inline-block;padding:8px 14px;border-radius:999px;background:var(-
 </section>
 <section id="delete">
 <h2>Видалення акаунта й даних · Delete your account and data · Account en gegevens verwijderen</h2>
-<p><strong>Українська.</strong> Акаунт lerenbe.com (необов’язковий) можна видалити двома способами:</p>
+<div lang="uk" data-part="uk"><p><strong>Українська.</strong> Акаунт lerenbe.com (необов’язковий) можна видалити двома способами:</p>
 <ul>
 <li><strong>У застосунку:</strong> ⚙ Налаштування → «Акаунт» → «Видалити акаунт». Акаунт і всі дані в хмарі (прогрес, налаштування, слова, журнал помилок) видаляються одразу.</li>
 <li><strong>Листом:</strong> напишіть з адреси, прив’язаної до акаунта, на <a href="mailto:gembarsky.d@gmail.com?subject=Delete%20my%20lerenbe.com%20account">gembarsky.d@gmail.com</a> з темою «Delete my lerenbe.com account». Ми видалимо акаунт і дані в хмарі протягом 30 днів і підтвердимо це листом.</li>
 <li>Підписка на нагадування видаляється, коли ви вимикаєте «Нагадування» в налаштуваннях. Розмови з AI ми не зберігаємо. Дані на самому пристрої видаляються разом із застосунком або очищенням даних сайту.</li>
 </ul>
-<p><strong>English.</strong> You can delete your (optional) lerenbe.com account in two ways:</p>
+</div>
+<div lang="en" data-part="en"><p><strong>English.</strong> You can delete your (optional) lerenbe.com account in two ways:</p>
 <ul>
 <li><strong>In the app:</strong> ⚙ Settings → “Account” → “Delete account”. The account and all cloud data (progress, settings, words, mistake log) are deleted immediately.</li>
 <li><strong>By e-mail:</strong> write from the address linked to your account to <a href="mailto:gembarsky.d@gmail.com?subject=Delete%20my%20lerenbe.com%20account">gembarsky.d@gmail.com</a> with the subject “Delete my lerenbe.com account”. We delete the account and cloud data within 30 days and confirm by e-mail.</li>
 <li>The reminder subscription is deleted when you turn off “Reminders” in Settings. We do not store AI conversations. Data on the device itself is removed when you uninstall the app or clear the site data.</li>
 </ul>
-<p><strong>Nederlands.</strong> Je (optionele) lerenbe.com-account verwijderen kan op twee manieren:</p>
+</div>
+<div lang="nl" data-part="nl"><p><strong>Nederlands.</strong> Je (optionele) lerenbe.com-account verwijderen kan op twee manieren:</p>
 <ul>
 <li><strong>In de app:</strong> ⚙ Instellingen → “Account” → “Account verwijderen”. Het account en alle cloudgegevens (voortgang, instellingen, woorden, foutenlog) worden meteen verwijderd.</li>
 <li><strong>Per e-mail:</strong> schrijf vanaf het e-mailadres van je account naar <a href="mailto:gembarsky.d@gmail.com?subject=Delete%20my%20lerenbe.com%20account">gembarsky.d@gmail.com</a> met als onderwerp “Delete my lerenbe.com account”. We verwijderen het account en de cloudgegevens binnen 30 dagen en bevestigen dat per e-mail.</li>
 <li>Het abonnement op herinneringen wordt verwijderd als je “Herinneringen” uitzet in de instellingen. AI-gesprekken bewaren we niet. Gegevens op het toestel zelf verdwijnen als je de app verwijdert of de sitegegevens wist.</li>
 </ul>
+</div>
 </section>
 </main>
 <script src="./modules/emoji/renderer.js?v=1"></script>
+<script src="./privacy-lang.js?v=1"></script>
 <!-- TEST-024: no production analytics in the beta snapshot --><!-- End Cloudflare Web Analytics -->
 </body>
 </html>

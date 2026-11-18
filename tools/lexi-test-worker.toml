@@ -1,0 +1,60 @@
+# TEST-034 · SEPARATE test Worker for Lexi ("leren-ai-test"). NOT the production Worker "leren-ai".
+# Same code as production (tools/ai-worker.js), different name, bindings, limits, origins and secrets.
+# Nothing deploys this file automatically: there is no workflow for it. Deploy only by hand, after the owner approves,
+# with the steps in docs/LEXI-TEST-WORKER.md:
+#   npx wrangler@4 deploy -c tools/lexi-test-worker.toml
+# tests/lexi-test-worker.cjs checks that this file can never point at production (name, KV, limiter ids, origins, switch).
+name = "leren-ai-test"
+main = "ai-worker.js"
+compatibility_date = "2025-09-01"
+workers_dev = true          # https://leren-ai-test.<account>.workers.dev — no custom domain, no route on lerenbe.com
+preview_urls = false
+keep_vars = false           # every deploy resets the variables below: a deploy can never leave AI switched on by accident
+
+[vars]
+AI_OFF = "1"                # OFF after every deploy. Switch on for a test session: npx wrangler@4 deploy -c tools/lexi-test-worker.toml --var AI_OFF:0
+PROVIDER = "anthropic"
+MODEL = "claude-haiku-5-5"  # cheapest current Claude model ($0.10 / $0.50 per 1M input / output tokens, Nov 2026)
+EFFORT = "low"
+DAILY_LIMIT = "30"          # AI replies per test device per day (production: 60)
+DAILY_IP_LIMIT = "60"       # per network per day (production: 150)
+# Only the local test server (tools/lexi-test-server.cjs) may call it; lerenbe.com and github.io are refused.
+ALLOWED_ORIGINS = "http://localhost:8765"
+
+# Secrets — set with `npx wrangler@4 secret put <NAME> -c tools/lexi-test-worker.toml`, NEVER copied from production:
+#   ANTHROPIC_KEY  a key of a SEPARATE Anthropic workspace ("LerenBe test") with a monthly spend limit (e.g. $5)
+#   RATE_SALT      a new random value (openssl rand -hex 32)
+
+# Own daily counter: a NEW KV namespace (npx wrangler@4 kv namespace create leren-ai-test-rate), never "leren-ai-rate".
+# Until it exists the Worker runs without the daily counter; the per-minute limits below still apply.
+# [[kv_namespaces]]
+# binding = "RATE"
+# id = "<id of leren-ai-test-rate>"
+
+# Own per-minute limits (production uses namespace ids 1001-1004; these are separate counters).
+[[ratelimits]]
+name = "PER_IP"
+namespace_id = "2001"
+  [ratelimits.simple]
+  limit = 6
+  period = 60
+
+[[ratelimits]]
+name = "IP_CEIL"
+namespace_id = "2003"
+  [ratelimits.simple]
+  limit = 10
+  period = 60
+
+[[ratelimits]]
+name = "ALL"
+namespace_id = "2002"
+  [ratelimits.simple]
+  limit = 20
+  period = 60
+
+# No ERRS binding: the test Worker does not take app error reports (POST /errors answers "off").
+# No Firebase, no production KV, no user data: the Worker only forwards one request to the model and keeps nothing.
+
+[observability]
+enabled = true              # AI_REPORT complaints and errors of the test Worker, in its own Logs

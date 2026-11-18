@@ -194,3 +194,14 @@
 - Перенести разом: `app/modules/lexi/{engine,chat,copy,mock}.js`, `chat.css`, `app/img/lexi/*`, хост у `app.js`, стилі `.lexi-host` в `index.html`, `sw.js`.
 - `mock.js` у production не вмикається: `lexiDemo()` повертає `false`, коли `prodServices()`.
 - Після оновлень дизайну в лабораторії Codex запустити `node tools/lexi-ui-port.cjs`; ручні правки в `app/modules/lexi/chat.*` заборонені.
+
+## TEST-034 · Аудит AI та тестовий Worker (beta; перед production — окреме погодження власника)
+- Порядок запуску Lexi в production:
+  1. тестовий Worker `leren-ai-test` (погодження) і перевірка реального AI в усіх 11 точках;
+  2. розгортання нового `tools/ai-worker.js` як `leren-ai` (погодження);
+  3. лише потім клієнт.
+- Переносити: `tools/ai-worker.js` (`ALLOWED_ORIGINS`, `WORKER_VERSION` `lexi-v2`; без змінної поведінка та сама).
+- Переносити: тексти сторінок `reviews.html` / `privacy.html` / `guides/index.html`.
+  - У production `reviews.html` перекладає production-скрипт відгуків (його не чіпали); `reviews-i18n.js` потрібен лише беті.
+- Не переносити: `tools/lexi-test-worker.toml`, `tools/lexi-test-server.cjs` — лише для тестування.
+- Номер кешу production узгодити окремо: на беті зайнято 256.

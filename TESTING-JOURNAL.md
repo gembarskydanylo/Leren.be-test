@@ -410,3 +410,17 @@ Total output lines: 142
 - `?lexi=demo` вмикає відповіді-заглушки TEST-030 для перевірки на телефоні. Працює будь-де, крім production; нічого не надсилає.
 - Тести: новий `lexi-integration.cjs` (9 блоків, mock AI). `lexi-app.cjs` залишає іспит, старі маршрути й beta; його перевірки чату перенесено в новий тест. Перевірки лабораторії Codex (audit, interactions, gallery, lexi-contract) зелені.
 - Межі: реальний AI не викликався (лише mock). Справжній мікрофон, Samsung, Safari й TalkBack не перевірялися. Екрани іспиту лишились у старому дизайні.
+
+## TEST-034 · Аудит AI-інтеграції Lexi та безпечне тестування · 2026-11-18 (Europe/Brussels)
+- Гілка `claude/test-034-ai-validation` від TEST-032 `a0428af`. **Реліз 256.** Production, Firebase, Cloudflare і Worker не змінено; PR не зливали; дизайн Lexi не змінено.
+- Повторна перевірка бази TEST-032: 42/42 наборів, лабораторія Codex 4/4, обхід екранів — 43 зауваження.
+- Після змін: **44/44 наборів**, лабораторія 4/4, обхід — **2 зауваження** (розмір `a.brand` на `reviews.html`, передано Codex).
+- Нові тести:
+  - `ai-on-regression.cjs` — увесь застосунок з увімкненим AI (mock), uk / en / fr / ar, іспит A1.1. Мутація з помилкою TEST-031 → тест падає;
+  - `lexi-test-worker.cjs` — тестовий Worker не може стати production; локальний сервер не звертається до production.
+- Окремий тестовий Worker `leren-ai-test` (`tools/lexi-test-worker.toml`) і проксі `tools/lexi-test-server.cjs` підготовлено, **не розгорнуто**. План, витрати й ризики: `docs/LEXI-TEST-WORKER.md`.
+- Worker: необов'язкова змінна `ALLOWED_ORIGINS` (`lexi-v2`); без неї production поводиться як раніше.
+- 41 неперекладений рядок виправлено: `reviews-i18n.js`, `privacy-lang.js`, `guides/lang.js`.
+- Інструкція для Samsung: `docs/SAMSUNG-LEXI-TEST.md`. **На телефоні не перевіряли.**
+- Межі: реальний AI, справжній мікрофон, Samsung, Safari й TalkBack не перевірено; лише емуляція Chromium.
+- Звіт: `docs/audits/TEST-034-AI-VALIDATION.md`.
