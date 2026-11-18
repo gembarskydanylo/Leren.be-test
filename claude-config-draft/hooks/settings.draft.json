@@ -1,0 +1,12 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      { "matcher": "Bash|Edit|Write|MultiEdit|NotebookEdit",
+        "hooks": [ { "type": "command", "command": "python3 \"$CLAUDE_PROJECT_DIR/.claude/hooks/guard.py\"", "timeout": 5 } ] }
+    ]
+  },
+  "permissions": {
+    "deny": [ "Bash(firebase deploy:*)", "Bash(npx firebase deploy:*)", "Bash(git push --force:*)", "Bash(git push -f:*)" ],
+    "ask":  [ "Bash(gh pr merge:*)", "Bash(git reset --hard:*)", "Bash(git clean:*)" ]
+  }
+}
