@@ -1,0 +1,25 @@
+{
+  "results": [
+    {
+      "width": 320,
+      "loaded": true,
+      "errors": []
+    },
+    {
+      "width": 390,
+      "loaded": true,
+      "errors": []
+    },
+    {
+      "width": 768,
+      "loaded": true,
+      "errors": []
+    },
+    {
+      "width": 1440,
+      "loaded": true,
+      "errors": []
+    }
+  ],
+  "limitations": "Chromium emulation; FPS is not a physical-device benchmark."
+}

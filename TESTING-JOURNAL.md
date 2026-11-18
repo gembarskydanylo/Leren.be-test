@@ -410,3 +410,8 @@ Total output lines: 142
 - `?lexi=demo` вмикає відповіді-заглушки TEST-030 для перевірки на телефоні. Працює будь-де, крім production; нічого не надсилає.
 - Тести: новий `lexi-integration.cjs` (9 блоків, mock AI). `lexi-app.cjs` залишає іспит, старі маршрути й beta; його перевірки чату перенесено в новий тест. Перевірки лабораторії Codex (audit, interactions, gallery, lexi-contract) зелені.
 - Межі: реальний AI не викликався (лише mock). Справжній мікрофон, Samsung, Safari й TalkBack не перевірялися. Екрани іспиту лишились у старому дизайні.
+
+## TEST-035 · Перший 3D blockout Lexi · 2026-11-18 (Europe/Brussels)
+- Окремий worktree `/private/tmp/leren-test-035`, `codex/test-035-living-lexi-3d` від TEST-032 `a0428af`. Головний референс — фото власника всередині каталогу прототипу. Blender 4.1.1: об'ємна геометрія й GLB, рендери спереду/збоку/45°; Three.js 0.180.0 MIT локально.
+- PASS Chromium emulation: GLB, камери, quality selector, JS, overflow на 320/390/768/1440. Початкову помилку пошуку shader node виправлено; повтор експорту й рендеру PASS.
+- Це грубий blockout, не близький фінальний скульпт. Немає ригу, шести анімацій, visemes, волосся/хутра й довготривалої перевірки витоків. WebGL renderer зупиняється при прихованій сторінці; offline-reload не реалізований. Фізичні Samsung і Safari не перевірялись. До складної анімації — затвердження власника. Подробиці `design-lab/test-035-lexi-3d/README.md`.

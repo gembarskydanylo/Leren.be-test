@@ -194,3 +194,7 @@
 - Перенести разом: `app/modules/lexi/{engine,chat,copy,mock}.js`, `chat.css`, `app/img/lexi/*`, хост у `app.js`, стилі `.lexi-host` в `index.html`, `sw.js`.
 - `mock.js` у production не вмикається: `lexiDemo()` повертає `false`, коли `prodServices()`.
 - Після оновлень дизайну в лабораторії Codex запустити `node tools/lexi-ui-port.cjs`; ручні правки в `app/modules/lexi/chat.*` заборонені.
+
+## TEST-035 · 3D Lexi blockout · 2026-11-18
+
+Лише незалежний дизайн-прототип `design-lab/test-035-lexi-3d/`; не інтегровано і не погоджено для app/production. Перші три рендери для оцінки власника. Модель — rough blockout без facial rig, animation, lip sync і LOD; якість поки не відповідає референсу. Наступний етап після затвердження образу описано в README. Production/Worker/Firebase не змінено.
