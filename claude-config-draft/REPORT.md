@@ -205,3 +205,27 @@
 3. Активувати `security-reviewer` і `frontend-qa`; один реальний прогін `frontend-qa` (`suite.sh sw-`) в авторизованій сесії.
 4. Порівняти `usage-report.py` до й після.
 5. Окремо вирішити, чи вмикати guard hook. Він сильніший за deny-правила, бо бачить `cd`, `-C` і production-шлях.
+
+## 13. Етап 3: правила заборони й авторизована сесія (2026-11-18, не активовано)
+
+**Push f600a7e:** перед ним `git status` був чистим, гілка `claude/test-036-cc-optimization`. Коміт змінює 3 файли TEST-036 (`leren-release`, `architect`, `REPORT.md`). CI «Beta checks» на pull_request — success (9 с). Workflow розгортання не запускались: `site-preview` реагує лише на push у main.
+
+**Правила:** `permissions/` (див. README). Висновки з `bypass-check.py`:
+- Prefix-правила ловлять прямі команди, `npx`/`npx --yes`, env-префікси та ланцюжки `&&`. Пропускають `python3 -c`/`node -e`, скрипти й `git -C … push origin main`.
+- **Знайдено дефекти чернетки guard.py** (hook не змінювався, бо зміни hooks окремо заборонені):
+  - regex `wrangler\s+deploy` не ловить `wrangler@4 deploy`, тобто реальну команду з `docs/LEXI-TEST-WORKER.md` гілки test-034;
+  - не покриті `gh workflow run` і `git -C … push origin main`;
+  - виняток `--env test` застарів: тестовий Worker розгортається через `-c tools/lexi-test-worker.toml` і теж потребує дозволу.
+
+  Виправити перед будь-якою активацією hook.
+- Облікові дані на машині (перевірено лише наявність файлів, вміст не читався):
+  - `wrangler` не встановлено, його конфігурації немає;
+  - `~/.config/configstore/firebase-tools.json` **існує**, тож `npx firebase-tools deploy` може бути авторизованим;
+  - `gh` має scope `workflow`, тож `gh workflow run` здатен запустити Pages.
+
+  Рекомендація: deny-правила для firebase і `gh workflow run` мають найвищий пріоритет.
+
+**Рекомендований наступний етап:**
+1. Ручна перевірка Skills в авторизованій сесії.
+2. Виправити guard.py за знахідками вище (окремий дозвіл).
+3. Активувати `permissions` разом із `architect`.
