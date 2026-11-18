@@ -180,3 +180,5 @@
 Інтерфейс лише в design-lab/test-030/lexi. mountLexiChat приймає незмінний LerenLexi API та окремий host voice adapter; у lab тільки mock, CSP connect/media none. Збережено контрактні сценарії, поля, states (success відображається як correct), error policies, ліміти, selectors, unsubscribe. Інструкція та готові компоненти: docs/design/test-030/contract-ready/README.md.
 
 Не копіювати mock fixture в app і не переносити заготовлений lesson context як справжній. Host має передати реальний context і зберегти TEST-031 gameDone/XP/consent/memory hooks поза view. Майбутнє підключення потребує Worker 2026-11-18-lexi-v1 за порядком Claude; цей експеримент не змінює й не розгортає Worker/Firebase/Cloudflare. Наявний Lexi TEST-030 збережено без генерації нового образу. Інтеграція в app/ і будь-який production transfer потребують окремого погодження.
+
+- 2026-11-18: власник затвердив дизайн/UX TEST-030 з правкою видимості Lexi в розмові. У lab додано помітний емоційний аватар до кожної відповіді. Це не погодження app integration, merge або production transfer; engine/Worker/Firebase лишаються незмінними.

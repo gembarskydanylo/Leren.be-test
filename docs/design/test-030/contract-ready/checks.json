@@ -1301,7 +1301,7 @@
     }
   ],
   "checks": [
-    "mock reply",
+    "mock reply with visible Lexi",
     "theme preserves draft",
     "ask examples / limits",
     "nonretryable / edit",

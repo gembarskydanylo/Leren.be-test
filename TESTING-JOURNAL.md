@@ -383,3 +383,10 @@ Total output lines: 142
 - Галерея та головні AI-входи відкривають новий компонент; історичний прямий URL старого mock збережено для попередніх evidence/tests. CI отримує exact TEST-031 SHA тільки для fixture-check; deployment/workers незмінні.
 - Межі: Chromium emulation, не фізичний телефон; live AI/Worker/mic/TTS/XP не підключено, app/, life/, Firebase, Cloudflare і production не змінено. PR залишається Draft, результат CI — у PR.
 - Фінальний state-огляд: welcome-panel більше не повторюється в listening/thinking/speaking; додано assertion на одну секцію привітання тільки у welcome. Перший варіант assertion рахував також однойменний клас емоції аватара; селектор звужено до section.welcome, після чого всі 144/24/14 перевірки пройшли повторно.
+
+## TEST-030 · Owner approval / visible Lexi in conversation · 2026-11-18 (Europe/Brussels)
+
+- Власник затвердив загальний вигляд, зручність, повідомлення й стани; зауваження: під час розмови самого Lexi видно лише маленьким у шапці. Це затвердження дизайну, не дозвіл на merge, app integration чи production.
+- Кожна відповідь Lexi тепер має помітний аватар біля імені: 112px desktop, 88px mobile / 80px на 320px; success/encourage/speaking відповідно до результату конкретної відповіді. Під час подальшої розмови емоція попередньої репліки не залежить від загального поточного стану.
+- Зміни тільки presenter/CSS/tests/screenshots/docs у design-lab; engine API, AI-алгоритми та production незмінні. Додано regression: після відправлення тексту і в correct/incorrect/idle Lexi видимий у відповіді на всіх восьми ширинах у двох темах, розмір ≥80px. 144 layout / 24 zoom / 14 interaction groups запускаються повторно, результат CI у PR #15.
+- Повтор gallery-check спочатку не стартував через зупинений localhost:8279 (ERR_CONNECTION_REFUSED); після запуску локального сервера перевірка пройшла. Це обмеження тестового середовища, не збій інтерфейсу.
