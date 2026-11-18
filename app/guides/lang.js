@@ -1,0 +1,14 @@
+// TEST-034 · The guides hub in the app interface language (?lang=, else poly_ui, else uk). The four guides themselves are
+// written in Ukrainian (search pages for Ukrainians in Belgium): their links keep lang="uk" and other readers are told so.
+(()=>{'use strict';
+const T={
+ en:{toApp:'To the lessons →',eyebrow:'From a word to your own conversation',title:'Dutch for your day',intro:'Choose a situation, read the explanation and say the phrases out loud. Every guide has a task with an answer to check yourself.',guides:'Guides',ukOnly:'The guides below are in Ukrainian.',backTitle:'Back to practice',backText:'A guide explains the situation; the learning path helps you review words step by step. Start with your next lesson, listen to the phrases and check what you remember without a hint.',openPath:'Open the learning path',footer:'LerenBe test version',doc:'Practical Dutch guides | LerenBe'},
+ fr:{toApp:'Vers les leçons →',eyebrow:'Du mot à votre propre conversation',title:'Le néerlandais pour votre journée',intro:'Choisissez une situation, lisez l’explication et dites les phrases à voix haute. Chaque guide contient un exercice avec la réponse pour vous corriger.',guides:'Guides',ukOnly:'Les guides ci-dessous sont en ukrainien.',backTitle:'Retour à la pratique',backText:'Le guide explique la situation ; le parcours d’apprentissage vous aide à réviser les mots pas à pas. Commencez par votre prochaine leçon, écoutez les phrases et vérifiez ce dont vous vous souvenez sans indice.',openPath:'Ouvrir le parcours',footer:'Version de test LerenBe',doc:'Guides pratiques de néerlandais | LerenBe'},
+ ar:{toApp:'إلى الدروس ←',eyebrow:'من كلمة إلى محادثتك الخاصة',title:'الهولندية ليومك',intro:'اختر موقفاً، واقرأ الشرح، وانطق العبارات بصوت عالٍ. في كل دليل تمرين مع إجابته لتتحقق بنفسك.',guides:'الأدلة',ukOnly:'الأدلة أدناه باللغة الأوكرانية.',backTitle:'عُد إلى التدريب',backText:'يشرح الدليل الموقف، ويساعدك مسار التعلّم على مراجعة الكلمات خطوة بخطوة. ابدأ بدرسك التالي، واستمع إلى العبارات، وتحقق مما تتذكره دون تلميح.',openPath:'افتح مسار التعلّم',footer:'نسخة LerenBe التجريبية',doc:'أدلة عملية للهولندية | LerenBe'}};
+let lang='uk';try{const q=new URLSearchParams(location.search).get('lang'),s=localStorage.getItem('poly_ui');lang=['uk','en','fr','ar'].includes(q)?q:['uk','en','fr','ar'].includes(s)?s:'uk'}catch(e){}
+const t=T[lang];if(!t)return;
+document.documentElement.lang=lang;document.documentElement.dir=lang==='ar'?'rtl':'ltr';document.title=t.doc;
+for(const e of document.querySelectorAll('[data-i18n]'))if(t[e.dataset.i18n])e.textContent=t[e.dataset.i18n];
+for(const e of document.querySelectorAll('[data-i18n-label]'))if(t[e.dataset.i18nLabel])e.setAttribute('aria-label',t[e.dataset.i18nLabel]);
+const n=document.getElementById('ukOnly');if(n){n.textContent=t.ukOnly;n.hidden=false}
+})();

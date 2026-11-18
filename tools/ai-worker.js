@@ -16,9 +16,13 @@
 //           ask  → {answer, examples: [{lang, text, translation}]}
 //           memo → {memory}   (updated notes about the learner; the app keeps them on the device)
 //           report → {ok}     (a learner flagged an AI answer; logged to Workers Logs for review)
-const WORKER_VERSION = "2026-11-18-lexi-v1"; // bump on every change: shows in the X-Leren-AI response header after a deploy
+const WORKER_VERSION = "2026-11-18-lexi-v2"; // bump on every change: shows in the X-Leren-AI response header after a deploy
 // gembarskydanylo.github.io is NOT allowed: the beta snapshot lives there and must not use the production model or quota.
 const ALLOWED_ORIGINS = ["https://lerenbe.com", "https://www.lerenbe.com", "http://localhost:8765"];
+// TEST-034: a separate test Worker (tools/lexi-test-worker.toml) sets ALLOWED_ORIGINS = "http://localhost:8765" so it only
+// answers the local test server. Without the variable (production) the list above applies unchanged. Only exact
+// http(s) origins are accepted; a malformed value falls back to the list above, never to "allow everything".
+const originsFor = env => { const own = String(env && env.ALLOWED_ORIGINS || "").split(",").map(s => s.trim()).filter(o => /^https?:\/\/[a-z0-9.-]+(:\d+)?$/.test(o)); return own.length ? own : ALLOWED_ORIGINS; };
 const LANG = {uk: "Ukrainian", en: "English", fr: "French", ar: "Arabic"};
 const SCENES = {
   cafe: "You are a barista in a Flemish café. The learner orders a drink, chooses milk/size and pays.",
@@ -293,11 +297,11 @@ async function errorReport(req, env, json) {
 
 export default {
   async fetch(req, env, ctx) {
-    const origin = req.headers.get("Origin") || "";
-    const cors = {"Access-Control-Allow-Origin": ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0], "Access-Control-Allow-Methods": "POST, OPTIONS", "Access-Control-Allow-Headers": "Content-Type, X-Leren-Device", "Access-Control-Expose-Headers": "Retry-After", "Vary": "Origin"};
+    const origin = req.headers.get("Origin") || "", allowed = originsFor(env);
+    const cors = {"Access-Control-Allow-Origin": allowed.includes(origin) ? origin : allowed[0], "Access-Control-Allow-Methods": "POST, OPTIONS", "Access-Control-Allow-Headers": "Content-Type, X-Leren-Device", "Access-Control-Expose-Headers": "Retry-After", "Vary": "Origin"};
     if (req.method === "OPTIONS") return new Response(null, {headers: cors});
     const json = (o, status = 200, extra = {}) => new Response(JSON.stringify(o), {status, headers: {...cors, "Content-Type": "application/json", "X-Leren-AI": WORKER_VERSION, ...extra}});
-    if (req.method !== "POST" || !ALLOWED_ORIGINS.includes(origin)) return json({error: "forbidden"}, 403);
+    if (req.method !== "POST" || !allowed.includes(origin)) return json({error: "forbidden"}, 403);
     if (new URL(req.url).pathname === "/errors") return errorReport(req, env, json);
 
     // Emergency switch: set the variable AI_OFF = 1 in Cloudflare to stop all model calls at once.

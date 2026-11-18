@@ -220,7 +220,7 @@ console.log('PASS: static — app chat = design lab + documented patches (port -
    console.log('PASS: beta snapshot — Lexi off, no request; ?lexi=demo shows the TEST-030 demo replies, labelled «Демонстрація», with no network request (for checking screens on a phone)');
   }
 
-  // ---- H · service worker: release 255 precaches the chat; it opens offline from the cache and says it is offline
+  // ---- H · service worker: the release (255+) precaches the chat; it opens offline from the cache and says it is offline
   {
    const {ctx, page, errors} = await open({sw: 'allow'});
    await page.evaluate(async () => { await navigator.serviceWorker.ready }); await page.reload(); await page.waitForFunction(() => !!navigator.serviceWorker.controller && !!window.LerenLexi);
@@ -232,7 +232,7 @@ console.log('PASS: static — app chat = design lab + documented patches (port -
    await page.evaluate(() => lexiMount('free', {})); await page.waitForSelector(S + '.ai-chat-card', {timeout: 15000}); await send(page, 'offline?');
    assert.match((await state(page)).err, /офлайн|мережі|інтернет/i, 'offline message from the cached chat');
    await ctx.setOffline(false); assert.deepEqual(errors, []); await ctx.close();
-   console.log('PASS: service worker — chat module, styles and artwork precached in leren-be-v255; offline the chat opens from the cache and reports «offline»');
+   console.log('PASS: service worker — chat module, styles and artwork precached in the current leren-be cache; offline the chat opens from the cache and reports «offline»');
   }
  } finally { await browser.close(); server.close() }
 })().catch(e => { console.error(e); process.exit(1) });

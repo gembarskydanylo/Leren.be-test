@@ -10,10 +10,10 @@ const args = process.argv.slice(2), CHECK = args.includes('--check');
 const VER = args.find(a => /^\d+$/.test(a)) || (fs.readFileSync(path.join(ROOT, 'app/app.js'), 'utf8').match(/const LEXI_V="(\d+)"/) || [])[1] || '1';
 
 function patch(src, file, list) {
- for (const [name, from, to] of list) {
-  const n = src.split(from).length - 1;
-  if (n !== 1) throw new Error(`${file}: patch «${name}» expects exactly one match, found ${n} — the lab changed; update tools/lexi-ui-port.cjs`);
-  src = src.replace(from, () => to);
+ for (const [name, ...forms] of list) { // [name, from, to] or [name, [from, to], [from2, to2]]: the lab may be in either shape
+  const alts = Array.isArray(forms[0]) ? forms : [forms], hits = alts.filter(([from]) => src.split(from).length - 1 === 1);
+  if (hits.length !== 1) throw new Error(`${file}: patch «${name}» expects exactly one match of one known shape, found ${alts.map(([from]) => src.split(from).length - 1).join('/')} — the lab changed; update tools/lexi-ui-port.cjs`);
+  src = src.replace(hits[0][0], () => hits[0][1]);
  }
  return src;
 }
@@ -37,7 +37,10 @@ const chat = patch(fs.readFileSync(path.join(LAB, 'lexi/chat.js'), 'utf8'), 'cha
  ['avatar path', `src="../assets/lexi-master-proposal.webp"`, `src="\${escape(assets.avatar||'../assets/lexi-master-proposal.webp')}"`],
  ['privacy text and memory', '<p class="privacy">${escape(t().privacy)}</p>', `<p class="privacy">\${escape(privacy||t().privacy)}</p>\${memory&&memory.get()?\`<details class="memory"><summary>\${escape(memory.title)}</summary><p dir="auto">\${escape(memory.get())}</p><small>\${escape(memory.note)}</small>\${btn('forget',memory.forgetLabel)}</details>\`:''}`],
  ['older scenes in the picker', `select('scene',Object.fromEntries(sceneIds.map(id=>[id,t()[id]])),t().scene)`, `select('scene',Object.fromEntries([...(sceneIds.includes(s.scene)?[]:[[s.scene,sceneLabels[s.scene]||s.scene]]),...sceneIds.map(id=>[id,t()[id]])]),t().scene)`],
- ['speak / report the message they belong to', `btn('speak',t().play,'sound','message-voice',s.busy)+\`<span class="sr">\${i}</span>\``, `btn('speak',t().play,'sound','message-voice',s.busy).replace('data-action="speak"',\`data-action="speak" data-i="\${i}"\`)+(report?btn('report',report.label,'','message-voice message-report').replace('data-action="report"',\`data-action="report" data-i="\${i}"\`):'')+\`<span class="sr">\${i}</span>\``],
+ ['speak / report the message they belong to',
+  [`btn('speak',t().play,'sound','message-voice',s.busy)+\`<span class="sr">\${i}</span>\``, `btn('speak',t().play,'sound','message-voice',s.busy).replace('data-action="speak"',\`data-action="speak" data-i="\${i}"\`)+(report?btn('report',report.label,'','message-voice message-report').replace('data-action="report"',\`data-action="report" data-i="\${i}"\`):'')+\`<span class="sr">\${i}</span>\``],
+  // TEST-030 after d1a9d6f (Lexi beside every reply): the button is interpolated inside the assistant row
+  ['${btn(\'speak\',t().play,\'sound\',\'message-voice\',s.busy)}<span class="sr">${i}</span>', '${btn(\'speak\',t().play,\'sound\',\'message-voice\',s.busy).replace(\'data-action="speak"\',`data-action="speak" data-i="${i}"`)}${report?btn(\'report\',report.label,\'\',\'message-voice message-report\').replace(\'data-action="report"\',`data-action="report" data-i="${i}"`):\'\'}<span class="sr">${i}</span>']],
  ['learning data in the request', `s.scenario==='roleplay'?{scene:s.scene}:{});`, `{...(hostExtra?hostExtra(s.scenario)||{}:{}),...(s.scenario==='roleplay'?{scene:s.scene}:{})});`],
  ['onReply after an answer', `s.state=out.kind==='ask'?'idle':out.verdict||'idle'}catch(e){`, `s.state=out.kind==='ask'?'idle':out.verdict||'idle';try{onReply&&onReply(out,{scenario:s.scenario,ui:s.ui,target:s.target,level:s.level,user:text,messages:s.messages.map(({role,content})=>({role,content}))})}catch(e){}}catch(e){`],
  ['recognition knows the scenario', `stopVoice=voice.listen({lang:s.target,`, `stopVoice=voice.listen({lang:s.target,ui:s.ui,scenario:s.scenario,`],
