@@ -2,3 +2,4 @@
 /* Small screens reflow vertically when enlarged text outgrows the viewport. */
 @media(max-width:767px){.layout,.ai-chat-card{min-height:min-content}.chat-log{max-height:60dvh}}
 @media(max-width:359px){.settings{grid-template-columns:minmax(0,1fr)}.settings label:last-child select{max-width:none}}
+.chat-log:has(>.live-state):not(:has(.g-bub)){display:grid;align-content:center;justify-content:center}.chat-log:has(>.live-state):not(:has(.g-bub)) .avatar{width:120px;height:120px}
