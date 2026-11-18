@@ -1,0 +1,29 @@
+{
+  "results": [
+    {
+      "width": 320,
+      "loaded": true,
+      "loadDisplay": "Завантаження: 186 мс · 30 FPS",
+      "errors": []
+    },
+    {
+      "width": 390,
+      "loaded": true,
+      "loadDisplay": "Завантаження: 62 мс · 32 FPS",
+      "errors": []
+    },
+    {
+      "width": 768,
+      "loaded": true,
+      "loadDisplay": "Завантаження: 16 мс · 32 FPS",
+      "errors": []
+    },
+    {
+      "width": 1440,
+      "loaded": true,
+      "loadDisplay": "Завантаження: 80 мс · 24 FPS",
+      "errors": []
+    }
+  ],
+  "limitations": "Chromium emulation; FPS is not a physical-device benchmark."
+}
