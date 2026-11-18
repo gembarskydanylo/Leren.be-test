@@ -1,0 +1,99 @@
+{
+  "checks": [
+    "draft survives theme",
+    "draft survives error/retry",
+    "safe mock send escapes HTML",
+    "Shift Enter inserts newline",
+    "microphone is mock state only",
+    "quiz wrong/correct and keyboard focus",
+    "audio demo active and lesson navigation",
+    "review reveals translation",
+    "LIFE feedback",
+    "URL reload and reduced motion",
+    "no storage or external requests",
+    "language switch cancels pending mock reply"
+  ],
+  "contrast": [
+    {
+      "theme": "light",
+      "pair": "ink/canvas",
+      "ratio": 10.599570670919013
+    },
+    {
+      "theme": "light",
+      "pair": "ink/paper",
+      "ratio": 11.642344649716778
+    },
+    {
+      "theme": "light",
+      "pair": "muted/canvas",
+      "ratio": 5.633895994468089
+    },
+    {
+      "theme": "light",
+      "pair": "muted/paper",
+      "ratio": 6.188152419061078
+    },
+    {
+      "theme": "light",
+      "pair": "on-brand/brand",
+      "ratio": 7.939029095811688
+    },
+    {
+      "theme": "light",
+      "pair": "success/success-soft",
+      "ratio": 6.194553215009977
+    },
+    {
+      "theme": "light",
+      "pair": "error/error-soft",
+      "ratio": 6.2403037213628325
+    },
+    {
+      "theme": "light",
+      "pair": "warn/warn-soft",
+      "ratio": 6.278716119666445
+    },
+    {
+      "theme": "dark",
+      "pair": "ink/canvas",
+      "ratio": 14.443260315128981
+    },
+    {
+      "theme": "dark",
+      "pair": "ink/paper",
+      "ratio": 11.741444367399295
+    },
+    {
+      "theme": "dark",
+      "pair": "muted/canvas",
+      "ratio": 9.593351746980872
+    },
+    {
+      "theme": "dark",
+      "pair": "muted/paper",
+      "ratio": 7.798779733692202
+    },
+    {
+      "theme": "dark",
+      "pair": "on-brand/brand",
+      "ratio": 6.922593769314654
+    },
+    {
+      "theme": "dark",
+      "pair": "success/success-soft",
+      "ratio": 7.016194073883338
+    },
+    {
+      "theme": "dark",
+      "pair": "error/error-soft",
+      "ratio": 7.991916578451434
+    },
+    {
+      "theme": "dark",
+      "pair": "warn/warn-soft",
+      "ratio": 8.2888010888252
+    }
+  ],
+  "external": []
+}

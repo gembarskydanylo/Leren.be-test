@@ -1,0 +1,224 @@
+[
+  {
+    "suite": "a2-progress",
+    "code": 0,
+    "skips": 0,
+    "seconds": 3
+  },
+  {
+    "suite": "ai-coach",
+    "code": 0,
+    "skips": 0,
+    "seconds": 0
+  },
+  {
+    "suite": "app-engine",
+    "code": 0,
+    "skips": 0,
+    "seconds": 0
+  },
+  {
+    "suite": "beta-daily",
+    "code": 0,
+    "skips": 0,
+    "seconds": 0
+  },
+  {
+    "suite": "clock",
+    "code": 0,
+    "skips": 0,
+    "seconds": 0
+  },
+  {
+    "suite": "code-audit",
+    "code": 0,
+    "skips": 0,
+    "seconds": 0
+  },
+  {
+    "suite": "companion",
+    "code": 0,
+    "skips": 0,
+    "seconds": 0
+  },
+  {
+    "suite": "curriculum",
+    "code": 0,
+    "skips": 0,
+    "seconds": 0
+  },
+  {
+    "suite": "design-system",
+    "code": 0,
+    "skips": 0,
+    "seconds": 24
+  },
+  {
+    "suite": "firebase-isolation",
+    "code": 0,
+    "skips": 0,
+    "seconds": 2
+  },
+  {
+    "suite": "firebase-resilience",
+    "code": 0,
+    "skips": 0,
+    "seconds": 2
+  },
+  {
+    "suite": "first-lesson",
+    "code": 0,
+    "skips": 0,
+    "seconds": 28
+  },
+  {
+    "suite": "home-art-failure",
+    "code": 0,
+    "skips": 0,
+    "seconds": 1
+  },
+  {
+    "suite": "home-v2",
+    "code": 0,
+    "skips": 0,
+    "seconds": 16
+  },
+  {
+    "suite": "language-switch",
+    "code": 0,
+    "skips": 0,
+    "seconds": 9
+  },
+  {
+    "suite": "learning-map-edges",
+    "code": 0,
+    "skips": 0,
+    "seconds": 4
+  },
+  {
+    "suite": "learning-map-seo",
+    "code": 0,
+    "skips": 0,
+    "seconds": 5
+  },
+  {
+    "suite": "learning-path",
+    "code": 0,
+    "skips": 0,
+    "seconds": 0
+  },
+  {
+    "suite": "lesson-conversation",
+    "code": 0,
+    "skips": 0,
+    "seconds": 0
+  },
+  {
+    "suite": "life-i18n",
+    "code": 0,
+    "skips": 0,
+    "seconds": 2
+  },
+  {
+    "suite": "life-quality",
+    "code": 0,
+    "skips": 0,
+    "seconds": 32
+  },
+  {
+    "suite": "life-visuals",
+    "code": 0,
+    "skips": 0,
+    "seconds": 7
+  },
+  {
+    "suite": "perf-budget",
+    "code": 0,
+    "skips": 0,
+    "seconds": 0
+  },
+  {
+    "suite": "personal-coach",
+    "code": 0,
+    "skips": 0,
+    "seconds": 0
+  },
+  {
+    "suite": "push-permissions",
+    "code": 0,
+    "skips": 0,
+    "seconds": 0
+  },
+  {
+    "suite": "rewards",
+    "code": 0,
+    "skips": 0,
+    "seconds": 0
+  },
+  {
+    "suite": "runtime-smoke",
+    "code": 0,
+    "skips": 0,
+    "seconds": 0
+  },
+  {
+    "suite": "script-preload",
+    "code": 0,
+    "skips": 0,
+    "seconds": 0
+  },
+  {
+    "suite": "simple-home",
+    "code": 0,
+    "skips": 0,
+    "seconds": 15
+  },
+  {
+    "suite": "sw-manifests",
+    "code": 0,
+    "skips": 0,
+    "seconds": 10
+  },
+  {
+    "suite": "sw-release-chain",
+    "code": 0,
+    "skips": 0,
+    "seconds": 16
+  },
+  {
+    "suite": "sw-upgrade",
+    "code": 0,
+    "skips": 0,
+    "seconds": 10
+  },
+  {
+    "suite": "sync-merge-app",
+    "code": 0,
+    "skips": 0,
+    "seconds": 0
+  },
+  {
+    "suite": "test-isolation",
+    "code": 0,
+    "skips": 0,
+    "seconds": 5
+  },
+  {
+    "suite": "ui-contracts",
+    "code": 0,
+    "skips": 0,
+    "seconds": 3
+  },
+  {
+    "suite": "ux-functional-audit",
+    "code": 0,
+    "skips": 0,
+    "seconds": 26
+  },
+  {
+    "suite": "widgets",
+    "code": 0,
+    "skips": 0,
+    "seconds": 0
+  }
+]

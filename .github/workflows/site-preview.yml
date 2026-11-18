@@ -19,6 +19,17 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
+      # TEST-032: same browser test setup as Beta checks, so a test branch can be published for device testing
+      - name: Fetch previous beta releases for upgrade checks
+        shell: bash
+        run: git fetch --no-tags --depth=1 origin main:refs/remotes/origin/main pull/13/head:refs/heads/pr/13 pull/14/head:refs/heads/pr/14 dfae2cfe7ae3f0b66946829285f1a907481f1268
+      - name: Install browser test dependencies
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm install --prefix "$RUNNER_TEMP/leren-test-deps" --no-audit --no-fund --package-lock=false playwright@1.64.1
+          echo "NODE_PATH=$RUNNER_TEMP/leren-test-deps/node_modules" >> "$GITHUB_ENV"
+          "$RUNNER_TEMP/leren-test-deps/node_modules/.bin/playwright" install --with-deps chromium
       - name: Validate before publishing
         shell: bash
         run: |
