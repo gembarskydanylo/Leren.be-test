@@ -166,3 +166,20 @@
 - **Обов’язково під час перенесення в production:** прибрати `<meta name="leren-env" content="beta">` з `index.html` production-копії. Інакше `prodServices()` = false: вхід, синхронізація, App Check і нагадування в production буде вимкнено. `prodServices()` / `prodOnly()` переносити разом з усім `app.js`.
 - Номер релізу на момент перенесення: max(production, усі гілки) + 1. Перед перенесенням прогнати `sw-release-chain.cjs` з CHAIN від поточного production-коміту.
 - Решта — за записами TEST-023…028 вище (кожен має свої межі й відкриті перевірки).
+
+## TEST-030 · Design lab Lexi · 2026-11-17
+
+**Тільки прототип, не переносити в production або app/ без окремого затвердження.** `design-lab/test-030` містить B/light + C/dark, сім екранів та вісім mock-станів Lexi. База — `claude/test-028-integration` @ `4a60a3d`; PR є stacked Draft на цю гілку. Автоматичного злиття немає.
+
+Образ Lexi/емоції та LIFE-scene — пропозиції, не затверджений runtime art. Жодного реального API, запису, озвучення, Firebase, XP або SRS у lab немає. Не копіювати mock-цифри чи повідомлення до продукту як справжні. Для майбутньої інтеграції виконати UI contracts, зберегти IDs/прогрес і людських героїв LIFE, перенаправляючи тільки AI-ролі на Lexi. Докладні звіт, evidence та assets: `docs/design/test-030/REPORT.md`.
+
+- TEST-030 CI correction: тільки `.github/workflows/fix-beta-html.yml` встановлює pinned Playwright/Chromium і перевіряє lab. Runtime залежностей немає. Чинний Pages workflow не змінювався; перед майбутньою beta-публікацією окремо узгодити його браузерні залежності, оскільки він також запускає tests/*.cjs. Цей PR нічого не публікує.
+
+## TEST-030 → TEST-031 · UI port · 2026-11-18
+
+Інтерфейс лише в design-lab/test-030/lexi. mountLexiChat приймає незмінний LerenLexi API та окремий host voice adapter; у lab тільки mock, CSP connect/media none. Збережено контрактні сценарії, поля, states (success відображається як correct), error policies, ліміти, selectors, unsubscribe. Інструкція та готові компоненти: docs/design/test-030/contract-ready/README.md.
+
+Не копіювати mock fixture в app і не переносити заготовлений lesson context як справжній. Host має передати реальний context і зберегти TEST-031 gameDone/XP/consent/memory hooks поза view. Майбутнє підключення потребує Worker 2026-11-18-lexi-v1 за порядком Claude; цей експеримент не змінює й не розгортає Worker/Firebase/Cloudflare. Наявний Lexi TEST-030 збережено без генерації нового образу. Інтеграція в app/ і будь-який production transfer потребують окремого погодження.
+
+- 2026-11-18: власник затвердив дизайн/UX TEST-030 з правкою видимості Lexi в розмові. У lab додано помітний емоційний аватар до кожної відповіді. Це не погодження app integration, merge або production transfer; engine/Worker/Firebase лишаються незмінними.
+- Уточнення 2026-11-18: остаточна позиція аватара в lab — зліва від бульбашки; версіоновані entry/CSS/presenter забезпечують оновлення прототипу в браузері. Engine contract не змінено.

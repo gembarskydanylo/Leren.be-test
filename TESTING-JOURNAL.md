@@ -355,3 +355,45 @@ Total output lines: 142
 - **Продуктивність** (slow 4G, CPU ×4, gzip, медіана): головна видима `main` 13,2 с → інтеграція 7,5 с; передано 3,9 → 1,77 МБ; FCP 1,28 → 1,8 с. Експеримент без 10 скриптів курсів en/fr, іспитів і `kamer`: ще −0,96 с, але потрібен завантажувач на вимогу — відкладено до після TEST-027 (деталі в `docs/LERENBE-3-UI-CONTRACTS.md` §12).
 - Документ контрактів оновлено, додано §13 «Передача для Codex».
 - Тести: 37 наборів PASS. Межі: емуляція Chromium; Safari, справжні телефони й GitHub Pages не перевірялись.
+
+## TEST-030 · Gamified Belgium + Lexi · 2026-11-17 (Europe/Brussels)
+
+- Окремий test worktree / гілка `codex/test-030-lexi-design` від перевіреної інтеграції `4a60a3d` (release 253). Origin main, TEST-027, Draft PR #14 та UI contracts перевірено; TEST-027 не перезаписано.
+- Додано тільки `design-lab/test-030`, `docs/design/test-030` і `screenshots/test-030`: 7 екранів B/light+C/dark, 8 mock-станів єдиного Lexi, локальна дизайн-система, галерея Before/After, пропозиція master + 6 емоцій, ресурсний та AI-entry аудити. Затверджений Lexi-референс не знайдено, нове мистецтво чітко позначено proposal.
+- Перевірки: 37/37 базових suites, 0 fail/skip; повторний design-system 164 screen checks. Прототип: 240 комбінацій на 320/360/390/430/768/1024/1280/1440, 14 станів тексту 200%, 12 interaction-груп, 16 контрастних пар min 5.63:1. Деталі та JSON: docs/design/test-030/REPORT.md.
+- Виправлено aspect ratio Lexi, reflow 200%, втрату фокусу/чернетки при re-render, доступні назви виходів і touch-ціль review-link. Скриншоти зроблено в Chromium.
+- Фінальний огляд Before: повторно знято чат після штатного закриття onboarding, щоб прибрати його затемнювальну підкладку; галерею перевірено повторно.
+- Межі: емуляція, не фізичний Samsung; mock без AI/мікрофона/голосу/зберігання; LIFE — статична ілюстрація-пропозиція. App/, life/, рушій, Firebase, XP, SW та production не змінено. Draft PR на integration, без merge; потрібне затвердження образу/композицій перед інтеграцією.
+
+### TEST-030 · CI dependency correction · 2026-11-17
+
+- PR #15 створено Draft на claude/test-028-integration. Перший GitHub run 44188726316 впав через відсутній Playwright; це не успішна браузерна перевірка.
+- У read-only Beta checks workflow додано Playwright 1.64.1 + Chromium/system dependencies у RUNNER_TEMP та три lab checks. Tests не вимкнено; Pages/import workflows і app/life не змінено. Результат повторного CI фіксується у PR.
+
+- CI 44188940132 після встановлення браузера виявив відсутній origin/main у checkout. Workflow тепер явно отримує тільки test main та PR #13/#14 для SW upgrade/release-chain suites; SW/тести незмінні.
+
+- Фінальний desktop-огляд LIFE виявив обрізані обличчя у вертикальному artwork: скориговано focal position без зміни графіки й повторно знято матрицю та галерею.
+
+## TEST-030 · Contract-ready Lexi chat після TEST-031 · 2026-11-18 (Europe/Brussels)
+
+- Власна гілка codex/test-030-lexi-design, чистий початковий SHA 0187225, Draft PR #15 / CI #58 успішний. Прочитано docs/LEXI-UI-CONTRACT.md з claude/test-031-lexi-engine @ dfae2cfe7ae3f0b66946829285f1a907481f1268; гілку не зливали.
+- У design-lab/test-030/lexi додано окремий адаптивний chat shell, 5 сценаріїв, 6 roleplays, мови nl/fr/en + пояснення uk/en/fr/ar RTL, реальні level IDs, ліміти 300/600, chat/ask/correction presenters, error recovery без дубля, countdown/deadline, voice fallback, lifecycle/unsubscribe/stale-response guards. Поточний образ Lexi з TEST-030 збережено за інструкцією власника, без нової графіки.
+- UI приймає engine send/on/message/voice port; demo.js завжди mock, CSP connect/media none. Чинний engine Claude не змінювався. У тесті читається точний immutable source і виконується тільки з підставною відповіддю LerenAICoach.request: talk ховає correction, teacher показує, work→werk, char=lexi, level=a11.
+- Перевірки: 144 layout-комбінації (8 ширин × 2 теми × 9 контрактних станів), 24 text-200% комбінації чотирма мовами, 14 interaction-груп; без horizontal overflow, малих touch controls, битої графіки, JS exceptions чи зовнішніх запитів. Evidence та інтеграційні компоненти: docs/design/test-030/contract-ready/README.md / checks.json; скриншоти screenshots/test-030/contract-ready.
+- Галерея та головні AI-входи відкривають новий компонент; історичний прямий URL старого mock збережено для попередніх evidence/tests. CI отримує exact TEST-031 SHA тільки для fixture-check; deployment/workers незмінні.
+- Межі: Chromium emulation, не фізичний телефон; live AI/Worker/mic/TTS/XP не підключено, app/, life/, Firebase, Cloudflare і production не змінено. PR залишається Draft, результат CI — у PR.
+- Фінальний state-огляд: welcome-panel більше не повторюється в listening/thinking/speaking; додано assertion на одну секцію привітання тільки у welcome. Перший варіант assertion рахував також однойменний клас емоції аватара; селектор звужено до section.welcome, після чого всі 144/24/14 перевірки пройшли повторно.
+
+## TEST-030 · Owner approval / visible Lexi in conversation · 2026-11-18 (Europe/Brussels)
+
+- Власник затвердив загальний вигляд, зручність, повідомлення й стани; зауваження: під час розмови самого Lexi видно лише маленьким у шапці. Це затвердження дизайну, не дозвіл на merge, app integration чи production.
+- Кожна відповідь Lexi тепер має помітний аватар біля імені: 112px desktop, 88px mobile / 80px на 320px; success/encourage/speaking відповідно до результату конкретної відповіді. Під час подальшої розмови емоція попередньої репліки не залежить від загального поточного стану.
+- Зміни тільки presenter/CSS/tests/screenshots/docs у design-lab; engine API, AI-алгоритми та production незмінні. Додано regression: після відправлення тексту і в correct/incorrect/idle Lexi видимий у відповіді на всіх восьми ширинах у двох темах, розмір ≥80px. 144 layout / 24 zoom / 14 interaction groups запускаються повторно, результат CI у PR #15.
+- Повтор gallery-check спочатку не стартував через зупинений localhost:8279 (ERR_CONNECTION_REFUSED); після запуску локального сервера перевірка пройшла. Це обмеження тестового середовища, не збій інтерфейсу.
+
+## TEST-030 · Owner refinement: avatar left of reply · 2026-11-18 (Europe/Brussels)
+
+- Власник уточнив розташування: аватар зліва від повідомлення або в позначеній зоні картки. Обрано ліву позицію: окремий assistant-row, аватар 112px desktop / 80px mobile, бульбашка справа. Аватар тримається поруч із довгою відповіддю при прокручуванні; мовний контент зберігає власний LTR/RTL.
+- На скриншоті власника була версія без попереднього аватара. Причину кешування не видаємо за доведену: HTML тепер посилається на версіоновані CSS/entry module, entry — на версіонований presenter, щоб оновлення не залежало від старого браузерного кешу.
+- Regression перевіряє не лише visibility/≥80px, а й фактичну геометрію: правий край аватара не перетинає лівий край бульбашки. Матриця 144/24/14 і скриншоти оновлюються. Engine/Worker/app/production незмінні; PR Draft без merge.
+- Після уточнення пройшли 144 layout / 24 zoom / 15 interaction groups. Додано окремий тест довгої відповіді: при прокрутці аватар залишається у видимій області поруч із нею. Тестовий actual-engine browser тепер завантажує сторінку без demo-entry, щоб не монтувати два view в один root. Новий screenshot long-reply-avatar-390.png.

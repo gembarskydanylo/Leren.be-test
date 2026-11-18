@@ -1,0 +1,1322 @@
+{
+  "engineSha": "dfae2cfe7ae3f0b66946829285f1a907481f1268",
+  "rows": [
+    {
+      "width": 320,
+      "theme": "light",
+      "state": "welcome",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 320,
+      "theme": "light",
+      "state": "listening",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 320,
+      "theme": "light",
+      "state": "thinking",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 320,
+      "theme": "light",
+      "state": "speaking",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 320,
+      "theme": "light",
+      "state": "correct",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 320,
+      "theme": "light",
+      "state": "incorrect",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 320,
+      "theme": "light",
+      "state": "offline",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 320,
+      "theme": "light",
+      "state": "error",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 320,
+      "theme": "light",
+      "state": "idle",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "state": "welcome",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "state": "listening",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "state": "thinking",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "state": "speaking",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "state": "correct",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "state": "incorrect",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "state": "offline",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "state": "error",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "state": "idle",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 360,
+      "theme": "light",
+      "state": "welcome",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 360,
+      "theme": "light",
+      "state": "listening",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 360,
+      "theme": "light",
+      "state": "thinking",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 360,
+      "theme": "light",
+      "state": "speaking",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 360,
+      "theme": "light",
+      "state": "correct",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 360,
+      "theme": "light",
+      "state": "incorrect",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 360,
+      "theme": "light",
+      "state": "offline",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 360,
+      "theme": "light",
+      "state": "error",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 360,
+      "theme": "light",
+      "state": "idle",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 360,
+      "theme": "dark",
+      "state": "welcome",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 360,
+      "theme": "dark",
+      "state": "listening",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 360,
+      "theme": "dark",
+      "state": "thinking",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 360,
+      "theme": "dark",
+      "state": "speaking",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 360,
+      "theme": "dark",
+      "state": "correct",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 360,
+      "theme": "dark",
+      "state": "incorrect",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 360,
+      "theme": "dark",
+      "state": "offline",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 360,
+      "theme": "dark",
+      "state": "error",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 360,
+      "theme": "dark",
+      "state": "idle",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 390,
+      "theme": "light",
+      "state": "welcome",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 390,
+      "theme": "light",
+      "state": "listening",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 390,
+      "theme": "light",
+      "state": "thinking",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 390,
+      "theme": "light",
+      "state": "speaking",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 390,
+      "theme": "light",
+      "state": "correct",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 390,
+      "theme": "light",
+      "state": "incorrect",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 390,
+      "theme": "light",
+      "state": "offline",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 390,
+      "theme": "light",
+      "state": "error",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 390,
+      "theme": "light",
+      "state": "idle",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "state": "welcome",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "state": "listening",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "state": "thinking",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "state": "speaking",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "state": "correct",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "state": "incorrect",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "state": "offline",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "state": "error",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "state": "idle",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 430,
+      "theme": "light",
+      "state": "welcome",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 430,
+      "theme": "light",
+      "state": "listening",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 430,
+      "theme": "light",
+      "state": "thinking",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 430,
+      "theme": "light",
+      "state": "speaking",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 430,
+      "theme": "light",
+      "state": "correct",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 430,
+      "theme": "light",
+      "state": "incorrect",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 430,
+      "theme": "light",
+      "state": "offline",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 430,
+      "theme": "light",
+      "state": "error",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 430,
+      "theme": "light",
+      "state": "idle",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 430,
+      "theme": "dark",
+      "state": "welcome",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 430,
+      "theme": "dark",
+      "state": "listening",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 430,
+      "theme": "dark",
+      "state": "thinking",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 430,
+      "theme": "dark",
+      "state": "speaking",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 430,
+      "theme": "dark",
+      "state": "correct",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 430,
+      "theme": "dark",
+      "state": "incorrect",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 430,
+      "theme": "dark",
+      "state": "offline",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 430,
+      "theme": "dark",
+      "state": "error",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 430,
+      "theme": "dark",
+      "state": "idle",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 768,
+      "theme": "light",
+      "state": "welcome",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 768,
+      "theme": "light",
+      "state": "listening",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 768,
+      "theme": "light",
+      "state": "thinking",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 768,
+      "theme": "light",
+      "state": "speaking",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 768,
+      "theme": "light",
+      "state": "correct",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 768,
+      "theme": "light",
+      "state": "incorrect",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 768,
+      "theme": "light",
+      "state": "offline",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 768,
+      "theme": "light",
+      "state": "error",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 768,
+      "theme": "light",
+      "state": "idle",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 768,
+      "theme": "dark",
+      "state": "welcome",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 768,
+      "theme": "dark",
+      "state": "listening",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 768,
+      "theme": "dark",
+      "state": "thinking",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 768,
+      "theme": "dark",
+      "state": "speaking",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 768,
+      "theme": "dark",
+      "state": "correct",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 768,
+      "theme": "dark",
+      "state": "incorrect",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 768,
+      "theme": "dark",
+      "state": "offline",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 768,
+      "theme": "dark",
+      "state": "error",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 768,
+      "theme": "dark",
+      "state": "idle",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 1024,
+      "theme": "light",
+      "state": "welcome",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 1024,
+      "theme": "light",
+      "state": "listening",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 1024,
+      "theme": "light",
+      "state": "thinking",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 1024,
+      "theme": "light",
+      "state": "speaking",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 1024,
+      "theme": "light",
+      "state": "correct",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 1024,
+      "theme": "light",
+      "state": "incorrect",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 1024,
+      "theme": "light",
+      "state": "offline",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 1024,
+      "theme": "light",
+      "state": "error",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 1024,
+      "theme": "light",
+      "state": "idle",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 1024,
+      "theme": "dark",
+      "state": "welcome",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 1024,
+      "theme": "dark",
+      "state": "listening",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 1024,
+      "theme": "dark",
+      "state": "thinking",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 1024,
+      "theme": "dark",
+      "state": "speaking",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 1024,
+      "theme": "dark",
+      "state": "correct",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 1024,
+      "theme": "dark",
+      "state": "incorrect",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 1024,
+      "theme": "dark",
+      "state": "offline",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 1024,
+      "theme": "dark",
+      "state": "error",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 1024,
+      "theme": "dark",
+      "state": "idle",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 1280,
+      "theme": "light",
+      "state": "welcome",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 1280,
+      "theme": "light",
+      "state": "listening",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 1280,
+      "theme": "light",
+      "state": "thinking",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 1280,
+      "theme": "light",
+      "state": "speaking",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 1280,
+      "theme": "light",
+      "state": "correct",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 1280,
+      "theme": "light",
+      "state": "incorrect",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 1280,
+      "theme": "light",
+      "state": "offline",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 1280,
+      "theme": "light",
+      "state": "error",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 1280,
+      "theme": "light",
+      "state": "idle",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 1280,
+      "theme": "dark",
+      "state": "welcome",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 1280,
+      "theme": "dark",
+      "state": "listening",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 1280,
+      "theme": "dark",
+      "state": "thinking",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 1280,
+      "theme": "dark",
+      "state": "speaking",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 1280,
+      "theme": "dark",
+      "state": "correct",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 1280,
+      "theme": "dark",
+      "state": "incorrect",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 1280,
+      "theme": "dark",
+      "state": "offline",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 1280,
+      "theme": "dark",
+      "state": "error",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 1280,
+      "theme": "dark",
+      "state": "idle",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "state": "welcome",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "state": "listening",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "state": "thinking",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "state": "speaking",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "state": "correct",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "state": "incorrect",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "state": "offline",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "state": "error",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "state": "idle",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 1440,
+      "theme": "dark",
+      "state": "welcome",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 1440,
+      "theme": "dark",
+      "state": "listening",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 1440,
+      "theme": "dark",
+      "state": "thinking",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 1440,
+      "theme": "dark",
+      "state": "speaking",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 1440,
+      "theme": "dark",
+      "state": "correct",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 1440,
+      "theme": "dark",
+      "state": "incorrect",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 1440,
+      "theme": "dark",
+      "state": "offline",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 1440,
+      "theme": "dark",
+      "state": "error",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    },
+    {
+      "width": 1440,
+      "theme": "dark",
+      "state": "idle",
+      "overflow": false,
+      "small": [],
+      "broken": 0
+    }
+  ],
+  "zoom": [
+    {
+      "ui": "uk",
+      "theme": "light",
+      "state": "welcome",
+      "overflow": false
+    },
+    {
+      "ui": "uk",
+      "theme": "light",
+      "state": "incorrect",
+      "overflow": false
+    },
+    {
+      "ui": "uk",
+      "theme": "light",
+      "state": "error",
+      "overflow": false
+    },
+    {
+      "ui": "uk",
+      "theme": "dark",
+      "state": "welcome",
+      "overflow": false
+    },
+    {
+      "ui": "uk",
+      "theme": "dark",
+      "state": "incorrect",
+      "overflow": false
+    },
+    {
+      "ui": "uk",
+      "theme": "dark",
+      "state": "error",
+      "overflow": false
+    },
+    {
+      "ui": "en",
+      "theme": "light",
+      "state": "welcome",
+      "overflow": false
+    },
+    {
+      "ui": "en",
+      "theme": "light",
+      "state": "incorrect",
+      "overflow": false
+    },
+    {
+      "ui": "en",
+      "theme": "light",
+      "state": "error",
+      "overflow": false
+    },
+    {
+      "ui": "en",
+      "theme": "dark",
+      "state": "welcome",
+      "overflow": false
+    },
+    {
+      "ui": "en",
+      "theme": "dark",
+      "state": "incorrect",
+      "overflow": false
+    },
+    {
+      "ui": "en",
+      "theme": "dark",
+      "state": "error",
+      "overflow": false
+    },
+    {
+      "ui": "fr",
+      "theme": "light",
+      "state": "welcome",
+      "overflow": false
+    },
+    {
+      "ui": "fr",
+      "theme": "light",
+      "state": "incorrect",
+      "overflow": false
+    },
+    {
+      "ui": "fr",
+      "theme": "light",
+      "state": "error",
+      "overflow": false
+    },
+    {
+      "ui": "fr",
+      "theme": "dark",
+      "state": "welcome",
+      "overflow": false
+    },
+    {
+      "ui": "fr",
+      "theme": "dark",
+      "state": "incorrect",
+      "overflow": false
+    },
+    {
+      "ui": "fr",
+      "theme": "dark",
+      "state": "error",
+      "overflow": false
+    },
+    {
+      "ui": "ar",
+      "theme": "light",
+      "state": "welcome",
+      "overflow": false
+    },
+    {
+      "ui": "ar",
+      "theme": "light",
+      "state": "incorrect",
+      "overflow": false
+    },
+    {
+      "ui": "ar",
+      "theme": "light",
+      "state": "error",
+      "overflow": false
+    },
+    {
+      "ui": "ar",
+      "theme": "dark",
+      "state": "welcome",
+      "overflow": false
+    },
+    {
+      "ui": "ar",
+      "theme": "dark",
+      "state": "incorrect",
+      "overflow": false
+    },
+    {
+      "ui": "ar",
+      "theme": "dark",
+      "state": "error",
+      "overflow": false
+    }
+  ],
+  "checks": [
+    "mock reply with visible Lexi",
+    "theme preserves draft",
+    "ask examples / limits",
+    "nonretryable / edit",
+    "retry no duplicate",
+    "slow countdown",
+    "limit deadline",
+    "voice fallback",
+    "safe text",
+    "reduced motion / keyboard focus",
+    "real TEST-031 engine fixture: signature, talk correction hidden, roleplay mapping, teacher correction",
+    "real ask/lesson context and example shape",
+    "all twelve error retry policies",
+    "stale reply ignored after context change",
+    "avatar stays visible beside long scrolled reply"
+  ],
+  "errors": [],
+  "external": []
+}
