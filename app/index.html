@@ -51,7 +51,7 @@
 <link rel="preload" as="script" href="./modules/learning-path/ui.js?v=254">
 <link rel="preload" as="script" href="./modules/dialogues/translations.js?v=177">
 <link rel="preload" as="script" href="./course-curriculum.js?v=178">
-<link rel="preload" as="script" href="./app.js?v=255">
+<link rel="preload" as="script" href="./app.js?v=257">
 <link rel="preload" as="script" href="./modules/exam/exam-core.js?v=254">
 <link rel="preload" as="script" href="./modules/exam/exam11.js?v=176">
 <link rel="preload" as="script" href="./modules/exam/exam12-data.js?v=173">
@@ -1134,6 +1134,50 @@ button.om-chip{cursor:pointer}button.om-chip:hover{border-color:var(--role-v)}
 .ai-chat-card{display:flex;flex-direction:column;gap:12px;padding-bottom:110px!important}.ai-chat-card .ai-chat{margin-bottom:0;gap:10px}.ai-chat-card .ai-style-row{margin:2px 0 0}.ai-chat-card .ai-style-row label{gap:6px}.ai-chat-card .ai-style-select{padding:6px 9px}.ai-chat-card .g-mic-row{margin-top:0}.ai-chat-card .g-type{margin-top:0}.ai-chat-card .ai-fix{margin-top:4px}
 .ai-style-row{display:flex;align-items:center;gap:8px;margin:10px 0;flex-wrap:wrap}.ai-style-row label{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:.9rem}.ai-style-select{max-width:100%;min-width:0;padding:7px 9px;border:1px solid var(--line,#ddd);border-radius:10px;background:var(--card,#fff);color:var(--fg,#222);font:inherit}
 </style>
+<style id="lexi-exam-b">
+/* TEST-033 · AI exam screens (A1.1 mock speaking exam, exam writing check) in the TEST-030 Concept B look: light canvas,
+   dark-green brand, Lexi's avatar beside her replies, one composer card. Only #card.lexi-b (set by aiRender / askRender
+   for exam screens, removed by gHead / setView); the exam logic and markup are unchanged. Tokens = design-lab/test-030/tokens.css. */
+#card.lexi-b{--lb-canvas:#f6f2e9;--lb-paper:#fffdf7;--lb-ink:#173e33;--lb-muted:#516553;--lb-line:#d1dac8;--lb-control:#7b8d79;--lb-brand:#225a45;--lb-on-brand:#fffef7;--lb-soft:#e8eddd;--lb-success:#25633c;--lb-error:#9d303d;--lb-error-soft:#fcebed;--lb-avatar:#f6f2e9;background:var(--lb-paper);color:var(--lb-ink);border-color:var(--lb-line)}
+:root[data-theme="dark"] #card.lexi-b{--lb-canvas:#15241f;--lb-paper:#20352a;--lb-ink:#f1f4e7;--lb-muted:#bdccba;--lb-line:#476047;--lb-control:#8b9d86;--lb-brand:#ecb284;--lb-on-brand:#223629;--lb-soft:#304836;--lb-success:#acdeb6;--lb-error:#ffc1c9;--lb-error-soft:#4c2c34;--lb-avatar:#f6f2e9}
+#card.lexi-b .g-back,#card.lexi-b .ex-restart,#card.lexi-b .ai-tr[aria-expanded="true"]{color:var(--lb-brand)}
+#card.lexi-b .ex-progress{background:var(--lb-soft);color:var(--lb-ink);border-radius:14px;padding:8px 14px;font-size:13px}
+#card.lexi-b .ex-progress{display:flex;flex-wrap:wrap;align-items:center;gap:0 12px}
+#card.lexi-b .ex-restart{color:var(--lb-brand);min-height:44px;margin:0;padding:0}
+#card.lexi-b .ai-acts{gap:0 8px;align-items:center}
+#card.lexi-b .ai-chat{gap:14px}
+#card.lexi-b .ai-row{align-items:flex-start;gap:10px}
+#card.lexi-b .st-av.xs{width:56px;height:56px;border-radius:50%;overflow:hidden;background:var(--lb-avatar);flex:none}
+#card.lexi-b .g-bub{border-radius:20px;padding:12px 16px;font-size:16px;line-height:1.45}
+#card.lexi-b .g-bub.them,#card.lexi-b .ai-row .g-bub.them{background:var(--lb-canvas);color:var(--lb-ink);border:1px solid var(--lb-line);border-end-start-radius:6px}
+#card.lexi-b .g-bub.me{background:var(--lb-soft);color:var(--lb-ink);border:1px solid var(--lb-line);border-end-end-radius:6px}
+#card.lexi-b .g-bub.me small,#card.lexi-b .g-bub.me em,#card.lexi-b .g-bub em,#card.lexi-b .g-bub small{color:var(--lb-muted)}
+#card.lexi-b .ai-tr{color:var(--lb-muted);min-height:44px;padding:4px 8px}
+#card.lexi-b .ai-fix{align-self:flex-end;background:var(--lb-error-soft);border:0;border-inline-start:3px solid var(--lb-error);border-radius:0 14px 14px 0;color:var(--lb-ink);padding:12px 14px;gap:6px}
+#card.lexi-b .ai-fix small{color:var(--lb-error)}
+#card.lexi-b .ai-fix .btn{background:var(--lb-paper);color:var(--lb-ink);border:1px solid var(--lb-control);box-shadow:none}
+#card.lexi-b .ai-ex button{background:var(--lb-paper);border:1px solid var(--lb-control);color:var(--lb-ink);border-radius:14px;min-height:44px;padding:8px 12px}
+#card.lexi-b .ai-ex small,#card.lexi-b .ai-ex button span{color:var(--lb-muted)}
+#card.lexi-b .ai-chip{background:var(--lb-soft);color:var(--lb-ink);border:1px solid var(--lb-line);min-height:44px}
+#card.lexi-b .btn.primary,#card.lexi-b .g-type .btn[type=submit]{background:var(--lb-brand);color:var(--lb-on-brand);border-color:var(--lb-brand);box-shadow:none}
+#card.lexi-b .g-mic-btn{background:var(--lb-paper);color:var(--lb-brand);border:1px solid var(--lb-control);box-shadow:none;min-width:0;min-height:48px}
+#card.lexi-b .g-mic-btn.rec{background:var(--lb-brand);color:var(--lb-on-brand)}
+#card.lexi-b .g-type input{background:transparent;border:0;color:var(--lb-ink);min-height:48px;font-weight:600}
+#card.lexi-b .g-type input:focus-visible{outline:3px solid #235fd0;outline-offset:-3px}
+#card.lexi-b .g-heard{color:var(--lb-muted);margin:0}
+#card.lexi-b .g-heard:empty{display:none}
+#card.lexi-b .ai-compose-dock,#card.lexi-b>form.g-type{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:8px;background:var(--lb-canvas);border:1px solid var(--lb-control);border-radius:18px;padding:8px;box-shadow:0 8px 28px #294a2710}
+#card.lexi-b>form.g-type{display:flex}
+#card.lexi-b .ai-compose-dock .g-mic-row{grid-column:1;grid-row:1;margin:0}
+#card.lexi-b .ai-compose-dock .g-type{grid-column:2;grid-row:1;width:auto}
+#card.lexi-b .ai-compose-dock .g-heard{grid-column:1/-1;grid-row:2;padding:0 6px}
+#card.lexi-b .lexi-thinking .ai-typing{color:var(--lb-muted)}
+#card.lexi-b .g-mic-row:not(.ai-compose-dock .g-mic-row){justify-content:flex-start}
+@media(min-width:768px){#card.lexi-b .st-av.xs{width:72px;height:72px}#card.lexi-b .ai-col,#card.lexi-b .ai-row>.g-bub{max-width:min(640px,80%)}}
+/* phone: the mic is an icon (its full label stays its accessible name), so the message field keeps the row; while recording it shows «⏹ …» */
+@media(max-width:767px){#card.lexi-b .ai-compose-dock .g-mic-btn:not(.rec){font-size:0;width:48px;min-width:48px;padding:0}#card.lexi-b .ai-compose-dock .g-mic-btn:not(.rec)::before{content:"🎙️";font-size:22px;line-height:1}#card.lexi-b .ai-compose-dock .g-mic-btn.rec{font-size:14px}}
+@media(max-width:359px){#card.lexi-b .st-av.xs{width:44px;height:44px}#card.lexi-b .ai-compose-dock{grid-template-columns:minmax(0,1fr)}#card.lexi-b .ai-compose-dock .g-mic-row,#card.lexi-b .ai-compose-dock .g-type{grid-column:1;grid-row:auto}}
+</style>
 </head>
 <body>
 <style>
@@ -1406,7 +1450,7 @@ header .hdr-btn{min-width:44px;min-height:44px}main>header .hdr-stats .streak-pi
 <script src="./modules/learning-path/ui.js?v=254"></script>
 <script src="./modules/dialogues/translations.js?v=177"></script>
 <script src="./course-curriculum.js?v=178"></script>
-<script src="./app.js?v=255"></script>
+<script src="./app.js?v=257"></script>
   <div class="modes-wrapper" id="modeButtons"></div>
    <!-- LEREN.BE — МОДУЛЬ ДИФТОНГІВ -->
 <script src="./modules/exam/exam-core.js?v=254" defer></script>

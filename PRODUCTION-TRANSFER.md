@@ -194,3 +194,14 @@
 - Перенести разом: `app/modules/lexi/{engine,chat,copy,mock}.js`, `chat.css`, `app/img/lexi/*`, хост у `app.js`, стилі `.lexi-host` в `index.html`, `sw.js`.
 - `mock.js` у production не вмикається: `lexiDemo()` повертає `false`, коли `prodServices()`.
 - Після оновлень дизайну в лабораторії Codex запустити `node tools/lexi-ui-port.cjs`; ручні правки в `app/modules/lexi/chat.*` заборонені.
+
+## TEST-033 · Початковий аудит
+
+Лише аудит `docs/design/test-033/INITIAL-AUDIT.md`, без змін коду чи готовності до перенесення. Гілка від TEST-032; мобільний чат, старі функції й AI-екрани іспитів потребують реалізації та перевірки.
+
+- TEST-033: експериментальна мобільна правка у design-lab та згенерованому UI, перевірена емуляцією; реального Samsung після правки ще немає. Версіонування app/SW та решта функцій і тести ще незавершені. Не переносити й не публікувати.
+
+## TEST-033 · Клавіатура й повернені функції чату (release 257)
+- Перенести разом: `app/modules/lexi/{chat,copy}.js`, `chat.css` (згенеровані), `app/app.js` (опції `onStyle`/`onAutoVoice`, правило списку помилок за стилем, клас `lexi-b` для іспиту, очищення класів картки), блок `<style id="lexi-exam-b">` в `app/index.html`, `sw.js` (257), `tools/lexi-ui-port.cjs`.
+- Нові ключі на пристрої: `leren_lexi_autovoice` (true/false). `leren_ai_style` використовувався й раніше. Формат прогресу не змінено. API рушія й Worker не змінювались.
+- Перед перенесенням: перевірка власником нових функцій на Samsung, реальний AI на тестовому Worker (TEST-034).
