@@ -40,6 +40,9 @@ console.log('PASS: static — app chat = design lab + documented patches (port -
  const KEYS = ['poly_score', 'leren_path_v1', 'leren_life_xp_v1', 'leren_xp_v2', 'poly_progress', 'leren_char', 'poly_target', 'poly_ui', 'poly_level'];
  async function open({endpoint = AI, viewport = {width: 390, height: 844}, ui = 'uk', sw = 'block', query = '', theme} = {}) {
   const ctx = await browser.newContext({viewport, serviceWorkers: sw}), page = await ctx.newPage(), errors = [], outside = [];
+  // TEST-033: on phones the chat settings (scenarios, languages, level, situation) sit behind the header settings button once
+  // the conversation runs, so a sidebar control is reached the way a user reaches it — tap «Налаштування чату» first.
+  for (const m of ['click', 'selectOption']) { const orig = page[m].bind(page); page[m] = async (sel, ...a) => { if (typeof sel === 'string' && sel.startsWith(S) && await page.locator(sel).count() && !await page.locator(sel).first().isVisible() && await page.locator(sel).first().evaluate(e => !!e.closest('.sidebar'))) { const b = page.locator(S + '.settings-button'); if (await b.isVisible()) await b.click() } return orig(sel, ...a) } }
   page.on('pageerror', e => errors.push(e.message)); await ctx.route(/^https?:\/\/(?!localhost)/, r => { outside.push(r.request().url()); r.abort() });
   await page.addInitScript(([rel, endpoint, ui, theme]) => {
    if (!localStorage.getItem('seeded')) { localStorage.setItem('seeded', '1');
@@ -220,11 +223,11 @@ console.log('PASS: static — app chat = design lab + documented patches (port -
    console.log('PASS: beta snapshot — Lexi off, no request; ?lexi=demo shows the TEST-030 demo replies, labelled «Демонстрація», with no network request (for checking screens on a phone)');
   }
 
-  // ---- H · service worker: release 255 precaches the chat; it opens offline from the cache and says it is offline
+  // ---- H · service worker: release 257 precaches the chat; it opens offline from the cache and says it is offline
   {
    const {ctx, page, errors} = await open({sw: 'allow'});
    await page.evaluate(async () => { await navigator.serviceWorker.ready }); await page.reload(); await page.waitForFunction(() => !!navigator.serviceWorker.controller && !!window.LerenLexi);
-   const cached = await page.evaluate(async () => { const c = await caches.open((await caches.keys()).find(k => k.startsWith('leren-be-v'))); return Promise.all(['./modules/lexi/chat.js?v=255', './modules/lexi/copy.js?v=255', './modules/lexi/chat.css?v=255', './img/lexi/lexi.webp', './img/lexi/lexi-emotions.webp'].map(async u => !!(await c.match(u)))) });
+   const cached = await page.evaluate(async () => { const c = await caches.open((await caches.keys()).find(k => k.startsWith('leren-be-v'))); return Promise.all(['./modules/lexi/chat.js?v=257', './modules/lexi/copy.js?v=257', './modules/lexi/chat.css?v=257', './img/lexi/lexi.webp', './img/lexi/lexi-emotions.webp'].map(async u => !!(await c.match(u)))) });
    assert.deepEqual(cached, [true, true, true, true, true], 'chat files precached');
    await ctx.setOffline(true); await page.evaluate(() => { lexiOpen('free') }); await page.waitForSelector('.lexi-off', {timeout: 15000}); assert.equal(await page.locator('.lexi-host').count(), 0, 'offline at the start: the «Lexi is offline» card with retry');
    await ctx.setOffline(false);
@@ -232,7 +235,7 @@ console.log('PASS: static — app chat = design lab + documented patches (port -
    await page.evaluate(() => lexiMount('free', {})); await page.waitForSelector(S + '.ai-chat-card', {timeout: 15000}); await send(page, 'offline?');
    assert.match((await state(page)).err, /офлайн|мережі|інтернет/i, 'offline message from the cached chat');
    await ctx.setOffline(false); assert.deepEqual(errors, []); await ctx.close();
-   console.log('PASS: service worker — chat module, styles and artwork precached in leren-be-v255; offline the chat opens from the cache and reports «offline»');
+   console.log('PASS: service worker — chat module, styles and artwork precached in leren-be-v257; offline the chat opens from the cache and reports «offline»');
   }
  } finally { await browser.close(); server.close() }
 })().catch(e => { console.error(e); process.exit(1) });

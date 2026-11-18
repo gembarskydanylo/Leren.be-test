@@ -3,3 +3,42 @@
 @media(max-width:767px){.layout,.ai-chat-card{min-height:min-content}.chat-log{max-height:60dvh}}
 @media(max-width:359px){.settings{grid-template-columns:minmax(0,1fr)}.settings label:last-child select{max-width:none}}
 .chat-log:has(>.live-state):not(:has(.g-bub)){display:grid;align-content:center;justify-content:center}.chat-log:has(>.live-state):not(:has(.g-bub)) .avatar{width:120px;height:120px}
+/* TEST-033 · Mobile chat with the on-screen keyboard (owner's Samsung, 2026-11-18).
+   The chat is exactly as high as the visible viewport (--lexi-viewport-height / -top from chat.js): one scroll, the history's.
+   Settings are one tap away (header button) instead of filling the screen; with the keyboard open the chrome is compact
+   and the composer is one row (mic · text · send), so the conversation keeps most of the height. */
+.settings-button{display:none}
+/* screen-reader-only labels inside the history are positioned against it, not the page (otherwise they stretch the page: a second scroll) */
+.chat-log{position:relative}
+.assistant-row{display:flex;align-items:flex-start;gap:12px;direction:ltr;margin-bottom:20px;max-width:100%}
+.assistant-row .g-bub{min-width:0;max-width:calc(100% - 92px);margin:0}
+.assistant-row .reply-avatar{width:80px;height:80px;flex-shrink:0;position:sticky;top:0;margin:0}
+@media(max-width:767px){
+ .lexi-app{height:var(--lexi-viewport-height,100dvh);min-height:0;transform:translateY(var(--lexi-viewport-top,0px))}
+ .layout{flex:1}
+ .layout,.ai-chat-card{min-height:0}
+ .ai-chat-card{overflow:hidden}
+ .chat-log{min-height:0;max-height:none;flex:1}
+ .sidebar{display:none;max-height:60%;overflow:auto;flex:0 1 auto;min-height:0}
+ .ai-chat-card{flex:1 1 0;min-height:220px}
+ .sidebar.open{display:block}
+ .settings-button{display:inline-flex}
+ .settings-button[aria-expanded=true]{background:var(--soft);border-color:var(--brand)}
+ .assistant-row{gap:8px}
+ .assistant-row .reply-avatar{width:56px;height:56px}
+ .assistant-row .g-bub{max-width:calc(100% - 64px)}
+ .lexi-keyboard .demo-strip,.lexi-keyboard .composer-hint,.lexi-keyboard .sidebar,.lexi-keyboard .context-strip,.lexi-keyboard .notice:empty{display:none}
+ .lexi-keyboard .chat-header{padding:6px 12px}
+ .lexi-keyboard .chat-header .lexi-av{display:block;width:40px;height:40px}
+ .lexi-keyboard .chat-log{padding:12px}
+ .lexi-keyboard .ai-type{margin:4px 8px 6px;padding:6px;display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:6px}
+ .lexi-keyboard .ai-type .composer-tools{display:contents}
+ .lexi-keyboard .ai-type input{grid-column:2;grid-row:1;min-height:44px;padding:6px}
+ .lexi-keyboard .ai-type .g-mic-btn{grid-column:1;grid-row:1}
+ .lexi-keyboard .ai-type .send{grid-column:3;grid-row:1;min-width:48px;padding-inline:12px}
+ .lexi-keyboard .ai-type .send span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+ .lexi-keyboard .ai-type #counter{grid-column:1/-1;grid-row:2;font-size:.65rem;padding-inline:4px}
+}
+@media(max-width:767px){.lexi-app:has(.ai-type input:focus) .sidebar{display:none}}
+@media(max-width:767px) and (max-height:550px){.lexi-app:has(.ai-type input:focus) .context-strip,.lexi-app:has(.ai-type input:focus) .demo-strip{display:none}}
+@media(max-width:359px){.chat-header .lexi-av{display:block}}

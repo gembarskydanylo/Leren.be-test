@@ -5493,7 +5493,7 @@ function lexiBlocked(title){const L=lexi(),a=L?L.availability():{ok:false,code:"
 // tools/lexi-ui-port.cjs), loaded on first use and shown full screen over the app in a shadow root (its styles cannot
 // touch the app, the app's cannot touch it). It talks only to LerenLexi; XP, the mistakes list and notes keep the rules
 // of the old chat. The A1.1 speaking exam and the exam writing check keep their own screens (aiStartExam / askStartExam).
-const LEXI_V="255";
+const LEXI_V="257";
 const LEXI_SCENE={super:"shop",huisarts:"doctor",station:"transport",gemeente:"municipality",werk:"work",school:"school"}; // worker id → chat id
 const LEXI_OLD_SCENES={cafe:{uk:"Кафе",en:"Café",fr:"Café",ar:"مقهى"},apotheek:{uk:"Аптека",en:"Pharmacy",fr:"Pharmacie",ar:"صيدلية"},buren:{uk:"Сусіди",en:"Neighbours",fr:"Voisins",ar:"الجيران"}};
 const LEXI_PRIVACY={uk:"Повідомлення надсилаються до AI через сервер lerenbe.com і не зберігаються. Голос розпізнає браузер; запис не зберігається.",en:"Messages go to the AI through the lerenbe.com server and are not stored. Your browser recognises speech; no recording is kept.",fr:"Les messages passent par le serveur lerenbe.com vers l’IA et ne sont pas conservés. Le navigateur reconnaît la voix ; rien n’est enregistré.",ar:"تُرسل الرسائل إلى الذكاء الاصطناعي عبر خادم lerenbe.com ولا تُحفظ. يتعرّف المتصفح على الصوت؛ لا يُحفظ أي تسجيل."};
@@ -6199,7 +6199,7 @@ const UPD_UI={uk:{t:"Вийшла нова версія застосунку",ve
  ar:{t:"يتوفر إصدار جديد من التطبيق",ver:"الإصدار",go:"تحديث",done:"✓ تم تحديث التطبيق إلى الإصدار "}};
 const updU=()=>UPD_UI[uiLang]||UPD_UI.uk;
 // Keep the announcement available after updating, including users who already installed v87.
-const RELEASE_VERSION="255";
+const RELEASE_VERSION="257";
 // The release whose notes RELEASE_UI describes. A small update keeps the notes of the last bigger one: whoever already
 // saw those notes is not shown them again.
 const RELEASE_NOTES_VERSION="176";
