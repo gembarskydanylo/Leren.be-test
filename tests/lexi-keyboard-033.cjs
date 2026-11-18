@@ -54,7 +54,9 @@ const FAKE_VV = () => { // runs in the page before any script
   for (let i = 1; i <= 6; i++) await sendMsg(page, false, 'Ik woon in Gent ' + i + '.');
   m = await measure(page); assert.ok(!m.sidebar.shown && m.settings.shown, w + ': settings collapse once the conversation runs, button stays');
   await page.focus('#draft'); await page.evaluate(k => __keyboard(k), kb); await page.waitForTimeout(120); m = await measure(page); checkOpen(m, `lab ${w}×${h} keyboard ${kb}`); assert.equal(m.focused, 'draft');
-  await sendMsg(page, false, 'Nog een zin.'); await page.waitForTimeout(80); m = await measure(page); checkOpen(m, `lab ${w} send with keyboard open`); assert.equal(m.focused, 'draft', 'focus stays in the field');
+  await sendMsg(page, false, 'Nog een zin.'); await page.waitForTimeout(80); m = await measure(page); assert.notEqual(m.focused, 'draft', w + ': on a phone sending takes the focus out of the field, so the keyboard closes (owner, Samsung preview 2)');
+  await page.evaluate(() => __keyboard(0)); await page.waitForTimeout(120); m = await measure(page); assert.ok(!m.keyboard && m.form.bottom <= h + 1 && m.log.end && m.lastAvatar?.visible, w + ': keyboard closed after sending — composer in view, history at its end with Lexi\'s reply ' + JSON.stringify({form: m.form, end: m.log.end}));
+  await page.focus('#draft'); assert.equal(await page.evaluate(() => getComputedStyle(document.activeElement).outlineOffset), '-3px', w + ': focus ring inside the field, not over the mic / send row');
   await page.evaluate(() => { document.activeElement.blur(); __keyboard(0) }); await page.waitForTimeout(80); m = await measure(page); assert.ok(!m.keyboard && m.form.bottom <= h + 1 && m.header.top >= 0, w + ': keyboard closed — composer and header in view');
   await page.focus('#draft'); await page.evaluate(k => __keyboard(k), kb); await page.waitForTimeout(80); checkOpen(await measure(page), `lab ${w} keyboard reopened`);
   await page.evaluate(() => { document.activeElement.blur(); __keyboard(0) }); await page.click('.settings-button'); m = await measure(page); assert.ok(m.sidebar.shown, w + ': settings button opens settings'); assert.equal(await page.getAttribute('.settings-button', 'aria-expanded'), 'true');
@@ -71,7 +73,7 @@ const FAKE_VV = () => { // runs in the page before any script
  }
  { // desktop: unchanged layout
   const ctx = await browser.newContext({viewport: {width: 1440, height: 900}}), page = await ctx.newPage(); await page.addInitScript(FAKE_VV); await page.goto(O + '/design-lab/test-030/lexi/'); await page.waitForSelector('#draft');
-  await sendMsg(page, false, 'Hallo'); const m = await measure(page); assert.ok(m.sidebar.shown && !m.settings.shown && !m.keyboard, 'desktop: sidebar always visible, no settings button'); await ctx.close(); checks++;
+  await sendMsg(page, false, 'Hallo'); const m = await measure(page); assert.ok(m.sidebar.shown && !m.settings.shown && !m.keyboard, 'desktop: sidebar always visible, no settings button'); assert.equal(m.focused, 'draft', 'desktop: the focus stays in the field after sending'); await ctx.close(); checks++;
  }
  // ---- app (generated chat in the shadow root, demo replies, no network)
  {
@@ -90,5 +92,5 @@ const FAKE_VV = () => { // runs in the page before any script
   assert.deepEqual(errs, []); await ctx.close(); checks++;
  }
  await browser.close(); server.close();
- console.log(`PASS: ${checks} keyboard scenarios (EMULATED visualViewport, not a physical keyboard) — lab 320/360/390/412 with long history, send with keyboard open, reopen, settings button, RTL 200 %, desktop; app shadow chat with Escape and Back; composer above the keyboard, history ≥ 42 % and the only scroll, no autocomplete of earlier messages`);
+ console.log(`PASS: ${checks} keyboard scenarios (EMULATED visualViewport, not a physical keyboard) — lab 320/360/390/412 with long history, send closes the keyboard on a phone (focus stays on desktop), reopen, settings button, RTL 200 %, desktop; app shadow chat with Escape and Back; composer above the keyboard, history ≥ 42 % and the only scroll, no autocomplete of earlier messages`);
 })().catch(e => { console.error(e); process.exit(1) });

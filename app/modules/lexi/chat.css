@@ -14,6 +14,8 @@
 .settings-button{display:none}
 /* screen-reader-only labels inside the history are positioned against it, not the page (otherwise they stretch the page: a second scroll) */
 .chat-log{position:relative}
+/* the focus ring of the message field is drawn inside it, not over the mic / send row below */
+.ai-type input:focus-visible{outline-offset:-3px}
 .assistant-row{display:flex;align-items:flex-start;gap:12px;direction:ltr;margin-bottom:20px;max-width:100%}
 .assistant-row .g-bub{min-width:0;max-width:calc(100% - 92px);margin:0}
 .assistant-row .reply-avatar{width:80px;height:80px;flex-shrink:0;position:sticky;top:0;margin:0}
