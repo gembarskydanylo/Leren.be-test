@@ -229,3 +229,38 @@
 1. Ручна перевірка Skills в авторизованій сесії.
 2. Виправити guard.py за знахідками вище (окремий дозвіл).
 3. Активувати `permissions` разом із `architect`.
+
+## 14. Етап 4: виправлення guard.py (2026-11-18, hook НЕ активовано)
+
+Виправлено:
+1. **Wrangler у будь-якій формі:** `wrangler`, `wrangler@4`, `npx [--yes]`, абсолютний шлях, `pnpm dlx`, `npm exec`, env-префікс, ланцюжки.
+   - `deploy` без `-c tools/lexi-test-worker.toml` → **deny**;
+   - тестовий Worker → **ask**;
+   - `--name` поверх тестової конфігурації → deny;
+   - `secret`, `delete`, `kv`, `r2`, `d1`, `pages deploy`, `versions`, `rollback` → deny;
+   - `whoami` і `dev` → allow.
+2. **Pages і `git -C`:**
+   - `gh workflow run|enable` → deny;
+   - `gh api` з `/dispatches`, `/merge`, `/pages` → deny, інші POST/PUT/PATCH/DELETE → ask;
+   - усі git-правила приймають глобальні опції (`-C <шлях>`, `-c k=v`, `--no-pager`), тож `git -C … push origin main` і `HEAD:refs/heads/main` → deny;
+   - `push --mirror` → deny; push на URL production-репозиторію → deny;
+   - `git push` без refspec, коли поточна гілка main/master → deny.
+3. **Виняток `--env test` видалено.**
+
+Обходи:
+- `python3 -c` / `node -e`: явний текст небезпечної команди → deny; інший код, що запускає процеси (`subprocess`, `child_process` тощо) → ask.
+- `bash/sh/source/python3/node <файл>`, `./файл`, `npm|pnpm|yarn run <скрипт>`: hook читає вміст скрипта (1 рівень) або `package.json` і застосовує ті самі правила. Скрипт невідомого вмісту при `npm run` без `package.json` → ask.
+- `… | sh`, `xargs bash`, `xargs git|gh|npx` → ask.
+- Сегменти лише для читання (`grep`, `cat`, `head`…) не аналізуються як дії, тож `grep 'wrangler deploy' docs` не блокується.
+
+Тести:
+- `fixtures/run.sh`: **132/132 PASS** (50 старих, з них 1 очікування змінено: `--env test` тепер deny; плюс 82 нові);
+- 51 реальний скрипт `tests/`, `design-lab/…/checks`, `tools/` гілки test-033 → 0 хибних спрацювань;
+- затримка ≈ 39 мс на виклик.
+
+Залишкові ризики:
+- Обфускація (`'fire'+'base'`, base64, змінні) — лише ask, якщо видно запуск процесу. Скрипти глибше 1 рівня, завантажені з мережі чи згенеровані під час виконання hook не бачить.
+- `git push` без refspec на feature-гілці з upstream `main` не розпізнається. Гілки TEST мають власні upstream.
+- Hook — страховка від випадкових дій, а не пісочниця. Головний захист — облікові дані:
+  - `firebase-tools.json` існує;
+  - `gh` має scope `workflow`.

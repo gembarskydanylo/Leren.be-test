@@ -1,52 +1,794 @@
 [
- ["Bash","git status --short","/tmp","allow"],
- ["Bash","git log --oneline -5 && git diff --stat","/tmp","allow"],
- ["Bash","NODE_PATH=x node tests/sw-upgrade.cjs","/tmp","allow"],
- ["Bash","git push -u origin claude/test-036-cc-optimization","/tmp","allow"],
- ["Bash","git push --force origin codex/test-033-lexi-mobile-ux","/tmp","deny"],
- ["Bash","git push -f origin x","/tmp","deny"],
- ["Bash","git push origin +HEAD:feature","/tmp","deny"],
- ["Bash","git push origin main","/tmp","deny"],
- ["Bash","git push origin HEAD:main","/tmp","deny"],
- ["Bash","npx firebase deploy --only hosting","/tmp","deny"],
- ["Bash","npx wrangler deploy","/tmp","deny"],
- ["Bash","npx wrangler deploy --env test","/tmp","allow"],
- ["Bash","gh pr merge 20 --squash","/tmp","ask"],
- ["Bash","gh pr merge 20 --admin","/tmp","deny"],
- ["Bash","gh pr ready 20","/tmp","ask"],
- ["Bash","gh pr view 20 --json isDraft","/tmp","allow"],
- ["Bash","git merge origin/main","/tmp","ask"],
- ["Bash","git reset --hard HEAD~1","/tmp","ask"],
- ["Bash","git reset --soft HEAD~1","/tmp","allow"],
- ["Bash","git checkout -- .","/tmp","ask"],
- ["Bash","git checkout -- design-lab docs","/tmp","ask"],
- ["Bash","git checkout -q -- screenshots/test-030","/tmp","allow"],
- ["Bash","git checkout -b claude/new","/tmp","allow"],
- ["Bash","git clean -fd","/tmp","ask"],
- ["Bash","git stash list","/tmp","allow"],
- ["Bash","git stash drop stash@{0}","/tmp","ask"],
- ["Bash","git stash push -m backup","/tmp","allow"],
- ["Bash","git worktree list","/tmp","allow"],
- ["Bash","git worktree remove --force /private/tmp/leren-test-035","/tmp","ask"],
- ["Bash","git branch -D codex/test-035-living-lexi-3d","/tmp","ask"],
- ["Bash","rm -rf /private/tmp/leren-test-035","/tmp","ask"],
- ["Bash","git -C /Users/danylohembarskyi/Documents/Leren.be status --porcelain 2>/dev/null","/tmp","allow"],
- ["Bash","git -C /Users/danylohembarskyi/Documents/Leren.be show HEAD:CLAUDE.md","/tmp","allow"],
- ["Bash","git -C /Users/danylohembarskyi/Documents/Leren.be add -A","/tmp","deny"],
- ["Bash","git add -A && git commit -m x","/Users/danylohembarskyi/Documents/Leren.be","deny"],
- ["Bash","git status","/Users/danylohembarskyi/Documents/Leren.be","allow"],
- ["Bash","cat > /private/tmp/x/a.txt <<'E'\nhi\nE","/Users/danylohembarskyi/Documents/Leren.be","allow"],
- ["Bash","echo hi > notes.md","/Users/danylohembarskyi/Documents/Leren.be","deny"],
- ["Bash","cd /private/tmp/leren-test-036 && git add -A && git commit -m t","/Users/danylohembarskyi/Documents/Leren.be","allow"],
- ["Bash","cd ~/Documents/Leren.be && git restore .","/tmp","deny"],
- ["Bash","rm /Users/danylohembarskyi/Documents/Leren.be/README.md","/tmp","deny"],
- ["Bash","cp a.js /Users/danylohembarskyi/Documents/Leren.be/app.js","/tmp","deny"],
- ["Bash","cp /Users/danylohembarskyi/Documents/Leren.be/README.md /tmp/r.md","/tmp","allow"],
- ["Bash","sed -i '' s/a/b/ /Users/danylohembarskyi/Documents/Leren.be/sw.js","/tmp","deny"],
- ["Edit","/Users/danylohembarskyi/Documents/Leren.be/app.js","/tmp","deny"],
- ["Write","/private/tmp/leren-test-036/claude-config-draft/x.md","/tmp","allow"],
- ["Write","{LOCKED}/a.txt","/tmp","ask"],
- ["Write","{CLAUDELOCK}/a.txt","/tmp","allow"],
- ["Edit","{CODEX}/dirty.txt","/tmp","ask"],
- ["Edit","{CODEX}/clean.txt","/tmp","allow"]
+[
+"Bash",
+"git status --short",
+"/tmp",
+"allow"
+],
+[
+"Bash",
+"git log --oneline -5 && git diff --stat",
+"/tmp",
+"allow"
+],
+[
+"Bash",
+"NODE_PATH=x node tests/sw-upgrade.cjs",
+"/tmp",
+"allow"
+],
+[
+"Bash",
+"git push -u origin claude/test-036-cc-optimization",
+"/tmp",
+"allow"
+],
+[
+"Bash",
+"git push --force origin codex/test-033-lexi-mobile-ux",
+"/tmp",
+"deny"
+],
+[
+"Bash",
+"git push -f origin x",
+"/tmp",
+"deny"
+],
+[
+"Bash",
+"git push origin +HEAD:feature",
+"/tmp",
+"deny"
+],
+[
+"Bash",
+"git push origin main",
+"/tmp",
+"deny"
+],
+[
+"Bash",
+"git push origin HEAD:main",
+"/tmp",
+"deny"
+],
+[
+"Bash",
+"npx firebase deploy --only hosting",
+"/tmp",
+"deny"
+],
+[
+"Bash",
+"npx wrangler deploy",
+"/tmp",
+"deny"
+],
+[
+"Bash",
+"npx wrangler deploy --env test",
+"/tmp",
+"deny"
+],
+[
+"Bash",
+"gh pr merge 20 --squash",
+"/tmp",
+"ask"
+],
+[
+"Bash",
+"gh pr merge 20 --admin",
+"/tmp",
+"deny"
+],
+[
+"Bash",
+"gh pr ready 20",
+"/tmp",
+"ask"
+],
+[
+"Bash",
+"gh pr view 20 --json isDraft",
+"/tmp",
+"allow"
+],
+[
+"Bash",
+"git merge origin/main",
+"/tmp",
+"ask"
+],
+[
+"Bash",
+"git reset --hard HEAD~1",
+"/tmp",
+"ask"
+],
+[
+"Bash",
+"git reset --soft HEAD~1",
+"/tmp",
+"allow"
+],
+[
+"Bash",
+"git checkout -- .",
+"/tmp",
+"ask"
+],
+[
+"Bash",
+"git checkout -- design-lab docs",
+"/tmp",
+"ask"
+],
+[
+"Bash",
+"git checkout -q -- screenshots/test-030",
+"/tmp",
+"allow"
+],
+[
+"Bash",
+"git checkout -b claude/new",
+"/tmp",
+"allow"
+],
+[
+"Bash",
+"git clean -fd",
+"/tmp",
+"ask"
+],
+[
+"Bash",
+"git stash list",
+"/tmp",
+"allow"
+],
+[
+"Bash",
+"git stash drop stash@{0}",
+"/tmp",
+"ask"
+],
+[
+"Bash",
+"git stash push -m backup",
+"/tmp",
+"allow"
+],
+[
+"Bash",
+"git worktree list",
+"/tmp",
+"allow"
+],
+[
+"Bash",
+"git worktree remove --force /private/tmp/leren-test-035",
+"/tmp",
+"ask"
+],
+[
+"Bash",
+"git branch -D codex/test-035-living-lexi-3d",
+"/tmp",
+"ask"
+],
+[
+"Bash",
+"rm -rf /private/tmp/leren-test-035",
+"/tmp",
+"ask"
+],
+[
+"Bash",
+"git -C /Users/danylohembarskyi/Documents/Leren.be status --porcelain 2>/dev/null",
+"/tmp",
+"allow"
+],
+[
+"Bash",
+"git -C /Users/danylohembarskyi/Documents/Leren.be show HEAD:CLAUDE.md",
+"/tmp",
+"allow"
+],
+[
+"Bash",
+"git -C /Users/danylohembarskyi/Documents/Leren.be add -A",
+"/tmp",
+"deny"
+],
+[
+"Bash",
+"git add -A && git commit -m x",
+"/Users/danylohembarskyi/Documents/Leren.be",
+"deny"
+],
+[
+"Bash",
+"git status",
+"/Users/danylohembarskyi/Documents/Leren.be",
+"allow"
+],
+[
+"Bash",
+"cat > /private/tmp/x/a.txt <<'E'\nhi\nE",
+"/Users/danylohembarskyi/Documents/Leren.be",
+"allow"
+],
+[
+"Bash",
+"echo hi > notes.md",
+"/Users/danylohembarskyi/Documents/Leren.be",
+"deny"
+],
+[
+"Bash",
+"cd /private/tmp/leren-test-036 && git add -A && git commit -m t",
+"/Users/danylohembarskyi/Documents/Leren.be",
+"allow"
+],
+[
+"Bash",
+"cd ~/Documents/Leren.be && git restore .",
+"/tmp",
+"deny"
+],
+[
+"Bash",
+"rm /Users/danylohembarskyi/Documents/Leren.be/README.md",
+"/tmp",
+"deny"
+],
+[
+"Bash",
+"cp a.js /Users/danylohembarskyi/Documents/Leren.be/app.js",
+"/tmp",
+"deny"
+],
+[
+"Bash",
+"cp /Users/danylohembarskyi/Documents/Leren.be/README.md /tmp/r.md",
+"/tmp",
+"allow"
+],
+[
+"Bash",
+"sed -i '' s/a/b/ /Users/danylohembarskyi/Documents/Leren.be/sw.js",
+"/tmp",
+"deny"
+],
+[
+"Edit",
+"/Users/danylohembarskyi/Documents/Leren.be/app.js",
+"/tmp",
+"deny"
+],
+[
+"Write",
+"/private/tmp/leren-test-036/claude-config-draft/x.md",
+"/tmp",
+"allow"
+],
+[
+"Write",
+"{LOCKED}/a.txt",
+"/tmp",
+"ask"
+],
+[
+"Write",
+"{CLAUDELOCK}/a.txt",
+"/tmp",
+"allow"
+],
+[
+"Edit",
+"{CODEX}/dirty.txt",
+"/tmp",
+"ask"
+],
+[
+"Edit",
+"{CODEX}/clean.txt",
+"/tmp",
+"allow"
+],
+[
+"Bash",
+"npx wrangler@4 deploy",
+"/tmp",
+"deny"
+],
+[
+"Bash",
+"npx --yes wrangler@4 deploy",
+"/tmp",
+"deny"
+],
+[
+"Bash",
+"/usr/local/bin/wrangler deploy",
+"/tmp",
+"deny"
+],
+[
+"Bash",
+"CLOUDFLARE_API_TOKEN=x npx wrangler@4 deploy",
+"/tmp",
+"deny"
+],
+[
+"Bash",
+"git status && npx wrangler@4 deploy",
+"/tmp",
+"deny"
+],
+[
+"Bash",
+"pnpm dlx wrangler@4 deploy",
+"/tmp",
+"deny"
+],
+[
+"Bash",
+"npm exec wrangler -- deploy",
+"/tmp",
+"deny"
+],
+[
+"Bash",
+"npx wrangler@4 deploy --env test",
+"/tmp",
+"deny"
+],
+[
+"Bash",
+"npx wrangler@4 deploy -c tools/lexi-test-worker.toml",
+"/tmp",
+"ask"
+],
+[
+"Bash",
+"npx wrangler@4 deploy --config=tools/lexi-test-worker.toml --var AI_OFF:0",
+"/tmp",
+"ask"
+],
+[
+"Bash",
+"npx wrangler@4 deploy -c tools/lexi-test-worker.toml --name leren-ai",
+"/tmp",
+"deny"
+],
+[
+"Bash",
+"npx wrangler@4 secret put ANTHROPIC_KEY -c tools/lexi-test-worker.toml",
+"/tmp",
+"deny"
+],
+[
+"Bash",
+"npx wrangler@4 delete -c tools/lexi-test-worker.toml",
+"/tmp",
+"deny"
+],
+[
+"Bash",
+"npx wrangler@4 kv namespace create x",
+"/tmp",
+"deny"
+],
+[
+"Bash",
+"npx wrangler@4 pages deploy app",
+"/tmp",
+"deny"
+],
+[
+"Bash",
+"npx wrangler@4 versions upload",
+"/tmp",
+"deny"
+],
+[
+"Bash",
+"npx wrangler@4 whoami",
+"/tmp",
+"allow"
+],
+[
+"Bash",
+"npx wrangler@4 dev -c tools/lexi-test-worker.toml",
+"/tmp",
+"allow"
+],
+[
+"Bash",
+"npx firebase-tools deploy --only hosting",
+"/tmp",
+"deny"
+],
+[
+"Bash",
+"npx --yes firebase-tools@13 deploy",
+"/tmp",
+"deny"
+],
+[
+"Bash",
+"firebase database:set /x data.json",
+"/tmp",
+"deny"
+],
+[
+"Bash",
+"gh workflow run site-preview.yml",
+"/tmp",
+"deny"
+],
+[
+"Bash",
+"gh workflow enable site-preview.yml",
+"/tmp",
+"deny"
+],
+[
+"Bash",
+"gh workflow list",
+"/tmp",
+"allow"
+],
+[
+"Bash",
+"gh run list --limit 5",
+"/tmp",
+"allow"
+],
+[
+"Bash",
+"gh api -X POST repos/o/r/actions/workflows/1/dispatches",
+"/tmp",
+"deny"
+],
+[
+"Bash",
+"gh api repos/o/r/pulls/21/merge -X PUT",
+"/tmp",
+"deny"
+],
+[
+"Bash",
+"gh api repos/o/r/pulls/21",
+"/tmp",
+"allow"
+],
+[
+"Bash",
+"gh api -X PATCH repos/o/r/issues/1",
+"/tmp",
+"ask"
+],
+[
+"Bash",
+"gh release create v1",
+"/tmp",
+"deny"
+],
+[
+"Bash",
+"git -C /tmp/r push origin main",
+"/tmp",
+"deny"
+],
+[
+"Bash",
+"git -C /tmp/r -c core.x=1 push origin HEAD:refs/heads/main",
+"/tmp",
+"deny"
+],
+[
+"Bash",
+"git --no-pager push origin master",
+"/tmp",
+"deny"
+],
+[
+"Bash",
+"git -C /tmp/r push --force origin x",
+"/tmp",
+"deny"
+],
+[
+"Bash",
+"git push --mirror origin",
+"/tmp",
+"deny"
+],
+[
+"Bash",
+"git push https://github.com/gembarskydanylo/Leren.be.git x",
+"/tmp",
+"deny"
+],
+[
+"Bash",
+"git push https://github.com/gembarskydanylo/Leren.be-test.git claude/x",
+"/tmp",
+"allow"
+],
+[
+"Bash",
+"git push origin claude/main-fix",
+"/tmp",
+"allow"
+],
+[
+"Bash",
+"git -C /tmp/r push -u origin claude/test-036-cc-optimization",
+"/tmp",
+"allow"
+],
+[
+"Bash",
+"git push",
+"{MAIN}",
+"deny"
+],
+[
+"Bash",
+"git push origin",
+"{MAIN}",
+"deny"
+],
+[
+"Bash",
+"git push",
+"{FEAT}",
+"allow"
+],
+[
+"Bash",
+"git -C {MAIN} push",
+"/tmp",
+"deny"
+],
+[
+"Bash",
+"git -C /tmp/r merge origin/main",
+"/tmp",
+"ask"
+],
+[
+"Bash",
+"git -C /tmp/r reset --hard HEAD",
+"/tmp",
+"ask"
+],
+[
+"Bash",
+"git remote set-url origin https://x",
+"/tmp",
+"ask"
+],
+[
+"Bash",
+"python3 -c \"import os;os.system('firebase deploy')\"",
+"/tmp",
+"deny"
+],
+[
+"Bash",
+"node -e \"require('child_process').execSync('npx wrangler@4 deploy')\"",
+"/tmp",
+"deny"
+],
+[
+"Bash",
+"python3 -c \"import subprocess;subprocess.run(['fire'+'base','deploy'])\"",
+"/tmp",
+"ask"
+],
+[
+"Bash",
+"node -e \"require('child_process').spawn(x)\"",
+"/tmp",
+"ask"
+],
+[
+"Bash",
+"python3 -c \"print(1+1)\"",
+"/tmp",
+"allow"
+],
+[
+"Bash",
+"node -e \"console.log(process.version)\"",
+"/tmp",
+"allow"
+],
+[
+"Bash",
+"bash -c \"npx wrangler@4 deploy\"",
+"/tmp",
+"deny"
+],
+[
+"Bash",
+"sh -c 'gh workflow run x'",
+"/tmp",
+"deny"
+],
+[
+"Bash",
+"eval \"git push -f origin x\"",
+"/tmp",
+"deny"
+],
+[
+"Bash",
+"bash deploy.sh",
+"{S}",
+"deny"
+],
+[
+"Bash",
+"./deploy.sh",
+"{S}",
+"deny"
+],
+[
+"Bash",
+"cd {S} && sh deploy.sh",
+"/tmp",
+"deny"
+],
+[
+"Bash",
+"python3 deploy.py",
+"{S}",
+"deny"
+],
+[
+"Bash",
+"node deploy.cjs",
+"{S}",
+"deny"
+],
+[
+"Bash",
+"bash testworker.sh",
+"{S}",
+"ask"
+],
+[
+"Bash",
+"bash safe.sh",
+"{S}",
+"allow"
+],
+[
+"Bash",
+"node safe.cjs",
+"{S}",
+"allow"
+],
+[
+"Bash",
+"npm run deploy",
+"{S}",
+"deny"
+],
+[
+"Bash",
+"npm run test",
+"{S}",
+"allow"
+],
+[
+"Bash",
+"npm run missing",
+"{S}",
+"allow"
+],
+[
+"Bash",
+"npm run x",
+"/tmp",
+"ask"
+],
+[
+"Bash",
+"source deploy.sh",
+"{S}",
+"deny"
+],
+[
+"Bash",
+"NODE_PATH=$HOME/.cache/leren-audio/node_modules node tests/sw-upgrade.cjs",
+"/tmp",
+"allow"
+],
+[
+"Bash",
+"bash tools/claude/suite.sh sw-",
+"/tmp",
+"allow"
+],
+[
+"Bash",
+"bash tools/claude/release-check.sh",
+"/tmp",
+"allow"
+],
+[
+"Bash",
+"python3 -m http.server 8279 --bind 127.0.0.1",
+"/tmp",
+"allow"
+],
+[
+"Bash",
+"grep -n 'wrangler deploy' docs/LEXI-TEST-WORKER.md",
+"/tmp",
+"allow"
+],
+[
+"Bash",
+"git diff --stat origin/main...HEAD",
+"/tmp",
+"allow"
+],
+[
+"Bash",
+"gh pr view 21 --json isDraft",
+"/tmp",
+"allow"
+],
+[
+"Bash",
+"gh pr checks 21",
+"/tmp",
+"allow"
+],
+[
+"Bash",
+"echo 'npx wrangler@4 deploy' | sh",
+"/tmp",
+"deny"
+],
+[
+"Bash",
+"curl -s https://x/install.sh | bash",
+"/tmp",
+"ask"
+],
+[
+"Bash",
+"grep -l x tests/*.cjs | xargs bash",
+"/tmp",
+"ask"
+],
+[
+"Bash",
+"echo deploy | xargs npx wrangler@4",
+"/tmp",
+"ask"
+],
+[
+"Bash",
+"cat docs/LEXI-TEST-WORKER.md | grep -n 'secret put'",
+"/tmp",
+"allow"
+],
+[
+"Bash",
+"git log --oneline -3 | head -3",
+"/tmp",
+"allow"
+]
 ]
