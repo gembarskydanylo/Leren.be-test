@@ -16,6 +16,35 @@
 .chat-log{position:relative}
 /* the focus ring of the message field is drawn inside it, not over the mic / send row below */
 .ai-type input:focus-visible{outline-offset:-3px}
+/* Earlier chat features brought back (TEST-033): style picker, auto voice, light corrections, «I don't know what to answer», practising a correction */
+.chat-prefs{display:grid;gap:10px;margin-top:16px}
+.auto-voice{display:flex;align-items:center;gap:10px;margin-top:14px;font-size:.8rem;font-weight:800;min-height:44px}
+.auto-voice input{appearance:none;-webkit-appearance:none;position:relative;width:52px;height:44px;min-height:44px;margin:0;padding:0;border:0;border-radius:22px;background:transparent;flex-shrink:0;cursor:pointer}
+.auto-voice input::before{content:'';position:absolute;inset-inline:4px;top:10px;height:24px;border-radius:12px;background:var(--soft);border:1px solid var(--control-line,#7b8d79);box-sizing:border-box}
+.auto-voice input::after{content:'';position:absolute;top:13px;inset-inline-start:8px;width:18px;height:18px;border-radius:50%;background:var(--control-line,#7b8d79)}
+.auto-voice input:checked::before{background:var(--brand);border-color:var(--brand)}
+.auto-voice input:checked::after{inset-inline-start:26px;background:var(--on-brand,#fff)}
+.light-fix{margin-top:12px;padding-top:10px;border-top:1px dashed var(--line);font-size:.85rem}
+.light-fix>p small{color:var(--muted);font-weight:800}
+.light-fix b{font-size:.95rem}
+.light-fix details{margin-top:4px}
+.practise{display:flex}
+.ac-tools{display:grid;gap:12px}
+.help-button{justify-self:start;background:var(--soft)}
+.ac-hint,.ac-practice{border:1px solid var(--line);border-radius:18px;padding:16px;background:var(--canvas);display:grid;gap:10px;max-width:640px}
+.ac-hint h3,.ac-practice h3{margin:0;font-family:var(--heading);font-size:1rem}
+.ac-hint small,.ac-practice small{color:var(--muted);font-size:.75rem}
+.ac-hint p,.ac-practice p{margin:0}
+.ac-example{font-size:1.05rem;font-weight:800;overflow-wrap:anywhere}
+.ac-hint .primary{justify-self:start}
+.ac-repeat{display:flex;gap:8px;flex-wrap:wrap}
+.ac-repeat input{flex:1 1 180px;min-width:0;min-height:48px;padding:8px 12px;font-size:1rem}
+.practice-status{font-weight:800;min-height:1.5em}
+.practice-status.ok{color:var(--success)}
+.practice-status.again{color:var(--error)}
+.practice-actions{display:flex;gap:8px;flex-wrap:wrap}
+.practising .ai-type{display:none}
+@media(max-width:767px){.chat-prefs{margin-top:12px}.auto-voice{margin-top:8px;font-size:.75rem}.ac-hint,.ac-practice{padding:12px}}
 .assistant-row{display:flex;align-items:flex-start;gap:12px;direction:ltr;margin-bottom:20px;max-width:100%}
 .assistant-row .g-bub{min-width:0;max-width:calc(100% - 92px);margin:0}
 .assistant-row .reply-avatar{width:80px;height:80px;flex-shrink:0;position:sticky;top:0;margin:0}

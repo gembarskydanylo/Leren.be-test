@@ -3904,7 +3904,7 @@ function applyView(){
 function setView(v){
  delete document.querySelector("main").dataset.ghome;const prev=view;if(v==="path"&&targetLang!=="nl")v="lesson";view=v;if(learningPath)learningPath.pauseSpeech();if(typeof gStop==="function")gStop();
  if(prev==="games"&&v!=="games"){if(gState&&gState.chat)aiRemember(gState);gState=null;}
- const wasGames=cardOwner==="games";
+ const wasGames=cardOwner==="games";{const c=$("card");if(c)c.classList.remove("ai-chat-card","lexi-b")} // TEST-033
  if(v==="path"){if(learningPath)learningPath.open();updateModeButtons()}
  else if(v==="toets"){cardOwner="lesson";mode="toets";updateModeButtons();newRound()}
  else if(v==="lesson"){const need=mode!==lessonMode||wasGames;cardOwner="lesson";mode=lessonMode;updateModeButtons();if(need)newRound()}
@@ -4492,7 +4492,7 @@ function gameDone(id,xp){
 function gHead(title,sub,keep){
  if(!keep)gStop();cardOwner="games";delete document.querySelector("main").dataset.ghome;
  $("prog").textContent=title;$("rnd").textContent=sub||"";gBar(0);
- const card=$("card");card.replaceChildren();
+ const card=$("card");card.classList.remove("ai-chat-card","lexi-b");card.replaceChildren(); // TEST-033: screen classes never leak to the next game
  const top=el("div","g-top");const examBack=gState&&gState.fromExam?window[gState.fromExam===true?"EXAM11":gState.fromExam]:null,fromExam=!!examBack;const back=el("button","g-back",fromExam?({uk:"← Іспит",fr:"← Examen",ar:"→ الامتحان"}[uiLang]||"← Exam"):gU().back);back.type="button";back.onclick=()=>{if(examBack){if(gState.chat)aiRemember(gState);gStop();examBack.open()}else renderGamesHome()};top.appendChild(back);card.appendChild(top);
  return card;
 }
@@ -5530,7 +5530,7 @@ async function lexiMount(scenario,ctx){
  const scene=scenario==="roleplay"?(LEXI_SCENE[ctx.scene]||ctx.scene||"shop"):"shop";
  v.chat=mod.mountLexiChat(root,{engine,demo,scope:host,
   assets:{avatar:"./img/lexi/lexi.webp",review:null},
-  initial:{ui:uiLang,target:targetLang,level:["a11","a12","a21"].includes(curLevel)?curLevel:"a11",scenario,scene,theme:document.documentElement.dataset.theme==="dark"?"dark":"light",draft:typeof ctx.send==="string"?ctx.send.slice(0,600):""},
+  initial:{ui:uiLang,target:targetLang,level:["a11","a12","a21"].includes(curLevel)?curLevel:"a11",scenario,scene,theme:document.documentElement.dataset.theme==="dark"?"dark":"light",draft:typeof ctx.send==="string"?ctx.send.slice(0,600):"",style:["talk","teacher","slow"].includes(lsGet("leren_ai_style",""))?lsGet("leren_ai_style",""):"talk",autoVoice:lsGet("leren_lexi_autovoice",true)!==false},
   context:{topic:ctx.topic||"",lesson:ctx.lesson||"",question:ctx.question||"",answer:ctx.answer||""},
   privacy:demo?null:LEXI_PRIVACY[uiLang]||LEXI_PRIVACY.en,
   sceneLabels:Object.fromEntries(Object.keys(LEXI_OLD_SCENES).map(k=>[k,lang(k)])),
@@ -5543,14 +5543,16 @@ async function lexiMount(scenario,ctx){
    speak:(text,target,onEnd)=>{let done=false;const end=()=>{if(!done){done=true;onEnd&&onEnd()}};if(target===targetLang)say(text,null,end);else{sayIn(text,target);setTimeout(end,Math.min(12000,800+String(text).length*70))}
     return()=>{done=true;try{window.speechSynthesis.cancel()}catch(e){}try{audioEl&&audioEl.pause()}catch(e){}}}},
   onReply:demo?null:(out,info)=>lexiAfterReply(out,info,memo),
+  onStyle:v=>lsSet("leren_ai_style",v),onAutoVoice:v=>lsSet("leren_lexi_autovoice",!!v), // TEST-033: the conversation style and auto voice are remembered on this device
   onLeave:()=>lexiClose(false)});
 }
-// What the old chat did after every answer, unchanged: corrections go to the Dutch mistakes list (when they are shown),
+// What the old chat did after every answer, unchanged: corrections go to the Dutch mistakes list (always in the teacher /
+// slow style and in the scenarios; in the light conversation style only major ones, as the old «talk» style),
 // 5 messages in a conversation = «ai» game (30 XP), 3 questions = «ask» (15 XP), notes every third message.
 function lexiAfterReply(out,info,memo){
  const uc=info.messages.filter(m=>m.role==="user").length;
  if(out.kind==="ask"){if(uc===3)gameDone("ask",15);return}
- const c=out.correction;if(c&&(info.scenario!=="free"||c.severity==="major")&&gNorm(c.corrected)!==gNorm(info.user)&&info.target==="nl")logMistake(c.corrected,c.explanation);
+ const c=out.correction;if(c&&(info.scenario!=="free"||info.style&&info.style!=="talk"||c.severity==="major")&&gNorm(c.corrected)!==gNorm(info.user)&&info.target==="nl")logMistake(c.corrected,c.explanation);
  if(uc===5)gameDone("ai",30);
  if(uc<memo.memoAt){memo.memoAt=0;memo.memoFrom=0}memo.msgs=info.messages;memo.lang=info.ui;memo.target=info.target;
  if(uc>=2&&uc%3===2)aiRemember(memo);
@@ -5643,7 +5645,7 @@ function aiStartExam(scene,scenario){
  aiRender();aiSend(null);
 }
 function aiRender(){
- const g=aiU(),s=gState;if(!aiCurrent(s))return;const card=gHead(aiTitle(),g.sub[targetLang]||g.sub.nl);card.classList.add("ai-chat-card");
+ const g=aiU(),s=gState;if(!aiCurrent(s))return;const card=gHead(aiTitle(),g.sub[targetLang]||g.sub.nl);card.classList.add("ai-chat-card");if(s.exam)card.classList.add("lexi-b"); // TEST-033: AI exam in the Concept B look
  if(s.scene&&SCENE_ART[s.scene]){const b=el("div","st-banner sm");b.innerHTML=sceneArt(s.scene);card.appendChild(b)}
  if(s.exam){const ex=s.exam,n=ex.list.length,cur=ex.list[Math.min(ex.i,n-1)];const p=el("p","ex-progress",ex.done?(uiLang==="uk"?"✅ Пробний іспит завершено":"✅ Mock exam finished"):(uiLang==="uk"?"Тема ":"Topic ")+cur.ti+"/6 · "+cur.tn+" · "+(uiLang==="uk"?"питання ":"question ")+(ex.i+1)+"/"+n);if(!ex.done&&s.msgs.length>2){const rs=el("button","ex-restart",uiLang==="uk"?"↺ Почати заново":"↺ Start over");rs.type="button";rs.onclick=()=>aiStart({id:"exam11",fromExam:true,fresh:true});p.appendChild(rs)}card.appendChild(p);$("barfill").style.width=Math.round((ex.done?n:ex.i)/n*100)+"%"}
  if(!s.exam){
@@ -5757,7 +5759,7 @@ function askStartExam(opts){
  if(opts&&opts.send)askSend(opts.send);
 }
 function askRender(){
- const g=aiU(),s=gState,card=gHead(g.askTitle,g.askSub);
+ const g=aiU(),s=gState,card=gHead(g.askTitle,g.askSub);if(s.fromExam)card.classList.add("lexi-b"); // TEST-033: exam writing check in the Concept B look
  const chat=el("div","g-chat ai-chat");
  const intro=el("div","ai-row");const av0=el("div","st-av xs");av0.innerHTML=lexiAv();intro.append(av0,el("div","g-bub them ai-ans",g.askIntro));chat.appendChild(intro);
  s.msgs.forEach(m=>{
