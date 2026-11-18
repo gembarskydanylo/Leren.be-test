@@ -790,5 +790,119 @@
 "git log --oneline -3 | head -3",
 "/tmp",
 "allow"
+],
+[
+"Bash",
+"git push",
+"{UP_SIMPLE}",
+"allow"
+],
+[
+"Bash",
+"git push origin",
+"{UP_SIMPLE}",
+"allow"
+],
+[
+"Bash",
+"git push",
+"{UP_UPSTREAM}",
+"deny"
+],
+[
+"Bash",
+"git push origin",
+"{UP_UPSTREAM}",
+"deny"
+],
+[
+"Bash",
+"git push -u origin",
+"{UP_UPSTREAM}",
+"deny"
+],
+[
+"Bash",
+"git push origin HEAD",
+"{UP_UPSTREAM}",
+"allow"
+],
+[
+"Bash",
+"git push origin claude/feat",
+"{UP_UPSTREAM}",
+"allow"
+],
+[
+"Bash",
+"git push origin HEAD:main",
+"{UP_UPSTREAM}",
+"deny"
+],
+[
+"Bash",
+"git -C {UP_UPSTREAM} push",
+"/tmp",
+"deny"
+],
+[
+"Bash",
+"git -c push.default=upstream push",
+"{UP_SIMPLE}",
+"deny"
+],
+[
+"Bash",
+"git -c push.default=current push",
+"{UP_UPSTREAM}",
+"allow"
+],
+[
+"Bash",
+"git push",
+"{UP_OWNREMOTE}",
+"allow"
+],
+[
+"Bash",
+"git push",
+"{UP_MATCHING}",
+"ask"
+],
+[
+"Bash",
+"git push --all origin",
+"{UP_SIMPLE}",
+"ask"
+],
+[
+"Bash",
+"git config push.default upstream",
+"{UP_SIMPLE}",
+"ask"
+],
+[
+"Bash",
+"git config --get push.default",
+"{UP_SIMPLE}",
+"allow"
+],
+[
+"Bash",
+"git branch --set-upstream-to=origin/main",
+"{UP_SIMPLE}",
+"ask"
+],
+[
+"Bash",
+"git push -u origin claude/feat",
+"{UP_SIMPLE}",
+"allow"
+],
+[
+"Bash",
+"git push --set-upstream origin main",
+"/tmp",
+"deny"
 ]
 ]

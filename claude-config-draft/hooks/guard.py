@@ -39,6 +39,7 @@ ASK = [
     (G + r'branch\s+-D\b', 'примусове видалення гілки'),
     (G + r'push\b[^|;&\n]*--delete', 'видалення віддаленої гілки'),
     (G + r'remote\s+(add|set-url)\b', 'зміна remote'),
+    (r'\bgit\b[^|;&\n]*\bconfig\b(?![^|;&\n]*(--get|--list|\s-l\b|--show))[^|;&\n]*\bpush\.default\b|\bgit\b[^|;&\n]*\s-c\s+push\.default=(upstream|tracking|matching)\b|\bgit\b[^|;&\n]*\bbranch\b[^|;&\n]*(--set-upstream-to|-u)\b|\bgit\b[^|;&\n]*\bpush\b[^|;&\n]*(-u|--set-upstream)\s+\S+\s+\S*(main|master)\b', 'зміна push.default/upstream (ризик push у main)'),
     (r'\|\s*(?:\S*/)?(ba|z|da)?sh\b|\|\s*xargs\b[^|;&\n]*\b(ba|z)?sh\b|\bxargs\b[^|;&\n]*\b(git|gh|npx|wrangler|firebase)\b', 'передача даних у shell/xargs — вміст не перевірити'),
     (r'\brm\s+-[a-zA-Z]*r[a-zA-Z]*f?\b[^|;&\n]*(/private/tmp/leren-|scratchpad/(test|int|l\d+|lexi|q)\b)', 'видалення worktree-каталогу'),
 ]
@@ -112,8 +113,10 @@ def worker_deploy(text):
         return ('deny', 'deploy Worker без конфігурації тестового Worker (tools/lexi-test-worker.toml) заборонено')
     return None
 
-def bare_push_from_main(cmd, cwd):
-    """git push без явного refspec, коли поточна гілка main/master."""
+def bare_push_risk(cmd, cwd):
+    """git push без явного refspec. Повертає ('deny'|'ask', причина) або None.
+    deny: поточна гілка main/master; або push.default=upstream|tracking і upstream гілки — main/master.
+    ask: push.default=matching (може відправити й main), push --all/--mirror без явної гілки."""
     cur = cwd
     for seg in re.split(r'&&|\|\||;|\||\n', cmd):
         try: a = shlex.split(seg)
@@ -122,17 +125,27 @@ def bare_push_from_main(cmd, cwd):
         if not a: continue
         if a[0] == 'cd' and len(a) > 1: cur = os.path.realpath(os.path.join(cur, os.path.expanduser(a[1]))); continue
         if os.path.basename(a[0]) != 'git': continue
-        d, i = cur, 1
+        d, i, pd = cur, 1, None
         while i < len(a) and a[i].startswith('-'):
             if a[i] in ('-C', '-c') and i + 1 < len(a):
                 if a[i] == '-C': d = os.path.join(d, os.path.expanduser(a[i+1]))
+                elif a[i+1].lower().startswith('push.default='): pd = a[i+1].split('=', 1)[1].lower()
                 i += 2
             else: i += 1
-        if i < len(a) and a[i] == 'push':
-            pos = [x for x in a[i+1:] if not x.startswith('-')]
-            if len(pos) <= 1 and os.path.isdir(d) and git(d, 'rev-parse', '--abbrev-ref', 'HEAD') in ('main', 'master'):
-                return True
-    return False
+        if i >= len(a) or a[i] != 'push' or not os.path.isdir(d): continue
+        rest = a[i+1:]
+        pos = [x for x in rest if not x.startswith('-')]
+        if len(pos) > 1: continue          # є явний refspec: його перевіряють DENY-правила
+        branch = git(d, 'rev-parse', '--abbrev-ref', 'HEAD')
+        if branch in ('main', 'master'): return ('deny', 'git push з гілки main (публікує Pages) заборонено')
+        if '--all' in rest or '--mirror' in rest: return ('ask', 'git push --all/--mirror може відправити main')
+        pd = pd or (git(d, 'config', '--get', 'push.default') or 'simple').lower()
+        if pd in ('upstream', 'tracking'):
+            up = git(d, 'rev-parse', '--abbrev-ref', '@{upstream}')
+            if up.split('/', 1)[-1] in ('main', 'master'):
+                return ('deny', f'push.default={pd} і upstream гілки {branch} — {up}: push піде в main')
+        if pd == 'matching': return ('ask', 'push.default=matching може відправити main')
+    return None
 
 def scan_text(text):
     """Повертає (decision, reason) для небезпечного вмісту або None."""
@@ -178,7 +191,8 @@ def referenced_code(cmd, cwd):
 
 def main():
     try: ev = json.load(sys.stdin)
-    except Exception: sys.exit(0)
+    except Exception:
+        print('[leren-guard] не вдалося прочитати подію hook (fail-closed)', file=sys.stderr); sys.exit(2)
     tool, inp, cwd = ev.get('tool_name', ''), ev.get('tool_input') or {}, ev.get('cwd') or os.getcwd()
     if tool == 'Bash':
         raw = inp.get('command', '')
@@ -188,7 +202,8 @@ def main():
         if prod_write(raw, cwd): out('deny', 'production-репозиторій лише для читання')
         v = worker_deploy(cmd)
         if v and v[0] == 'deny': out(*v)
-        if bare_push_from_main(raw, cwd): out('deny', 'git push з гілки main (публікує Pages) заборонено')
+        v = bare_push_risk(raw, cwd)
+        if v and v[0] == 'deny': out(*v)
         verdicts = []
         for name, text in referenced_code(raw, cwd):
             if text == '\0unknown': verdicts.append(('ask', f'{name}: вміст скрипта невідомий')); continue
@@ -197,6 +212,7 @@ def main():
         for d in ('deny', 'ask'):
             for v in verdicts:
                 if v[0] == d: out(d, v[1])
+        if v: out(*v)
         if INLINE.search(cmd): out('ask', 'вбудований код запускає процеси — вміст не перевірити')
         for rx, why in ASK:
             if re.search(rx, cmd): out('ask', why)
