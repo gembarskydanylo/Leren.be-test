@@ -1,4 +1,4 @@
-// TEST-031 · Lexi in the real app/ (Chromium, emulated phone) with a MOCK AI on the same origin — no real AI call.
+// TEST-031 / TEST-032 · Lexi in the real app/ (the chat itself: tests/lexi-integration.cjs) (Chromium, emulated phone) with a MOCK AI on the same origin — no real AI call.
 // Every AI entry opens Lexi (name, picture, char "lexi" in every request); the request carries only the learning context;
 // a correction is shown and the reply is spoken; API failure → message + retry without a duplicate; minute limit; offline;
 // roleplay (school, in French); lesson assistant (lesson, exercise, answer); voice question: recognised text is shown and
@@ -50,56 +50,8 @@ const CHAT_FIX = {reply: 'Ah, in Gent! Werk je daar ook?', translation: 'А, у 
   // ---- A · Lexi available (local test endpoint on localhost)
   const {ctx, page, errors, outside} = await open({endpoint: 'http://localhost:' + port + '/mock-ai/'});
   const before = await data(page);
-  queue.push({status: 200, body: CHAT_OK});
-  await page.evaluate(() => { setView('games'); aiStart() }); await page.waitForSelector('.ai-chat .g-bub.them'); // «Talk to Lexi»: the saved style (teacher by default) — corrections are shown
-  const head = (await page.textContent('#prog')) + ' ' + (await page.textContent('.ai-chat-card')); // title in the game header (#prog)
-  assert.match(head, /Lexi/, 'the chat is Lexi\'s'); assert.doesNotMatch(head, /Пітер|Дафн|Peter|Dafna/, 'no old AI tutor in the chat');
-  assert(await page.locator('.ai-chat-card img.lexi-av').count() >= 1, 'Lexi\'s picture');
-  let b = last(); assert.equal(b.char, 'lexi'); assert.equal(b.scenario, 'free'); assert.equal(b.style, 'teacher'); assert.equal(b.mode, 'chat'); assert.equal(b.target, 'nl'); assert.equal(b.lang, 'uk'); assert.equal(b.level, 'a11');
-  assert.deepEqual(Object.keys(b.profile).filter(k => !ALLOWED_PROFILE.includes(k)), [], 'profile = learning context only');
-  assert(!JSON.stringify(b).match(/@|leren_acct|uid|device/i), 'no personal or account data in the body');
-  // correction + spoken reply
-  queue.push({status: 200, body: CHAT_FIX}); await chatSend(page, 'Ik woon op Gent'); await page.waitForSelector('.ai-fix');
-  assert.match(await page.textContent('.ai-fix'), /Ik woon in Gent\./); assert.equal(last().messages.at(-1).content, 'Ik woon op Gent');
-  assert(await page.evaluate(() => window.__said.includes('Ah, in Gent! Werk je daar ook?')), 'the reply is spoken');
-  // API failure → message, retry, no duplicate message
-  const n0 = await page.locator('.ai-chat .g-bub.me').count();
-  queue.push({status: 502, body: {error: 'ai'}}); await chatSend(page, 'Ik werk in een winkel.'); await page.waitForSelector('.ac-tools .st-fb.bad');
-  queue.push({status: 200, body: CHAT_OK}); await page.click('.ac-tools .btn'); await page.waitForFunction(n => document.querySelectorAll('.ai-chat .g-bub.me').length === n && !document.querySelector('.ac-tools .st-fb.bad'), n0 + 1);
-  assert.equal(last().messages.filter(m => m.content === 'Ik werk in een winkel.').length, 1, 'retry sends the message once');
-  // minute limit
-  queue.push({status: 429, body: {error: 'slow', retry_after: 60}}); await chatSend(page, 'Wat doe jij?'); await page.waitForSelector('.ac-tools .st-fb.bad');
-  assert.match(await page.textContent('.ac-tools .st-fb.bad'), /хвилин|секунд|зачекай|Зачекай/i, 'minute limit says to wait');
-  // offline
-  queue.push({status: 200, body: CHAT_OK}); await page.click('.ac-tools .btn'); await page.waitForFunction(() => !document.querySelector('.ac-tools .st-fb.bad'));
-  await ctx.setOffline(true); const s0 = seen.length; await chatSend(page, 'Ben je er nog?'); await page.waitForSelector('.ac-tools .st-fb.bad');
-  assert.match(await page.textContent('.ac-tools .st-fb.bad'), /офлайн/); assert.equal(seen.length, s0, 'offline: nothing sent'); await ctx.setOffline(false);
-  assert.deepEqual(await data(page), before, 'failures, limits and offline leave XP, lessons and LIFE XP unchanged');
-  console.log('PASS: chat — Lexi\'s name and picture, char lexi + learning context only, correction shown, reply spoken, API failure → retry once, minute limit, offline (nothing sent), XP untouched');
-
-  // ---- roleplay in French (school) and the lesson assistant
-  await page.evaluate(() => { changeTargetLang('fr') }); queue.push({status: 200, body: {...CHAT_OK, reply: 'Bonjour ! Vous êtes le parent de Léa ?'}});
-  await page.evaluate(() => lexiOpen('roleplay', {scene: 'school'})); await page.waitForFunction(() => document.querySelectorAll('.ai-chat .g-bub.them').length === 1);
-  b = last(); assert.equal(b.scenario, 'roleplay'); assert.equal(b.scene, 'school'); assert.equal(b.target, 'fr'); assert.equal(b.char, 'lexi');
-  await page.evaluate(() => { changeTargetLang('nl') });
-  for (const [sc, style] of [['free', 'talk'], ['speaking', 'slow']]) { queue.push({status: 200, body: CHAT_OK}); const k = seen.length; await page.evaluate(sc => lexiOpen(sc), sc); await page.waitForFunction(k => window.__n = k, k); await page.waitForTimeout(400); const q = seen.slice(k).find(x => x.mode === 'chat'); assert.equal(q.scenario, sc); assert.equal(q.style, style, sc + ' style') }
-  queue.push({status: 200, body: {answer: 'Так, правильно: «Ik heet Anna».', examples: [{lang: 'nl', text: 'Ik heet Tom.', translation: 'Мене звати Том.'}]}});
-  await page.evaluate(() => lexiOpen('lesson', {lesson: 'Begroeten', question: 'Hoe heet je?', answer: 'Ik heet Anna', send: 'Klopt mijn antwoord?'}));
-  await page.waitForFunction(() => [...document.querySelectorAll('.g-bub.them.ai-ans')].some(x => x.textContent.includes('Ik heet Anna')));
-  b = last(); assert.equal(b.mode, 'ask'); assert.equal(b.scenario, 'lesson'); assert.equal(b.focus, 'lesson'); assert.equal(b.profile.lesson, 'Begroeten'); assert.equal(b.profile.question, 'Hoe heet je?'); assert.equal(b.profile.answer, 'Ik heet Anna');
-  console.log('PASS: roleplay «school» in French and the lesson assistant (lesson, exercise, answer) on the same engine');
-
-  // ---- voice question: shown, corrected, then sent; microphone refused
-  await page.evaluate(() => lexiOpen('grammar')); await page.waitForSelector('.g-mic-btn');
-  const s1 = seen.length; await page.evaluate(() => { window.__srArmed = true; window.__srText = 'hoe zeg je hallo' }); await page.click('.g-mic-btn');
-  await page.waitForFunction(() => document.querySelector('form.g-type input').value === 'hoe zeg je hallo', null, {timeout: 15000});
-  assert.equal(seen.length, s1, 'recognised text is not sent by itself'); assert.match(await page.textContent('.g-heard'), /Перевір текст/);
-  await page.fill('form.g-type input', 'hoe zeg je goedemorgen'); queue.push({status: 200, body: {answer: '«Goedemorgen».', examples: []}}); await page.click('form.g-type button[type=submit]');
-  await page.waitForFunction(n => document.querySelectorAll('.g-bub.them.ai-ans').length > n, 1);
-  assert.equal(last().messages.at(-1).content, 'hoe zeg je goedemorgen', 'the corrected text is what Lexi gets'); assert.equal(last().scenario, 'grammar');
-  await page.evaluate(() => { window.__srArmed = true; window.__srDeny = true }); await page.click('.g-mic-btn');
-  await page.waitForFunction(() => /мікрофон|Мікрофон|дозв/.test(document.querySelector('.g-heard').textContent), null, {timeout: 15000});
-  console.log('PASS: voice — recognised question shown in the field, corrected by the learner, only then sent; microphone refused → message');
+  // The chat, roleplay / lesson assistant and voice checks moved to tests/lexi-integration.cjs with the TEST-030 chat (TEST-032).
+  await page.evaluate(() => setView('games'));
 
   // ---- exam A1.1 with AI on: the AI coach cards are Lexi (name and picture), the page does not break
   await page.evaluate(() => EXAM11.open()); await page.waitForSelector('.ex-ai', {timeout: 15000});
@@ -114,7 +66,7 @@ const CHAT_FIX = {reply: 'Ah, in Gent! Werk je daar ook?', translation: 'А, у 
   // the real «talk to AI» buttons still pass an old tutor id (learning-path tile: 'peter'); the bridge ignores it
   const tile = await page.evaluate(() => { const t = document.querySelector('.fh-more-tile[data-more="chat"]') || [...document.querySelectorAll('.hs-button')].find(x => /AI/.test(x.textContent)); if (!t) return ''; t.click(); return t.className });
   assert(tile, 'a «talk to AI» button exists on the home');
-  await page.waitForSelector('.ai-chat-card'); assert.match(await page.textContent('#prog'), /Lexi/);
+  await page.waitForSelector('.lexi-host >> .ai-chat-card'); assert.match(await page.textContent('.lexi-host >> #prog'), /Lexi/);
   assert.equal(await page.evaluate(() => localStorage.getItem('leren_char')), '"peter"', 'leren_char unchanged');
   assert.deepEqual(errors, []); assert.deepEqual(outside, [], 'no request outside localhost (no real AI)');
   await ctx.close();

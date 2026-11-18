@@ -5482,17 +5482,79 @@ function lexi(){const L=window.LerenLexi;if(L&&!lexiReady){L.configure({endpoint
 const AI_ENDPOINT=AI_LOCAL||(prodServices()?AI_URL:"");
 // What Lexi knows about the moment: interface + studied language, level, topic; lesson / question / answer when given.
 function lexiCtx(s,extra){return {ui:s&&s.lang||uiLang,target:s&&s.target||targetLang,level:curLevel,topic:aiProfile().topic,...(s&&s.lexiCtx||{}),...(extra||{})}}
-// Lexi's picture until the approved artwork exists (TEST-030): the LerenBe cat.
-const lexiAv=()=>'<img class="lexi-av" src="./img/home/hero-cat-v196-320.webp" alt="" width="64" height="64" decoding="async" style="width:100%;height:100%;object-fit:contain">';
+// Lexi's approved picture (TEST-030, img/lexi/lexi.webp — same bytes as design-lab/test-030/assets/lexi-master-proposal.webp).
+const lexiAv=()=>'<img class="lexi-av" src="./img/lexi/lexi.webp" alt="" width="64" height="64" decoding="async" style="width:100%;height:100%;object-fit:contain">';
 // Lexi cannot run here (beta snapshot, no endpoint, offline at start): a clear card instead of a chat that fails.
 function lexiBlocked(title){const L=lexi(),a=L?L.availability():{ok:false,code:"unavailable"};if(a.ok)return false;const card=gHead(title,"");const h=el("div","st-head lexi-off");const av=el("div","st-av");av.innerHTML=lexiAv();h.append(av,el("div","st-say",L?L.message(a.code,uiLang):"Lexi …"));h.setAttribute("role","status");card.appendChild(h);
  if(a.code==="offline"){const r=el("button","btn primary",({uk:"Спробувати ще раз",en:"Try again",fr:"Réessayer",ar:"حاول مرة أخرى"})[uiLang]||"Try again");r.type="button";r.onclick=()=>{if(gState&&gState.lexiRetry)gState.lexiRetry()};card.appendChild(r)}
  return true}
-// Opens Lexi from anywhere (UI contract): scenario free | grammar | roleplay | lesson | speaking; ctx: {topic, lesson, question, answer, scene}.
-function lexiOpen(scenario,ctx){const L=lexi(),sc=L?L.scenario(scenario):"free",c=ctx&&typeof ctx==="object"?ctx:{};if(view!=="games")setView("games");
- if(sc==="grammar"||sc==="lesson")return askStart({scenario:sc,lexiCtx:{lesson:c.lesson,question:c.question,answer:c.answer,topic:c.topic},send:c.send});
- if(sc==="roleplay"){const id=L&&L.ROLEPLAYS[c.scene]||c.scene;return aiStart(SCENES.find(x=>x.id===id)||{id:L&&L.ROLEPLAYS[c.scene]?id:"super"})}
- return aiStart(null,sc)}
+// Opens Lexi from anywhere (UI contract): scenario free | grammar | roleplay | lesson | speaking; ctx: {topic, lesson, question, answer, scene, send}.
+// TEST-032: this is the chat designed in TEST-030 (modules/lexi/chat.js, generated from design-lab/test-030/lexi by
+// tools/lexi-ui-port.cjs), loaded on first use and shown full screen over the app in a shadow root (its styles cannot
+// touch the app, the app's cannot touch it). It talks only to LerenLexi; XP, the mistakes list and notes keep the rules
+// of the old chat. The A1.1 speaking exam and the exam writing check keep their own screens (aiStartExam / askStartExam).
+const LEXI_V="255";
+const LEXI_SCENE={super:"shop",huisarts:"doctor",station:"transport",gemeente:"municipality",werk:"work",school:"school"}; // worker id → chat id
+const LEXI_OLD_SCENES={cafe:{uk:"Кафе",en:"Café",fr:"Café",ar:"مقهى"},apotheek:{uk:"Аптека",en:"Pharmacy",fr:"Pharmacie",ar:"صيدلية"},buren:{uk:"Сусіди",en:"Neighbours",fr:"Voisins",ar:"الجيران"}};
+const LEXI_PRIVACY={uk:"Повідомлення надсилаються до AI через сервер lerenbe.com і не зберігаються. Голос розпізнає браузер; запис не зберігається.",en:"Messages go to the AI through the lerenbe.com server and are not stored. Your browser recognises speech; no recording is kept.",fr:"Les messages passent par le serveur lerenbe.com vers l’IA et ne sont pas conservés. Le navigateur reconnaît la voix ; rien n’est enregistré.",ar:"تُرسل الرسائل إلى الذكاء الاصطناعي عبر خادم lerenbe.com ولا تُحفظ. يتعرّف المتصفح على الصوت؛ لا يُحفظ أي تسجيل."};
+// Demo replies for checking the screens on a phone (TEST-030 fixture, labelled «Demo»): never on lerenbe.com.
+const lexiDemo=()=>{if(prodServices())return false;try{if(/[?&]lexi=demo\b/.test(location.search))sessionStorage.setItem("leren_lexi_demo","1");return sessionStorage.getItem("leren_lexi_demo")==="1"}catch(e){return false}};
+let lexiView=null,lexiReturn=""; // lexiReturn: the screen to go back to when the consent / «off» card had to be shown first
+function lexiOpen(scenario,ctx){const L=lexi(),sc=L?L.scenario(scenario):"free",c=ctx&&typeof ctx==="object"?ctx:{},title=sc==="grammar"||sc==="lesson"?aiU().askTitle:aiTitle();
+ if(!lexiDemo()){const ready=L&&L.availability().ok&&lsGet("leren_ai_consent18",false);
+  if(!ready){if(view!=="games"){lexiReturn=view;setView("games")}gState={lexiRetry:()=>lexiOpen(scenario,ctx)};if(lexiBlocked(title))return;if(!aiConsent(title,()=>lexiOpen(scenario,ctx)))return}}
+ lexiMount(sc,c)}
+window.lexiOpen=lexiOpen;
+function lexiClose(fromHistory){const v=lexiView;if(!v)return;lexiView=null;try{v.chat&&v.chat.destroy()}catch(e){}try{gRec&&gRec.abort()}catch(e){}
+ v.host.remove();v.inert.forEach(n=>{n.inert=false});document.documentElement.classList.remove("lexi-open");removeEventListener("keydown",v.esc,true);
+ if(!fromHistory&&v.pushed&&history.state&&history.state.lexi){v.closing=true;history.back()}
+ if(v.back&&view==="games")setView(v.back);
+ try{v.opener&&v.opener.isConnected&&v.opener.focus({preventScroll:true})}catch(e){}}
+addEventListener("popstate",()=>{if(lexiView)lexiClose(true)}); // Android back button / browser back closes Lexi
+async function lexiMount(scenario,ctx){
+ const L=lexi(),demo=lexiDemo();if(!L&&!demo)return;
+ const back=lexiView?lexiView.back:lexiReturn,opener=lexiView?lexiView.opener:document.activeElement,had=!!(history.state&&history.state.lexi);lexiReturn="";
+ if(lexiView)lexiClose(true); // another scenario from inside Lexi: same history entry
+ const host=document.createElement("div");host.className="lexi-host";host.setAttribute("role","dialog");host.setAttribute("aria-modal","true");host.setAttribute("aria-label","Lexi");
+ const sh=host.attachShadow({mode:"open"}),link=document.createElement("link"),root=document.createElement("div");link.rel="stylesheet";link.href="./modules/lexi/chat.css?v="+LEXI_V;sh.append(link,root);
+ const inert=[...document.body.children].filter(n=>!n.inert&&n.tagName!=="SCRIPT");inert.forEach(n=>{n.inert=true});
+ document.body.appendChild(host);document.documentElement.classList.add("lexi-open");
+ const v={host,inert,opener,back,pushed:false,chat:null,esc:e=>{if(e.key==="Escape"&&lexiView===v){e.stopPropagation();lexiClose(false)}}};lexiView=v;addEventListener("keydown",v.esc,true);
+ try{if(!had)history.pushState({lexi:1},"");v.pushed=true}catch(e){}
+ let mod,mock;
+ try{[mod,mock]=await Promise.all([import("./modules/lexi/chat.js?v="+LEXI_V),demo?import("./modules/lexi/mock.js?v="+LEXI_V):null,new Promise(r=>{link.onload=link.onerror=r})])}
+ catch(e){if(lexiView===v){lexiClose(false);toast(L?L.message(navigator.onLine===false?"offline":"network",uiLang):"Lexi …")}return}
+ if(lexiView!==v)return;
+ const engine=demo?{...mock.createDemoEngine(),voice:()=>L?L.voice():{listen:false,speak:false}}:L;
+ const g=aiU(),memo={msgs:[],memoFrom:0,memoAt:0},lang=k=>LEXI_OLD_SCENES[k]&&(LEXI_OLD_SCENES[k][uiLang]||LEXI_OLD_SCENES[k].en);
+ const scene=scenario==="roleplay"?(LEXI_SCENE[ctx.scene]||ctx.scene||"shop"):"shop";
+ v.chat=mod.mountLexiChat(root,{engine,demo,scope:host,
+  assets:{avatar:"./img/lexi/lexi.webp",review:null},
+  initial:{ui:uiLang,target:targetLang,level:["a11","a12","a21"].includes(curLevel)?curLevel:"a11",scenario,scene,theme:document.documentElement.dataset.theme==="dark"?"dark":"light",draft:typeof ctx.send==="string"?ctx.send.slice(0,600):""},
+  context:{topic:ctx.topic||"",lesson:ctx.lesson||"",question:ctx.question||"",answer:ctx.answer||""},
+  privacy:demo?null:LEXI_PRIVACY[uiLang]||LEXI_PRIVACY.en,
+  sceneLabels:Object.fromEntries(Object.keys(LEXI_OLD_SCENES).map(k=>[k,lang(k)])),
+  extra:()=>demo?{}:{learning:aiProfile(),memory:aiMemory()},
+  report:demo?null:{label:g.report,send:m=>aiReport(m.content+(m.result&&m.result.translation?"\n("+m.result.translation+")":""),m.result&&m.result.kind==="ask"?"ask":"chat")},
+  memory:demo?null:{get:aiMemory,forget:aiForget,title:g.memT,note:g.memNote,forgetLabel:g.memForget},
+  voice:{listen:({lang:l,ui,scenario:sc,onText,onEnd,onError})=>{const tag=L?L.speechTag(sc==="grammar"||sc==="lesson"?ui:l):undefined;
+    listenOnce(alts=>{onText(alts[0]);onEnd()},err=>{if(err==="no-speech"){onEnd();return}onError({code:err==="not-allowed"||err==="service-not-allowed"?"micDenied":err})},tag);
+    return()=>{try{gRec&&gRec.stop&&gRec.stop()}catch(e){}}},
+   speak:(text,target,onEnd)=>{let done=false;const end=()=>{if(!done){done=true;onEnd&&onEnd()}};if(target===targetLang)say(text,null,end);else{sayIn(text,target);setTimeout(end,Math.min(12000,800+String(text).length*70))}
+    return()=>{done=true;try{window.speechSynthesis.cancel()}catch(e){}try{audioEl&&audioEl.pause()}catch(e){}}}},
+  onReply:demo?null:(out,info)=>lexiAfterReply(out,info,memo),
+  onLeave:()=>lexiClose(false)});
+}
+// What the old chat did after every answer, unchanged: corrections go to the Dutch mistakes list (when they are shown),
+// 5 messages in a conversation = «ai» game (30 XP), 3 questions = «ask» (15 XP), notes every third message.
+function lexiAfterReply(out,info,memo){
+ const uc=info.messages.filter(m=>m.role==="user").length;
+ if(out.kind==="ask"){if(uc===3)gameDone("ask",15);return}
+ const c=out.correction;if(c&&(info.scenario!=="free"||c.severity==="major")&&gNorm(c.corrected)!==gNorm(info.user)&&info.target==="nl")logMistake(c.corrected,c.explanation);
+ if(uc===5)gameDone("ai",30);
+ if(uc<memo.memoAt){memo.memoAt=0;memo.memoFrom=0}memo.msgs=info.messages;memo.lang=info.ui;memo.target=info.target;
+ if(uc>=2&&uc%3===2)aiRemember(memo);
+}
 window.lexiOpen=lexiOpen;
 const AI_TITLE={nl:"Praat met Lexi · AI",en:"Talk to Lexi · AI",fr:"Parle avec {N} · IA"};
 // Game and chat title in the interface language (the conversation itself stays in Dutch).
@@ -5565,9 +5627,12 @@ function aiConsent(title,go){
  {const g=aiU(),card=gHead(title,"");const h=el("div","st-head");const av=el("div","st-av");av.innerHTML=lexiAv();h.append(av,el("div","st-say",g.intro));card.appendChild(h);
   const box=el("div","ai-consent");box.append(el("h3","",g.consentT),el("p","",g.consent));const age=el("label","ai-age");const cb=el("input");cb.type="checkbox";age.append(cb,el("span","",g.adult));box.appendChild(age);const ok=el("button","btn primary",g.agree);ok.disabled=true;cb.onchange=()=>{ok.disabled=!cb.checked};ok.onclick=()=>{if(!cb.checked)return;lsSet("leren_ai_consent18",true);go()};box.appendChild(ok);card.appendChild(box);return false}
 }
-function aiStart(scene,scenario){
- gState={lexiRetry:()=>aiStart(scene,scenario)};if(lexiBlocked(aiTitle()))return;
- if(!aiConsent(aiTitle(),()=>aiStart(scene,scenario)))return;
+function aiStart(scene,scenario){ // TEST-032: conversations open the Lexi chat; the A1.1 mock speaking exam keeps its own screen
+ if(!(scene&&scene.id==="exam11"))return lexiOpen(scene?"roleplay":scenario||"free",scene?{scene:scene.id}:{});
+ return aiStartExam(scene,scenario)}
+function aiStartExam(scene,scenario){
+ gState={lexiRetry:()=>aiStartExam(scene,scenario)};if(lexiBlocked(aiTitle()))return;
+ if(!aiConsent(aiTitle(),()=>aiStartExam(scene,scenario)))return;
  const sid=scene&&scene.id,style=scenario==="speaking"?"slow":scenario==="free"?"talk":["talk","teacher","slow"].includes(lsGet("leren_ai_style","teacher"))?lsGet("leren_ai_style","teacher"):"teacher";
  gState={chat:true,msgs:[],busy:false,draft:"",target:targetLang,lang:uiLang,view,scene:sid&&(sid!=="exam11"||targetLang==="nl")?sid:null,fromExam:!!(scene&&scene.fromExam),style};
  if(gState.scene==="exam11"&&window.EXAM11&&EXAM11.speakScript){
@@ -5683,8 +5748,11 @@ function sayIn(text,lang){ // examples may be in another language than the one b
   const pre=u.lang.slice(0,2),v=(speechVoices.length?speechVoices:s.getVoices()).find(x=>x.lang.toLowerCase().startsWith(pre));if(v){u.voice=v;u.lang=v.lang}
   ttsSpeak([u])}catch(e){}
 }
-function askStart(opts){
- const g=aiU();gState={lexiRetry:()=>askStart(opts)};if(lexiBlocked(g.askTitle))return;if(!aiConsent(g.askTitle,()=>askStart(opts)))return;
+function askStart(opts){ // TEST-032: questions open the Lexi chat; the exam writing check (focus exam11 / exam12) keeps its own screen
+ if(!(opts&&opts.focus))return lexiOpen(opts&&opts.scenario==="lesson"?"lesson":"grammar",{...(opts&&opts.lexiCtx||{}),send:opts&&opts.send});
+ return askStartExam(opts)}
+function askStartExam(opts){
+ const g=aiU();gState={lexiRetry:()=>askStartExam(opts)};if(lexiBlocked(g.askTitle))return;if(!aiConsent(g.askTitle,()=>askStartExam(opts)))return;
  gState={ask:true,msgs:[],busy:false,focus:opts&&opts.focus||null,scenario:opts&&opts.scenario==="lesson"?"lesson":"grammar",lexiCtx:opts&&opts.lexiCtx||null,fromExam:opts&&opts.focus==="exam11"?"EXAM11":opts&&opts.focus==="exam12"?"EXAM12":false};askRender();
  if(opts&&opts.send)askSend(opts.send);
 }
@@ -5999,13 +6067,13 @@ function initLearningPath(){
   gameCards:()=>gameCards(),
   game:id=>{if(id==="kamer1"&&curLevel==="a21")switchCourse("a11");setView("games");gameStart(id)?.()},
   clock:()=>{switchCourse("a11");currentCat="nums";tab="clock";saveStore();buildNav();setView("lesson");newRound()},
-  chat:()=>{setView("games");aiStart()}, // every "talk to AI" button opens Lexi; the voice/teacher choice (leren_char) is not touched
+  chat:()=>aiStart(), // every "talk to AI" button opens Lexi; the voice/teacher choice (leren_char) is not touched
   lexi:(scenario,ctx)=>lexiOpen(scenario,ctx),
   person:()=>{const id=charId();return {name:id==="dafna"?"Dafna":"Peter",image:"./img/chars/"+id+".webp"}},
   canListen:()=>!!(window.SpeechRecognition||window.webkitSpeechRecognition),
   listen:(ok,fail)=>listenOnce(a=>{skillSpoke();ok(a)},fail,"nl-BE"),
   stopListening:()=>{if(gRec)gRec.abort()},
-  ai:chapter=>{const ids={comm:"buren",people:"buren",nums:"super",travelTime:"station",forms:"gemeente",health:"huisarts",food:"cafe",shopping:"super",travel:"station",service:"super",wonen:"gemeente",contact:"gemeente",zorg:"huisarts",stad:"gemeente",openbaar:"station"};setView("games");aiStart(SCENES.find(sc=>sc.id===(ids[chapter]||"buren")))},
+  ai:chapter=>{const ids={comm:"buren",people:"buren",nums:"super",travelTime:"station",forms:"gemeente",health:"huisarts",food:"cafe",shopping:"super",travel:"station",service:"super",wonen:"gemeente",contact:"gemeente",zorg:"huisarts",stad:"gemeente",openbaar:"station"};aiStart(SCENES.find(sc=>sc.id===(ids[chapter]||"buren")))},
   answer:(id,ok,final,listen)=>{skillLog(listen?"luisteren":"lezen",ok);if(!final)return;const s=stateFor(id);s.seen++;LerenSRS.update(s,ok);saveStore();updateStats()},
   due:()=>dueItems(curLevel).map(x=>x.id),
   stats:()=>({streak:streakState().n,min:minutesToday(),goal:goalMin(),points:score}),
@@ -6131,7 +6199,7 @@ const UPD_UI={uk:{t:"Вийшла нова версія застосунку",ve
  ar:{t:"يتوفر إصدار جديد من التطبيق",ver:"الإصدار",go:"تحديث",done:"✓ تم تحديث التطبيق إلى الإصدار "}};
 const updU=()=>UPD_UI[uiLang]||UPD_UI.uk;
 // Keep the announcement available after updating, including users who already installed v87.
-const RELEASE_VERSION="254";
+const RELEASE_VERSION="255";
 // The release whose notes RELEASE_UI describes. A small update keeps the notes of the last bigger one: whoever already
 // saw those notes is not shown them again.
 const RELEASE_NOTES_VERSION="176";

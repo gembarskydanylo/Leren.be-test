@@ -47,11 +47,11 @@
 <link rel="preload" as="script" href="./modules/word-builder/game.js?v=172">
 <link rel="preload" as="script" href="./modules/kamer/game.js?v=198">
 <link rel="preload" as="script" href="./modules/learning-path/invitation.js?v=2">
-<link rel="preload" as="script" href="./modules/home-showcase/ui.js?v=254">
+<link rel="preload" as="script" href="./modules/home-showcase/ui.js?v=255">
 <link rel="preload" as="script" href="./modules/learning-path/ui.js?v=254">
 <link rel="preload" as="script" href="./modules/dialogues/translations.js?v=177">
 <link rel="preload" as="script" href="./course-curriculum.js?v=178">
-<link rel="preload" as="script" href="./app.js?v=254">
+<link rel="preload" as="script" href="./app.js?v=255">
 <link rel="preload" as="script" href="./modules/exam/exam-core.js?v=254">
 <link rel="preload" as="script" href="./modules/exam/exam11.js?v=176">
 <link rel="preload" as="script" href="./modules/exam/exam12-data.js?v=173">
@@ -1106,6 +1106,8 @@ button.om-chip{cursor:pointer}button.om-chip:hover{border-color:var(--role-v)}
 /* Static summary inside #learningPath, shown only until the app renders */
 .seo-shell{display:none}
 .seo-shell{padding:20px;border:1px solid var(--line);border-radius:22px;background:var(--surface);color:var(--ink);line-height:1.5}.seo-shell h2{margin:0 0 10px;font-size:22px}.seo-shell h3{margin:18px 0 6px;font-size:17px}.seo-shell ul{margin:0;padding-inline-start:20px}.seo-shell li{margin:3px 0}
+/* TEST-032 · Lexi chat (modules/lexi/chat.js) full screen over the app; its own styles live in a shadow root */
+.lexi-host{position:fixed;inset:0;z-index:2147483000;overflow:auto;overscroll-behavior:contain;background:#f6f2e9}.lexi-host[data-theme=dark]{background:#15241f}html.lexi-open,html.lexi-open body{overflow:hidden}
 </style>
 <link rel="stylesheet" href="./modules/learning-path/style.css?v=196">
 <link rel="stylesheet" href="./modules/course-player/style.css?v=5">
@@ -1400,11 +1402,11 @@ header .hdr-btn{min-width:44px;min-height:44px}main>header .hdr-stats .streak-pi
 <script src="./modules/word-builder/game.js?v=172"></script>
 <script src="./modules/kamer/game.js?v=198"></script>
 <script src="./modules/learning-path/invitation.js?v=2"></script>
-<script src="./modules/home-showcase/ui.js?v=254"></script>
+<script src="./modules/home-showcase/ui.js?v=255"></script>
 <script src="./modules/learning-path/ui.js?v=254"></script>
 <script src="./modules/dialogues/translations.js?v=177"></script>
 <script src="./course-curriculum.js?v=178"></script>
-<script src="./app.js?v=254"></script>
+<script src="./app.js?v=255"></script>
   <div class="modes-wrapper" id="modeButtons"></div>
    <!-- LEREN.BE — МОДУЛЬ ДИФТОНГІВ -->
 <script src="./modules/exam/exam-core.js?v=254" defer></script>

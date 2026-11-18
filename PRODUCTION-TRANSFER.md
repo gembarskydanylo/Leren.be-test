@@ -188,3 +188,9 @@
 - Секрети, ліміти KV, `AI_OFF` і модель не змінювались. Нових платних сервісів немає.
 - Клієнт: реліз 254 у гілці; під час перенесення — max + 1 (див. TEST-028). `app/modules/lexi/engine.js` має бути в `APP_FILES` і `critical`.
 - Перевірка після розгортання Worker (вручну, на production, з погодження): одне повідомлення nl у вільній розмові, одна рольова гра fr «school», одне питання «lesson». Ліміти на день рахуються як звичайні запити.
+
+## TEST-032 · Інтеграція Lexi (beta; перед production потрібне окреме погодження власника)
+- Спочатку Worker TEST-031, потім клієнт — див. TEST-031.
+- Перенести разом: `app/modules/lexi/{engine,chat,copy,mock}.js`, `chat.css`, `app/img/lexi/*`, хост у `app.js`, стилі `.lexi-host` в `index.html`, `sw.js`.
+- `mock.js` у production не вмикається: `lexiDemo()` повертає `false`, коли `prodServices()`.
+- Після оновлень дизайну в лабораторії Codex запустити `node tools/lexi-ui-port.cjs`; ручні правки в `app/modules/lexi/chat.*` заборонені.
