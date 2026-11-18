@@ -8,7 +8,7 @@ const icon=n=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke
 const avatar=(emotion='welcome',size='')=>`<span class="lexi-avatar ${size} emotion-${emotion}" role="img" aria-label="Lexi — ${esc(({welcome:'привітання',listening:'уважно слухає',thinking:'міркує',speaking:'пояснює',success:'підтримує успіх',encourage:'підтримує після помилки'})[emotion]||emotion)}"></span>`;
 const master=cls=>`<img class="lexi-master ${cls||''}" src="assets/lexi-master-proposal.webp" width="768" height="768" alt="Пропозиція Lexi: рудий кіт із зеленими очима, окулярами й темно-зеленою кофтою LerenBe">`;
 const button=(label,action,cls='button',extra='')=>`<button type="button" class="${cls}" data-action="${action}" ${extra}>${label}</button>`;
-const go=(screen,label,cls='button')=>button(label,'navigate',cls,`data-screen="${screen}" ${label.startsWith('<svg')?'aria-label="Повернутися на головну"':''}`);
+const go=(screen,label,cls='button')=>button(label,screen==='chat'?'contract-chat':'navigate',cls,`data-screen="${screen}" ${label.startsWith('<svg')?'aria-label="Повернутися на головну"':''}`);
 const names={nl:'Нідерландська',en:'Англійська',fr:'Французька'};
 const words={nl:{word:'hallo',example:'Hallo, ik ben Anastasia.',meaning:'Привіт, я Анастасія.',options:['Goedemorgen','hallo','Dank je wel','Alsjeblieft'],good:'Ik werk in België.',bad:'Ik werken in België.',hello:'Hallo! Hoe gaat het met je?'},en:{word:'hello',example:'Hello, I am Anastasia.',meaning:'Привіт, я Анастасія.',options:['Good morning','hello','Thank you','Please'],good:'I work in Belgium.',bad:'I works in Belgium.',hello:'Hello! How are you today?'},fr:{word:'bonjour',example:'Bonjour, je suis Anastasia.',meaning:'Привіт, я Анастасія.',options:['Bonne nuit','bonjour','Merci','Au revoir'],good:'Je travaille en Belgique.',bad:'Je travailler en Belgique.',hello:'Bonjour ! Comment vas-tu ?'}};
 const current=()=>words[demo.target];
@@ -53,6 +53,7 @@ function render(){const active=document.activeElement;const focusKey=active?.dat
 function notify(text){const t=document.getElementById('toast');t.textContent=text;t.classList.add('visible');clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove('visible'),3500)}
 function navigate(s){clearTimeout(timeout);demo.screen=s;demo.selected=null;demo.checked=false;demo.playing=false;render();window.scrollTo(0,0);document.querySelector('#mainContent')?.focus({preventScroll:true})}
 app.addEventListener('click',e=>{const b=e.target.closest('button[data-action]');if(!b||b.disabled)return;const a=b.dataset.action;
+ if(a==='contract-chat'){location.assign(`lexi/?theme=${demo.theme}&target=${demo.target}&level=${({"A1.1":"a11","A1.2":"a12","A2.1":"a21"})[demo.level]}`);return}
  if(a==='navigate')return navigate(b.dataset.screen);
  if(a==='theme'){demo.theme=demo.theme==='dark'?'light':'dark';const input=document.getElementById('messageInput')?.value;render();if(input&&document.getElementById('messageInput'))document.getElementById('messageInput').value=input;return}
  if(a==='scenario'){clearTimeout(timeout);demo.scenario=b.dataset.scenario;demo.chatState='welcome';demo.messages=[];render();return}

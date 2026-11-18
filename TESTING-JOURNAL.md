@@ -373,3 +373,12 @@ Total output lines: 142
 - CI 44188940132 після встановлення браузера виявив відсутній origin/main у checkout. Workflow тепер явно отримує тільки test main та PR #13/#14 для SW upgrade/release-chain suites; SW/тести незмінні.
 
 - Фінальний desktop-огляд LIFE виявив обрізані обличчя у вертикальному artwork: скориговано focal position без зміни графіки й повторно знято матрицю та галерею.
+
+## TEST-030 · Contract-ready Lexi chat після TEST-031 · 2026-11-18 (Europe/Brussels)
+
+- Власна гілка codex/test-030-lexi-design, чистий початковий SHA 0187225, Draft PR #15 / CI #58 успішний. Прочитано docs/LEXI-UI-CONTRACT.md з claude/test-031-lexi-engine @ dfae2cfe7ae3f0b66946829285f1a907481f1268; гілку не зливали.
+- У design-lab/test-030/lexi додано окремий адаптивний chat shell, 5 сценаріїв, 6 roleplays, мови nl/fr/en + пояснення uk/en/fr/ar RTL, реальні level IDs, ліміти 300/600, chat/ask/correction presenters, error recovery без дубля, countdown/deadline, voice fallback, lifecycle/unsubscribe/stale-response guards. Поточний образ Lexi з TEST-030 збережено за інструкцією власника, без нової графіки.
+- UI приймає engine send/on/message/voice port; demo.js завжди mock, CSP connect/media none. Чинний engine Claude не змінювався. У тесті читається точний immutable source і виконується тільки з підставною відповіддю LerenAICoach.request: talk ховає correction, teacher показує, work→werk, char=lexi, level=a11.
+- Перевірки: 144 layout-комбінації (8 ширин × 2 теми × 9 контрактних станів), 24 text-200% комбінації чотирма мовами, 14 interaction-груп; без horizontal overflow, малих touch controls, битої графіки, JS exceptions чи зовнішніх запитів. Evidence та інтеграційні компоненти: docs/design/test-030/contract-ready/README.md / checks.json; скриншоти screenshots/test-030/contract-ready.
+- Галерея та головні AI-входи відкривають новий компонент; історичний прямий URL старого mock збережено для попередніх evidence/tests. CI отримує exact TEST-031 SHA тільки для fixture-check; deployment/workers незмінні.
+- Межі: Chromium emulation, не фізичний телефон; live AI/Worker/mic/TTS/XP не підключено, app/, life/, Firebase, Cloudflare і production не змінено. PR залишається Draft, результат CI — у PR.

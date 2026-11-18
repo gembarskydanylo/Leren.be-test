@@ -21,7 +21,7 @@ jobs:
           node-version: '24'
       - name: Fetch previous beta releases for upgrade checks
         shell: bash
-        run: git fetch --no-tags --depth=1 origin main:refs/remotes/origin/main pull/13/head:refs/heads/pr/13 pull/14/head:refs/heads/pr/14
+        run: git fetch --no-tags --depth=1 origin main:refs/remotes/origin/main pull/13/head:refs/heads/pr/13 pull/14/head:refs/heads/pr/14 dfae2cfe7ae3f0b66946829285f1a907481f1268
       - name: Install browser test dependencies
         shell: bash
         run: |
@@ -47,3 +47,4 @@ jobs:
           node design-lab/test-030/checks/audit.cjs
           node design-lab/test-030/checks/interactions.cjs
           node design-lab/test-030/checks/gallery.cjs
+          LEXI_LAB_URL=http://127.0.0.1:8279/design-lab/test-030/lexi/ node design-lab/test-030/checks/lexi-contract.cjs
