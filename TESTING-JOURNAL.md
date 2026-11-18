@@ -8,6 +8,13 @@ Total output lines: 142
 
 Часовий пояс усіх записів: Europe/Brussels. Журнал ведемо в GitHub разом із кодом. Основний проєкт: Leren.be / lerenbe.com. Публікація тесту не означає дозвіл переносити його в основний проєкт.
 
+## TEST-036 · Claude Code: проєктні CLAUDE.md і Skills (етап 1) · 2026-11-18 22:05 CET (Europe/Brussels)
+- Гілка `claude/test-036-cc-optimization` від main `8607321`, worktree `/private/tmp/leren-test-036`. Власник погодив лише етап 1: CLAUDE.md і п'ять Skills.
+- Активовано: `CLAUDE.md` (імпортує `@AGENTS.md` без дублювання) і `.claude/skills/{leren-audit,leren-test,leren-ui,leren-security,leren-release}`. Скрипти `tools/claude/suite.sh` (тихий прогін тестів) і `tools/claude/release-check.sh` (лише читання номера релізу).
+- Не активовано: hooks, subagents, MCP, глобальні налаштування. Вони лишаються чернетками в `claude-config-draft/`.
+- Перевірки: структура frontmatter 5/5; синтаксис скриптів OK; `release-check` на main → 230 CONSISTENT. Нова headless-сесія CLI 2.1.325 у цьому worktree перелічила всі 5 skills в `init`, кастомних агентів немає. Відповідь моделі не отримано: CLI не авторизований окремо від застосунку.
+- Обмеження: `allowed-tools` у skill лише попередньо дозволяє інструменти, але не забороняє інших. Заборона публікації в `leren-release` тримається на інструкції та звичайних запитах дозволу, а hook guard не активний.
+
 ## TEST-020 · Home/LIFE integration audit · 2026-11-12 18:30 CET (Europe/Brussels)
 - Branch `codex/home-visual-integration` from main `9fdf271`. PR #3 is 6 behind/1 ahead, not 3 behind; PR #4 already merged; PR #5 remains unmerged. TEST-018/019 belong to other active work. No artwork generated/edited and no production changes or merges.
 - Fixed approved-image failure: HERO preserves its picture geometry and accessible description, LIFE shows its fallback icon. Added `tests/home-art-failure.cjs`: delayed 404, before/after geometry and alt at 360/390/430/1280/1440.

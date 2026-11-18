@@ -4,6 +4,9 @@
 
 Статус: користувач просить спочатку оцінити тест. Жоден експеримент цього журналу автоматично не переносити на lerenbe.com.
 
+## TEST-036 · Claude Code CLAUDE.md і Skills (етап 1, очікує оцінки)
+- Лише інструменти розробки для тестового репозиторію: `CLAUDE.md`, `.claude/skills/leren-*`, `tools/claude/*.sh`. Код застосунку, кеш і прогрес не змінювались. Для production-репозиторію потрібне окреме рішення: там був інший CLAUDE.md і graphify hooks.
+
 ## TEST-020 · Shared LIFE entry and resilient home images (awaiting review)
 - Depends on TEST-016 Home V2 and TEST-014 LIFE visual renderer. No storage migration or story/scene ID changes.
 - Files: home-v2 UI/CSS, app/learn-life-story.html, worker update marker, browser regression tests. Approved-image failures retain layout and alt; the app entry reuses `life/` rather than the stale snapshot renderer.

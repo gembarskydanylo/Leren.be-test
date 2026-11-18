@@ -8,9 +8,9 @@
 
 ## Команди (перевірені)
 - Один тест: `NODE_PATH=$HOME/.cache/leren-audio/node_modules node tests/<name>.cjs`
-- Повний набір тихо: `bash claude-config-draft/scripts/suite.sh` (лише підсумок; логи — у `$TMPDIR`).
-- Лабораторія: `python3 -m http.server 8279 --bind 127.0.0.1` + `node design-lab/test-030/checks/{audit,interactions,gallery}.cjs`; контракт — `LEXI_LAB_URL=http://127.0.0.1:8279/design-lab/test-030/lexi/ node design-lab/test-030/checks/lexi-contract.cjs`.
-- Після лабораторних перевірок відновлюй лише `screenshots/test-030` (`git checkout -- screenshots/test-030`). Ніколи `git checkout -- design-lab docs`.
+- Набір тихо: `bash tools/claude/suite.sh [підрядок]`; з лабораторією (гілки від test-030) — `--lab`. Друкує лише підсумок, логи — у `$TMPDIR`.
+- Після лабораторних перевірок відновлюй лише `screenshots/test-030`. Ніколи `git checkout -- design-lab docs` (не використовуй старий `runall.sh`).
+- Номер релізу: `bash tools/claude/release-check.sh`. Skills: `leren-audit`, `leren-test`, `leren-ui`, `leren-security`, `leren-release`.
 
 ## Реліз (кеш)
 Один номер у: `RELEASE_VERSION`, `LEXI_V` (`app/app.js`), `app.js?v=` (`app/index.html`, `app/sw.js`), `CACHE_NAME leren-be-vN`, lexi-файли в `sw.js`, пін у `tests/first-lesson.cjs`, блок H у `tests/lexi-integration.cjs`. Два релізи з одним номером — заборонено.
@@ -27,6 +27,5 @@
 - Не прибирай `noindex,nofollow`; не змінюй формат прогресу й AI API без узгодження.
 
 ## Звітність
-- Не заявляй перевірку на телефоні/реальному AI, якщо тестувався емулятор/mock.
 - Не змінюй тести, щоб приховати помилку.
 - Підсумок: що змінено, які команди й результати, що не перевірено.
