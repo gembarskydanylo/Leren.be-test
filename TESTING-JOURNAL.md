@@ -415,3 +415,16 @@ Total output lines: 142
 - Окремий worktree `/private/tmp/leren-test-035`, `codex/test-035-living-lexi-3d` від TEST-032 `a0428af`. Головний референс — фото власника всередині каталогу прототипу. Blender 4.1.1: об'ємна геометрія й GLB, рендери спереду/збоку/45°; Three.js 0.180.0 MIT локально.
 - PASS Chromium emulation: GLB, камери, quality selector, JS, overflow на 320/390/768/1440. Початкову помилку пошуку shader node виправлено; повтор експорту й рендеру PASS.
 - Це грубий blockout, не близький фінальний скульпт. Немає ригу, шести анімацій, visemes, волосся/хутра й довготривалої перевірки витоків. WebGL renderer зупиняється при прихованій сторінці; offline-reload не реалізований. Фізичні Samsung і Safari не перевірялись. До складної анімації — затвердження власника. Подробиці `design-lab/test-035-lexi-3d/README.md`.
+
+## TEST-035 · Аудит 3D-середовища · 2026-11-18 21:44 CET (Europe/Brussels)
+- На прохання власника моделювання та встановлення зупинено; наявні незакомічені зміни TEST-035 збережено. Додано `design-lab/test-035-lexi-3d/ENVIRONMENT-AUDIT.md`.
+- PASS: Blender 4.1.1 / `bpy` 3.11.7, SCULPT mode, SUBSURF, текстурний матеріал, shape keys і keyframe animation на окремому синтетичному об'єкті; GLB експорт та повторний import повернули material/texture/shape keys/action. Тимчасовий probe не є Lexi. Metal виявив M1 GPU; фактичний Metal render не перевірено.
+- Three.js 0.180.0 присутній; glTF Transform/Validator у поточному PATH/Node resolution не знайдені. Blender MCP не зареєстровано в `codex mcp list`, живе з'єднання не тестували; upstream повідомляє про unauthenticated socket і довільний Python. Ніяких додаткових пакетів, addon чи MCP не встановлено. Окремого дозволу на інсталяцію ще немає.
+
+## TEST-035 · Інструменти glTF · 2026-11-18 (Europe/Brussels)
+- За дозволом власника встановлено glTF Transform 4.5.1 і glTF Validator 2.0.0-dev.3.10 у `/private/tmp/leren-test-035-tools`. Inspect синтетичного probe GLB PASS; validator 0 errors/warnings. Не оцінює справжню модель Lexi.
+- npm audit: 4 moderate, 0 high/critical; застарілий glob. Докладніше у `design-lab/test-035-lexi-3d/ENVIRONMENT-AUDIT.md`. Blender MCP не встановлено; наявні зміни моделі збережено, нових змін моделі не зроблено.
+
+### TEST-035 head review
+- Exported the intermediate head study (49,708 GLB triangles; 1,089,712 bytes); validator reports 0 errors, 0 warnings and 50 informational notices. Chromium checks at 320, 390, 768 and 1440 px loaded the viewer without reported JS errors; comparison images and overflow checked at 320 and 1440 px. No physical-device or Safari claim.
+- Appearance remains below the owner reference. See `design-lab/test-035-lexi-3d/HEAD-REVIEW.md`; an artist-led sculpt and retopology are recommended before approval and rigging.
