@@ -443,3 +443,25 @@ Total output lines: 142
 - Перевірки: **45/45 наборів**, лабораторія Codex 4/4. Мутаційна перевірка: старий рушій → `lexi-ai-038` падає.
 - Не перевірено: реальний AI, справжній мікрофон, Samsung / Android, TalkBack. Firebase App Check для AI відсутній (пропозиція в звіті).
 - Звіт: `docs/audits/TEST-038-LEXI-AI.md`.
+
+## TEST-041 · Мова пояснень Lexi, контракт Lesson Help, план App Check · 2026-11-20 (Europe/Brussels)
+
+- Гілка `claude/test-038-lexi-ai` (worktree TEST-038). Лише **локальні коміти**: push, merge і deploy не виконувались. Worker, Firebase, Cloudflare, CORS і CSP у production не змінено. TEST-036 і файли Codex не змінено.
+- Мова пояснень:
+  - за замовчуванням дорівнює мові інтерфейсу;
+  - для en/en і fr/fr Lexi пояснює дуже простою мовою навчання;
+  - автоматичного переходу на українську немає;
+  - є необов’язковий параметр `explain` (uk / en / fr / ar), непідтримувані значення замінюються мовою інтерфейсу.
+  - Змінені файли: `engine.js` (v3), `ai-worker.js` (правило SAME LANGUAGE, `lexi-v3`, **не розгорнуто**), `app.js` `aiTranslate`.
+- Тести:
+  - новий `lexi-explain-041` (60 комбінацій, без «Ukrainian» для en / fr / ar, `explain`, memo / report);
+  - правило TEST-031 замінено в `lexi-engine` і `lexi-ai-038`;
+  - мутаційна перевірка: код `52b2c05` → тест падає.
+- App Check:
+  - прототип `tools/appcheck-verify.mjs` (не підключений);
+  - `tests/appcheck-verify.cjs` — 15 випадків на локальних ключах;
+  - план `docs/APPCHECK-PLAN.md`.
+- Контракт Lesson Help: `docs/LEXI-LESSON-HELP-CONTRACT.md` (лише специфікація, UI без змін).
+- Перевірки: 46/47 наборів, лабораторія 4/4.
+  - **`sw-release-chain` падає:** реліз 259 уже запушено (`52b2c05`) з іншими файлами `app/`, а нові зміни `app/` теж мають 259. Номер не змінено без рішення власника.
+- Не перевірено: реальний AI, правило SAME LANGUAGE на справжній моделі, Samsung.

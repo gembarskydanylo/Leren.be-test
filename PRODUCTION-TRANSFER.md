@@ -212,3 +212,12 @@
 - Worker не змінено; виправлення сумісні і зі старим, і з новим `tools/ai-worker.js`.
 - Пропозиція, не реалізовано: Firebase App Check для AI-запитів (клієнт + Worker, спершу режим журналу). Змінює production Firebase / Cloudflare — окреме погодження.
 - Номер кешу production узгодити окремо: на беті зайнято 259 (258 — у TEST-037 Codex).
+
+## TEST-041 · Мова пояснень Lexi (чекає оцінки власника)
+
+- Переносити разом із Lexi:
+  - `engine.js` (`explain`, без примусової української);
+  - правило SAME LANGUAGE в `tools/ai-worker.js` (`lexi-v3`);
+  - `aiTranslate` в `app.js`.
+- Рушій працює й зі старим Worker. Проста мова для en/en і fr/fr з’являється лише після розгортання Worker (окреме погодження).
+- Не переносити: `tools/appcheck-verify.mjs` — прототип, доки не погоджено план `docs/APPCHECK-PLAN.md`.
