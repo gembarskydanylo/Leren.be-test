@@ -211,7 +211,7 @@ header{position:relative;display:flex;flex-wrap:wrap;align-items:center;justify-
 .voice-dialog .row{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap}
 .speech-help{margin:10px auto 0;max-width:520px;padding:12px;border:1px solid var(--line);border-radius:var(--r-md);background:var(--surface-2);color:var(--ink);font-size:14px}
 .speech-help p{margin:0 0 8px}
-.speech-help a{display:inline-block;margin:3px 10px;color:var(--oranje);font-weight:900}
+.speech-help a{display:inline-flex;align-items:center;min-width:44px;min-height:44px;max-width:100%;padding:4px 8px;color:var(--oranje);font-weight:900;overflow-wrap:anywhere}
 .listen.is-speaking{outline:3px solid var(--oranje);outline-offset:3px;animation:speechPulse 1s ease-in-out infinite alternate}
 @keyframes speechPulse{to{filter:brightness(.85);transform:scale(1.03)}}
 

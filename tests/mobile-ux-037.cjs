@@ -73,6 +73,11 @@ async function main() {
     for (const mode of ['study','quiz','audio','review']) {
      await page.locator('#lessonModes [data-mode=' + mode + ']').click();
      assert.equal(await page.locator('#lessonModes [data-mode=' + mode + ']').getAttribute('aria-selected'), 'true');
+     // Chromium runners may have no usable speech voice. Always check the help links in Audio.
+     if (mode === 'audio') {
+      await page.evaluate(() => showSpeechNote(false));
+      assert.equal(await page.locator('#speechNote a').count(), 2);
+     }
      await audit(mode, page.locator('#card'));
     }
     await page.locator('#streakPill').click();
