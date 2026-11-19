@@ -51,7 +51,7 @@
 <link rel="preload" as="script" href="./modules/learning-path/ui.js?v=254">
 <link rel="preload" as="script" href="./modules/dialogues/translations.js?v=177">
 <link rel="preload" as="script" href="./course-curriculum.js?v=178">
-<link rel="preload" as="script" href="./app.js?v=257">
+<link rel="preload" as="script" href="./app.js?v=258">
 <link rel="preload" as="script" href="./modules/exam/exam-core.js?v=254">
 <link rel="preload" as="script" href="./modules/exam/exam11.js?v=176">
 <link rel="preload" as="script" href="./modules/exam/exam12-data.js?v=173">
@@ -211,7 +211,7 @@ header{position:relative;display:flex;flex-wrap:wrap;align-items:center;justify-
 .voice-dialog .row{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap}
 .speech-help{margin:10px auto 0;max-width:520px;padding:12px;border:1px solid var(--line);border-radius:var(--r-md);background:var(--surface-2);color:var(--ink);font-size:14px}
 .speech-help p{margin:0 0 8px}
-.speech-help a{display:inline-block;margin:3px 10px;color:var(--oranje);font-weight:900}
+.speech-help a{display:inline-flex;align-items:center;min-width:44px;min-height:44px;max-width:100%;padding:4px 8px;color:var(--oranje);font-weight:900;overflow-wrap:anywhere}
 .listen.is-speaking{outline:3px solid var(--oranje);outline-offset:3px;animation:speechPulse 1s ease-in-out infinite alternate}
 @keyframes speechPulse{to{filter:brightness(.85);transform:scale(1.03)}}
 
@@ -1207,7 +1207,7 @@ header .hdr-btn{min-width:44px;min-height:44px}main>header .hdr-stats .streak-pi
 <link rel="stylesheet" href="./modules/design-system/foundation.css?v=1">
 <link rel="stylesheet" href="./modules/design-system/home.css?v=1">
 <link rel="stylesheet" href="./modules/design-system/learning.css?v=1">
-<link rel="stylesheet" href="./modules/design-system/engagement.css?v=1">
+<link rel="stylesheet" href="./modules/design-system/engagement.css?v=2">
 
 <div id="splash" hidden></div>
 <script src="./splash.js?v=206"></script>
@@ -1450,7 +1450,7 @@ header .hdr-btn{min-width:44px;min-height:44px}main>header .hdr-stats .streak-pi
 <script src="./modules/learning-path/ui.js?v=254"></script>
 <script src="./modules/dialogues/translations.js?v=177"></script>
 <script src="./course-curriculum.js?v=178"></script>
-<script src="./app.js?v=257"></script>
+<script src="./app.js?v=258"></script>
   <div class="modes-wrapper" id="modeButtons"></div>
    <!-- LEREN.BE — МОДУЛЬ ДИФТОНГІВ -->
 <script src="./modules/exam/exam-core.js?v=254" defer></script>

@@ -5493,19 +5493,29 @@ function lexiBlocked(title){const L=lexi(),a=L?L.availability():{ok:false,code:"
 // tools/lexi-ui-port.cjs), loaded on first use and shown full screen over the app in a shadow root (its styles cannot
 // touch the app, the app's cannot touch it). It talks only to LerenLexi; XP, the mistakes list and notes keep the rules
 // of the old chat. The A1.1 speaking exam and the exam writing check keep their own screens (aiStartExam / askStartExam).
-const LEXI_V="257";
+const LEXI_V="258";
 const LEXI_SCENE={super:"shop",huisarts:"doctor",station:"transport",gemeente:"municipality",werk:"work",school:"school"}; // worker id → chat id
 const LEXI_OLD_SCENES={cafe:{uk:"Кафе",en:"Café",fr:"Café",ar:"مقهى"},apotheek:{uk:"Аптека",en:"Pharmacy",fr:"Pharmacie",ar:"صيدلية"},buren:{uk:"Сусіди",en:"Neighbours",fr:"Voisins",ar:"الجيران"}};
 const LEXI_PRIVACY={uk:"Повідомлення надсилаються до AI через сервер lerenbe.com і не зберігаються. Голос розпізнає браузер; запис не зберігається.",en:"Messages go to the AI through the lerenbe.com server and are not stored. Your browser recognises speech; no recording is kept.",fr:"Les messages passent par le serveur lerenbe.com vers l’IA et ne sont pas conservés. Le navigateur reconnaît la voix ; rien n’est enregistré.",ar:"تُرسل الرسائل إلى الذكاء الاصطناعي عبر خادم lerenbe.com ولا تُحفظ. يتعرّف المتصفح على الصوت؛ لا يُحفظ أي تسجيل."};
 // Demo replies for checking the screens on a phone (TEST-030 fixture, labelled «Demo»): never on lerenbe.com.
 const lexiDemo=()=>{if(prodServices())return false;try{if(/[?&]lexi=demo\b/.test(location.search))sessionStorage.setItem("leren_lexi_demo","1");return sessionStorage.getItem("leren_lexi_demo")==="1"}catch(e){return false}};
 let lexiView=null,lexiReturn=""; // lexiReturn: the screen to go back to when the consent / «off» card had to be shown first
+// Keep the last conversation in this tab's memory only. Never save a transcript to browser storage.
+let lexiResume=null;
 function lexiOpen(scenario,ctx){const L=lexi(),sc=L?L.scenario(scenario):"free",c=ctx&&typeof ctx==="object"?ctx:{},title=sc==="grammar"||sc==="lesson"?aiU().askTitle:aiTitle();
  if(!lexiDemo()){const ready=L&&L.availability().ok&&lsGet("leren_ai_consent18",false);
   if(!ready){if(view!=="games"){lexiReturn=view;setView("games")}gState={lexiRetry:()=>lexiOpen(scenario,ctx)};if(lexiBlocked(title))return;if(!aiConsent(title,()=>lexiOpen(scenario,ctx)))return}}
  lexiMount(sc,c)}
 window.lexiOpen=lexiOpen;
-function lexiClose(fromHistory){const v=lexiView;if(!v)return;lexiView=null;try{v.chat&&v.chat.destroy()}catch(e){}try{gRec&&gRec.abort()}catch(e){}
+function lexiClose(fromHistory){const v=lexiView;if(!v)return;lexiView=null;
+ if(v.chat){
+  const {ui,target,level,scenario,scene,messages,pending,busy,state,error,until}=v.chat.getState();
+  // A request that was interrupted by closing the dialog can be retried explicitly.
+  const restoredError=busy&&pending?{code:"network"}:error;
+  lexiResume={key:v.key,initial:{ui,target,level,scenario,scene,messages,pending,
+   state:restoredError?(busy?"error":state):messages.length?"idle":"welcome",error:restoredError,until}};
+ }
+ try{v.chat&&v.chat.destroy()}catch(e){}try{gRec&&gRec.abort()}catch(e){}
  v.host.remove();v.inert.forEach(n=>{n.inert=false});document.documentElement.classList.remove("lexi-open");removeEventListener("keydown",v.esc,true);
  if(!fromHistory&&v.pushed&&history.state&&history.state.lexi){v.closing=true;history.back()}
  if(v.back&&view==="games")setView(v.back);
@@ -5519,7 +5529,10 @@ async function lexiMount(scenario,ctx){
  const sh=host.attachShadow({mode:"open"}),link=document.createElement("link"),root=document.createElement("div");link.rel="stylesheet";link.href="./modules/lexi/chat.css?v="+LEXI_V;sh.append(link,root);
  const inert=[...document.body.children].filter(n=>!n.inert&&n.tagName!=="SCRIPT");inert.forEach(n=>{n.inert=true});
  document.body.appendChild(host);document.documentElement.classList.add("lexi-open");
- const v={host,inert,opener,back,pushed:false,chat:null,esc:e=>{if(e.key==="Escape"&&lexiView===v){e.stopPropagation();lexiClose(false)}}};lexiView=v;addEventListener("keydown",v.esc,true);
+ const level=["a11","a12","a21"].includes(curLevel)?curLevel:"a11";
+ const scene=scenario==="roleplay"?(LEXI_SCENE[ctx.scene]||ctx.scene||"shop"):"shop";
+ const key=JSON.stringify([demo,uiLang,targetLang,level,scenario,scene,ctx.topic,ctx.lesson,ctx.question,ctx.answer,ctx.send]);
+ const v={key,host,inert,opener,back,pushed:false,chat:null,esc:e=>{if(e.key==="Escape"&&lexiView===v){e.stopPropagation();lexiClose(false)}}};lexiView=v;addEventListener("keydown",v.esc,true);
  try{if(!had)history.pushState({lexi:1},"");v.pushed=true}catch(e){}
  let mod,mock;
  try{[mod,mock]=await Promise.all([import("./modules/lexi/chat.js?v="+LEXI_V),demo?import("./modules/lexi/mock.js?v="+LEXI_V):null,new Promise(r=>{link.onload=link.onerror=r})])}
@@ -5527,10 +5540,11 @@ async function lexiMount(scenario,ctx){
  if(lexiView!==v)return;
  const engine=demo?{...mock.createDemoEngine(),voice:()=>L?L.voice():{listen:false,speak:false}}:L;
  const g=aiU(),memo={msgs:[],memoFrom:0,memoAt:0},lang=k=>LEXI_OLD_SCENES[k]&&(LEXI_OLD_SCENES[k][uiLang]||LEXI_OLD_SCENES[k].en);
- const scene=scenario==="roleplay"?(LEXI_SCENE[ctx.scene]||ctx.scene||"shop"):"shop";
+ const resume=lexiResume?.key===key?lexiResume.initial:null;
+ lexiResume=null;
  v.chat=mod.mountLexiChat(root,{engine,demo,scope:host,
   assets:{avatar:"./img/lexi/lexi.webp",review:null},
-  initial:{ui:uiLang,target:targetLang,level:["a11","a12","a21"].includes(curLevel)?curLevel:"a11",scenario,scene,theme:document.documentElement.dataset.theme==="dark"?"dark":"light",draft:typeof ctx.send==="string"?ctx.send.slice(0,600):"",style:["talk","teacher","slow"].includes(lsGet("leren_ai_style",""))?lsGet("leren_ai_style",""):"talk",autoVoice:lsGet("leren_lexi_autovoice",true)!==false},
+  initial:{ui:uiLang,target:targetLang,level,scenario,scene,...resume,theme:document.documentElement.dataset.theme==="dark"?"dark":"light",draft:!resume&&typeof ctx.send==="string"?ctx.send.slice(0,600):"",style:["talk","teacher","slow"].includes(lsGet("leren_ai_style",""))?lsGet("leren_ai_style",""):"talk",autoVoice:lsGet("leren_lexi_autovoice",true)!==false},
   context:{topic:ctx.topic||"",lesson:ctx.lesson||"",question:ctx.question||"",answer:ctx.answer||""},
   privacy:demo?null:LEXI_PRIVACY[uiLang]||LEXI_PRIVACY.en,
   sceneLabels:Object.fromEntries(Object.keys(LEXI_OLD_SCENES).map(k=>[k,lang(k)])),
@@ -6201,7 +6215,7 @@ const UPD_UI={uk:{t:"Вийшла нова версія застосунку",ve
  ar:{t:"يتوفر إصدار جديد من التطبيق",ver:"الإصدار",go:"تحديث",done:"✓ تم تحديث التطبيق إلى الإصدار "}};
 const updU=()=>UPD_UI[uiLang]||UPD_UI.uk;
 // Keep the announcement available after updating, including users who already installed v87.
-const RELEASE_VERSION="257";
+const RELEASE_VERSION="258";
 // The release whose notes RELEASE_UI describes. A small update keeps the notes of the last bigger one: whoever already
 // saw those notes is not shown them again.
 const RELEASE_NOTES_VERSION="176";
