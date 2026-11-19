@@ -3,13 +3,15 @@
 const fs = require('node:fs'), path = require('node:path'), http = require('node:http');
 const assert = require('node:assert/strict'), {chromium} = require('playwright');
 const repo = path.resolve(__dirname, '..'), read = f => fs.readFileSync(path.join(repo, f), 'utf8');
-const files = ['tokens', 'foundation', 'home', 'learning', 'engagement', 'life', 'guides'];
+const versions = {tokens:1, foundation:1, home:1, learning:1, engagement:2, life:2, guides:1};
+const css = name => 'design-system/' + name + '.css?v=' + versions[name];
 const html = read('app/index.html'), sw = read('app/sw.js');
-for (const name of files) {
- assert(sw.includes('./modules/design-system/' + name + '.css?v=1'), name + ' cached');
+for (const name of Object.keys(versions)) {
+ assert(sw.includes('./modules/' + css(name)), name + ' cached');
  assert(!/url\(https?:/.test(read('app/modules/design-system/' + name + '.css')), 'no remote dependency');
 }
-for (const name of ['tokens', 'foundation', 'home', 'learning', 'engagement']) assert(html.includes('design-system/' + name + '.css?v=1'));
+for (const name of ['tokens', 'foundation', 'home', 'learning', 'engagement']) assert(html.includes(css(name)));
+for (const file of ['app/learn-life.html', 'app/learn-life-story.html', 'life/learn-life-story.html']) assert(read(file).includes(css('life')), file + ' uses the cached LIFE theme');
 for (const file of fs.readdirSync(path.join(repo, 'app/guides')).filter(f => f.endsWith('.html'))) {
  const s = read('app/guides/' + file); assert(s.includes('noindex,nofollow')); assert(s.includes('design-system/tokens.css?v=1') && s.includes('design-system/guides.css?v=1'));
 }
