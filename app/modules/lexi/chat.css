@@ -78,4 +78,13 @@
 @media(max-width:767px) and (max-height:550px){.lexi-app:has(.ai-type input:focus) .context-strip,.lexi-app:has(.ai-type input:focus) .demo-strip{display:none}}
 @media(max-width:359px){.chat-header .lexi-av{display:block}}
 
+/* Keep header actions and the welcome grid within the viewport at large text sizes. */
+.chat-header .lexi-av+div{min-inline-size:0;overflow-wrap:anywhere}
+.welcome{grid-template-columns:minmax(0,1fr);overflow-wrap:anywhere}
+.starters button{max-inline-size:100%;white-space:normal}
+@media(max-width:359px){
+ .chat-header{gap:6px;padding-inline:10px}
+ .chat-header .lexi-av{width:40px;height:40px;flex:none}
+}
+
 .memory{margin-top:18px;font-size:.8rem}.memory summary{min-height:44px;display:flex;align-items:center;cursor:pointer;font-weight:800}.memory p{margin:6px 0;white-space:pre-wrap}.memory small{display:block;color:var(--muted);margin-bottom:8px}.message-report{margin-inline-start:8px}
