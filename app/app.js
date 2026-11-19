@@ -5714,7 +5714,10 @@ async function aiTranslate(m){
  const s=gState;if(!aiCurrent(s)||m.translating)return;
  m.translating=true;m.translateError=false;aiRender();
  try{
-  const data=await lexi().send("grammar",lexiCtx(s,{ui:"uk"}),[{role:"user",content:"Translate the following "+({nl:"Dutch",en:"English",fr:"French"}[s.target]||"Dutch")+" text completely into Ukrainian. Output only the Ukrainian translation in the answer field, with no explanation: "+String(m.content).slice(0,400)}]);
+  // Into the learner's interface language (TEST-038: it was always Ukrainian, also for en / fr / ar). The engine falls back to
+  // Ukrainian only when the interface language is the studied one; the prompt follows the language the engine really sends.
+  const ctx=lexiCtx(s),into=lexi().context(ctx).ui,name={uk:"Ukrainian",en:"English",fr:"French",ar:"Arabic"}[into]||"Ukrainian";
+  const data=await lexi().send("grammar",ctx,[{role:"user",content:"Translate the following "+({nl:"Dutch",en:"English",fr:"French"}[s.target]||"Dutch")+" text completely into "+name+". Output only the "+name+" translation in the answer field, with no explanation: "+String(m.content).slice(0,400)}]);
   if(!aiCurrent(s))return;
   m.tr=data.answer.trim().slice(0,1500);m.showTr=true;
  }catch(e){if(aiCurrent(s))m.translateError=true}
@@ -6199,7 +6202,7 @@ const UPD_UI={uk:{t:"Вийшла нова версія застосунку",ve
  ar:{t:"يتوفر إصدار جديد من التطبيق",ver:"الإصدار",go:"تحديث",done:"✓ تم تحديث التطبيق إلى الإصدار "}};
 const updU=()=>UPD_UI[uiLang]||UPD_UI.uk;
 // Keep the announcement available after updating, including users who already installed v87.
-const RELEASE_VERSION="256";
+const RELEASE_VERSION="258";
 // The release whose notes RELEASE_UI describes. A small update keeps the notes of the last bigger one: whoever already
 // saw those notes is not shown them again.
 const RELEASE_NOTES_VERSION="176";
