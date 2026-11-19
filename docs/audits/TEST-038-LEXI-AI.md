@@ -1,6 +1,6 @@
 # TEST-038 — AI Lexi: логіка, мови, голос, Worker, регресія
 
-**Гілка:** `claude/test-038-lexi-ai` від TEST-034 `0409468` (останнє завершене AI-підґрунтя: TEST-028 → 031 → 032 → 034). **Реліз 258** (257 зайнятий TEST-033 / Codex).
+**Гілка:** `claude/test-038-lexi-ai` від TEST-034 `0409468` (останнє завершене AI-підґрунтя: TEST-028 → 031 → 032 → 034). **Реліз 259** (257 — TEST-033, 258 — TEST-037, обидва Codex).
 
 **Межі:**
 - Production, Firebase, Cloudflare і Worker не змінювались, розгортань не було, PR не зливали.
@@ -65,9 +65,9 @@
 | Лабораторія Codex: audit, interactions, gallery, lexi-contract | **4/4** |
 | `lexi-ai-038`: 7 блоків A–G, 60 комбінацій мов і сценаріїв | ✅ |
 | Мутаційна перевірка: старий `engine.js` + `app.js` | `lexi-ai-038` падає на дефекті №1 |
-| `sw-release-chain`, `first-lesson` (реліз 258) | ✅ |
+| `sw-release-chain`, `first-lesson` (реліз 259) | ✅ |
 
-**Регресія.** Покрито тими самими наборами, що й у TEST-034 §5: усі пройшли на релізі 258.
+**Регресія.** Покрито тими самими наборами, що й у TEST-034 §5: усі пройшли на релізі 259.
 - Study / Quiz / Audio / Review: `ux-functional-audit`, `first-lesson`.
 - LIFE: `life-*`.
 - XP: `rewards`, `ai-on-regression`.
@@ -129,12 +129,12 @@
 - Дизайн і файли Lexi UI не змінювались. Контракт `docs/LEXI-UI-CONTRACT.md` не змінився: ті самі 12 кодів помилок і стани.
 - Нове лише в тому, що UI тепер справді отримує `timeout`, `format`, `unavailable`, `tooLong`, `empty` від Worker там, де раніше бачив `network`. Тексти для них уже є в `copy.js`.
 - `LerenLexi.WORKER_MAX` (тільки читання) — ліміти Worker на одне повідомлення, якщо UI захоче показувати лічильник символів.
-- Реліз 258 зайнятий TEST-038. `engine.js?v=2`.
+- Реліз 259 зайнятий TEST-038 (258 — TEST-037). `engine.js?v=2`.
 
 ## 9. Змінені файли
 
 - `app/modules/lexi/engine.js` — дефекти 1, 2, 4.
-- `app/app.js` — дефект 3; `RELEASE_VERSION` 258.
-- `app/index.html`, `app/sw.js` — `app.js?v=258`, `engine.js?v=2`, `leren-be-v258`.
+- `app/app.js` — дефект 3; `RELEASE_VERSION` 259.
+- `app/index.html`, `app/sw.js` — `app.js?v=259`, `engine.js?v=2`, `leren-be-v259`.
 - `tests/lexi-ai-038.cjs` (новий), `tests/first-lesson.cjs` (номер релізу).
 - Цей звіт, `TESTING-JOURNAL.md`, `PRODUCTION-TRANSFER.md`.

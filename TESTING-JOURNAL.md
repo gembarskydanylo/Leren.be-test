@@ -427,7 +427,7 @@ Total output lines: 142
 
 ## TEST-038 · AI Lexi: логіка, мови, голос, Worker · 2026-11-19 22:55 CET (Europe/Brussels)
 
-- Гілка `claude/test-038-lexi-ai` від TEST-034 `0409468`. **Реліз 258.** Production, Firebase, Cloudflare і Worker не змінено; розгортань і злиттів не було; дизайн Lexi й файли Codex не змінено; TEST-036 не активовано.
+- Гілка `claude/test-038-lexi-ai` від TEST-034 `0409468`. **Реліз 259** (спершу 258, перенумеровано: 258 зайняв TEST-037). Production, Firebase, Cloudflare і Worker не змінено; розгортань і злиттів не було; дизайн Lexi й файли Codex не змінено; TEST-036 не активовано.
 - Новий `tests/lexi-ai-038.cjs`: рушій застосунку + справжній `tools/ai-worker.js` в одному процесі, mock лише API моделі.
   - 60 комбінацій сценаріїв і мов;
   - голосова примітка;
