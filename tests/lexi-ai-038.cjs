@@ -42,7 +42,7 @@ const TNAME = {nl: /Dutch as spoken in Belgium/, fr: /French as spoken in Belgiu
   model = answer(mode === 'ask' ? ASK : CHAT);
   const out = await L.send(id, {ui, target, level: 'a12', lesson: 'Les 1', question: 'Hoe heet je?', answer: 'Ik heet Ana'}, [{role: 'user', content: 'Hallo, ik ben Ana.'}], id === 'roleplay' ? {scene: 'school'} : {});
   assert.equal(out.kind, mode, id);
-  const expl = ui === target ? 'uk' : ui; // studied = interface language → explanations in Ukrainian (engine.context)
+  const expl = ui; // TEST-041: always the interface language (simple same-language explanations when ui = target)
   assert.match(seen.system, TNAME[target], `${id} ${target}/${ui}: studied language named`);
   assert.match(seen.system, new RegExp('\\b' + LANG[expl] + '\\b'), `${id} ${target}/${ui}: explanation language ${LANG[expl]}`);
   assert.match(seen.system, sys, `${id}: scenario prompt`);
@@ -134,7 +134,7 @@ const TNAME = {nl: /Dutch as spoken in Belgium/, fr: /French as spoken in Belgiu
  // ---- G · «translate this message» follows the interface language (defect TEST-038 #3), checked in the app source
  const appSrc = fs.readFileSync(path.join(app, 'app.js'), 'utf8'), tr = appSrc.slice(appSrc.indexOf('async function aiTranslate'), appSrc.indexOf('async function aiSend'));
  assert.doesNotMatch(tr, /ui:"uk"/, 'no forced Ukrainian context'); assert.doesNotMatch(tr, /into Ukrainian/, 'no hard-coded target language');
- assert.match(tr, /lexi\(\)\.context\(ctx\)\.ui/, 'language taken from the engine context');
+ assert.match(tr, /lexi\(\)\.context\(ctx\)/, 'language taken from the engine context'); assert.match(tr, /c\.explain===c\.target\?"Rewrite/, 'same language → simpler words, not a translation into Ukrainian');
  console.log('PASS: G — on-demand translation goes into the interface language (uk / en / fr / ar), not always Ukrainian');
  console.log('ALL PASS (mock model; real answers not checked)');
 })().catch(e => { console.error('FAIL:', e.message); process.exit(1) });

@@ -5714,10 +5714,10 @@ async function aiTranslate(m){
  const s=gState;if(!aiCurrent(s)||m.translating)return;
  m.translating=true;m.translateError=false;aiRender();
  try{
-  // Into the learner's interface language (TEST-038: it was always Ukrainian, also for en / fr / ar). The engine falls back to
-  // Ukrainian only when the interface language is the studied one; the prompt follows the language the engine really sends.
-  const ctx=lexiCtx(s),into=lexi().context(ctx).ui,name={uk:"Ukrainian",en:"English",fr:"French",ar:"Arabic"}[into]||"Ukrainian";
-  const data=await lexi().send("grammar",ctx,[{role:"user",content:"Translate the following "+({nl:"Dutch",en:"English",fr:"French"}[s.target]||"Dutch")+" text completely into "+name+". Output only the "+name+" translation in the answer field, with no explanation: "+String(m.content).slice(0,400)}]);
+  // Into the language Lexi explains in (TEST-038: it was always Ukrainian, also for en / fr / ar). When that is the studied
+  // language itself (TEST-041: no switch to Ukrainian), the text is said again in very simple words of the same language.
+  const ctx=lexiCtx(s),c=lexi().context(ctx),name={uk:"Ukrainian",en:"English",fr:"French",ar:"Arabic"}[c.explain]||"Ukrainian",from={nl:"Dutch",en:"English",fr:"French"}[c.target]||"Dutch";
+  const data=await lexi().send("grammar",ctx,[{role:"user",content:(c.explain===c.target?"Rewrite the following "+from+" text in very simple "+name+" words (A1). Output only the simpler text in the answer field, with no explanation: ":"Translate the following "+from+" text completely into "+name+". Output only the "+name+" translation in the answer field, with no explanation: ")+String(m.content).slice(0,400)}]);
   if(!aiCurrent(s))return;
   m.tr=data.answer.trim().slice(0,1500);m.showTr=true;
  }catch(e){if(aiCurrent(s))m.translateError=true}

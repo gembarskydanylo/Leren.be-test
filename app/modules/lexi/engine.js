@@ -78,7 +78,9 @@
  function context(raw) {
   const r = raw && typeof raw === 'object' ? raw : {};
   const target = pick(r.target, Object.keys(TARGETS), 'nl'), ui = pick(r.ui, Object.keys(UI), 'uk');
-  return {ui: ui === target ? 'uk' : ui, target, level: pick(r.level, LEVELS, 'a11'), topic: clip(r.topic, LIMITS.topic), lesson: clip(r.lesson, LIMITS.lesson),
+  // Explanations are in the interface language, also when it is the studied one (then the worker keeps them very simple);
+  // never a silent switch to Ukrainian (TEST-041). `explain` is a future separate choice; unsupported values fall back to `ui`.
+  return {ui, explain: pick(r.explain, Object.keys(UI), ui), target, level: pick(r.level, LEVELS, 'a11'), topic: clip(r.topic, LIMITS.topic), lesson: clip(r.lesson, LIMITS.lesson),
    question: clip(r.question, LIMITS.question), answer: clip(r.answer, LIMITS.answer)};
  }
  // Learning data the app already sends for personal examples (weak words, recent corrections, words to review).
@@ -105,7 +107,7 @@
   };
   const msgs = (Array.isArray(messages) ? messages : []).filter(m => m && (m.role === 'user' || m.role === 'assistant') && typeof m.content === 'string' && m.content.trim())
    .slice(-LIMITS.history).map(m => ({role: m.role, content: m.role === 'user' && Array.isArray(m.alts) && m.alts.length > 1 ? spoken(m.content.slice(0, max), m.alts) : m.content.slice(0, max)}));
-  const b = {mode: sc.mode, target: ctx.target, lang: ctx.ui, level: ctx.level, char: CHAR, scenario: scenario(id), profile: profile(ctx, extra.learning), messages: msgs};
+  const b = {mode: sc.mode, target: ctx.target, lang: ctx.explain, level: ctx.level, char: CHAR, scenario: scenario(id), profile: profile(ctx, extra.learning), messages: msgs};
   if (sc.style) b.style = extra.style && ['talk', 'teacher', 'slow', 'exam'].includes(extra.style) ? extra.style : sc.style;
   const scene = extra.scene && (ROLEPLAYS[extra.scene] || (LEGACY_SCENES.includes(extra.scene) ? extra.scene : null));
   if (sc.mode === 'chat' && scene) b.scene = scene;
@@ -160,11 +162,11 @@
  // Fire-and-forget calls that keep the worker's own shapes: notes about the learner and reports of AI answers.
  async function memo(rawCtx, messages, memory) {
   const av = availability(); if (!av.ok) return null; const ctx = context(rawCtx);
-  try { const d = await globalThis.LerenAICoach.request(av.endpoint, {mode: 'memo', target: ctx.target, lang: ctx.ui, char: CHAR, memory: clip(memory, 600), messages: body('free', ctx, messages).messages}, {timeout: 30000, fetch: cfg.fetch || undefined}); return typeof d.memory === 'string' ? d.memory.trim().slice(0, 600) : null } catch (e) { return null }
+  try { const d = await globalThis.LerenAICoach.request(av.endpoint, {mode: 'memo', target: ctx.target, lang: ctx.explain, char: CHAR, memory: clip(memory, 600), messages: body('free', ctx, messages).messages}, {timeout: 30000, fetch: cfg.fetch || undefined}); return typeof d.memory === 'string' ? d.memory.trim().slice(0, 600) : null } catch (e) { return null }
  }
  async function report(rawCtx, kind, text) {
   const av = availability(); if (!av.ok) return false; const ctx = context(rawCtx);
-  try { await globalThis.LerenAICoach.request(av.endpoint, {mode: 'report', kind: clip(kind, 10), target: ctx.target, lang: ctx.ui, char: CHAR, text: String(text || '').slice(0, 1500)}, {timeout: 15000, fetch: cfg.fetch || undefined}); return true } catch (e) { return false }
+  try { await globalThis.LerenAICoach.request(av.endpoint, {mode: 'report', kind: clip(kind, 10), target: ctx.target, lang: ctx.explain, char: CHAR, text: String(text || '').slice(0, 1500)}, {timeout: 15000, fetch: cfg.fetch || undefined}); return true } catch (e) { return false }
  }
  function message(code, ui) { const m = T[code] || T.network; return m[ui] || m.en }
  // Voice: what this browser can do. Nothing is recorded: recognition gives text, which the learner checks before sending.
