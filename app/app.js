@@ -3904,7 +3904,7 @@ function applyView(){
 function setView(v){
  delete document.querySelector("main").dataset.ghome;const prev=view;if(v==="path"&&targetLang!=="nl")v="lesson";view=v;if(learningPath)learningPath.pauseSpeech();if(typeof gStop==="function")gStop();
  if(prev==="games"&&v!=="games"){if(gState&&gState.chat)aiRemember(gState);gState=null;}
- const wasGames=cardOwner==="games";
+ const wasGames=cardOwner==="games";{const c=$("card");if(c)c.classList.remove("ai-chat-card","lexi-b")} // TEST-033
  if(v==="path"){if(learningPath)learningPath.open();updateModeButtons()}
  else if(v==="toets"){cardOwner="lesson";mode="toets";updateModeButtons();newRound()}
  else if(v==="lesson"){const need=mode!==lessonMode||wasGames;cardOwner="lesson";mode=lessonMode;updateModeButtons();if(need)newRound()}
@@ -4492,7 +4492,7 @@ function gameDone(id,xp){
 function gHead(title,sub,keep){
  if(!keep)gStop();cardOwner="games";delete document.querySelector("main").dataset.ghome;
  $("prog").textContent=title;$("rnd").textContent=sub||"";gBar(0);
- const card=$("card");card.replaceChildren();
+ const card=$("card");card.classList.remove("ai-chat-card","lexi-b");card.replaceChildren(); // TEST-033: screen classes never leak to the next game
  const top=el("div","g-top");const examBack=gState&&gState.fromExam?window[gState.fromExam===true?"EXAM11":gState.fromExam]:null,fromExam=!!examBack;const back=el("button","g-back",fromExam?({uk:"← Іспит",fr:"← Examen",ar:"→ الامتحان"}[uiLang]||"← Exam"):gU().back);back.type="button";back.onclick=()=>{if(examBack){if(gState.chat)aiRemember(gState);gStop();examBack.open()}else renderGamesHome()};top.appendChild(back);card.appendChild(top);
  return card;
 }
@@ -5493,19 +5493,29 @@ function lexiBlocked(title){const L=lexi(),a=L?L.availability():{ok:false,code:"
 // tools/lexi-ui-port.cjs), loaded on first use and shown full screen over the app in a shadow root (its styles cannot
 // touch the app, the app's cannot touch it). It talks only to LerenLexi; XP, the mistakes list and notes keep the rules
 // of the old chat. The A1.1 speaking exam and the exam writing check keep their own screens (aiStartExam / askStartExam).
-const LEXI_V="255";
+const LEXI_V="261";
 const LEXI_SCENE={super:"shop",huisarts:"doctor",station:"transport",gemeente:"municipality",werk:"work",school:"school"}; // worker id → chat id
 const LEXI_OLD_SCENES={cafe:{uk:"Кафе",en:"Café",fr:"Café",ar:"مقهى"},apotheek:{uk:"Аптека",en:"Pharmacy",fr:"Pharmacie",ar:"صيدلية"},buren:{uk:"Сусіди",en:"Neighbours",fr:"Voisins",ar:"الجيران"}};
 const LEXI_PRIVACY={uk:"Повідомлення надсилаються до AI через сервер lerenbe.com і не зберігаються. Голос розпізнає браузер; запис не зберігається.",en:"Messages go to the AI through the lerenbe.com server and are not stored. Your browser recognises speech; no recording is kept.",fr:"Les messages passent par le serveur lerenbe.com vers l’IA et ne sont pas conservés. Le navigateur reconnaît la voix ; rien n’est enregistré.",ar:"تُرسل الرسائل إلى الذكاء الاصطناعي عبر خادم lerenbe.com ولا تُحفظ. يتعرّف المتصفح على الصوت؛ لا يُحفظ أي تسجيل."};
 // Demo replies for checking the screens on a phone (TEST-030 fixture, labelled «Demo»): never on lerenbe.com.
 const lexiDemo=()=>{if(prodServices())return false;try{if(/[?&]lexi=demo\b/.test(location.search))sessionStorage.setItem("leren_lexi_demo","1");return sessionStorage.getItem("leren_lexi_demo")==="1"}catch(e){return false}};
 let lexiView=null,lexiReturn=""; // lexiReturn: the screen to go back to when the consent / «off» card had to be shown first
+// Keep the last conversation in this tab's memory only. Never save a transcript to browser storage.
+let lexiResume=null;
 function lexiOpen(scenario,ctx){const L=lexi(),sc=L?L.scenario(scenario):"free",c=ctx&&typeof ctx==="object"?ctx:{},title=sc==="grammar"||sc==="lesson"?aiU().askTitle:aiTitle();
  if(!lexiDemo()){const ready=L&&L.availability().ok&&lsGet("leren_ai_consent18",false);
   if(!ready){if(view!=="games"){lexiReturn=view;setView("games")}gState={lexiRetry:()=>lexiOpen(scenario,ctx)};if(lexiBlocked(title))return;if(!aiConsent(title,()=>lexiOpen(scenario,ctx)))return}}
  lexiMount(sc,c)}
 window.lexiOpen=lexiOpen;
-function lexiClose(fromHistory){const v=lexiView;if(!v)return;lexiView=null;try{v.chat&&v.chat.destroy()}catch(e){}try{gRec&&gRec.abort()}catch(e){}
+function lexiClose(fromHistory){const v=lexiView;if(!v)return;lexiView=null;
+ if(v.chat){
+  const {ui,target,level,scenario,scene,messages,pending,busy,state,error,until}=v.chat.getState();
+  // A request that was interrupted by closing the dialog can be retried explicitly.
+  const restoredError=busy&&pending?{code:"network"}:error;
+  lexiResume={key:v.key,initial:{ui,target,level,scenario,scene,messages,pending,
+   state:restoredError?(busy?"error":state):messages.length?"idle":"welcome",error:restoredError,until}};
+ }
+ try{v.chat&&v.chat.destroy()}catch(e){}try{gRec&&gRec.abort()}catch(e){}
  v.host.remove();v.inert.forEach(n=>{n.inert=false});document.documentElement.classList.remove("lexi-open");removeEventListener("keydown",v.esc,true);
  if(!fromHistory&&v.pushed&&history.state&&history.state.lexi){v.closing=true;history.back()}
  if(v.back&&view==="games")setView(v.back);
@@ -5519,7 +5529,10 @@ async function lexiMount(scenario,ctx){
  const sh=host.attachShadow({mode:"open"}),link=document.createElement("link"),root=document.createElement("div");link.rel="stylesheet";link.href="./modules/lexi/chat.css?v="+LEXI_V;sh.append(link,root);
  const inert=[...document.body.children].filter(n=>!n.inert&&n.tagName!=="SCRIPT");inert.forEach(n=>{n.inert=true});
  document.body.appendChild(host);document.documentElement.classList.add("lexi-open");
- const v={host,inert,opener,back,pushed:false,chat:null,esc:e=>{if(e.key==="Escape"&&lexiView===v){e.stopPropagation();lexiClose(false)}}};lexiView=v;addEventListener("keydown",v.esc,true);
+ const level=["a11","a12","a21"].includes(curLevel)?curLevel:"a11";
+ const scene=scenario==="roleplay"?(LEXI_SCENE[ctx.scene]||ctx.scene||"shop"):"shop";
+ const key=JSON.stringify([demo,uiLang,targetLang,level,scenario,scene,ctx.topic,ctx.lesson,ctx.question,ctx.answer,ctx.send]);
+ const v={key,host,inert,opener,back,pushed:false,chat:null,esc:e=>{if(e.key==="Escape"&&lexiView===v){e.stopPropagation();lexiClose(false)}}};lexiView=v;addEventListener("keydown",v.esc,true);
  try{if(!had)history.pushState({lexi:1},"");v.pushed=true}catch(e){}
  let mod,mock;
  try{[mod,mock]=await Promise.all([import("./modules/lexi/chat.js?v="+LEXI_V),demo?import("./modules/lexi/mock.js?v="+LEXI_V):null,new Promise(r=>{link.onload=link.onerror=r})])}
@@ -5527,14 +5540,15 @@ async function lexiMount(scenario,ctx){
  if(lexiView!==v)return;
  const engine=demo?{...mock.createDemoEngine(),voice:()=>L?L.voice():{listen:false,speak:false}}:L;
  const g=aiU(),memo={msgs:[],memoFrom:0,memoAt:0},lang=k=>LEXI_OLD_SCENES[k]&&(LEXI_OLD_SCENES[k][uiLang]||LEXI_OLD_SCENES[k].en);
- const scene=scenario==="roleplay"?(LEXI_SCENE[ctx.scene]||ctx.scene||"shop"):"shop";
+ const resume=lexiResume?.key===key?lexiResume.initial:null;
+ lexiResume=null;
  v.chat=mod.mountLexiChat(root,{engine,demo,scope:host,
   assets:{avatar:"./img/lexi/lexi.webp",review:null},
-  initial:{ui:uiLang,target:targetLang,level:["a11","a12","a21"].includes(curLevel)?curLevel:"a11",scenario,scene,theme:document.documentElement.dataset.theme==="dark"?"dark":"light",draft:typeof ctx.send==="string"?ctx.send.slice(0,600):""},
+  initial:{ui:uiLang,target:targetLang,level,scenario,scene,...resume,theme:document.documentElement.dataset.theme==="dark"?"dark":"light",draft:!resume&&typeof ctx.send==="string"?ctx.send.slice(0,600):"",style:["talk","teacher","slow"].includes(lsGet("leren_ai_style",""))?lsGet("leren_ai_style",""):"talk",autoVoice:lsGet("leren_lexi_autovoice",true)!==false},
   context:{topic:ctx.topic||"",lesson:ctx.lesson||"",question:ctx.question||"",answer:ctx.answer||""},
   privacy:demo?null:LEXI_PRIVACY[uiLang]||LEXI_PRIVACY.en,
   sceneLabels:Object.fromEntries(Object.keys(LEXI_OLD_SCENES).map(k=>[k,lang(k)])),
-  extra:()=>demo?{}:{learning:aiProfile(),memory:aiMemory()},
+  extra:()=>demo?{}:{learning:aiProfile(),memory:aiMemory(),help:ctx},
   report:demo?null:{label:g.report,send:m=>aiReport(m.content+(m.result&&m.result.translation?"\n("+m.result.translation+")":""),m.result&&m.result.kind==="ask"?"ask":"chat")},
   memory:demo?null:{get:aiMemory,forget:aiForget,title:g.memT,note:g.memNote,forgetLabel:g.memForget},
   voice:{listen:({lang:l,ui,scenario:sc,onText,onEnd,onError})=>{const tag=L?L.speechTag(sc==="grammar"||sc==="lesson"?ui:l):undefined;
@@ -5543,14 +5557,16 @@ async function lexiMount(scenario,ctx){
    speak:(text,target,onEnd)=>{let done=false;const end=()=>{if(!done){done=true;onEnd&&onEnd()}};if(target===targetLang)say(text,null,end);else{sayIn(text,target);setTimeout(end,Math.min(12000,800+String(text).length*70))}
     return()=>{done=true;try{window.speechSynthesis.cancel()}catch(e){}try{audioEl&&audioEl.pause()}catch(e){}}}},
   onReply:demo?null:(out,info)=>lexiAfterReply(out,info,memo),
+  onStyle:v=>lsSet("leren_ai_style",v),onAutoVoice:v=>lsSet("leren_lexi_autovoice",!!v), // TEST-033: the conversation style and auto voice are remembered on this device
   onLeave:()=>lexiClose(false)});
 }
-// What the old chat did after every answer, unchanged: corrections go to the Dutch mistakes list (when they are shown),
+// What the old chat did after every answer, unchanged: corrections go to the Dutch mistakes list (always in the teacher /
+// slow style and in the scenarios; in the light conversation style only major ones, as the old «talk» style),
 // 5 messages in a conversation = «ai» game (30 XP), 3 questions = «ask» (15 XP), notes every third message.
 function lexiAfterReply(out,info,memo){
  const uc=info.messages.filter(m=>m.role==="user").length;
  if(out.kind==="ask"){if(uc===3)gameDone("ask",15);return}
- const c=out.correction;if(c&&(info.scenario!=="free"||c.severity==="major")&&gNorm(c.corrected)!==gNorm(info.user)&&info.target==="nl")logMistake(c.corrected,c.explanation);
+ const c=out.correction;if(c&&(info.scenario!=="free"||info.style&&info.style!=="talk"||c.severity==="major")&&gNorm(c.corrected)!==gNorm(info.user)&&info.target==="nl")logMistake(c.corrected,c.explanation);
  if(uc===5)gameDone("ai",30);
  if(uc<memo.memoAt){memo.memoAt=0;memo.memoFrom=0}memo.msgs=info.messages;memo.lang=info.ui;memo.target=info.target;
  if(uc>=2&&uc%3===2)aiRemember(memo);
@@ -5643,7 +5659,7 @@ function aiStartExam(scene,scenario){
  aiRender();aiSend(null);
 }
 function aiRender(){
- const g=aiU(),s=gState;if(!aiCurrent(s))return;const card=gHead(aiTitle(),g.sub[targetLang]||g.sub.nl);card.classList.add("ai-chat-card");
+ const g=aiU(),s=gState;if(!aiCurrent(s))return;const card=gHead(aiTitle(),g.sub[targetLang]||g.sub.nl);card.classList.add("ai-chat-card");if(s.exam)card.classList.add("lexi-b"); // TEST-033: AI exam in the Concept B look
  if(s.scene&&SCENE_ART[s.scene]){const b=el("div","st-banner sm");b.innerHTML=sceneArt(s.scene);card.appendChild(b)}
  if(s.exam){const ex=s.exam,n=ex.list.length,cur=ex.list[Math.min(ex.i,n-1)];const p=el("p","ex-progress",ex.done?(uiLang==="uk"?"✅ Пробний іспит завершено":"✅ Mock exam finished"):(uiLang==="uk"?"Тема ":"Topic ")+cur.ti+"/6 · "+cur.tn+" · "+(uiLang==="uk"?"питання ":"question ")+(ex.i+1)+"/"+n);if(!ex.done&&s.msgs.length>2){const rs=el("button","ex-restart",uiLang==="uk"?"↺ Почати заново":"↺ Start over");rs.type="button";rs.onclick=()=>aiStart({id:"exam11",fromExam:true,fresh:true});p.appendChild(rs)}card.appendChild(p);$("barfill").style.width=Math.round((ex.done?n:ex.i)/n*100)+"%"}
  if(!s.exam){
@@ -5663,10 +5679,10 @@ function aiRender(){
    col.appendChild(b);
    const acts=el("div","ai-acts");
    if(m.tr){const tr=el("em","",m.tr);tr.hidden=!m.showTr;b.appendChild(tr)}
-   const translate=el("button","ai-tr",m.tr?(m.showTr?g.trHide:g.trShow):(uiLang==="uk"?"🇺🇦 Перекласти українською":"Translate"));
+   const tl=aiTrLabels(s,g),translate=el("button","ai-tr",m.tr?(m.showTr?tl.hide:tl.show):tl.act);
    translate.type="button";translate.disabled=!!m.translating;translate.setAttribute("aria-expanded",m.showTr?"true":"false");
    translate.onclick=()=>{if(m.tr){m.showTr=!m.showTr;aiRender()}else aiTranslate(m)};acts.appendChild(translate);
-   if(m.translateError)acts.appendChild(el("small","st-fb bad",uiLang==="uk"?"Переклад недоступний. Спробуй ще раз.":"Translation unavailable. Try again."))
+   if(m.translateError)acts.appendChild(el("small","st-fb bad",tl.err))
    const fl=el("button","ai-tr ai-flag",g.report);fl.type="button";fl.onclick=()=>aiReport(m.content+(m.tr?"\n("+m.tr+")":""),"chat");acts.appendChild(fl);col.appendChild(acts)
    row.append(av,col);chat.appendChild(row)}
  });
@@ -5710,12 +5726,15 @@ async function aiHelp(corrected){ // "I don't know what to answer": one hint + o
  }catch(e){if(!aiCurrent(s))return;s.helpError=true}
  finally{s.helpBusy=false;if(aiCurrent(s))aiRender()}
 }
+// TEST-042: «Translate», or «Explain simply» when the interface language is the studied one
+function aiTrLabels(s,g){const c=lexi().context(lexiCtx(s)),u=c.ui,same=c.explain===c.target,err={uk:"Не вдалося. Спробуй ще раз.",en:"Failed. Try again.",fr:"Échec. Réessaie.",ar:"فشل. حاول مرة أخرى."}[u];
+ if(!same)return{act:u==="uk"?"🇺🇦 Перекласти українською":{en:"Translate",fr:"Traduire",ar:"ترجمة"}[u],show:g.trShow,hide:g.trHide,err};
+ const a={uk:"Поясни простіше",en:"Explain simply",fr:"Explique plus simplement",ar:"اشرح ببساطة أكثر"}[u];return{act:a,show:a,hide:{uk:"Сховати",en:"Hide",fr:"Masquer",ar:"إخفاء"}[u],err}}
 async function aiTranslate(m){
  const s=gState;if(!aiCurrent(s)||m.translating)return;
  m.translating=true;m.translateError=false;aiRender();
  try{
-  // Into the language Lexi explains in (TEST-038: it was always Ukrainian, also for en / fr / ar). When that is the studied
-  // language itself (TEST-041: no switch to Ukrainian), the text is said again in very simple words of the same language.
+  // Into the explanation language; same as the studied one (TEST-041): the text again in simpler words.
   const ctx=lexiCtx(s),c=lexi().context(ctx),name={uk:"Ukrainian",en:"English",fr:"French",ar:"Arabic"}[c.explain]||"Ukrainian",from={nl:"Dutch",en:"English",fr:"French"}[c.target]||"Dutch";
   const data=await lexi().send("grammar",ctx,[{role:"user",content:(c.explain===c.target?"Rewrite the following "+from+" text in very simple "+name+" words (A1). Output only the simpler text in the answer field, with no explanation: ":"Translate the following "+from+" text completely into "+name+". Output only the "+name+" translation in the answer field, with no explanation: ")+String(m.content).slice(0,400)}]);
   if(!aiCurrent(s))return;
@@ -5760,7 +5779,7 @@ function askStartExam(opts){
  if(opts&&opts.send)askSend(opts.send);
 }
 function askRender(){
- const g=aiU(),s=gState,card=gHead(g.askTitle,g.askSub);
+ const g=aiU(),s=gState,card=gHead(g.askTitle,g.askSub);if(s.fromExam)card.classList.add("lexi-b"); // TEST-033: exam writing check in the Concept B look
  const chat=el("div","g-chat ai-chat");
  const intro=el("div","ai-row");const av0=el("div","st-av xs");av0.innerHTML=lexiAv();intro.append(av0,el("div","g-bub them ai-ans",g.askIntro));chat.appendChild(intro);
  s.msgs.forEach(m=>{
@@ -6202,7 +6221,7 @@ const UPD_UI={uk:{t:"Вийшла нова версія застосунку",ve
  ar:{t:"يتوفر إصدار جديد من التطبيق",ver:"الإصدار",go:"تحديث",done:"✓ تم تحديث التطبيق إلى الإصدار "}};
 const updU=()=>UPD_UI[uiLang]||UPD_UI.uk;
 // Keep the announcement available after updating, including users who already installed v87.
-const RELEASE_VERSION="260";
+const RELEASE_VERSION="261";
 // The release whose notes RELEASE_UI describes. A small update keeps the notes of the last bigger one: whoever already
 // saw those notes is not shown them again.
 const RELEASE_NOTES_VERSION="176";

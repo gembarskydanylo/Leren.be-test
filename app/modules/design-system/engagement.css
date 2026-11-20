@@ -23,3 +23,8 @@
 .sheet-panel .switch i{top:8px;inset-inline-start:5px;box-shadow:none;background:var(--lb-muted)}
 .sheet-panel .switch[aria-checked=true]{background:var(--lb-success-soft);border-color:var(--lb-success)}
 .sheet-panel .switch[aria-checked=true] i{inset-inline-start:25px;background:var(--lb-success)}
+
+/* Touch targets for the progress disclosure and the settings footer. */
+.progress-view summary{min-block-size:44px;padding-block:12px}
+#settingsSheet footer a{display:inline-flex;align-items:center;min-block-size:44px;min-inline-size:44px;max-inline-size:100%;overflow-wrap:anywhere}
+#settingsSheet footer button{min-block-size:44px;min-inline-size:44px}

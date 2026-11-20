@@ -222,3 +222,22 @@
 - Рушій працює й зі старим Worker. Проста мова для en/en і fr/fr з’являється лише після розгортання Worker (окреме погодження).
 - Не переносити: `tools/appcheck-verify.mjs` — прототип, доки не погоджено план `docs/APPCHECK-PLAN.md`.
 - Номер кешу production узгодити окремо: на беті зайнято 260 (TEST-041); 259 — попередня версія TEST-038.
+
+## TEST-033 · Початковий аудит
+
+Лише аудит `docs/design/test-033/INITIAL-AUDIT.md`, без змін коду чи готовності до перенесення. Гілка від TEST-032; мобільний чат, старі функції й AI-екрани іспитів потребують реалізації та перевірки.
+
+- TEST-033: експериментальна мобільна правка у design-lab та згенерованому UI, перевірена емуляцією; реального Samsung після правки ще немає. Версіонування app/SW та решта функцій і тести ще незавершені. Не переносити й не публікувати.
+
+## TEST-033 · Клавіатура й повернені функції чату (release 257)
+- Перенести разом: `app/modules/lexi/{chat,copy}.js`, `chat.css` (згенеровані), `app/app.js` (опції `onStyle`/`onAutoVoice`, правило списку помилок за стилем, клас `lexi-b` для іспиту, очищення класів картки), блок `<style id="lexi-exam-b">` в `app/index.html`, `sw.js` (257), `tools/lexi-ui-port.cjs`.
+- Нові ключі на пристрої: `leren_lexi_autovoice` (true/false). `leren_ai_style` використовувався й раніше. Формат прогресу не змінено. API рушія й Worker не змінювались.
+- Перед перенесенням: перевірка власником нових функцій на Samsung, реальний AI на тестовому Worker (TEST-034).
+
+### TEST-037 · Мобільний UX Lexi і області натискання
+
+Гілка `codex/test-037-mobile-ux` базується на TEST-033 (PR #20). Реліз 258 призначений для тестового перегляду. Зміни чату переносити з `design-lab/test-030/lexi` через `tools/lexi-ui-port.cjs`. Для дизайн-системи потрібні `engagement.css?v=2` та `life.css?v=2` разом із відповідними HTML-посиланнями і precache. Історія лише в оперативній пам’яті вкладки, міграцій браузерних даних і змін AI API немає. 3D-аудит документальний, без інтеграції. Перед будь-яким перенесенням потрібні рев’ю та повторний фізичний тест Samsung.
+
+## TEST-042 · Integration TEST-037 + TEST-041 (release 261, local only)
+
+Not for production yet. The two mobile-UX and AI branches are combined in the local branch `claude/test-042-integration`; the Worker change from TEST-041 (SAME LANGUAGE rule) still needs a separate, approved Worker deploy. «Explain simply» uses the existing request, so the app works with the old Worker too (it then answers in the same way as before).

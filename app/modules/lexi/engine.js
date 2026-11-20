@@ -39,7 +39,9 @@
   limit: {retry: false}, slow: {retry: true}, format: {retry: true}, refusal: {retry: false}, off: {retry: false},
   tooLong: {retry: false}, empty: {retry: false}
  };
- const LIMITS = {chat: 300, ask: 600, exam: 1600, history: 12, topic: 60, lesson: 80, answer: 200, question: 200};
+ const LIMITS = {chat: 300, ask: 600, exam: 1600, history: 12, topic: 60, lesson: 80, answer: 200, question: 200, expected: 200};
+ // TEST-042 Lesson Help: what kind of exercise the learner is on (anything else is dropped).
+ const KINDS = ['study', 'quiz', 'build', 'listen', 'write', 'talk'];
  // What the worker keeps of one message (tools/ai-worker.js maxLen). The voice note with other transcriptions must fit
  // inside it whole, or the worker cuts its closing "]" and the learner's sentence reaches the model with half a note (TEST-038).
  const WORKER_MAX = {chat: 400, ask: 600, exam: 1600};
@@ -84,12 +86,15 @@
    question: clip(r.question, LIMITS.question), answer: clip(r.answer, LIMITS.answer)};
  }
  // Learning data the app already sends for personal examples (weak words, recent corrections, words to review).
- function profile(ctx, learning) {
-  const l = learning && typeof learning === 'object' ? learning : {}, p = {level: ctx.level};
+ function profile(ctx, learning, help) {
+  const l = learning && typeof learning === 'object' ? learning : {}, p = {level: ctx.level}, h = help && typeof help === 'object' ? help : {};
   if (ctx.topic) p.topic = ctx.topic;
   if (ctx.lesson) p.lesson = ctx.lesson;
   if (ctx.question) p.question = ctx.question;
   if (ctx.answer) p.answer = ctx.answer;
+  // Lesson Help (host-side, never from the learner's account): exercise type and the course's sample answer; the host sends the sample only once the learner has answered.
+  if (KINDS.includes(h.kind)) p.kind = h.kind;
+  if (clip(h.expected, LIMITS.expected)) p.expected = clip(h.expected, LIMITS.expected);
   if (Number.isFinite(l.learned)) p.learned = Math.max(0, Math.min(100000, Math.round(l.learned)));
   for (const k of ['weak', 'mistakes', 'review', 'mastered']) { const w = words(l[k]); if (w.length) p[k] = w }
   return p;
@@ -107,7 +112,7 @@
   };
   const msgs = (Array.isArray(messages) ? messages : []).filter(m => m && (m.role === 'user' || m.role === 'assistant') && typeof m.content === 'string' && m.content.trim())
    .slice(-LIMITS.history).map(m => ({role: m.role, content: m.role === 'user' && Array.isArray(m.alts) && m.alts.length > 1 ? spoken(m.content.slice(0, max), m.alts) : m.content.slice(0, max)}));
-  const b = {mode: sc.mode, target: ctx.target, lang: ctx.explain, level: ctx.level, char: CHAR, scenario: scenario(id), profile: profile(ctx, extra.learning), messages: msgs};
+  const b = {mode: sc.mode, target: ctx.target, lang: ctx.explain, level: ctx.level, char: CHAR, scenario: scenario(id), profile: profile(ctx, extra.learning, extra.help), messages: msgs};
   if (sc.style) b.style = extra.style && ['talk', 'teacher', 'slow', 'exam'].includes(extra.style) ? extra.style : sc.style;
   const scene = extra.scene && (ROLEPLAYS[extra.scene] || (LEGACY_SCENES.includes(extra.scene) ? extra.scene : null));
   if (sc.mode === 'chat' && scene) b.scene = scene;
