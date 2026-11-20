@@ -23,11 +23,15 @@ const CHAT_FIX = {reply: 'Ah, je woont in Gent!', translation: 'А, ти жив�
  assert.equal(L.TARGETS.nl.tag, 'nl-BE'); assert.equal(L.TARGETS.fr.tag, 'fr-BE');
  assert.deepEqual(Object.keys(L.UI), ['uk', 'en', 'fr', 'ar']);
  const d = L.context({});
- assert.deepEqual(J(d), {ui: 'uk', target: 'nl', level: 'a11', topic: '', lesson: '', question: '', answer: ''}, 'missing context → safe defaults');
+ assert.deepEqual(J(d), {ui: 'uk', explain: 'uk', target: 'nl', level: 'a11', topic: '', lesson: '', question: '', answer: ''}, 'missing context → safe defaults');
  const x = L.context({ui: 'de', target: 'de', level: 'b2', topic: 'x'.repeat(500), email: 'a@b.c', name: 'Anna', uid: 'u1', score: 900});
- assert.equal(x.target, 'nl', 'German is not offered as a working language'); assert.equal(x.ui, 'uk'); assert.equal(x.level, 'a11'); assert.equal(x.topic.length, 60);
+ assert.equal(x.target, 'nl', 'German is not offered as a working language'); assert.equal(x.ui, 'uk'); assert.equal(x.explain, 'uk'); assert.equal(x.level, 'a11'); assert.equal(x.topic.length, 60);
  assert(!('email' in x) && !('name' in x) && !('uid' in x) && !('score' in x), 'no personal data in the context');
- assert.equal(L.context({ui: 'fr', target: 'fr'}).ui, 'uk', 'explanations never in the studied language itself');
+ // TEST-041 (replaces the TEST-031 rule «never in the studied language»): explanations follow the interface language, also when
+ // it is the studied one (the worker then keeps them very simple); never a silent switch to Ukrainian.
+ assert.equal(L.context({ui: 'fr', target: 'fr'}).explain, 'fr', 'same language: explanations in that language, not Ukrainian');
+ assert.equal(L.context({ui: 'en', target: 'nl', explain: 'ar'}).explain, 'ar', 'a separate explanation language is honoured');
+ assert.equal(L.context({ui: 'en', target: 'nl', explain: 'de'}).explain, 'en', 'unsupported explain → interface language');
  assert.equal(L.context({level: 'a21'}).level, 'a21', 'A2 is a real level');
 
  // ---- request body: one identity, scenarios, roleplay scenes, lesson context, history, voice alternatives

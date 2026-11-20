@@ -16,7 +16,7 @@
 //           ask  → {answer, examples: [{lang, text, translation}]}
 //           memo → {memory}   (updated notes about the learner; the app keeps them on the device)
 //           report → {ok}     (a learner flagged an AI answer; logged to Workers Logs for review)
-const WORKER_VERSION = "2026-11-18-lexi-v2"; // bump on every change: shows in the X-Leren-AI response header after a deploy
+const WORKER_VERSION = "2026-11-20-lexi-v3"; // bump on every change: shows in the X-Leren-AI response header after a deploy
 // gembarskydanylo.github.io is NOT allowed: the beta snapshot lives there and must not use the production model or quota.
 const ALLOWED_ORIGINS = ["https://lerenbe.com", "https://www.lerenbe.com", "http://localhost:8765"];
 // TEST-034: a separate test Worker (tools/lexi-test-worker.toml) sets ALLOWED_ORIGINS = "http://localhost:8765" so it only
@@ -96,8 +96,12 @@ const STYLE_RULES = (L, level = "a11") => ({
   slow: `SLOW PRACTICE, for a nervous or very new learner. Reply with one or two very short ${level === "a12" ? "A1.2 sentences (about 10 words each, the perfectum is allowed)" : "A1.1 sentences (about 8 words each)"} using words from the current course topic or the learner's mastered words, and exactly ONE simple question (yes/no, either/or, or answerable in a few words). At most one new word per reply, only if really needed, and it is translated. If the learner does not understand, is stuck, writes in their own language or asks for help: say the same idea again in even simpler words, show a tiny answer pattern (e.g. «Ik heb ...»), keep the same question and do not change topic. Correct at most ONE mistake, gently: correction.corrected is a short model sentence and the explanation one short sentence.`,
   exam: `EXAM. Follow the EXAM SCRIPT and the EXAM RETRY RULE exactly; they override every other style rule below, including the ban on praise openers.`
 });
+// TEST-041: the interface language is the studied one (English UI learning English, French UI learning French). Lexi explains
+// in that language, in very simple words; she never switches to another language. Other language rules are unchanged.
+const SAME_LANG = L => `\n- SAME LANGUAGE: the learner's interface language is the studied language (${L}). Explain in VERY simple ${L} (A1 words, short sentences, one idea per sentence); never switch to any other language. "translation" = the reply said again in even simpler ${L} words.`;
 function chatSystem(t, lang, level, scene, char, extra = "", style = "teacher") {
   const T = TARGET[t] || TARGET.nl, L = LANG[lang] || "Ukrainian";
+  if (lang === t && TARGET[t]) extra += SAME_LANG(L);
   const sceneText = scene && SCENES[scene] && (scene !== "exam11" || t === "nl") ? "Role-play situation (speak " + T.name + " in it): " + SCENES[scene] : "Free conversation about " + T.place + ".";
   const blocks = STYLE_RULES(L, level === "a12" || level === "a21" ? "a12" : "a11"), current = scene === "exam11" || style === "exam" ? "exam" : blocks[style] ? style : "teacher";
   return `You are ${PERSONA[char] || PERSONA.lexi}. You help an adult ${level === "a21" ? "course A2.1 / A2" : level === "a12" ? "course A1.2 / A1" : "course A1.1 / A1"} learner practise ${T.name} by chatting. You are an AI tutor, not a human. The learner's own language is ${L}.
@@ -132,6 +136,7 @@ const EXAM11_COACH = L => `- EXAM COACH MODE: the learner is preparing the CVO D
 `;
 function askSystem(t, lang, level, char, extra = "") {
   const T = TARGET[t] || TARGET.nl, L = LANG[lang] || "Ukrainian";
+  if (lang === t && TARGET[t]) extra += SAME_LANG(L);
   return `You are ${PERSONA[char] || PERSONA.lexi}, the language tutor inside the Leren.be app. You are an AI tutor, not a human. You always talk to the learner in ${L}. The learner is an adult ${level === "a21" ? "A2 learner (course A2.1)" : level === "a12" ? "beginner (course A1.2 / A1)" : "beginner (course A1.1 / A1)"} who is studying ${T.name}; the app also teaches Dutch (nl-BE), English and French.
 Your ONLY job is helping the learner learn Dutch, English or French: grammar, vocabulary and word meanings, translation of words and short phrases, pronunciation tips, spelling, de/het and le/la, verb forms, example sentences, short practice exercises or quizzes on request, study tips, and the culture behind everyday language (greetings, politeness, Belgian expressions).
 If the question is not about learning these languages (other school subjects, homework that is not language learning, programming, news, politics, personal or medical/legal/financial advice, writing long texts for the learner), do not answer it: say kindly in ${L}, in one sentence, that you only help with learning Dutch, English and French, and suggest one related language question they could ask instead.

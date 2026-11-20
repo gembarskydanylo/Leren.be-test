@@ -40,6 +40,11 @@
   tooLong: {retry: false}, empty: {retry: false}
  };
  const LIMITS = {chat: 300, ask: 600, exam: 1600, history: 12, topic: 60, lesson: 80, answer: 200, question: 200};
+ // What the worker keeps of one message (tools/ai-worker.js maxLen). The voice note with other transcriptions must fit
+ // inside it whole, or the worker cuts its closing "]" and the learner's sentence reaches the model with half a note (TEST-038).
+ const WORKER_MAX = {chat: 400, ask: 600, exam: 1600};
+ // Worker error bodies ({error}) → the engine's codes, so a slow model is "timeout" and a bad answer "format", not "no internet".
+ const WORKER_ERRORS = {timeout: 'timeout', format: 'format', refusal: 'refusal', off: 'off', slow: 'slow', limit: 'limit', forbidden: 'unavailable', 'too big': 'tooLong', empty: 'empty', 'bad json': 'format', 'bad request': 'format', 'bad body': 'format'};
  const T = {
   timeout: {uk: 'Lexi не встиг відповісти. Спробуй ще раз.', en: 'Lexi took too long to answer. Try again.', fr: 'Lexi a mis trop de temps à répondre. Réessaie.', ar: 'تأخّر Lexi في الرد. حاول مرة أخرى.'},
   network: {uk: 'Немає зв’язку з Lexi. Перевір інтернет і спробуй ще раз.', en: 'Can’t reach Lexi. Check your connection and try again.', fr: 'Impossible de joindre Lexi. Vérifie ta connexion et réessaie.', ar: 'تعذّر الوصول إلى Lexi. تحقّق من الاتصال وحاول مرة أخرى.'},
@@ -73,7 +78,9 @@
  function context(raw) {
   const r = raw && typeof raw === 'object' ? raw : {};
   const target = pick(r.target, Object.keys(TARGETS), 'nl'), ui = pick(r.ui, Object.keys(UI), 'uk');
-  return {ui: ui === target ? 'uk' : ui, target, level: pick(r.level, LEVELS, 'a11'), topic: clip(r.topic, LIMITS.topic), lesson: clip(r.lesson, LIMITS.lesson),
+  // Explanations are in the interface language, also when it is the studied one (then the worker keeps them very simple);
+  // never a silent switch to Ukrainian (TEST-041). `explain` is a future separate choice; unsupported values fall back to `ui`.
+  return {ui, explain: pick(r.explain, Object.keys(UI), ui), target, level: pick(r.level, LEVELS, 'a11'), topic: clip(r.topic, LIMITS.topic), lesson: clip(r.lesson, LIMITS.lesson),
    question: clip(r.question, LIMITS.question), answer: clip(r.answer, LIMITS.answer)};
  }
  // Learning data the app already sends for personal examples (weak words, recent corrections, words to review).
@@ -92,10 +99,15 @@
  function body(id, rawCtx, messages, extra = {}) {
   const sc = SCENARIOS[scenario(id)], ctx = context(rawCtx), exam = extra.scene === 'exam11' || extra.focus === 'exam11' || extra.focus === 'exam12';
   const max = sc.mode === 'chat' ? LIMITS.chat : exam ? LIMITS.exam : LIMITS.ask;
+  const room = sc.mode === 'chat' ? WORKER_MAX.chat : exam ? WORKER_MAX.exam : WORKER_MAX.ask;
+  const spoken = (text, alts) => { // keep as many alternatives as fit; the note is always complete or absent
+   let list = (Array.isArray(alts) ? alts.slice(1, 4) : []).map(a => clip(a, 120)).filter(Boolean);
+   for (; list.length; list.pop()) { const out = text + '\n[spoken; other possible transcriptions: ' + list.join(' | ') + ']'; if (out.length <= room) return out }
+   return text;
+  };
   const msgs = (Array.isArray(messages) ? messages : []).filter(m => m && (m.role === 'user' || m.role === 'assistant') && typeof m.content === 'string' && m.content.trim())
-   .slice(-LIMITS.history).map(m => ({role: m.role, content: (m.role === 'user' && Array.isArray(m.alts) && m.alts.length > 1
-    ? m.content.slice(0, max) + '\n[spoken; other possible transcriptions: ' + m.alts.slice(1, 4).map(a => clip(a, 120)).join(' | ') + ']' : m.content.slice(0, max))}));
-  const b = {mode: sc.mode, target: ctx.target, lang: ctx.ui, level: ctx.level, char: CHAR, scenario: scenario(id), profile: profile(ctx, extra.learning), messages: msgs};
+   .slice(-LIMITS.history).map(m => ({role: m.role, content: m.role === 'user' && Array.isArray(m.alts) && m.alts.length > 1 ? spoken(m.content.slice(0, max), m.alts) : m.content.slice(0, max)}));
+  const b = {mode: sc.mode, target: ctx.target, lang: ctx.explain, level: ctx.level, char: CHAR, scenario: scenario(id), profile: profile(ctx, extra.learning), messages: msgs};
   if (sc.style) b.style = extra.style && ['talk', 'teacher', 'slow', 'exam'].includes(extra.style) ? extra.style : sc.style;
   const scene = extra.scene && (ROLEPLAYS[extra.scene] || (LEGACY_SCENES.includes(extra.scene) ? extra.scene : null));
   if (sc.mode === 'chat' && scene) b.scene = scene;
@@ -129,16 +141,18 @@
  async function send(id, rawCtx, messages, extra = {}) {
   const av = availability(); if (!av.ok) { emit('state', {state: av.code === 'offline' ? 'offline' : 'error', code: av.code, scenario: scenario(id)}); throw fail(av.code) }
   const b = body(id, rawCtx, messages, extra), last = [...b.messages].reverse().find(m => m.role === 'user');
-  if (b.mode !== 'chat' && !last) throw fail('empty');
+  const stop = code => { emit('state', {state: 'error', code, scenario: b.scenario}); return fail(code) };
+  if (b.mode !== 'chat' && !last) throw stop('empty');
   const raw = (Array.isArray(messages) ? messages : []).filter(m => m && m.role === 'user').pop();
   const max = b.mode === 'chat' ? LIMITS.chat : b.focus === 'exam11' || b.focus === 'exam12' ? LIMITS.exam : LIMITS.ask;
-  if (raw && typeof raw.content === 'string' && raw.content.length > max) throw fail('tooLong');
+  if (raw && typeof raw.content === 'string' && raw.content.length > max) throw stop('tooLong');
   emit('state', {state: 'thinking', scenario: b.scenario});
   let data;
   try { data = await globalThis.LerenAICoach.request(av.endpoint, b, {timeout: extra.timeout || (b.mode === 'chat' ? 30000 : 45000), fetch: cfg.fetch || undefined}) }
   catch (e) {
-   const code = e.code === 'timeout' ? 'timeout' : e.code === 'limit' ? (e.data && e.data.error === 'slow' ? 'slow' : 'limit') : e.code === 'format' ? 'format'
-    : e.data && e.data.error === 'refusal' ? 'refusal' : e.data && e.data.error === 'off' ? 'off' : !cfg.online() ? 'offline' : 'network';
+   const said = e.data && typeof e.data.error === 'string' ? WORKER_ERRORS[e.data.error] : '';
+   const code = e.code === 'timeout' ? 'timeout' : e.code === 'limit' ? (said === 'slow' ? 'slow' : 'limit') : e.code === 'format' ? 'format'
+    : said && said !== 'slow' && said !== 'limit' ? said : !cfg.online() ? 'offline' : 'network';
    emit('state', {state: code === 'offline' ? 'offline' : 'error', code, scenario: b.scenario}); throw fail(code, {wait: e.wait || null, data: e.data || null});
   }
   let out; try { out = normalize(b.mode, data, raw && b.mode === 'chat' ? raw.content : '') } catch (e) { emit('state', {state: 'error', code: 'format', scenario: b.scenario}); throw e }
@@ -148,11 +162,11 @@
  // Fire-and-forget calls that keep the worker's own shapes: notes about the learner and reports of AI answers.
  async function memo(rawCtx, messages, memory) {
   const av = availability(); if (!av.ok) return null; const ctx = context(rawCtx);
-  try { const d = await globalThis.LerenAICoach.request(av.endpoint, {mode: 'memo', target: ctx.target, lang: ctx.ui, char: CHAR, memory: clip(memory, 600), messages: body('free', ctx, messages).messages}, {timeout: 30000, fetch: cfg.fetch || undefined}); return typeof d.memory === 'string' ? d.memory.trim().slice(0, 600) : null } catch (e) { return null }
+  try { const d = await globalThis.LerenAICoach.request(av.endpoint, {mode: 'memo', target: ctx.target, lang: ctx.explain, char: CHAR, memory: clip(memory, 600), messages: body('free', ctx, messages).messages}, {timeout: 30000, fetch: cfg.fetch || undefined}); return typeof d.memory === 'string' ? d.memory.trim().slice(0, 600) : null } catch (e) { return null }
  }
  async function report(rawCtx, kind, text) {
   const av = availability(); if (!av.ok) return false; const ctx = context(rawCtx);
-  try { await globalThis.LerenAICoach.request(av.endpoint, {mode: 'report', kind: clip(kind, 10), target: ctx.target, lang: ctx.ui, char: CHAR, text: String(text || '').slice(0, 1500)}, {timeout: 15000, fetch: cfg.fetch || undefined}); return true } catch (e) { return false }
+  try { await globalThis.LerenAICoach.request(av.endpoint, {mode: 'report', kind: clip(kind, 10), target: ctx.target, lang: ctx.explain, char: CHAR, text: String(text || '').slice(0, 1500)}, {timeout: 15000, fetch: cfg.fetch || undefined}); return true } catch (e) { return false }
  }
  function message(code, ui) { const m = T[code] || T.network; return m[ui] || m.en }
  // Voice: what this browser can do. Nothing is recorded: recognition gives text, which the learner checks before sending.
@@ -160,6 +174,6 @@
   const g = globalThis; return {listen: !!(g.SpeechRecognition || g.webkitSpeechRecognition), speak: !!(g.speechSynthesis && g.SpeechSynthesisUtterance)};
  }
  function speechTag(lang) { return (TARGETS[lang] || UI[lang] || TARGETS.nl).tag }
- const api = {NAME, CHAR, TARGETS, UI, LEVELS, ROLEPLAYS, SCENARIOS, STATES, ERRORS, LIMITS, configure, availability, context, profile, body, normalize, send, memo, report, message, voice, speechTag, on, emit, scenario};
+ const api = {NAME, CHAR, TARGETS, UI, LEVELS, ROLEPLAYS, SCENARIOS, STATES, ERRORS, LIMITS, WORKER_MAX, configure, availability, context, profile, body, normalize, send, memo, report, message, voice, speechTag, on, emit, scenario};
  globalThis.LerenLexi = api;
 })();
