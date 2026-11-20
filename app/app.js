@@ -3976,7 +3976,7 @@ function renderShellText(){
  $("targetLabel").textContent=n.learn;$("uiLabel").textContent=n.expl;
  $("voiceRowLabel").textContent=n.voice;
  const saved=lsGet("leren_voice_"+targetLang,""),ru=getUI();
- $("voiceRowValue").textContent=recordedAvailable()&&useRecorded()?String((recVoice()==="f"?ru.voiceRecordedF:ru.voiceRecorded)||"").replace(/^🎙\s*/,""):saved?saved.split("|")[1]||saved:n.voiceDevice;
+ $("voiceRowValue").textContent=recordedAvailable()&&useRecorded()?String((recVoice()==="f"?ru.voiceRecordedF:ru.voiceRecorded)||"").replace(/^🎙\s*/,""):saved?(""+saved).split("|")[1]||saved:n.voiceDevice;
  $("voiceSettingsBtn").textContent=n.voicePick;
  $("autoRowLabel").textContent=n.auto;$("autoRowHint").textContent=n.autoHint;
  $("themeRowLabel").textContent=n.theme;$("goalRowLabel").textContent=n.goal;$("goalBtn").textContent=goalMin()+" "+LerenInsights.ui(uiLang).min;
