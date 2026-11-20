@@ -40,10 +40,13 @@ console.log('PASS: static — app chat = design lab + documented patches (port -
  const KEYS = ['poly_score', 'leren_path_v1', 'leren_life_xp_v1', 'leren_xp_v2', 'poly_progress', 'leren_char', 'poly_target', 'poly_ui', 'poly_level'];
  async function open({endpoint = AI, viewport = {width: 390, height: 844}, ui = 'uk', sw = 'block', query = '', theme} = {}) {
   const ctx = await browser.newContext({viewport, serviceWorkers: sw}), page = await ctx.newPage(), errors = [], outside = [];
+  // TEST-033: on phones the chat settings (scenarios, languages, level, situation) sit behind the header settings button once
+  // the conversation runs, so a sidebar control is reached the way a user reaches it — tap «Налаштування чату» first.
+  for (const m of ['click', 'selectOption']) { const orig = page[m].bind(page); page[m] = async (sel, ...a) => { if (typeof sel === 'string' && sel.startsWith(S) && await page.locator(sel).count() && !await page.locator(sel).first().isVisible() && await page.locator(sel).first().evaluate(e => !!e.closest('.sidebar'))) { const b = page.locator(S + '.settings-button'); if (await b.isVisible()) await b.click() } return orig(sel, ...a) } }
   page.on('pageerror', e => errors.push(e.message)); await ctx.route(/^https?:\/\/(?!localhost)/, r => { outside.push(r.request().url()); r.abort() });
   await page.addInitScript(([rel, endpoint, ui, theme]) => {
    if (!localStorage.getItem('seeded')) { localStorage.setItem('seeded', '1');
-    for (const [k, v] of Object.entries({leren_release_seen: JSON.stringify(rel), poly_ui: ui, poly_target: 'nl', leren_home_v1: 'path', leren_welcome_seen: 'true', leren_onboarding_language_v1: '1', leren_start_known_v1: 'zero', leren_ai_consent18: 'true', leren_char: '"peter"', leren_life_xp_v1: JSON.stringify({'first-day:station': 40}), ...(theme ? {poly_theme: JSON.stringify(theme), leren_theme: JSON.stringify(theme)} : {})})) localStorage.setItem(k, v);
+    for (const [k, v] of Object.entries({leren_release_seen: JSON.stringify(rel), poly_ui: ui, poly_target: 'nl', leren_home_v1: 'path', leren_welcome_seen: 'true', leren_onboarding_language_v1: '1', leren_start_known_v1: 'zero', leren_ai_consent18: 'true', leren_char: '"peter"', leren_life_xp_v1: JSON.stringify({'first-day:station': 40}), ...(theme ? {poly_theme: theme, leren_theme: JSON.stringify(theme)} : {})})) localStorage.setItem(k, v);
     if (endpoint) localStorage.setItem('leren_ai_endpoint', JSON.stringify(endpoint)) }
    window.__csp = []; document.addEventListener('securitypolicyviolation', e => window.__csp.push(e.violatedDirective + ' ' + e.blockedURI));
    window.SpeechRecognition = class { start() { if (!window.__srArmed) return; window.__srArmed = false; setTimeout(() => { if (window.__srDeny) { this.onerror && this.onerror({error: 'not-allowed'}); this.onend && this.onend(); return }
@@ -140,7 +143,9 @@ console.log('PASS: static — app chat = design lab + documented patches (port -
    st = await state(page); assert.equal(await page.locator(S + '.error-panel [data-action=retry]').count(), 0, 'daily limit: no retry');
    await page.click(S + '[data-action=edit]'); assert.equal(await page.inputValue(S + 'input[name=draft]'), 'Morgen', 'edit puts the message back');
    assert.equal(await page.locator(S + 'button.send').isDisabled(), true, 'daily limit: sending waits until the reset time');
-   await closeLexi(page); await lexi(page, 'free'); await ctx.setOffline(true); const n1 = seen.length; await send(page, 'Offline');
+   await closeLexi(page); await lexi(page, 'free');
+   assert.equal(await page.locator(S + 'button.send').isDisabled(), true, 'reopening preserves the daily cooldown');
+   await page.click(S + '[data-scenario=speaking]'); await ctx.setOffline(true); const n1 = seen.length; await send(page, 'Offline');
    assert.match((await state(page)).err, /офлайн|мережі|інтернет/i); assert.equal(seen.length, n1, 'offline: nothing sent');
    assert.equal(await page.evaluate(() => document.querySelector('.lexi-host').shadowRoot.querySelector('.error-panel').getAttribute('role')), 'status');
    await ctx.setOffline(false); assert.deepEqual(errors, []); await ctx.close();
@@ -220,11 +225,50 @@ console.log('PASS: static — app chat = design lab + documented patches (port -
    console.log('PASS: beta snapshot — Lexi off, no request; ?lexi=demo shows the TEST-030 demo replies, labelled «Демонстрація», with no network request (for checking screens on a phone)');
   }
 
+  // TEST-037 · Resume within this tab without writing transcripts or replaying award side effects.
+  {
+   const {ctx, page} = await open();
+   const text = 'Testzin voor de hervatting';
+   await lexi(page, 'free');
+   await send(page, text);
+   assert.equal((await state(page)).bubbles, 2);
+   queue.push({status: 503, body: {error: 'unavailable'}});
+   await send(page, 'Mislukte poging');
+   await closeLexi(page);
+   await lexi(page, 'free');
+   await page.click(S + '[data-action=edit]');
+   assert.equal(await page.inputValue(S + '#draft'), 'Mislukte poging');
+   assert.equal((await state(page)).bubbles, 2, 'editing removes the restored pending bubble');
+   const requests = seen.length;
+   const awards = await page.evaluate(() => window.__games);
+   await closeLexi(page);
+   await lexi(page, 'free');
+   assert.match(await page.locator(S + '.chat-log').innerText(), /Testzin voor de hervatting/);
+   assert.equal((await state(page)).bubbles, 2);
+   assert.equal(seen.length, requests, 'restoring only renders the transcript');
+   assert.deepEqual(await page.evaluate(() => window.__games), awards);
+   await send(page, 'Tweede testzin');
+   assert(last().messages.some(m => m.content === text), 'next request has the earlier context');
+   await page.goBack();
+   await lexi(page, 'free');
+   assert.equal((await state(page)).bubbles, 4, 'browser back also saves the transcript');
+   assert.equal(await page.evaluate(t => [localStorage, sessionStorage].some(store =>
+    Object.values(store).some(value => value.includes(t))), text), false, 'transcript is not written to Web Storage');
+   await closeLexi(page);
+   await lexi(page, 'roleplay', {scene: 'doctor'});
+   assert.equal((await state(page)).bubbles, 0, 'a different entry never gets the transcript');
+   await page.reload();
+   await lexi(page, 'free');
+   assert.equal((await state(page)).bubbles, 0, 'reloading clears the tab-memory transcript');
+   await ctx.close();
+   console.log('PASS: TEST-037 — same-entry resume via Close and browser Back; no storage, replay or cross-scenario leakage');
+  }
+
   // ---- H · service worker: the release (255+) precaches the chat; it opens offline from the cache and says it is offline
   {
    const {ctx, page, errors} = await open({sw: 'allow'});
    await page.evaluate(async () => { await navigator.serviceWorker.ready }); await page.reload(); await page.waitForFunction(() => !!navigator.serviceWorker.controller && !!window.LerenLexi);
-   const cached = await page.evaluate(async () => { const c = await caches.open((await caches.keys()).find(k => k.startsWith('leren-be-v'))); return Promise.all(['./modules/lexi/chat.js?v=255', './modules/lexi/copy.js?v=255', './modules/lexi/chat.css?v=255', './img/lexi/lexi.webp', './img/lexi/lexi-emotions.webp'].map(async u => !!(await c.match(u)))) });
+   const cached = await page.evaluate(async () => { const c = await caches.open((await caches.keys()).find(k => k.startsWith('leren-be-v'))); return Promise.all(['./modules/lexi/chat.js?v=261', './modules/lexi/copy.js?v=261', './modules/lexi/chat.css?v=261', './img/lexi/lexi.webp', './img/lexi/lexi-emotions.webp'].map(async u => !!(await c.match(u)))) });
    assert.deepEqual(cached, [true, true, true, true, true], 'chat files precached');
    await ctx.setOffline(true); await page.evaluate(() => { lexiOpen('free') }); await page.waitForSelector('.lexi-off', {timeout: 15000}); assert.equal(await page.locator('.lexi-host').count(), 0, 'offline at the start: the «Lexi is offline» card with retry');
    await ctx.setOffline(false);

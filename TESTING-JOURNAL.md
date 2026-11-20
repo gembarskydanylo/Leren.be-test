@@ -466,3 +466,39 @@ Total output lines: 142
   - `sw-release-chain` падав: реліз 259 уже запушено (`52b2c05`) з іншими файлами `app/`, а нові зміни `app/` теж мали 259.
 - За рішенням власника нові зміни переведено на **реліз 260** (вільний у всіх гілках; 259 лишається за `52b2c05`).
 - Не перевірено: реальний AI, правило SAME LANGUAGE на справжній моделі, Samsung.
+
+## TEST-033 · Початковий аудит · 2026-11-18 (Europe/Brussels)
+- Окрема гілка `codex/test-033-lexi-mobile-ux` від `claude/test-032-lexi-integration` @ `a0428af`. Прочитано генератор UI та старі chat/exam маршрути; докази і відкриті питання в `docs/design/test-033/INITIAL-AUDIT.md`.
+- PASS: `node tests/lexi-engine.cjs` і `node tools/lexi-ui-port.cjs --check`. Мобільний браузер, повний набір тестів і фізична клавіатура не перевірялися. Реалізація та PR не завершені.
+
+## TEST-033 · Samsung photos and experimental mobile layout · 2026-11-18 (Europe/Brussels)
+- Реальні фото власника: поле введення зникає при відкритій клавіатурі; панель налаштувань займає більшу частину екрана, Lexi відсутній біля відповіді. Фото збережено у власника, не додано до репозиторію.
+- У design-lab додано експериментальну висоту за visualViewport, окрему прокрутку історії, автоматичне згортання панелі лише при зменшеному viewport і аватар зліва від відповіді. Згенеровано app/modules/lexi/chat.js та chat.css; `node tools/lexi-ui-port.cjs --check` PASS.
+- Regression `tests/lexi-mobile-033.cjs`: PASS 320/360/390/430/768/1440 та RTL/200% при емульованій висоті 460px. Початковий RTL assertion показав 460.0625px через дробове округлення Chromium; додано допуск 1px. Повторно PASS. `tests/lexi-integration.cjs` спочатку виявив сховану навігацію після звичайного надсилання; згортання обмежено зменшеним viewport, повторно PASS включно XP/LIFE/AI, Back/Escape та RTL.
+- Це експеримент, не готовий TEST-033: реальний Samsung після зміни не перевірено; версія app/SW залишається 255, тож наявний кеш може показувати старий app UI. Для перевірки використовувати версіонований design-lab, не заявляти його тестуванням app-інтеграції. Допомога, стилі, вправи, автовідтворення, дрібні виправлення й іспити ще не реалізовані. Повний цикл тестів і PR не завершені.
+
+## TEST-033 · Клавіатура Samsung (Preview 3) і повернені функції чату · 2026-11-18 (Europe/Brussels) · Claude Code
+- **Клавіатура, прийнято власником на фізичному Samsung (Preview 3):** список попередніх фраз (автозаповнення Chrome) вимкнено (`autocomplete="off"`); висота чату за visualViewport; одна прокрутка (історія); поле й кнопки над клавіатурою; після надсилання клавіатура на телефоні закривається; рамка фокуса поля всередині. Коміти 7afed98, 9d874e8. Версія app/SW **257** (256 — TEST-034).
+- **Повернено з попереднього чату** (design-lab → `node tools/lexi-ui-port.cjs`): «Не знаю, що відповісти» (підказка + один приклад, вставляється для редагування, нічого не надсилає сам); стиль вільної розмови (розмова · легкі виправлення / викладач / повільна практика) через наявний `extra.style` рушія; «Закріпити виправлення» (написати виправлену фразу, звірити зі зразком, ще приклад); легкі виправлення у вільній розмові («Краще: …», «Чому?»); автоматичне озвучення відповідей Lexi з перемикачем. Стиль і перемикач запам'ятовуються на пристрої (`leren_ai_style`, `leren_lexi_autovoice`). API рушія та Worker не змінено.
+- **AI-іспит у вигляді Concept B:** пробний іспит говоріння A1.1 і перевірка письма — палітра TEST-030 (світла й темна), аватар Lexi біля відповідей, одна картка поля. Логіка іспиту, збереження й питання не змінені. Клас більше не «протікає» на інші екрани.
+- Тести: новий `tests/lexi-features-033.cjs` (7 прогонів: lab 390 uk / 320 ar RTL / 1440 en; app з mock AI; іспит 390 / 320 темна / 1440). Повний набір **45/45**, перевірки лабораторії 4/4, обхід — ті самі 43 старі зауваження (41 переклад виправлено в TEST-034). XP (5 повідомлень = 30, підказка й вправа — 0), прогрес, LIFE і бали без змін.
+- Межі: лише Chromium-емуляція й mock AI. Нові функції на фізичному Samsung, реальний AI, TalkBack і голос телефона ще не перевірялися.
+
+## 2026-11-19 22:47 CET · TEST-037 · Мобільний UX і Lexi
+
+- База TEST-033 `5f6235f`; `codex/test-037-mobile-ux`, тестовий реліз 258. Перевірено гілки TEST-030, TEST-032, TEST-033 та TEST-035. 3D-переглядач запускався з окремої закоміченої копії TEST-035, незбережені файли лишилися на місці.
+- `app/app.js`, першоджерело та порт Lexi: остання розмова відновлюється при повторному відкритті з того самого контексту, без персистентного запису, повторного озвучення або XP. Локалізовано назву журналу, скорочено назви стилів. `engagement.css` та `life.css` v2 збільшують області натискання. Оновлено HTML і precache.
+- Локально пройшли 46 наборів із цільовими повторними запусками. Перевірка версій дизайн-системи спочатку очікувала v1, після оновлення перевіряє v2 та відповідність LIFE precache. Матриця TEST-037 пройшла 128 комбінацій, інтеграція Lexi пройшла 11 точок входу. Реальний service worker у Chromium підтвердив offline і збереження XP та LIFE. 3D-переглядач пройшов 4 ширини.
+- Скриншоти та межі перевірки в `docs/design/test-037/`. Клавіатура емуляційна, AI і голос у регресійних тестах імітовані. Фізичний Samsung, TalkBack і live AI для v258 ще не перевіряли. Без публікації тестової збірки.
+
+- 23:17 CET. Окрема перевірка контракту виявила прихований мобільний селектор і переповнення в темній темі при 320 px і 200%. Тест відкриває меню як користувач і перевіряє також внутрішню прокрутку журналу. Заголовок і картка привітання адаптовані. Всі чотири перевірки design-lab пройшли, зокрема 144 стани, 24 комбінації масштабу й 14 груп взаємодій у контракті Lexi.
+- CI першої версії знайшов два замалі посилання довідки Audio, коли голос пристрою недоступний. Посилання мають мінімум 44 px, а матриця TEST-037 тепер явно реєструє цей стан на всіх ширинах і мовах.
+
+## TEST-042 · Integration TEST-037 + TEST-041 (local branch claude/test-042-integration, release 261)
+
+- Base: TEST-041 `460c77a` (release 260); merged `origin/codex/test-037-mobile-ux` `e380903` (release 258). Neither source branch, PR #22 nor PR #24 was changed; nothing pushed.
+- 8 conflicts, all from the two release numbers and the two sets of tests / port patterns: `app/app.js`, `app/index.html`, `app/sw.js`, `tests/first-lesson.cjs`, `tests/lexi-integration.cjs`, `tools/lexi-ui-port.cjs`, both journals.
+- Release **261** (free on every branch and tag when checked): `RELEASE_VERSION`, `app.js?v=` ×4, `CACHE_NAME leren-be-v261`, the pin in `first-lesson.cjs`. `LEXI_V` 258 → 261 (the chat module changed); `engine.js?v=3` from TEST-041. `chat.js` regenerated with `tools/lexi-ui-port.cjs`.
+- Owner's translation rule: «Translate» in the interface language; when it is the studied language the action is «Explain simply» (uk «Поясни простіше», fr «Explique plus simplement», ar «اشرح ببساطة أكثر»), via the TEST-041 contract (`aiTranslate`, no new API, Worker unchanged). New `tests/translate-action-042.cjs`.
+- The first-screen budget (760 KB gzip) is at 759.96 KB: the labels were kept small on purpose; do not add more first-screen code without a recorded decision.
+- Codex's unfinished TEST-042 work (landscape keyboard) is NOT included: it is saved in branch `claude/test-042-recovery` (`0d98263`, repository `/private/tmp/leren-test-037`) and in `~/Documents/Leren-backups/`.
