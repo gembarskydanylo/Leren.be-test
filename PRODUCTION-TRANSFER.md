@@ -241,3 +241,8 @@
 ## TEST-042 · Integration TEST-037 + TEST-041 (release 261, local only)
 
 Not for production yet. The two mobile-UX and AI branches are combined in the local branch `claude/test-042-integration`; the Worker change from TEST-041 (SAME LANGUAGE rule) still needs a separate, approved Worker deploy. «Explain simply» uses the existing request, so the app works with the old Worker too (it then answers in the same way as before).
+
+## TEST-043 · Overnight quality lab (awaiting owner's decision)
+- Two small fixes for production candidates: stored non-text voice no longer breaks start (`app.js` `renderShellText`), lesson topic button 44 px (`index.html` `.lh-topic`). No storage migration. They need a new release number (262 on the test app) — not assigned without approval.
+- Tests and labs (`tests/*-043.cjs`, `tools/test-043/`) are test-only; nothing to transfer.
+- Recommendations needing approval, not done: lazy-load en/fr course data (57.6 KB gzip of the first screen), App Check for the Worker, distinct "server unavailable" message (L-1, Codex copy), fix of the Lexi DOM retention in the Codex lab (P-1).
