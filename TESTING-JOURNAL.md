@@ -502,3 +502,10 @@ Total output lines: 142
 - Owner's translation rule: «Translate» in the interface language; when it is the studied language the action is «Explain simply» (uk «Поясни простіше», fr «Explique plus simplement», ar «اشرح ببساطة أكثر»), via the TEST-041 contract (`aiTranslate`, no new API, Worker unchanged). New `tests/translate-action-042.cjs`.
 - The first-screen budget (760 KB gzip) is at 759.96 KB: the labels were kept small on purpose; do not add more first-screen code without a recorded decision.
 - Codex's unfinished TEST-042 work (landscape keyboard) is NOT included: it is saved in branch `claude/test-042-recovery` (`0d98263`, repository `/private/tmp/leren-test-037`) and in `~/Documents/Leren-backups/`.
+
+### TEST-042 · Lesson Help (release 261, same local branch)
+
+- `bridge.lexi('lesson', ctx)` / `lexiOpen('lesson', ctx)` now has callers: an «Ask Lexi» button (uk «Запитай Lexi», en «Ask Lexi», fr «Demande à Lexi», ar «اسأل Lexi») under the exercise of the classic lesson (study / quiz / audio / review; not in chapter tests), the Learning Path (nl) and the Course Player (en / fr).
+- New `app/modules/lexi/lesson-help.js?v=1` (deferred, precached, preload hint), `engine.js?v=4` (`kind` from six values, `expected` ≤ 200, sent only through the host's `help`), `app.js`: `help:ctx` in `lexiMount` (+8 bytes; first-screen budget stays under 760 KB).
+- Privacy: only text already on the exercise screen; the course's sample answer and the learner's pick only after they answered; nothing is sent by the tap itself; no account, XP, streak, history, audio. The Worker is unchanged: it already uses `question` / `answer`; `kind` / `expected` are ignored until a separate, approved Worker change (`learnerNotes()`).
+- `tests/lesson-help-042.cjs`: engine fields and limits, no personal field in the request, four languages at 320 px, 44 px targets, three screens, the tap opens Lexi on top of the Course Player, no button in chapter tests. Full suite 53/53, lab 4/4. Not tested: real AI, Samsung / TalkBack.

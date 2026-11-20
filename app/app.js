@@ -5548,7 +5548,7 @@ async function lexiMount(scenario,ctx){
   context:{topic:ctx.topic||"",lesson:ctx.lesson||"",question:ctx.question||"",answer:ctx.answer||""},
   privacy:demo?null:LEXI_PRIVACY[uiLang]||LEXI_PRIVACY.en,
   sceneLabels:Object.fromEntries(Object.keys(LEXI_OLD_SCENES).map(k=>[k,lang(k)])),
-  extra:()=>demo?{}:{learning:aiProfile(),memory:aiMemory()},
+  extra:()=>demo?{}:{learning:aiProfile(),memory:aiMemory(),help:ctx},
   report:demo?null:{label:g.report,send:m=>aiReport(m.content+(m.result&&m.result.translation?"\n("+m.result.translation+")":""),m.result&&m.result.kind==="ask"?"ask":"chat")},
   memory:demo?null:{get:aiMemory,forget:aiForget,title:g.memT,note:g.memNote,forgetLabel:g.memForget},
   voice:{listen:({lang:l,ui,scenario:sc,onText,onEnd,onError})=>{const tag=L?L.speechTag(sc==="grammar"||sc==="lesson"?ui:l):undefined;

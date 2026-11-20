@@ -1,6 +1,6 @@
 # Lesson Help: технічний план підключення `bridge.lexi('lesson', ctx)` (TEST-042, лише план)
 
-**Стан:** нічого не реалізовано. UI, Worker і рушій не змінювались. Контракт полів — [`LEXI-LESSON-HELP-CONTRACT.md`](LEXI-LESSON-HELP-CONTRACT.md).
+**Стан:** реалізовано (TEST-042). Замість правок у трьох екранах і в `app.js` (бюджет першого екрана 760 KB повністю вичерпано) кнопку додає відкладений модуль `lesson-help.js`, який читає вправу зі сторінки; у `app.js` змінено лише `help:ctx` у `lexiMount`. Нижче — початковий план. Контракт полів — [`LEXI-LESSON-HELP-CONTRACT.md`](LEXI-LESSON-HELP-CONTRACT.md).
 
 ## 1. Що вже працює
 
