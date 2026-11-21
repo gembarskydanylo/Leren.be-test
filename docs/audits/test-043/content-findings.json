@@ -1,0 +1,353 @@
+[
+ {
+  "severity": "LOW",
+  "course": "nl",
+  "chapter": "",
+  "lesson": "graag,verbs,routine",
+  "card": "gr_koken,vx_21,b_koken",
+  "problem": "«koken» has 3 different Ukrainian translations: готувати | готувати (їжу) | готувати їжу",
+  "suggestion": "HUMAN REVIEW: consistent translation"
+ },
+ {
+  "severity": "LOW",
+  "course": "nl",
+  "chapter": "",
+  "lesson": "graag,ex8",
+  "card": "gr_was,course_ex8_18",
+  "problem": "«de was doen» has 2 different Ukrainian translations: прати білизну | прати",
+  "suggestion": "HUMAN REVIEW: consistent translation"
+ },
+ {
+  "severity": "LOW",
+  "course": "nl",
+  "chapter": "",
+  "lesson": "graag,klanken,klanken",
+  "card": "gr_lopen,k2_lopen,k3_lopen",
+  "problem": "«lopen» has 2 different Ukrainian translations: бігати | ходити",
+  "suggestion": "HUMAN REVIEW: consistent translation"
+ },
+ {
+  "severity": "LOW",
+  "course": "nl",
+  "chapter": "",
+  "lesson": "graag,klanken",
+  "card": "gr_graag,k1_graag",
+  "problem": "«graag» has 2 different Ukrainian translations: охоче (люблю) | охоче",
+  "suggestion": "HUMAN REVIEW: consistent translation"
+ },
+ {
+  "severity": "LOW",
+  "course": "nl",
+  "chapter": "",
+  "lesson": "pronouns,objpron",
+  "card": "pro_u,b_o_u",
+  "problem": "«u» has 2 different Ukrainian translations: Ви (ввічливо) | вас, вам (ввічливо)",
+  "suggestion": "HUMAN REVIEW: consistent translation"
+ },
+ {
+  "severity": "LOW",
+  "course": "nl",
+  "chapter": "",
+  "lesson": "pronouns,bezit",
+  "card": "pro_jullie,b_jullie",
+  "problem": "«jullie» has 2 different Ukrainian translations: ви (до кількох людей) | ваш (множина)",
+  "suggestion": "HUMAN REVIEW: consistent translation"
+ },
+ {
+  "severity": "LOW",
+  "course": "nl",
+  "chapter": "",
+  "lesson": "verbs,bezit",
+  "card": "v_zijn,b_zijn",
+  "problem": "«zijn» has 2 different Ukrainian translations: бути | його",
+  "suggestion": "HUMAN REVIEW: consistent translation"
+ },
+ {
+  "severity": "LOW",
+  "course": "nl",
+  "chapter": "",
+  "lesson": "verbs,klanken,klanken",
+  "card": "v_wonen,k2_wonen,k3_wonen",
+  "problem": "«wonen» has 2 different Ukrainian translations: жити / мешкати | жити",
+  "suggestion": "HUMAN REVIEW: consistent translation"
+ },
+ {
+  "severity": "LOW",
+  "course": "nl",
+  "chapter": "",
+  "lesson": "verbs,uitnodigen,klanken,klanken",
+  "card": "v_spreken,course_up_6,k2_spreken,k3_spreken",
+  "problem": "«spreken» has 3 different Ukrainian translations: говорити / розмовляти | зустрічаємося (spreken af) | розмовляти",
+  "suggestion": "HUMAN REVIEW: consistent translation"
+ },
+ {
+  "severity": "LOW",
+  "course": "nl",
+  "chapter": "",
+  "lesson": "verbs,klanken,klanken",
+  "card": "vx_13,k2_leren,k3_leren",
+  "problem": "«leren» has 2 different Ukrainian translations: вчити / вчитися | вчити(ся)",
+  "suggestion": "HUMAN REVIEW: consistent translation"
+ },
+ {
+  "severity": "LOW",
+  "course": "nl",
+  "chapter": "",
+  "lesson": "verbs,klanken,klanken",
+  "card": "vx_17,k2_maken,k3_maken",
+  "problem": "«maken» has 2 different Ukrainian translations: виготовляти / робити (щось) | робити",
+  "suggestion": "HUMAN REVIEW: consistent translation"
+ },
+ {
+  "severity": "LOW",
+  "course": "nl",
+  "chapter": "",
+  "lesson": "verbs,klanken,klanken",
+  "card": "vx_20,k2_bellen,k3_bellen",
+  "problem": "«bellen» has 2 different Ukrainian translations: телефонувати | дзвонити",
+  "suggestion": "HUMAN REVIEW: consistent translation"
+ },
+ {
+  "severity": "LOW",
+  "course": "nl",
+  "chapter": "",
+  "lesson": "verbs,klanken,klanken",
+  "card": "vx_34,k2_liggen,k3_liggen",
+  "problem": "«liggen» has 2 different Ukrainian translations: лежати / знаходитися | лежати",
+  "suggestion": "HUMAN REVIEW: consistent translation"
+ },
+ {
+  "severity": "LOW",
+  "course": "nl",
+  "chapter": "",
+  "lesson": "verbs,klanken",
+  "card": "vx_38,k3_halen",
+  "problem": "«halen» has 2 different Ukrainian translations: забирати / діставати | забирати",
+  "suggestion": "HUMAN REVIEW: consistent translation"
+ },
+ {
+  "severity": "LOW",
+  "course": "nl",
+  "chapter": "",
+  "lesson": "cvo,a2volwassen",
+  "card": "cvo_1,course_a2volwassen_2",
+  "problem": "«de cursist» has 2 different Ukrainian translations: слухач курсів / учень | слухач курсу",
+  "suggestion": "HUMAN REVIEW: consistent translation"
+ },
+ {
+  "severity": "LOW",
+  "course": "nl",
+  "chapter": "",
+  "lesson": "cvo,clothes",
+  "card": "cvo_12,clo_10",
+  "problem": "«de tas» has 2 different Ukrainian translations: сумка (шкільна) | сумка",
+  "suggestion": "HUMAN REVIEW: consistent translation"
+ },
+ {
+  "severity": "LOW",
+  "course": "nl",
+  "chapter": "",
+  "lesson": "gemeente,a2brief",
+  "card": "gem_4,course_a2brief_3",
+  "problem": "«het formulier» has 2 different Ukrainian translations: бланк / формуляр | форма, анкета",
+  "suggestion": "HUMAN REVIEW: consistent translation"
+ },
+ {
+  "severity": "LOW",
+  "course": "nl",
+  "chapter": "",
+  "lesson": "gemeente,a2loket",
+  "card": "gem_11,course_a2loket_1",
+  "problem": "«het loket» has 2 different Ukrainian translations: віконце / каса | віконце обслуговування",
+  "suggestion": "HUMAN REVIEW: consistent translation"
+ },
+ {
+  "severity": "LOW",
+  "course": "nl",
+  "chapter": "",
+  "lesson": "gemeente,a2brief",
+  "card": "gem_12,course_a2brief_2",
+  "problem": "«de aanvraag» has 2 different Ukrainian translations: заява / запит | заява",
+  "suggestion": "HUMAN REVIEW: consistent translation"
+ },
+ {
+  "severity": "LOW",
+  "course": "nl",
+  "chapter": "",
+  "lesson": "kaartjes,ex10",
+  "card": "kt_18,course_ex10_16",
+  "problem": "«de keelontsteking» has 2 different Ukrainian translations: запалення горла | ангіна, запалення горла",
+  "suggestion": "HUMAN REVIEW: consistent translation"
+ },
+ {
+  "severity": "LOW",
+  "course": "nl",
+  "chapter": "",
+  "lesson": "kaartjes,kaartjes,uitnodigen",
+  "card": "kt_20,course_kt_36,course_up_14",
+  "problem": "«keer» has 2 different Ukrainian translations: рази | раз",
+  "suggestion": "HUMAN REVIEW: consistent translation"
+ },
+ {
+  "severity": "LOW",
+  "course": "nl",
+  "chapter": "",
+  "lesson": "doctor,klachten",
+  "card": "doc_16,kl_15",
+  "problem": "«wat scheelt er?» has 2 different Ukrainian translations: Що з вами? Що болить? | Що з тобою? Що болить?",
+  "suggestion": "HUMAN REVIEW: consistent translation"
+ },
+ {
+  "severity": "LOW",
+  "course": "nl",
+  "chapter": "",
+  "lesson": "transport,city",
+  "card": "tr_9,cit_7",
+  "problem": "«het station» has 2 different Ukrainian translations: вокзал | вокзал / станція",
+  "suggestion": "HUMAN REVIEW: consistent translation"
+ },
+ {
+  "severity": "LOW",
+  "course": "nl",
+  "chapter": "",
+  "lesson": "phrases,telefoon",
+  "card": "phr_16,b_herhalen",
+  "problem": "«kunt u dat herhalen?» has 2 different Ukrainian translations: чи можете повторити? | Можете повторити?",
+  "suggestion": "HUMAN REVIEW: consistent translation"
+ },
+ {
+  "severity": "LOW",
+  "course": "nl",
+  "chapter": "",
+  "lesson": "numbers,klanken",
+  "card": "num_3,k1_twee",
+  "problem": "«twee» has 2 different Ukrainian translations: 2 · два | два",
+  "suggestion": "HUMAN REVIEW: consistent translation"
+ },
+ {
+  "severity": "LOW",
+  "course": "nl",
+  "chapter": "",
+  "lesson": "numbers,klanken",
+  "card": "num_7,k1_zes",
+  "problem": "«zes» has 2 different Ukrainian translations: 6 · шість | шість",
+  "suggestion": "HUMAN REVIEW: consistent translation"
+ },
+ {
+  "severity": "LOW",
+  "course": "nl",
+  "chapter": "",
+  "lesson": "numbers,klanken",
+  "card": "num_8,k2_zeven",
+  "problem": "«zeven» has 2 different Ukrainian translations: 7 · сім | сім",
+  "suggestion": "HUMAN REVIEW: consistent translation"
+ },
+ {
+  "severity": "LOW",
+  "course": "nl",
+  "chapter": "",
+  "lesson": "numbers,klanken",
+  "card": "num_9,k1_acht",
+  "problem": "«acht» has 2 different Ukrainian translations: 8 · вісім | вісім",
+  "suggestion": "HUMAN REVIEW: consistent translation"
+ },
+ {
+  "severity": "LOW",
+  "course": "nl",
+  "chapter": "",
+  "lesson": "time,verleden",
+  "card": "tim_3,b_gisteren",
+  "problem": "«gisteren» has 2 different Ukrainian translations: вчора | учора",
+  "suggestion": "HUMAN REVIEW: consistent translation"
+ },
+ {
+  "severity": "LOW",
+  "course": "nl",
+  "chapter": "",
+  "lesson": "ex9,afspraak",
+  "card": "course_ex9_16,b_morgenvroeg",
+  "problem": "«morgenvroeg» has 2 different Ukrainian translations: завтра рано-вранці | завтра вранці",
+  "suggestion": "HUMAN REVIEW: consistent translation"
+ },
+ {
+  "severity": "LOW",
+  "course": "nl",
+  "chapter": "",
+  "lesson": "ex9,afspraak",
+  "card": "course_ex9_30,b_huwelijk",
+  "problem": "«het huwelijk» has 2 different Ukrainian translations: весілля, шлюб | весілля",
+  "suggestion": "HUMAN REVIEW: consistent translation"
+ },
+ {
+  "severity": "LOW",
+  "course": "nl",
+  "chapter": "",
+  "lesson": "klachten,a2klacht",
+  "card": "kl_18,course_a2klacht_1",
+  "problem": "«de klacht» has 2 different Ukrainian translations: скарга, симптом | скарга",
+  "suggestion": "HUMAN REVIEW: consistent translation"
+ },
+ {
+  "severity": "LOW",
+  "course": "nl",
+  "chapter": "",
+  "lesson": "city,werk",
+  "card": "cit_10,wk_8",
+  "problem": "«de bank» has 2 different Ukrainian translations: банк (установа) | банк",
+  "suggestion": "HUMAN REVIEW: consistent translation"
+ },
+ {
+  "severity": "LOW",
+  "course": "nl",
+  "chapter": "",
+  "lesson": "comparison,a2superlatief",
+  "card": "course_comparison_2,course_a2superlatief_4",
+  "problem": "«de trein is sneller dan de bus.» has 2 different Ukrainian translations: Поїзд швидший за автобус. | Потяг швидший за автобус.",
+  "suggestion": "HUMAN REVIEW: consistent translation"
+ },
+ {
+  "severity": "LOW",
+  "course": "nl",
+  "chapter": "",
+  "lesson": "schoolwoorden,a2regels",
+  "card": "course_schoolwoorden_3,course_a2regels_3",
+  "problem": "«het rapport» has 2 different Ukrainian translations: табель з оцінками | табель",
+  "suggestion": "HUMAN REVIEW: consistent translation"
+ },
+ {
+  "severity": "LOW",
+  "course": "nl",
+  "chapter": "",
+  "lesson": "clubs,a2vrijwilliger",
+  "card": "course_clubs_4,course_a2vrijwilliger_2",
+  "problem": "«de vereniging» has 2 different Ukrainian translations: товариство, об’єднання | об’єднання, асоціація",
+  "suggestion": "HUMAN REVIEW: consistent translation"
+ },
+ {
+  "severity": "LOW",
+  "course": "nl",
+  "chapter": "",
+  "lesson": "woning,a2huur",
+  "card": "course_woning_7,course_a2huur_7",
+  "problem": "«de meterstand» has 2 different Ukrainian translations: показник лічильника | показання лічильника",
+  "suggestion": "HUMAN REVIEW: consistent translation"
+ },
+ {
+  "severity": "LOW",
+  "course": "nl",
+  "chapter": "",
+  "lesson": "a2ziek,a2klacht",
+  "card": "course_a2ziek_7,course_a2klacht_7",
+  "problem": "«vervangen» has 2 different Ukrainian translations: замінити (когось) | замінити",
+  "suggestion": "HUMAN REVIEW: consistent translation"
+ },
+ {
+  "severity": "MEDIUM",
+  "course": "fr",
+  "chapter": "",
+  "lesson": "",
+  "card": "",
+  "problem": "course has no final exam (English has en11/en12)",
+  "suggestion": "decide whether a final exam is planned"
+ }
+]

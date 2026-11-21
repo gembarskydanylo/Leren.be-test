@@ -1,0 +1,162 @@
+[
+ {
+  "w": 320,
+  "h": 568,
+  "o": "portrait",
+  "ui": "en",
+  "screen": "home",
+  "lang": "en",
+  "dir": "ltr",
+  "overflow": 0,
+  "small": [],
+  "outside": [],
+  "clipped": [
+   ".dock-tx «Dictionary»"
+  ],
+  "vh": 568,
+  "errors": [],
+  "fail": "",
+  "problem": true,
+  "shot": "shots/home-en-320x568.png"
+ },
+ {
+  "w": 320,
+  "h": 568,
+  "o": "portrait",
+  "ui": "en",
+  "screen": "quiz",
+  "lang": "en",
+  "dir": "ltr",
+  "overflow": 0,
+  "small": [],
+  "outside": [],
+  "clipped": [
+   ".dock-tx «Dictionary»"
+  ],
+  "vh": 568,
+  "errors": [],
+  "fail": "",
+  "problem": true,
+  "shot": "shots/quiz-en-320x568.png"
+ },
+ {
+  "w": 320,
+  "h": 568,
+  "o": "portrait",
+  "ui": "en",
+  "screen": "answered",
+  "lang": "en",
+  "dir": "ltr",
+  "overflow": 0,
+  "small": [],
+  "outside": [],
+  "clipped": [
+   ".dock-tx «Dictionary»"
+  ],
+  "vh": 568,
+  "errors": [],
+  "fail": "",
+  "problem": true,
+  "shot": "shots/answered-en-320x568.png"
+ },
+ {
+  "w": 320,
+  "h": 568,
+  "o": "portrait",
+  "ui": "en",
+  "screen": "study",
+  "lang": "en",
+  "dir": "ltr",
+  "overflow": 0,
+  "small": [],
+  "outside": [],
+  "clipped": [
+   ".dock-tx «Dictionary»"
+  ],
+  "vh": 568,
+  "errors": [],
+  "fail": "",
+  "problem": true,
+  "shot": "shots/study-en-320x568.png"
+ },
+ {
+  "w": 320,
+  "h": 568,
+  "o": "portrait",
+  "ui": "en",
+  "screen": "settings",
+  "lang": "en",
+  "dir": "ltr",
+  "overflow": 0,
+  "small": [],
+  "outside": [],
+  "clipped": [
+   ".dock-tx «Dictionary»"
+  ],
+  "vh": 568,
+  "errors": [],
+  "fail": "",
+  "problem": true,
+  "shot": "shots/settings-en-320x568.png"
+ },
+ {
+  "w": 320,
+  "h": 568,
+  "o": "portrait",
+  "ui": "en",
+  "screen": "lexi",
+  "lang": "en",
+  "dir": "ltr",
+  "overflow": 0,
+  "small": [],
+  "outside": [],
+  "clipped": [
+   ".dock-tx «Dictionary»"
+  ],
+  "vh": 568,
+  "errors": [],
+  "fail": "",
+  "problem": true,
+  "shot": "shots/lexi-en-320x568.png"
+ },
+ {
+  "w": 320,
+  "h": 568,
+  "o": "portrait",
+  "ui": "en",
+  "screen": "lexiError",
+  "lang": "en",
+  "dir": "ltr",
+  "overflow": 0,
+  "small": [],
+  "outside": [],
+  "clipped": [
+   ".dock-tx «Dictionary»"
+  ],
+  "vh": 568,
+  "errors": [],
+  "fail": "",
+  "problem": true,
+  "shot": "shots/lexiError-en-320x568.png"
+ },
+ {
+  "w": 320,
+  "h": 568,
+  "o": "portrait",
+  "ui": "en",
+  "screen": "player",
+  "lang": "en",
+  "dir": "ltr",
+  "overflow": 0,
+  "small": [],
+  "outside": [],
+  "clipped": [
+   ".dock-tx «Dictionary»"
+  ],
+  "vh": 568,
+  "errors": [],
+  "fail": "",
+  "problem": true,
+  "shot": "shots/player-en-320x568.png"
+ }
+]
