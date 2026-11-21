@@ -246,3 +246,4 @@ Not for production yet. The two mobile-UX and AI branches are combined in the lo
 - Two small fixes for production candidates: stored non-text voice no longer breaks start (`app.js` `renderShellText`), lesson topic button 44 px (`index.html` `.lh-topic`). No storage migration. They need a new release number (262 on the test app) — not assigned without approval.
 - Tests and labs (`tests/*-043.cjs`, `tools/test-043/`) are test-only; nothing to transfer.
 - Recommendations needing approval, not done: lazy-load en/fr course data (57.6 KB gzip of the first screen), App Check for the Worker, distinct "server unavailable" message (L-1, Codex copy), fix of the Lexi DOM retention in the Codex lab (P-1).
+- Release **262** (owner approved 21.11.2026) carries the two TEST-043 fixes; 58/58 + lab 4/4. Not pushed.

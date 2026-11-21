@@ -517,3 +517,4 @@ Total output lines: 142
 - Results: baseline 53/53 + lab 4/4. Final 57/58 + lab 4/4; `sw-release-chain` fails because the two fixes changed `app/` files under release 261 already used by TEST-042 — needs the owner's decision (release 262 or drop the fixes); release numbers were not changed.
 - Findings (docs/audits/test-043/): content 0 critical / 0 high; Lexi keeps ≈ 222 DOM nodes per open/close (P-1, root cause open); server errors without a Worker body shown as "check your internet" (L-1); en «Dictionary» cut at 320 px (budget); Worker has no client authentication (App Check plan).
 - Limits: Chromium emulation, not a phone; no Samsung / TalkBack, real AI, Worker or Firebase test.
+- Release 262 (owner approved 21.11.2026): `RELEASE_VERSION`, `app.js?v=` ×4, `CACHE_NAME leren-be-v262`, the pin in `first-lesson.cjs`; `LEXI_V` stays 261. Full suite 58/58 + lab 4/4; `sw-release-chain` passes (262 unique in 73 refs, worker chain 230 → 231 → 250 → 262 keeps XP).
