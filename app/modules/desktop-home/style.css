@@ -9,8 +9,8 @@
  .dh-tools{display:flex;align-items:center;gap:14px;margin-inline-start:auto;color:#fff}
  .dh-sep{width:1px;height:30px;background:#ffffff59}
  .dh-icon:focus-visible,.dh-account:focus-visible{outline:3px solid #fff;outline-offset:3px;border-radius:12px}
- .dh-icon{display:grid;place-items:center;width:42px;height:42px;border:0;border-radius:50%;background:transparent;color:#fff;cursor:pointer}.dh-icon svg{width:26px;height:26px}
- .dh-icon:hover,.dh-account:hover{background:#ffffff26}
+ .dh-icon{display:grid;place-items:center;width:44px;height:44px;border:0;border-radius:50%;background:transparent;color:#fff;cursor:pointer}.dh-icon svg{width:26px;height:26px}@media(hover:hover){
+ .dh-icon:hover,.dh-account:hover{background:#ffffff26}}
  .dh-account{display:flex;align-items:center;gap:10px;border:0;border-radius:999px;background:transparent;color:#fff;font:800 16px/1.2 var(--font-body);padding:4px 12px 4px 4px;cursor:pointer;max-width:200px}
  .dh-avatar{display:grid;place-items:center;flex:none;width:38px;height:38px;border-radius:50%;background:#fff;color:#2A1D12;font:900 17px/1 var(--font-body)}.dh-avatar svg{width:24px;height:24px}
  .dh-avatar.has-initial{background:#2A1D12;color:#FFD700}
@@ -23,9 +23,9 @@
  main>.modes-wrapper{position:sticky;top:0;width:100vw;max-width:none;margin:-18px calc(50% - 50vw) 22px;padding:0 max(32px,calc((100vw - 1240px)/2));border:0;border-bottom:1px solid var(--line);border-radius:0;background:var(--surface);box-shadow:0 6px 18px #42210e0d;gap:0}
  main>.modes-wrapper button{flex-direction:column;gap:6px;min-height:84px;padding:12px 8px 10px;border-radius:0;background:transparent;color:var(--ink-2);font-size:16px;font-weight:700;border:0;border-bottom:3px solid transparent}
  main>.modes-wrapper button svg,main>.modes-wrapper button .dock-ic{width:30px;height:30px}
- main>.modes-wrapper button.primary{background:transparent;color:#C2410C;border:0;border-bottom:3px solid #EB6A00;box-shadow:none;transform:none}
- main>.modes-wrapper button:hover{background:var(--surface-2);color:var(--ink)}
- main>.modes-wrapper button.primary:hover{color:#C2410C}
+ main>.modes-wrapper button.primary{background:transparent;color:#C2410C;border:0;border-bottom:3px solid #EB6A00;box-shadow:none;transform:none}@media(hover:hover){
+ main>.modes-wrapper button:hover{background:var(--surface-2);color:var(--ink)}}@media(hover:hover){
+ main>.modes-wrapper button.primary:hover{color:#C2410C}}
 
  /* Two-level navigation: app sections stay at the top, lesson modes dock at the bottom. */
  #lessonModes:not([hidden]){position:fixed;z-index:45;left:50%;bottom:14px;transform:translateX(-50%);width:min(760px,calc(100% - 48px));margin:0;padding:8px;gap:6px;border:1px solid #ffffff20;border-radius:22px;background:var(--be-black);box-shadow:0 12px 32px rgba(0,0,0,.32)}
@@ -45,8 +45,8 @@
  .fh-hero .fh-main-action{align-items:center;gap:22px;flex-direction:row;flex-wrap:wrap;margin-top:22px}
  .fh-hero .fh-primary{width:auto;min-width:240px;padding:16px 30px;font-size:20px;border-radius:14px}
  .fh-hero .fh-primary::after{content:"→";margin-inline-start:14px;font-size:22px;transition:transform .15s ease}
- [dir="rtl"] .fh-hero .fh-primary::after{content:"←"}
- .fh-hero .fh-primary:hover::after{transform:translateX(3px)}
+ [dir="rtl"] .fh-hero .fh-primary::after{content:"←"}@media(hover:hover){
+ .fh-hero .fh-primary:hover::after{transform:translateX(3px)}}
  .fh-hero-art{position:relative;align-self:end;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;min-height:330px}
  .fh-hero-art:before{width:310px;height:310px;background:radial-gradient(circle,#FFE7CF 0 60%,transparent 61%)}
  .fh-hero-art .comp-cat{width:300px;height:300px}
@@ -69,13 +69,13 @@
  .fh-topic .fh-meter{height:14px;max-width:none}
  .fh-topic .fh-topic-foot{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:4px}
  .fh-topic .fh-pct{font-size:15px;color:var(--ink-2)}.fh-topic .fh-pct b{color:#C2410C;font-size:16px}
- .fh-topic .fh-topic-cta{display:inline-flex;align-items:center;gap:10px;padding:10px 18px;border:2px solid #F2A469;border-radius:12px;color:#C2410C;font-weight:800;font-size:15px;background:var(--surface)}
- .fh-topic:hover .fh-topic-cta{background:#FFF1E4}
+ .fh-topic .fh-topic-cta{display:inline-flex;align-items:center;gap:10px;padding:10px 18px;border:2px solid #F2A469;border-radius:12px;color:#C2410C;font-weight:800;font-size:15px;background:var(--surface)}@media(hover:hover){
+ .fh-topic:hover .fh-topic-cta{background:#FFF1E4}}
  .fh-topic.is-current{border:2px solid #EB6A00}
  [data-theme="dark"] .fh-topic .fh-topic-picture,[data-theme="dark"] .fh-hero-art:before{background:#3A2A1E}
  [data-theme="dark"] .fh-topic .fh-topic-cta{color:#FFB070;border-color:#9A5A2A}
- [data-theme="dark"] .fh-hero .fh-eyebrow,[data-theme="dark"] .fh-topic .fh-pct b{color:#FFB070}
- [data-theme="dark"] main>.modes-wrapper button.primary,[data-theme="dark"] main>.modes-wrapper button.primary:hover{color:#FFB070}
+ [data-theme="dark"] .fh-hero .fh-eyebrow,[data-theme="dark"] .fh-topic .fh-pct b{color:#FFB070}@media(hover:hover){
+ [data-theme="dark"] main>.modes-wrapper button.primary,[data-theme="dark"] main>.modes-wrapper button.primary:hover{color:#FFB070}}
 }
 @media(min-width:1024px){.fh-topic .fh-topic-foot{display:flex}.fh-topic .fh-topic-desc{display:block}.fh-topic .fh-topic-cta{display:inline-flex}.fh-topic .fh-topic-body>small{display:none}}
 @media(min-width:1024px) and (prefers-reduced-motion:reduce){.fh-hero .fh-primary::after{transition:none}}
@@ -113,12 +113,22 @@
  main>header{gap:5px;padding-inline:10px}
  main>header .brand{gap:6px}
  main>header .brand::before{width:32px;height:32px;border-radius:9px}
- main>header .brand h1{font-size:clamp(12px,calc((100cqw - 40px)/7.5),18px)}
+ main>header .brand h1{font-size:clamp(10px,calc((100cqw - 38px)/8.3),18px)}
  main>header .hdr-stats{margin-inline-start:auto;justify-content:flex-end;gap:2px}
  main>header .hdr-stats .streak-pill,
- main>header .hdr-stats .score-pill{min-height:36px;padding-inline:3px;gap:3px;background:transparent;box-shadow:none}
+ main>header .hdr-stats .score-pill{min-height:44px;min-width:0;position:relative;padding-inline:3px;gap:3px;background:transparent;box-shadow:none}
  main>header .hdr-stats .streak-pill{color:#fff}
+ /* TEST-044: invisible touch area, so the pill stays narrow and the domain stays visible on 360 px */
+ main>header .hdr-stats .streak-pill::after,main>header .hdr-stats .score-pill::after{content:"";position:absolute;inset:0 -5px}
  main>header .hdr-stats .streak-pill.off{color:#fff}
  main>header .hdr-stats .score-pill{color:#fff}
+ /* TEST-044: the full "Lerenbe.com" must fit from 320 px up (about 8.3 × the font size wide). */
+ main>header{gap:3px}
+ main>header .hdr-stats{gap:0}
+ main>header .header-language .hl-box{padding:0 6px;min-width:50px}
  main>header .hdr-stats .score-pill .ico{color:var(--be-yellow)}
 }
+/* TEST-044: 320 px phones — smaller cat mark and side padding so the whole "Lerenbe.com" stays visible */
+@media(max-width:340px){main>header{padding-inline:6px}main>header .brand{gap:4px}main>header .brand::before{width:22px;height:22px;border-radius:7px}main>header .header-language .hl-box{min-width:46px;padding:0 4px}}
+/* TEST-044: tablets (651–1000 px) — the brand area keeps a fixed width for the whole «Lerenbe.com»; the route button gives way instead. */
+@media(min-width:651px) and (max-width:1000px){main>header .brand{flex:0 0 200px}main>header .brand h1{font-size:18px}main>header .comp-header-route{min-width:0;flex:1 1 0;overflow:hidden}}

@@ -118,11 +118,19 @@ header{position:relative;display:flex;flex-wrap:wrap;align-items:center;justify-
    The header control stays visible on mobile, desktop, and RTL layouts. */
 .header-language{display:flex;align-items:center;gap:6px;flex:none;max-width:100%}
 .header-language label{font-size:12px;font-weight:900;white-space:nowrap;color:#fff}
-.header-language select{min-height:44px;max-width:min(48vw,180px);border:2px solid rgba(255,255,255,.85);
- border-radius:12px;background:#fff;color:#2A1D12;padding:0 8px;font-weight:900;font-size:13px;
- box-shadow:0 3px 0 rgba(120,50,0,.35);cursor:pointer}
-@media(max-width:390px){.header-language label{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
- .header-language select{max-width:136px}}
+.header-language .hl-box{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:3px;min-width:56px;min-height:44px;padding:0 8px;border:2px solid rgba(255,255,255,.85);border-radius:12px;background:#fff;color:#2A1D12;font-weight:900;font-size:13px;line-height:1;white-space:nowrap;box-shadow:0 3px 0 rgba(120,50,0,.35)}
+.header-language .hl-face{pointer-events:none;display:inline-flex;align-items:center;gap:3px;direction:ltr;unicode-bidi:isolate}
+.hl-flag{display:inline-block;flex:none;width:20px;height:14px;border-radius:3px;box-shadow:0 0 0 1px rgba(0,0,0,.18)}
+.hl-flag[data-flag="ua"]{background:linear-gradient(180deg,#0057B7 0 50%,#FFD500 50%)}
+.hl-flag[data-flag="fr"]{background:linear-gradient(90deg,#0055A4 0 33.4%,#fff 33.4% 66.6%,#EF4135 66.6%)}
+.hl-flag[data-flag="gb"]{background:linear-gradient(#C8102E,#C8102E) center/100% 20% no-repeat,linear-gradient(#C8102E,#C8102E) center/14% 100% no-repeat,linear-gradient(#fff,#fff) center/100% 40% no-repeat,linear-gradient(#fff,#fff) center/26% 100% no-repeat,#012169}
+.hl-flag[data-flag="sa"]{background:#006C35}
+.header-language .hl-face::after{content:"▾";font-size:10px;opacity:.9}
+/* TEST-044: the native select stays (list of full language names, keyboard, screen readers) but is invisible over the flag + two-letter code */
+.header-language select{position:absolute;inset:-2px;width:calc(100% + 4px);height:calc(100% + 4px);min-height:0;max-width:none;padding:0;border:0;opacity:0;cursor:pointer;font-size:16px}
+.header-language .hl-box:focus-within{outline:3px solid #fff;outline-offset:2px}
+@media(max-width:480px){.header-language label{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}}
+@media(max-width:340px){.header-language .hl-box{min-width:48px;padding:0 5px;font-size:12px}}
 /* language pickers drawn as flags with the code written on them */
 .flag-pick{position:relative;display:inline-flex;min-width:66px;height:38px;border-radius:var(--r-sm);overflow:hidden;
  box-shadow:0 var(--depth-sm) 0 rgba(120,50,0,.35),inset 0 0 0 2px rgba(255,255,255,.95);cursor:pointer}
@@ -590,13 +598,13 @@ footer a{color:inherit}
 [data-views][hidden]{display:none!important}
 #tagline{display:none}
 .hdr-stats{display:flex;align-items:center;gap:8px;margin-inline-start:auto}
-.hdr-pill{display:inline-flex;align-items:center;gap:5px;min-height:40px;padding:0 12px;border-radius:var(--r-pill);border:0;font:800 15px var(--font-body,inherit);font-variant-numeric:tabular-nums;white-space:nowrap}
+.hdr-pill{display:inline-flex;align-items:center;gap:5px;min-height:44px;min-width:44px;justify-content:center;padding:0 12px;border-radius:var(--r-pill);border:0;font:800 15px var(--font-body,inherit);font-variant-numeric:tabular-nums;white-space:nowrap}
 .hdr-pill .ico{width:18px;height:18px}
 .streak-pill{background:rgba(255,255,255,.95);color:#C2410C;cursor:pointer;box-shadow:0 var(--depth-sm) 0 rgba(120,50,0,.35)}
 .streak-pill.off{color:#9A8573}
 .streak-pill:active{transform:translateY(var(--depth-sm));box-shadow:none}
 .score-pill{background:var(--be-black);color:var(--be-yellow);box-shadow:0 var(--depth-sm) 0 rgba(0,0,0,.35)}
-.hdr-btn{display:inline-grid;place-items:center;width:42px;height:40px;border-radius:var(--r-sm);border:0;background:rgba(255,255,255,.95);color:#2A1D12;cursor:pointer;box-shadow:0 var(--depth-sm) 0 rgba(120,50,0,.35)}
+.hdr-btn{display:inline-grid;place-items:center;width:44px;height:44px;border-radius:var(--r-sm);border:0;background:rgba(255,255,255,.95);color:#2A1D12;cursor:pointer;box-shadow:0 var(--depth-sm) 0 rgba(120,50,0,.35)}
 .hdr-btn .ico{width:22px;height:22px}
 
 .hdr-btn:active{transform:translateY(var(--depth-sm));box-shadow:none}
@@ -803,9 +811,9 @@ body.sheet-open{overflow:hidden}
 @media (max-width:380px){ /* narrow phones (360 px): keep "lerenbe.com" whole next to a 4–5 digit score */
  header{padding:10px 10px 10px 12px;gap:6px}
  .hdr-stats{gap:6px}
- .hdr-pill{padding:0 8px;gap:4px;font-size:13px;min-height:38px}
+ .hdr-pill{padding:0 8px;gap:4px;font-size:13px;min-height:44px}
  .hdr-pill .ico{width:16px;height:16px}
- .hdr-btn{width:38px;height:38px}
+ .hdr-btn{width:44px;height:44px}
  .brand{gap:7px}.brand::before{width:32px;height:32px;border-radius:9px}
  .brand h1{font-size:17px}
 }
@@ -1102,15 +1110,15 @@ button.om-chip{cursor:pointer}button.om-chip:hover{border-color:var(--role-v)}
 <script src="./splash.js?v=205"></script>
 <main data-view="path">
   <header>
-    <div class="brand" id="brandHome" role="link" tabindex="0" aria-label="lerenbe.com — на головну"><h1 id="appTitle">lerenbe.com</h1><p id="tagline"></p></div>
+    <div class="brand" id="brandHome" role="link" tabindex="0" aria-label="Lerenbe.com — на головну"><h1 id="appTitle">Lerenbe.com</h1><p id="tagline"></p></div>
     <div class="header-language">
       <label for="headerUiLangPicker" id="headerUiLangLabel">Мова</label>
-      <select id="headerUiLangPicker" aria-labelledby="headerUiLangLabel">
+      <span class="hl-box"><span class="hl-face" id="headerLangFace" dir="ltr" aria-hidden="true"><i class="hl-flag" id="headerLangFlag" data-flag="ua"></i><span id="headerLangCode">UK</span></span><select id="headerUiLangPicker" aria-labelledby="headerUiLangLabel">
         <option value="uk">🇺🇦 Українська</option>
         <option value="en">🇬🇧 English</option>
         <option value="fr">🇫🇷 Français</option>
         <option value="ar">🇸🇦 العربية</option>
-      </select>
+      </select></span>
     </div>
     <button type="button" class="comp-header-route" id="headerRoute"></button>
     <div class="hdr-stats">
