@@ -113,7 +113,7 @@
  main>header{gap:5px;padding-inline:10px}
  main>header .brand{gap:6px}
  main>header .brand::before{width:32px;height:32px;border-radius:9px}
- main>header .brand h1{font-size:clamp(12px,calc((100cqw - 40px)/7.5),18px)}
+ main>header .brand h1{font-size:clamp(10px,calc((100cqw - 38px)/8.3),18px)}
  main>header .hdr-stats{margin-inline-start:auto;justify-content:flex-end;gap:2px}
  main>header .hdr-stats .streak-pill,
  main>header .hdr-stats .score-pill{min-height:44px;min-width:0;position:relative;padding-inline:3px;gap:3px;background:transparent;box-shadow:none}
@@ -122,5 +122,13 @@
  main>header .hdr-stats .streak-pill::after,main>header .hdr-stats .score-pill::after{content:"";position:absolute;inset:0 -5px}
  main>header .hdr-stats .streak-pill.off{color:#fff}
  main>header .hdr-stats .score-pill{color:#fff}
+ /* TEST-044: the full "Lerenbe.com" must fit from 320 px up (about 8.3 × the font size wide). */
+ main>header{gap:3px}
+ main>header .hdr-stats{gap:0}
+ main>header .header-language .hl-box{padding:0 6px;min-width:50px}
  main>header .hdr-stats .score-pill .ico{color:var(--be-yellow)}
 }
+/* TEST-044: 320 px phones — smaller cat mark and side padding so the whole "Lerenbe.com" stays visible */
+@media(max-width:340px){main>header{padding-inline:6px}main>header .brand{gap:4px}main>header .brand::before{width:22px;height:22px;border-radius:7px}main>header .header-language .hl-box{min-width:46px;padding:0 4px}}
+/* TEST-044: tablets (651–1000 px) — the brand area keeps a fixed width for the whole «Lerenbe.com»; the route button gives way instead. */
+@media(min-width:651px) and (max-width:1000px){main>header .brand{flex:0 0 200px}main>header .brand h1{font-size:18px}main>header .comp-header-route{min-width:0;flex:1 1 0;overflow:hidden}}

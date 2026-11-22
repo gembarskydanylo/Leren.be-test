@@ -1687,6 +1687,9 @@ function updateHeader(){
  $("uiLangPicker").value=uiLang;
  const headerUiPicker=$("headerUiLangPicker");
  if(headerUiPicker)headerUiPicker.value=uiLang;
+ const headerFlag=$("headerLangFlag"),headerCode=$("headerLangCode"); // TEST-044: flag drawn in CSS + two-letter code (emoji flags are replaced by bundled art, and SA has none)
+ if(headerFlag)headerFlag.dataset.flag=FLAG_OF[uiLang]||"ua";
+ if(headerCode)headerCode.textContent=uiLang.toUpperCase();
  const headerUiLabel=$("headerUiLangLabel");
  if(headerUiLabel)headerUiLabel.textContent=({uk:"Мова",en:"Language",fr:"Langue",ar:"اللغة"})[uiLang]||"Мова";
  syncFlagFaces();
