@@ -590,13 +590,13 @@ footer a{color:inherit}
 [data-views][hidden]{display:none!important}
 #tagline{display:none}
 .hdr-stats{display:flex;align-items:center;gap:8px;margin-inline-start:auto}
-.hdr-pill{display:inline-flex;align-items:center;gap:5px;min-height:40px;padding:0 12px;border-radius:var(--r-pill);border:0;font:800 15px var(--font-body,inherit);font-variant-numeric:tabular-nums;white-space:nowrap}
+.hdr-pill{display:inline-flex;align-items:center;gap:5px;min-height:44px;min-width:44px;justify-content:center;padding:0 12px;border-radius:var(--r-pill);border:0;font:800 15px var(--font-body,inherit);font-variant-numeric:tabular-nums;white-space:nowrap}
 .hdr-pill .ico{width:18px;height:18px}
 .streak-pill{background:rgba(255,255,255,.95);color:#C2410C;cursor:pointer;box-shadow:0 var(--depth-sm) 0 rgba(120,50,0,.35)}
 .streak-pill.off{color:#9A8573}
 .streak-pill:active{transform:translateY(var(--depth-sm));box-shadow:none}
 .score-pill{background:var(--be-black);color:var(--be-yellow);box-shadow:0 var(--depth-sm) 0 rgba(0,0,0,.35)}
-.hdr-btn{display:inline-grid;place-items:center;width:42px;height:40px;border-radius:var(--r-sm);border:0;background:rgba(255,255,255,.95);color:#2A1D12;cursor:pointer;box-shadow:0 var(--depth-sm) 0 rgba(120,50,0,.35)}
+.hdr-btn{display:inline-grid;place-items:center;width:44px;height:44px;border-radius:var(--r-sm);border:0;background:rgba(255,255,255,.95);color:#2A1D12;cursor:pointer;box-shadow:0 var(--depth-sm) 0 rgba(120,50,0,.35)}
 .hdr-btn .ico{width:22px;height:22px}
 
 .hdr-btn:active{transform:translateY(var(--depth-sm));box-shadow:none}
@@ -803,9 +803,9 @@ body.sheet-open{overflow:hidden}
 @media (max-width:380px){ /* narrow phones (360 px): keep "lerenbe.com" whole next to a 4–5 digit score */
  header{padding:10px 10px 10px 12px;gap:6px}
  .hdr-stats{gap:6px}
- .hdr-pill{padding:0 8px;gap:4px;font-size:13px;min-height:38px}
+ .hdr-pill{padding:0 8px;gap:4px;font-size:13px;min-height:44px}
  .hdr-pill .ico{width:16px;height:16px}
- .hdr-btn{width:38px;height:38px}
+ .hdr-btn{width:44px;height:44px}
  .brand{gap:7px}.brand::before{width:32px;height:32px;border-radius:9px}
  .brand h1{font-size:17px}
 }
@@ -816,6 +816,7 @@ body.sheet-open{overflow:hidden}
 }
 /* header title shrinks to the room left by the stats, never under them */
 header .brand h1{font-size:clamp(12px,calc((100cqw - 52px)/5.6),22px)}
+@media (max-width:440px){.header-language select{max-width:54px;padding-inline:6px 2px;text-overflow:clip}} /* TEST-044: room for the full "Lerenbe.com" next to 44 px buttons */
 @media (max-width:380px){header .brand h1{font-size:clamp(11px,calc((100cqw - 43px)/5.6),20px)}}
 @media (max-width:340px){header .brand h1{font-size:clamp(10px,calc((100cqw - 33px)/5.6),18px)}}
 .sheet .nav-fade-wrap,.sheet .sub-wrapper{margin:0}
@@ -1102,7 +1103,7 @@ button.om-chip{cursor:pointer}button.om-chip:hover{border-color:var(--role-v)}
 <script src="./splash.js?v=205"></script>
 <main data-view="path">
   <header>
-    <div class="brand" id="brandHome" role="link" tabindex="0" aria-label="lerenbe.com — на головну"><h1 id="appTitle">lerenbe.com</h1><p id="tagline"></p></div>
+    <div class="brand" id="brandHome" role="link" tabindex="0" aria-label="Lerenbe.com — на головну"><h1 id="appTitle">Lerenbe.com</h1><p id="tagline"></p></div>
     <div class="header-language">
       <label for="headerUiLangPicker" id="headerUiLangLabel">Мова</label>
       <select id="headerUiLangPicker" aria-labelledby="headerUiLangLabel">

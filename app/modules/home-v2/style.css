@@ -113,3 +113,8 @@
 @media(max-width:767px){.hv-route-list{grid-template-columns:1fr}.hv-stop-button{padding:14px}}
 
 .hv-benefits{padding:24px;background:var(--surface,#fff);border:1px solid var(--line,#ead8c5);border-radius:22px}.hv-benefits p{line-height:1.6;max-width:65ch}
+
+/* TEST-044: press feedback on tap (Emil: scale .97–.98 on :active, ease-out, instant on release). */
+.hv-stop-button{transition:transform .15s var(--ease,cubic-bezier(.2,.8,.2,1)),border-color .15s}
+.hv-stop-button:active{transform:scale(.98)}
+@media(prefers-reduced-motion:reduce){.hv-stop-button{transition:none}.hv-stop-button:active{transform:none}}

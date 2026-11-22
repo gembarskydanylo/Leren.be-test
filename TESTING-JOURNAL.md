@@ -12,6 +12,7 @@ Total output lines: 142
 - Гілка `design/test-044-design-skills` від main `8607321`. Встановлено для користувача (не в репозиторій) skills Emil Kowalski (`64eb3de`, MIT, 20 skills) і Impeccable (`b49177d`, Apache-2.0, лише skill). Плагіни, хуки, `settings.json` не чіпались; рушій Impeccable не завантажувався, `DO_NOT_TRACK` у `~/.zshrc` не додано (заблоковано) — див. `docs/audits/TEST-044-DESIGN-SKILLS.md`.
 - Код сайту не змінювався. Додано звіт і скриншоти головної 360/390/1280 (`docs/audits/test-044-screenshots/`).
 - Перевірки: Playwright Chromium (емуляція): немає горизонтального скролу, помилок консолі; 2–3 цілі дотику < 44 px; 22 тести `tests/*.cjs` — 22 PASS, 0 FAIL, 0 SKIP (перший запуск rc=127 через відсутню `timeout` на macOS — повторено).
+- Доповнення (за вибором користувача): застосовано пропозиції 1–3 (`@media(hover:hover)`, `:active` на тап, цілі дотику 44 px) і логотип «Lerenbe.com» (звужено вибір мови в шапці ≤ 440 px). Пропозиція 4 — хибна тривога, код не змінено. Файли: `app/index.html`, `app/modules/{desktop-home,focused-home,home-v2,learning-path}/style.css`. Після змін 22 тести PASS, 0 FAIL, 0 SKIP; скриншоти 360/390/1280 у `docs/audits/test-044-screenshots/after-home-*`. Фізичний телефон не перевірявся; на 320 px логотип обрізається.
 - Обмеження: аудит Impeccable вручну, без детектора; фізичний телефон, екранний читач, контраст і темна тема не перевірялись. PR не відкрито, production не чіпали.
 
 ## TEST-020 · Home/LIFE integration audit · 2026-11-12 18:30 CET (Europe/Brussels)
