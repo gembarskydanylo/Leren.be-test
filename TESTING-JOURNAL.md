@@ -8,6 +8,12 @@ Total output lines: 142
 
 Часовий пояс усіх записів: Europe/Brussels. Журнал ведемо в GitHub разом із кодом. Основний проєкт: Leren.be / lerenbe.com. Публікація тесту не означає дозвіл переносити його в основний проєкт.
 
+## TEST-044 · Дизайн-skills: аудит головної (лише читання) · 2026-11-22 CET (Europe/Brussels)
+- Гілка `design/test-044-design-skills` від main `8607321`. Встановлено для користувача (не в репозиторій) skills Emil Kowalski (`64eb3de`, MIT, 20 skills) і Impeccable (`b49177d`, Apache-2.0, лише skill). Плагіни, хуки, `settings.json` не чіпались; рушій Impeccable не завантажувався, `DO_NOT_TRACK` у `~/.zshrc` не додано (заблоковано) — див. `docs/audits/TEST-044-DESIGN-SKILLS.md`.
+- Код сайту не змінювався. Додано звіт і скриншоти головної 360/390/1280 (`docs/audits/test-044-screenshots/`).
+- Перевірки: Playwright Chromium (емуляція): немає горизонтального скролу, помилок консолі; 2–3 цілі дотику < 44 px; 22 тести `tests/*.cjs` — 22 PASS, 0 FAIL, 0 SKIP (перший запуск rc=127 через відсутню `timeout` на macOS — повторено).
+- Обмеження: аудит Impeccable вручну, без детектора; фізичний телефон, екранний читач, контраст і темна тема не перевірялись. PR не відкрито, production не чіпали.
+
 ## TEST-020 · Home/LIFE integration audit · 2026-11-12 18:30 CET (Europe/Brussels)
 - Branch `codex/home-visual-integration` from main `9fdf271`. PR #3 is 6 behind/1 ahead, not 3 behind; PR #4 already merged; PR #5 remains unmerged. TEST-018/019 belong to other active work. No artwork generated/edited and no production changes or merges.
 - Fixed approved-image failure: HERO preserves its picture geometry and accessible description, LIFE shows its fallback icon. Added `tests/home-art-failure.cjs`: delayed 404, before/after geometry and alt at 360/390/430/1280/1440.
